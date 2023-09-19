@@ -1,0 +1,51 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package cr.ac.una.tareaws.controller;
+
+import cr.ac.una.tareaws.model.Evaluated;
+import cr.ac.una.tareaws.model.EvaluatedDto;
+import cr.ac.una.tareaws.service.EvaluatedService;
+import cr.ac.una.tareaws.service.EvaluatorService;
+import cr.ac.una.tareaws.util.Respuesta;
+import jakarta.ejb.EJB;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
+import jakarta.jws.WebService;
+import java.io.IOException;
+
+/**
+ *
+ * @author dilan
+ */
+@WebService(serviceName = "ModuleEvaluated")
+public class ModuleEvaluated {
+    @EJB
+    EvaluatedService evaluatedService;
+        
+    @WebMethod(operationName = "GetEvaluatedById")
+    public EvaluatedDto GetEvaluatedById(@WebParam(name = "id") Integer id) throws IOException {
+        Respuesta respuesta = evaluatedService.getEvaluatedById(id);
+        EvaluatedDto evaluatedDto = new EvaluatedDto((Evaluated) respuesta.getResultado("Evaluated"));
+        return evaluatedDto;
+    }   
+
+   @WebMethod(operationName = "RegisterEvaluated")
+    public Boolean RegisterEvaluated(EvaluatedDto evaluatedDto) {
+        Respuesta respuesta = evaluatedService.SaveEvaluated(evaluatedDto);
+        return respuesta.getEstado();
+    }
+    
+    @WebMethod(operationName = "Delete")
+    public Boolean Delete(@WebParam(name = "Id") Integer id) {
+        Respuesta respuesta = evaluatedService.DeleteEvaluated(id);
+        return respuesta.getEstado();
+    }
+    
+
+
+    
+    
+        
+}

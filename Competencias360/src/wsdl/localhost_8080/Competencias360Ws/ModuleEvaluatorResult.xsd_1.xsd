@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by XML-WS Runtime (https://github.com/eclipse-ee4j/metro-jax-ws). Runtime's version is Eclipse Metro/4.0.1 (RELEASE-4.0.1-18da659; 2022-07-02T08:47:18+0000) XMLWS-Impl/4.0.0 XMLWS-API/${jaxws-api.version} XMLB-Impl/4.0.0 XMLB-API/4.0.0 git-revision#18da659. --><xs:schema xmlns:tns="http://controller.tareaws.una.ac.cr/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://controller.tareaws.una.ac.cr/">
+
+<xs:element name="Delete" type="tns:Delete"/>
+
+<xs:element name="DeleteResponse" type="tns:DeleteResponse"/>
+
+<xs:element name="IOException" type="tns:IOException"/>
+
+<xs:element name="RegisterEvaluatorResult" type="tns:RegisterEvaluatorResult"/>
+
+<xs:element name="RegisterEvaluatorResultResponse" type="tns:RegisterEvaluatorResultResponse"/>
+
+<xs:element name="getEvaluatorResultByGrade" type="tns:getEvaluatorResultByGrade"/>
+
+<xs:element name="getEvaluatorResultByGradeResponse" type="tns:getEvaluatorResultByGradeResponse"/>
+
+<xs:element name="getEvaluatorResultById" type="tns:getEvaluatorResultById"/>
+
+<xs:element name="getEvaluatorResultByIdResponse" type="tns:getEvaluatorResultByIdResponse"/>
+
+<xs:complexType name="getEvaluatorResultByGrade">
+<xs:sequence>
+<xs:element name="nota" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getEvaluatorResultByGradeResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:evaluatorResultDto" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="evaluatorResultDto">
+<xs:sequence>
+<xs:element name="erCompe" type="tns:competences" minOccurs="0"/>
+<xs:element name="erEvaluator" type="tns:evaluators" minOccurs="0"/>
+<xs:element name="erId" type="xs:int" minOccurs="0"/>
+<xs:element name="erNota" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="competences">
+<xs:sequence>
+<xs:element name="csCharacteristics" type="xs:string" minOccurs="0"/>
+<xs:element name="csId" type="xs:int" minOccurs="0"/>
+<xs:element name="csName" type="xs:string" minOccurs="0"/>
+<xs:element name="csState" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="evaluators">
+<xs:sequence>
+<xs:element name="evsEvaluated" type="tns:evaluated" minOccurs="0"/>
+<xs:element name="evsFeedback" type="xs:string" minOccurs="0"/>
+<xs:element name="evsId" type="xs:int" minOccurs="0"/>
+<xs:element name="evsState" type="xs:string" minOccurs="0"/>
+<xs:element name="evsWorker" type="tns:workers" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="evaluated">
+<xs:sequence>
+<xs:element name="esId" type="xs:int" minOccurs="0"/>
+<xs:element name="esProcesoeva" type="tns:procesoeva" minOccurs="0"/>
+<xs:element name="esWorker" type="tns:workers" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="procesoeva">
+<xs:sequence>
+<xs:element name="enApplication" type="tns:localDate" minOccurs="0"/>
+<xs:element name="enFinalperiod" type="tns:localDate" minOccurs="0"/>
+<xs:element name="enId" type="xs:int" minOccurs="0"/>
+<xs:element name="enInicialperiod" type="tns:localDate" minOccurs="0"/>
+<xs:element name="enName" type="xs:string" minOccurs="0"/>
+<xs:element name="enState" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="localDate" final="extension restriction">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="workers">
+<xs:sequence>
+<xs:element name="wrActive" type="xs:string" minOccurs="0"/>
+<xs:element name="wrAdmin" type="xs:string" minOccurs="0"/>
+<xs:element name="wrCodeactive" type="xs:string" minOccurs="0"/>
+<xs:element name="wrEmail" type="xs:string" minOccurs="0"/>
+<xs:element name="wrId" type="xs:int" minOccurs="0"/>
+<xs:element name="wrIdentification" type="xs:string" minOccurs="0"/>
+<xs:element name="wrJob" type="tns:jobs" minOccurs="0"/>
+<xs:element name="wrLandline" type="xs:string" minOccurs="0"/>
+<xs:element name="wrName" type="xs:string" minOccurs="0"/>
+<xs:element name="wrPassword" type="xs:string" minOccurs="0"/>
+<xs:element name="wrPhoto" type="xs:base64Binary" minOccurs="0"/>
+<xs:element name="wrPsurname" type="xs:string" minOccurs="0"/>
+<xs:element name="wrRecover" type="xs:string" minOccurs="0"/>
+<xs:element name="wrSsurname" type="xs:string" minOccurs="0"/>
+<xs:element name="wrTelephone" type="xs:string" minOccurs="0"/>
+<xs:element name="wrUsername" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="jobs">
+<xs:sequence>
+<xs:element name="jobsCompetences" type="tns:jobsCompetences" minOccurs="0"/>
+<xs:element name="jsId" type="xs:int" minOccurs="0"/>
+<xs:element name="jsName" type="xs:string" minOccurs="0"/>
+<xs:element name="jsState" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="jobsCompetences">
+<xs:sequence>
+<xs:element name="jobs" type="tns:jobs" minOccurs="0"/>
+<xs:element name="jxcCompetence" type="tns:competences" minOccurs="0"/>
+<xs:element name="jxcIdcojob" type="xs:int" minOccurs="0"/>
+<xs:element name="jxcJob" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="IOException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Delete">
+<xs:sequence>
+<xs:element name="Id" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="DeleteResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getEvaluatorResultById">
+<xs:sequence>
+<xs:element name="id" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getEvaluatorResultByIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:evaluatorResultDto" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="RegisterEvaluatorResult">
+<xs:sequence>
+<xs:element name="arg0" type="tns:evaluatorResultDto" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="RegisterEvaluatorResultResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

@@ -1,0 +1,576 @@
+-- Create sequence 
+create sequence SECUENCIAID
+minvalue 1
+maxvalue 99999
+start with 281
+increment by 1
+cache 20; 
+
+-- Create table
+create table EVA_JOBS
+(
+  js_id    NUMBER(5) not null,
+  js_name  VARCHAR2(30),
+  js_state VARCHAR2(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table EVA_JOBS
+  add constraint PK_JS primary key (JS_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table EVA_JOBS
+  add constraint JS_UNINAME unique (JS_NAME)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table EVA_WORKERS
+(
+  wr_name           VARCHAR2(30) not null,
+  wr_username       VARCHAR2(30) not null,
+  wr_psurname       VARCHAR2(30),
+  wr_ssurname       VARCHAR2(30),
+  wr_id             NUMBER(5) not null,
+  wr_identification VARCHAR2(15) not null,
+  wr_email          VARCHAR2(50) not null,
+  wr_landline       VARCHAR2(15),
+  wr_telephone      VARCHAR2(15),
+  wr_photo          BLOB,
+  wr_password       VARCHAR2(15) not null,
+  wr_active         VARCHAR2(1) not null,
+  wr_admin          VARCHAR2(1) not null,
+  wr_recover        VARCHAR2(1),
+  wr_job            NUMBER(5),
+  wr_codeactive     VARCHAR2(30)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table EVA_WORKERS
+  add constraint PK_WORKERS primary key (WR_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table EVA_WORKERS
+  add constraint WR_UNIDEN unique (WR_IDENTIFICATION)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table EVA_WORKERS
+  add constraint WR_UNQEMAIL unique (WR_EMAIL)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table EVA_WORKERS
+  add constraint FK_WRJS foreign key (WR_JOB)
+  references EVA_JOBS (JS_ID);
+
+
+-- Create table
+create table EVA_COMINFORMATION
+(
+  cp_id          NUMBER(5) not null,
+  cp_name        VARCHAR2(30) not null,
+  cp_email       VARCHAR2(50) not null,
+  cp_information VARCHAR2(200),
+  cp_photo       BLOB
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table EVA_COMINFORMATION
+  add constraint PK_CP primary key (CP_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table EVA_COMPETENCES
+(
+  cs_id              NUMBER(5) not null,
+  cs_name            VARCHAR2(20),
+  cs_state           VARCHAR2(1),
+  cs_characteristics VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table EVA_COMPETENCES
+  add constraint PK_CS primary key (CS_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table EVA_PROCESOEVA
+(
+  en_id            NUMBER(5) not null,
+  en_name          VARCHAR2(30) not null,
+  en_state         VARCHAR2(20) not null,
+  en_inicialperiod DATE,
+  en_finalperiod   DATE,
+  en_application   DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table EVA_PROCESOEVA
+  add constraint PF_EN primary key (EN_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table EVA_PROCESOEVA
+  add constraint ES_UNINAME unique (EN_NAME)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table EVA_CHARACTERISTIC
+(
+  cc_id    NUMBER(5) not null,
+  cc_name  VARCHAR2(30) not null,
+  cc_comid NUMBER(5)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table EVA_CHARACTERISTIC
+  add constraint CCPK_ID primary key (CC_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table EVA_CHARACTERISTIC
+  add constraint CCFK_COMID foreign key (CC_COMID)
+  references EVA_COMPETENCES (CS_ID);
+
+
+-- Create table
+create table EVA_JOBS_COMPETENCES
+(
+  jxc_job        NUMBER(5) not null,
+  jxc_competence NUMBER(5) not null,
+  jxc_idcojob    NUMBER(5) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table EVA_JOBS_COMPETENCES
+  add constraint PK_IDCOMJOB primary key (JXC_IDCOJOB)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table EVA_JOBS_COMPETENCES
+  add constraint FP_COMPETENCE foreign key (JXC_COMPETENCE)
+  references EVA_COMPETENCES (CS_ID);
+alter table EVA_JOBS_COMPETENCES
+  add constraint FP_JOBS foreign key (JXC_JOB)
+  references EVA_JOBS (JS_ID);
+
+
+-- Create table
+create table EVA_EVALUATED
+(
+  es_worker     NUMBER(5) not null,
+  es_procesoeva NUMBER(5) not null,
+  es_id         NUMBER(5) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table EVA_EVALUATED
+  add constraint PK_ID primary key (ES_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table EVA_EVALUATED
+  add constraint FK_PROCESOEVA foreign key (ES_PROCESOEVA)
+  references EVA_PROCESOEVA (EN_ID);
+alter table EVA_EVALUATED
+  add constraint FK_WORKER foreign key (ES_WORKER)
+  references EVA_WORKERS (WR_ID);
+
+
+-- Create table
+create table EVA_RESULT
+(
+  rs_evaluated    NUMBER(5) not null,
+  rs_compe        NUMBER(5) not null,
+  rs_notaSis      NUMBER(1),
+  rs_notaJefatura NUMBER(1),
+  rs_id           NUMBER(5) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table EVA_RESULT
+  add constraint PK_PRIK primary key (RS_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table EVA_RESULT
+  add constraint FK_COMPE foreign key (RS_COMPE)
+  references EVA_COMPETENCES (CS_ID);
+alter table EVA_RESULT
+  add constraint FK_ED foreign key (RS_EVALUATED)
+  references EVA_EVALUATED (ES_ID);
+
+
+-- Create table
+create table EVA_EVALUATORS
+(
+  evs_worker    NUMBER(5),
+  evs_evaluated NUMBER(5) not null,
+  evs_feedback  VARCHAR2(200),
+  evs_connection  VARCHAR2(15),
+  evs_id        NUMBER(5) not null,
+  evs_state     VARCHAR2(1)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255;
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table EVA_EVALUATORS
+  add constraint PK_EVALUATORS primary key (EVS_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table EVA_EVALUATORS
+  add constraint FK_EVALUATED foreign key (EVS_EVALUATED)
+  references EVA_EVALUATED (ES_ID);
+alter table EVA_EVALUATORS
+  add constraint FK_WORKERS foreign key (EVS_WORKER)
+  references EVA_WORKERS (WR_ID);
+
+
+-- Create table
+create table EVA_EVALUATOR_RESULT
+(
+  er_evaluator NUMBER(5),
+  er_compe     NUMBER(5),
+  er_nota      NUMBER(5),
+  er_id        NUMBER(5) not null
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table EVA_EVALUATOR_RESULT
+  add constraint PK_PRIMK primary key (ER_ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255;
+alter table EVA_EVALUATOR_RESULT
+  add constraint FK_COMPETENCE foreign key (ER_COMPE)
+  references EVA_COMPETENCES (CS_ID);
+alter table EVA_EVALUATOR_RESULT
+  add constraint FK_EVALUATOR foreign key (ER_EVALUATOR)
+  references EVA_EVALUATORS (EVS_ID);
+
+
+  create or replace noneditionable trigger IDJSTIGGER
+  before insert
+  on EVA_JOBS 
+  for each row
+declare
+  -- local variables here
+begin
+  SELECT Secuenciaid.nextval INTO :new.js_id FROM dual;
+end IDJSTIGGER;
+/
+
+create or replace noneditionable trigger IdTrigger
+  before insert
+  on EVA_WORKERS
+  for each row
+declare
+  -- local variables here
+begin
+  SELECT Secuenciaid.nextval INTO :new.wr_id FROM dual;
+end IdTrigger;
+/
+
+create or replace noneditionable trigger CPTrigger
+  before insert
+  on EVA_COMINFORMATION
+  for each row
+declare
+  -- local variables here
+begin
+  SELECT Secuenciaid.nextval INTO :new.cp_id FROM dual;
+end IdTrigger;
+/
+
+create or replace noneditionable trigger CSTRIGGER
+  before insert
+  on EVA_COMPETENCES 
+  for each row
+declare
+  -- local variables here
+begin
+   SELECT Secuenciaid.nextval INTO :new.cs_id FROM dual;
+end CSTRIGGER;
+/
+
+create or replace noneditionable trigger ESTRIGGER
+  before insert
+  on EVA_PROCESOEVA
+  for each row
+declare
+  -- local variables here
+begin
+  SELECT Secuenciaid.nextval INTO :new.en_id FROM dual;
+end ESTRIGGER;
+/
+
+create or replace noneditionable trigger TRIGGEREVS
+  before insert
+  on EVA_EVALUATORS 
+  for each row
+declare
+  -- local variables here
+begin
+  SELECT Secuenciaid.nextval INTO :new.evs_id FROM dual;
+end TRIGGEREVS;
+/
+
+
+create or replace noneditionable trigger TRIGGERCHARACTERISTIC
+  before insert
+  on EVA_CHARACTERISTIC
+  for each row
+declare
+  -- local variables here
+begin
+  SELECT Secuenciaid.nextval INTO :new.CC_ID FROM dual;
+end TRIGGERCHARACTERISTIC;
+/
+
+
+create or replace noneditionable trigger TRIGGEREVALUATED
+  before insert
+  on EVA_EVALUATED
+  for each row
+declare
+  -- local variables here
+begin
+  SELECT Secuenciaid.nextval INTO :new.ES_ID FROM dual;
+end TRIGGEREVALUATED;
+/
+
+create or replace noneditionable trigger IdEvaJobsCompetences
+  before insert
+  on EVA_JOBS_COMPETENCES
+  for each row
+declare
+  -- local variables here
+begin
+  SELECT Secuenciaid.nextval INTO :new.JXC_IDCOJOB FROM dual;
+end IdTrigger;
+/
+
+create or replace noneditionable trigger IDRESULTTRI
+  before insert
+  on EVA_RESULT 
+  for each row
+declare
+  -- local variables here
+begin
+  SELECT Secuenciaid.nextval INTO :new.rs_id FROM dual;
+end IDRESULTTRI;
+/
+
+
+create or replace noneditionable trigger IDERESULTSTIGGER
+  before insert
+  on EVA_EVALUATOR_RESULT
+  for each row
+declare
+  -- local variables here
+begin
+  SELECT Secuenciaid.nextval INTO :new.er_id FROM dual;
+end IDERESULTSTIGGER;

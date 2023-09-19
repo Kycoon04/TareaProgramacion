@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Activacion de Cuentas Competencias360</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #212121;
+                background-image: url('fondoPagina.JPG');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
+            header {
+                background-color: #333;
+                color: white;
+                text-align: center;
+                padding: 10px 0;
+            }
+            .container {
+                max-width: 800px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #5ac500;
+                border-radius: 5px;
+                box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            .content-box {
+                background-color: #6a6a6a;
+                text-align: center;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+
+            }
+            p {
+                font-size: 18px;
+
+                line-height: 1.6;
+            }
+
+
+            #activeButton {
+                font-family: 'Tw Cen MT';
+                font-size: 18px;
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #76ff03;
+                color: black;
+                text-decoration: none;
+                border-radius: 50px;
+                transition: background-color 0.3s ease;
+                cursor: pointer;
+            }
+            #activeButton:hover {
+                background-color: #5ac500;
+            }
+            #resultado {
+                margin-top: 20px;
+                font-size: 18px;
+
+            }
+            #loadingBarContainer {
+                display: none;
+                width: 100%;
+                height: 20px;
+                background-color: #ddd;
+                border-radius: 5px;
+                margin-top: 20px;
+            }
+
+            #loadingBar {
+                height: 100%;
+                width: 0;
+                background-color: #76ff03;
+                border-radius: 5px;
+                transition: width 3s ease;
+            }
+
+
+            body {
+                background-blend-mode: overlay;
+            }
+        </style>
+
+    </head>
+    <body>
+        <header>
+            <h1>Activacion de Cuentas Competencias360</h1>
+        </header>
+        <div class="container">
+            <div class="content-box">
+                <p>Bienvenido a la pantalla de activacion.</p>
+                <button id="activeButton">Activar Cuenta</button>
+            </div>
+            <div id="resultado"></div>
+            <div id="loadingBarContainer">
+                <div id="loadingBar"></div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var params = new URLSearchParams(window.location.search);
+                var Code = params.get("Code");
+
+                var activeButton = document.getElementById("activeButton");
+                var loadingBarContainer = document.getElementById("loadingBarContainer");
+                var loadingBar = document.getElementById("loadingBar");
+                var resultado = document.getElementById("resultado");
+
+                activeButton.addEventListener("click", function () {
+                    if (Code) {
+
+                        verificarUsuarioActivo(Code);
+                    }
+                });
+
+                function verificarUsuarioActivo(Code) {
+                    var soapURL = "http://localhost:8080/Competencias360Ws/ModuleWorkers";
+                    var soapMessage = `
+        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.tareaws.una.ac.cr/">
+            <soapenv:Header/>
+            <soapenv:Body>
+                <con:IsActiveWorker>
+                    <Code>${Code}</Code>
+                </con:IsActiveWorker>
+            </soapenv:Body>
+        </soapenv:Envelope>
+    `;
+
+                    fetch(soapURL, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "text/xml;charset=UTF-8",
+                            "SOAPAction": ""
+                        },
+                        body: soapMessage
+                    })
+                            .then(response => response.text())
+                            .then(data => {
+                                var parser = new DOMParser();
+                                var xmlDoc = parser.parseFromString(data, "text/xml");
+                                var isActiveResponse = xmlDoc.querySelector("IsActiveWorkerResponse").textContent.trim();
+
+                                if (isActiveResponse === "true") {
+                                    resultado.textContent = "El Usuario ya se encuentra activo en la base de datos, no puedes activarlo de nuevo";
+                                } else {
+                                    activarUsuario(Code);
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                                loadingBarContainer.style.display = "none";
+                                resultado.textContent = "Error al intentar verificar el estado del usuario.";
+                            });
+                }
+
+                function activarUsuario(Code) {
+                    loadingBar.style.width = "0%";
+                    loadingBarContainer.style.display = "block";
+
+                    var soapURL = "http://localhost:8080/Competencias360Ws/ModuleWorkers";
+                    var soapMessage = `
+                        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.tareaws.una.ac.cr/">
+                            <soapenv:Header/>
+                            <soapenv:Body>
+                                <con:Active>
+                                    <Code>${Code}</Code>
+                                </con:Active>
+                            </soapenv:Body>
+                        </soapenv:Envelope>
+                    `;
+
+                    fetch(soapURL, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "text/xml;charset=UTF-8",
+                            "SOAPAction": ""
+                        },
+                        body: soapMessage
+                    })
+                            .then(response => response.text())
+                            .then(data => {
+                                loadingBar.style.width = "100%";
+                                setTimeout(function () {
+                                    loadingBarContainer.style.display = "none";
+                                    var parser = new DOMParser();
+                                    var xmlDoc = parser.parseFromString(data, "text/xml");
+                                    var responseValue = xmlDoc.documentElement.textContent.trim();
+
+                                    if (responseValue === "true") {
+                                        resultado.textContent = "Usuario Activado";
+                                    } else if (responseValue === "false") {
+                                        resultado.textContent = "Usuario no encontrado en la base de datos.";
+                                    } else {
+                                        resultado.textContent = "Error desconocido al intentar activar el usuario.";
+                                    }
+                                }, 2000);
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                                loadingBarContainer.style.display = "none";
+                                resultado.textContent = "Error al intentar activar el usuario.";
+                            });
+                }
+            });
+        </script>
+    </body>
+</html>
