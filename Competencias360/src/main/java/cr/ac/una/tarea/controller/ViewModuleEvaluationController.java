@@ -158,27 +158,30 @@ public class ViewModuleEvaluationController implements Initializable {
     @FXML
     private Text textCREIdent;
      WorkerDto workerDto;
-    @FXML
-    private BorderPane OptionsSettingEvaluationView;
-    
-    
-    @FXML
-    private TableView<?> tableViewJobs;
-    @FXML
-    private TableColumn<?, ?> tableColJobId;
-    @FXML
-    private TableColumn<?, ?> tableColJobNam;
-    @FXML
-    private TableColumn<?, ?> tableColJobSta;
-    @FXML
-    private TextField textFieldSJob_Name;
-    @FXML
-    private TextField textFieldSJob_State;
-    @FXML
-    private TextField TitleEvaField;
+   
     @FXML
     private ChoiceBox<String> choiceBoxStateEva;
     String states[]={"En construcción", "En aplicación", "En revisión", "Finalizada"};
+    @FXML
+    private BorderPane OptionsEvaConfigView;
+    @FXML
+    private TextField TitleEvaField1;
+    @FXML
+    private TableView<?> tableViewProEva;
+    @FXML
+    private TableColumn<?, ?> tableColProEva_State;
+    @FXML
+    private TableColumn<?, ?> tableColProEva_Name;
+    @FXML
+    private TableColumn<?,?> tableColProEva_IniPer;
+    @FXML
+    private TableColumn<?, ?> tableColProEva_FinalPer;
+    @FXML
+    private TableColumn<?, ?> tableColProEva_Apli;
+    @FXML
+    private TextField textFieldSJob_Name1;
+    @FXML
+    private TextField textFieldSJob_State1;
     
 
 
@@ -188,7 +191,8 @@ public class ViewModuleEvaluationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-         OptionsMenuView.toFront();
+        choiceBoxStateEva.getItems().addAll(states);
+         OptionsEvaConfigView.toFront();
         this.tableColAct.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColIdentif.setCellValueFactory(new PropertyValueFactory("iden"));
         this.tableColName.setCellValueFactory(new PropertyValueFactory("name"));
@@ -218,7 +222,7 @@ public class ViewModuleEvaluationController implements Initializable {
         this.tableColJobIdW.setCellValueFactory(new PropertyValueFactory("Id"));
         this.tableColJobNamW.setCellValueFactory(new PropertyValueFactory("Name"));
         this.tableColJobStaW.setCellValueFactory(new PropertyValueFactory("States"));
-        choiceBoxStateEva.getItems().addAll(states);
+        
 
     }
 
@@ -450,7 +454,7 @@ public class ViewModuleEvaluationController implements Initializable {
 
     @FXML
     private void back(MouseEvent event) {
-        FlowController.getInstance().goMain("ViewOptionsModules");
+        OptionsEvaConfigView.toFront();
     }
 
     @FXML
@@ -610,13 +614,6 @@ public class ViewModuleEvaluationController implements Initializable {
     }
 
     @FXML
-    private void OpenSettingEvaluation(ActionEvent event) {
-        OptionsSettingEvaluationView.toFront();
-    }
-
-    
-    
-    @FXML
     private void UpdateJob(ActionEvent event) {
     }
 
@@ -631,6 +628,16 @@ public class ViewModuleEvaluationController implements Initializable {
 
     @FXML
     private void searchJob_State(KeyEvent event) {
+    }
+
+    @FXML
+    private void openSettingEva(MouseEvent event) {
+         OptionsMenuView.toFront();
+    }
+
+    @FXML
+    private void backMaintenance(MouseEvent event) {
+        FlowController.getInstance().goMain("ViewOptionsModules");
     }
 
 }
