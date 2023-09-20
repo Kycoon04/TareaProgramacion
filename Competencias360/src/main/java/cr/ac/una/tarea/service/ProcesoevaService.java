@@ -33,7 +33,7 @@ public class ProcesoevaService {
                 procesosevaD.setFinalperiod(LocalDate.parse(procesoevaDto.getGetFinalPeriodo())); 
                 procesos.add(procesosevaD);
             }
-            return new Respuesta(true, "Error obteniendo los puestos.", "getProceso", "ProcesosevaDto", procesos);
+            return new Respuesta(true, "Error obteniendo los procesos.", "getProceso", "ProcesosevaDto", procesos);
         } catch (Exception ex) {
             Logger.getLogger(ProcesoevaService.class.getName()).log(Level.SEVERE, "Error obteniendo los procesos.", ex);
             return new Respuesta(false, "Error obteniendo los procesos.", "getJobs" + ex.getMessage());
