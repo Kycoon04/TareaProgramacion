@@ -29,11 +29,13 @@ public class ProcesoevaService {
                 ProcesosevaDto procesosevaD = new ProcesosevaDto();
                 procesosevaD.setName(procesoevaDto.getName());
                 procesosevaD.setId(procesoevaDto.getId());
-                procesosevaD.setState(procesoevaDto.getState());
-             //   procesosevaD.setApplication(procesoevaDto.get());
-             //   procesosevaD.setApplication(procesoevaDto.getState());
-             //   procesosevaD.setApplication(procesoevaDto.getState());
-                
+                procesosevaD.setState(procesoevaDto.getState());              
+                procesosevaD.setInicialperiod(LocalDate.parse(procesoevaDto.getGetInicialPeriodo()));
+                procesosevaD.setApplication(LocalDate.parse(procesoevaDto.getGetAplicationPeriodo()));
+                procesosevaD.setFinalperiod(LocalDate.parse(procesoevaDto.getGetFinalPeriodo()));
+                System.out.println(procesoevaDto.getGetInicialPeriodo()); 
+                System.out.println(procesoevaDto.getGetFinalPeriodo()); 
+                System.out.println(procesoevaDto.getGetAplicationPeriodo()); 
                 jobs.add(procesosevaD);
             }
 

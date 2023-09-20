@@ -30,19 +30,49 @@ public interface ModuleJobsCompetences {
      * 
      * @param id
      * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "Delete")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
+    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/DeleteResponse")
+    public Boolean delete(
+        @WebParam(name = "Id", targetNamespace = "")
+        Integer id);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "RegisterJobCompetences")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "RegisterJobCompetences", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterJobCompetences")
+    @ResponseWrapper(localName = "RegisterJobCompetencesResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterJobCompetencesResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/RegisterJobCompetencesRequest", output = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/RegisterJobCompetencesResponse")
+    public Boolean registerJobCompetences(
+        @WebParam(name = "arg0", targetNamespace = "")
+        JobsCompetencesDto arg0);
+
+    /**
+     * 
+     * @param idJobC
+     * @return
      *     returns cr.ac.una.tarea.soap.JobsCompetencesDto
      * @throws IOException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getJobCompetenceId", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetJobCompetenceId")
-    @ResponseWrapper(localName = "getJobCompetenceIdResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetJobCompetenceIdResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIdRequest", output = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIdResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceId/Fault/IOException")
+    @RequestWrapper(localName = "getJobCompetenceIDJob", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetJobCompetenceIDJob")
+    @ResponseWrapper(localName = "getJobCompetenceIDJobResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetJobCompetenceIDJobResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIDJobRequest", output = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIDJobResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIDJob/Fault/IOException")
     })
-    public JobsCompetencesDto getJobCompetenceId(
-        @WebParam(name = "id", targetNamespace = "")
-        Integer id)
+    public JobsCompetencesDto getJobCompetenceIDJob(
+        @WebParam(name = "idJobC", targetNamespace = "")
+        Integer idJobC)
         throws IOException_Exception
     ;
 
@@ -67,50 +97,20 @@ public interface ModuleJobsCompetences {
      * 
      * @param id
      * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "Delete")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
-    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/DeleteResponse")
-    public Boolean delete(
-        @WebParam(name = "Id", targetNamespace = "")
-        Integer id);
-
-    /**
-     * 
-     * @param idJobC
-     * @return
      *     returns cr.ac.una.tarea.soap.JobsCompetencesDto
      * @throws IOException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getJobCompetenceIDJob", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetJobCompetenceIDJob")
-    @ResponseWrapper(localName = "getJobCompetenceIDJobResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetJobCompetenceIDJobResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIDJobRequest", output = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIDJobResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIDJob/Fault/IOException")
+    @RequestWrapper(localName = "getJobCompetenceId", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetJobCompetenceId")
+    @ResponseWrapper(localName = "getJobCompetenceIdResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetJobCompetenceIdResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIdRequest", output = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIdResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceId/Fault/IOException")
     })
-    public JobsCompetencesDto getJobCompetenceIDJob(
-        @WebParam(name = "idJobC", targetNamespace = "")
-        Integer idJobC)
+    public JobsCompetencesDto getJobCompetenceId(
+        @WebParam(name = "id", targetNamespace = "")
+        Integer id)
         throws IOException_Exception
     ;
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "RegisterJobCompetences")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "RegisterJobCompetences", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterJobCompetences")
-    @ResponseWrapper(localName = "RegisterJobCompetencesResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterJobCompetencesResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/RegisterJobCompetencesRequest", output = "http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/RegisterJobCompetencesResponse")
-    public Boolean registerJobCompetences(
-        @WebParam(name = "arg0", targetNamespace = "")
-        JobsCompetencesDto arg0);
 
 }

@@ -29,6 +29,36 @@ public interface ModuleCharacteristic {
      * 
      * @param id
      * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "Delete")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
+    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteResponse")
+    public Boolean delete(
+        @WebParam(name = "Id", targetNamespace = "")
+        Integer id);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "RegisterCharacteristic")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "RegisterCharacteristic", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterCharacteristic")
+    @ResponseWrapper(localName = "RegisterCharacteristicResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterCharacteristicResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/RegisterCharacteristicRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/RegisterCharacteristicResponse")
+    public Boolean registerCharacteristic(
+        @WebParam(name = "arg0", targetNamespace = "")
+        CharacteristicDto arg0);
+
+    /**
+     * 
+     * @param id
+     * @return
      *     returns cr.ac.una.tarea.soap.CharacteristicDto
      * @throws IOException_Exception
      */
@@ -64,35 +94,5 @@ public interface ModuleCharacteristic {
         String name)
         throws IOException_Exception
     ;
-
-    /**
-     * 
-     * @param id
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "Delete")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
-    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteResponse")
-    public Boolean delete(
-        @WebParam(name = "Id", targetNamespace = "")
-        Integer id);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "RegisterCharacteristic")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "RegisterCharacteristic", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterCharacteristic")
-    @ResponseWrapper(localName = "RegisterCharacteristicResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterCharacteristicResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/RegisterCharacteristicRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/RegisterCharacteristicResponse")
-    public Boolean registerCharacteristic(
-        @WebParam(name = "arg0", targetNamespace = "")
-        CharacteristicDto arg0);
 
 }

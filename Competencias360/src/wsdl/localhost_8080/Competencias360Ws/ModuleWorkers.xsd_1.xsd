@@ -103,18 +103,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="IsActiveWorker">
-<xs:sequence>
-<xs:element name="Code" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="IsActiveWorkerResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="ResetAccontPassword">
 <xs:sequence>
 <xs:element name="Email" type="xs:string" minOccurs="0"/>
@@ -123,6 +111,18 @@
 </xs:complexType>
 
 <xs:complexType name="ResetAccontPasswordResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="IsActiveWorker">
+<xs:sequence>
+<xs:element name="Code" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="IsActiveWorkerResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" minOccurs="0"/>
 </xs:sequence>
@@ -152,6 +152,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="Delete">
+<xs:sequence>
+<xs:element name="Id" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="DeleteResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="IsAnAdmin">
 <xs:sequence>
 <xs:element name="User" type="xs:string" minOccurs="0"/>
@@ -173,18 +185,6 @@
 </xs:complexType>
 
 <xs:complexType name="IsTempPasswordResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Delete">
-<xs:sequence>
-<xs:element name="Id" type="xs:int" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="DeleteResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" minOccurs="0"/>
 </xs:sequence>

@@ -16,6 +16,9 @@ import jakarta.xml.bind.annotation.XmlType;
  *   <complexContent>
  *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       <sequence>
+ *         <element name="getAplicationPeriodo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         <element name="getFinalPeriodo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         <element name="getInicialPeriodo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="id" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         <element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="state" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -29,15 +32,93 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "procesoevaDto", propOrder = {
+    "getAplicationPeriodo",
+    "getFinalPeriodo",
+    "getInicialPeriodo",
     "id",
     "name",
     "state"
 })
 public class ProcesoevaDto {
 
+    protected String getAplicationPeriodo;
+    protected String getFinalPeriodo;
+    protected String getInicialPeriodo;
     protected Integer id;
     protected String name;
     protected String state;
+
+    /**
+     * Obtiene el valor de la propiedad getAplicationPeriodo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getGetAplicationPeriodo() {
+        return getAplicationPeriodo;
+    }
+
+    /**
+     * Define el valor de la propiedad getAplicationPeriodo.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setGetAplicationPeriodo(String value) {
+        this.getAplicationPeriodo = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad getFinalPeriodo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getGetFinalPeriodo() {
+        return getFinalPeriodo;
+    }
+
+    /**
+     * Define el valor de la propiedad getFinalPeriodo.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setGetFinalPeriodo(String value) {
+        this.getFinalPeriodo = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad getInicialPeriodo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getGetInicialPeriodo() {
+        return getInicialPeriodo;
+    }
+
+    /**
+     * Define el valor de la propiedad getInicialPeriodo.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setGetInicialPeriodo(String value) {
+        this.getInicialPeriodo = value;
+    }
 
     /**
      * Obtiene el valor de la propiedad id.

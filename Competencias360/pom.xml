@@ -227,7 +227,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+                        <plugin>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
                 <version>4.0.1</version>
@@ -240,7 +240,7 @@
                             <wsdlFiles>
                                 <wsdlFile>localhost_8080/Competencias360Ws/ModuleJobsCompetences.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <packageName>cr.ac.una.tarea.soap</packageName>
+                           <packageName>cr.ac.una.tarea.soap</packageName>
                             <sourceDestDir>src/main/java</sourceDestDir>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
@@ -259,7 +259,7 @@
                             <wsdlFiles>
                                 <wsdlFile>localhost_8080/Competencias360Ws/ModuleEvaluated.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <packageName>cr.ac.una.tarea.soap</packageName>
+                           <packageName>cr.ac.una.tarea.soap</packageName>
                             <sourceDestDir>src/main/java</sourceDestDir>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
@@ -278,7 +278,7 @@
                             <wsdlFiles>
                                 <wsdlFile>localhost_8080/Competencias360Ws/ModuleEvaluatorResult.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <packageName>cr.ac.una.tarea.soap</packageName>
+                           <packageName>cr.ac.una.tarea.soap</packageName>
                             <sourceDestDir>src/main/java</sourceDestDir>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
@@ -297,7 +297,7 @@
                             <wsdlFiles>
                                 <wsdlFile>localhost_8080/Competencias360Ws/ModuleCompetences.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <packageName>cr.ac.una.tarea.soap</packageName>
+                           <packageName>cr.ac.una.tarea.soap</packageName>
                             <sourceDestDir>src/main/java</sourceDestDir>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
@@ -316,7 +316,7 @@
                             <wsdlFiles>
                                 <wsdlFile>localhost_8080/Competencias360Ws/ModuleResult.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <packageName>cr.ac.una.tarea.soap</packageName>
+                           <packageName>cr.ac.una.tarea.soap</packageName>
                             <sourceDestDir>src/main/java</sourceDestDir>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
@@ -335,7 +335,7 @@
                             <wsdlFiles>
                                 <wsdlFile>localhost_8080/Competencias360Ws/ModuleProcesoeva.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <packageName>cr.ac.una.tarea.soap</packageName>
+                           <packageName>cr.ac.una.tarea.soap</packageName>
                             <sourceDestDir>src/main/java</sourceDestDir>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
@@ -354,7 +354,7 @@
                             <wsdlFiles>
                                 <wsdlFile>localhost_8080/Competencias360Ws/ModuleJobs.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <packageName>cr.ac.una.tarea.soap</packageName>
+                           <packageName>cr.ac.una.tarea.soap</packageName>
                             <sourceDestDir>src/main/java</sourceDestDir>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
@@ -373,7 +373,7 @@
                             <wsdlFiles>
                                 <wsdlFile>localhost_8080/Competencias360Ws/ModuleComInformation.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <packageName>cr.ac.una.tarea.soap</packageName>
+                           <packageName>cr.ac.una.tarea.soap</packageName>
                             <sourceDestDir>src/main/java</sourceDestDir>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
@@ -392,7 +392,7 @@
                             <wsdlFiles>
                                 <wsdlFile>localhost_8080/Competencias360Ws/ModuleEvaluators.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <packageName>cr.ac.una.tarea.soap</packageName>
+                           <packageName>cr.ac.una.tarea.soap</packageName>
                             <sourceDestDir>src/main/java</sourceDestDir>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
@@ -411,7 +411,7 @@
                             <wsdlFiles>
                                 <wsdlFile>localhost_8080/Competencias360Ws/ModuleWorkers.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <packageName>cr.ac.una.tarea.soap</packageName>
+                           <packageName>cr.ac.una.tarea.soap</packageName>
                             <sourceDestDir>src/main/java</sourceDestDir>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
@@ -430,7 +430,7 @@
                             <wsdlFiles>
                                 <wsdlFile>localhost_8080/Competencias360Ws/ModuleCharacteristic.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <packageName>cr.ac.una.tarea.soap</packageName>
+                           <packageName>cr.ac.una.tarea.soap</packageName>
                             <sourceDestDir>src/main/java</sourceDestDir>
                             <vmArgs>
                                 <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>

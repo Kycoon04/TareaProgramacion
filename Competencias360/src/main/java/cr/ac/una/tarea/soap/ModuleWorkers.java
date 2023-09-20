@@ -43,92 +43,6 @@ public interface ModuleWorkers {
 
     /**
      * 
-     * @param password
-     * @param user
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "IsAnAdmin")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "IsAnAdmin", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.IsAnAdmin")
-    @ResponseWrapper(localName = "IsAnAdminResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.IsAnAdminResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleWorkers/IsAnAdminRequest", output = "http://controller.tareaws.una.ac.cr/ModuleWorkers/IsAnAdminResponse")
-    public Boolean isAnAdmin(
-        @WebParam(name = "User", targetNamespace = "")
-        String user,
-        @WebParam(name = "Password", targetNamespace = "")
-        String password);
-
-    /**
-     * 
-     * @param password
-     * @param user
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "Login")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "Login", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Login")
-    @ResponseWrapper(localName = "LoginResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.LoginResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleWorkers/LoginRequest", output = "http://controller.tareaws.una.ac.cr/ModuleWorkers/LoginResponse")
-    public Boolean login(
-        @WebParam(name = "User", targetNamespace = "")
-        String user,
-        @WebParam(name = "Password", targetNamespace = "")
-        String password);
-
-    /**
-     * 
-     * @param code
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "IsActiveWorker")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "IsActiveWorker", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.IsActiveWorker")
-    @ResponseWrapper(localName = "IsActiveWorkerResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.IsActiveWorkerResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleWorkers/IsActiveWorkerRequest", output = "http://controller.tareaws.una.ac.cr/ModuleWorkers/IsActiveWorkerResponse")
-    public Boolean isActiveWorker(
-        @WebParam(name = "Code", targetNamespace = "")
-        String code);
-
-    /**
-     * 
-     * @param password
-     * @param user
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "IsTempPassword")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "IsTempPassword", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.IsTempPassword")
-    @ResponseWrapper(localName = "IsTempPasswordResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.IsTempPasswordResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleWorkers/IsTempPasswordRequest", output = "http://controller.tareaws.una.ac.cr/ModuleWorkers/IsTempPasswordResponse")
-    public Boolean isTempPassword(
-        @WebParam(name = "User", targetNamespace = "")
-        String user,
-        @WebParam(name = "Password", targetNamespace = "")
-        String password);
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<cr.ac.una.tarea.soap.WorkersDto>
-     * @throws IOException_Exception
-     */
-    @WebMethod(operationName = "GetUsuarios")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "GetUsuarios", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetUsuarios")
-    @ResponseWrapper(localName = "GetUsuariosResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetUsuariosResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleWorkers/GetUsuariosRequest", output = "http://controller.tareaws.una.ac.cr/ModuleWorkers/GetUsuariosResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleWorkers/GetUsuarios/Fault/IOException")
-    })
-    public List<WorkersDto> getUsuarios()
-        throws IOException_Exception
-    ;
-
-    /**
-     * 
      * @param code
      * @return
      *     returns java.lang.Boolean
@@ -141,29 +55,6 @@ public interface ModuleWorkers {
     public Boolean active(
         @WebParam(name = "Code", targetNamespace = "")
         String code);
-
-    /**
-     * 
-     * @param password
-     * @param user
-     * @return
-     *     returns cr.ac.una.tarea.soap.WorkersDto
-     * @throws IOException_Exception
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getUsuario", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetUsuario")
-    @ResponseWrapper(localName = "getUsuarioResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetUsuarioResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleWorkers/getUsuarioRequest", output = "http://controller.tareaws.una.ac.cr/ModuleWorkers/getUsuarioResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleWorkers/getUsuario/Fault/IOException")
-    })
-    public WorkersDto getUsuario(
-        @WebParam(name = "User", targetNamespace = "")
-        String user,
-        @WebParam(name = "Password", targetNamespace = "")
-        String password)
-        throws IOException_Exception
-    ;
 
     /**
      * 
@@ -197,5 +88,114 @@ public interface ModuleWorkers {
         String email,
         @WebParam(name = "Password", targetNamespace = "")
         String password);
+
+    /**
+     * 
+     * @param password
+     * @param user
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "Login")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "Login", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Login")
+    @ResponseWrapper(localName = "LoginResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.LoginResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleWorkers/LoginRequest", output = "http://controller.tareaws.una.ac.cr/ModuleWorkers/LoginResponse")
+    public Boolean login(
+        @WebParam(name = "User", targetNamespace = "")
+        String user,
+        @WebParam(name = "Password", targetNamespace = "")
+        String password);
+
+    /**
+     * 
+     * @param password
+     * @param user
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "IsAnAdmin")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "IsAnAdmin", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.IsAnAdmin")
+    @ResponseWrapper(localName = "IsAnAdminResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.IsAnAdminResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleWorkers/IsAnAdminRequest", output = "http://controller.tareaws.una.ac.cr/ModuleWorkers/IsAnAdminResponse")
+    public Boolean isAnAdmin(
+        @WebParam(name = "User", targetNamespace = "")
+        String user,
+        @WebParam(name = "Password", targetNamespace = "")
+        String password);
+
+    /**
+     * 
+     * @param password
+     * @param user
+     * @return
+     *     returns cr.ac.una.tarea.soap.WorkersDto
+     * @throws IOException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getUsuario", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetUsuario")
+    @ResponseWrapper(localName = "getUsuarioResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetUsuarioResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleWorkers/getUsuarioRequest", output = "http://controller.tareaws.una.ac.cr/ModuleWorkers/getUsuarioResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleWorkers/getUsuario/Fault/IOException")
+    })
+    public WorkersDto getUsuario(
+        @WebParam(name = "User", targetNamespace = "")
+        String user,
+        @WebParam(name = "Password", targetNamespace = "")
+        String password)
+        throws IOException_Exception
+    ;
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<cr.ac.una.tarea.soap.WorkersDto>
+     * @throws IOException_Exception
+     */
+    @WebMethod(operationName = "GetUsuarios")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "GetUsuarios", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetUsuarios")
+    @ResponseWrapper(localName = "GetUsuariosResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetUsuariosResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleWorkers/GetUsuariosRequest", output = "http://controller.tareaws.una.ac.cr/ModuleWorkers/GetUsuariosResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleWorkers/GetUsuarios/Fault/IOException")
+    })
+    public List<WorkersDto> getUsuarios()
+        throws IOException_Exception
+    ;
+
+    /**
+     * 
+     * @param password
+     * @param user
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "IsTempPassword")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "IsTempPassword", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.IsTempPassword")
+    @ResponseWrapper(localName = "IsTempPasswordResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.IsTempPasswordResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleWorkers/IsTempPasswordRequest", output = "http://controller.tareaws.una.ac.cr/ModuleWorkers/IsTempPasswordResponse")
+    public Boolean isTempPassword(
+        @WebParam(name = "User", targetNamespace = "")
+        String user,
+        @WebParam(name = "Password", targetNamespace = "")
+        String password);
+
+    /**
+     * 
+     * @param code
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "IsActiveWorker")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "IsActiveWorker", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.IsActiveWorker")
+    @ResponseWrapper(localName = "IsActiveWorkerResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.IsActiveWorkerResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleWorkers/IsActiveWorkerRequest", output = "http://controller.tareaws.una.ac.cr/ModuleWorkers/IsActiveWorkerResponse")
+    public Boolean isActiveWorker(
+        @WebParam(name = "Code", targetNamespace = "")
+        String code);
 
 }

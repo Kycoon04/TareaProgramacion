@@ -42,21 +42,6 @@ public interface ModuleEvaluatorResult {
 
     /**
      * 
-     * @param arg0
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "RegisterEvaluatorResult")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "RegisterEvaluatorResult", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterEvaluatorResult")
-    @ResponseWrapper(localName = "RegisterEvaluatorResultResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterEvaluatorResultResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/RegisterEvaluatorResultRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/RegisterEvaluatorResultResponse")
-    public Boolean registerEvaluatorResult(
-        @WebParam(name = "arg0", targetNamespace = "")
-        EvaluatorResultDto arg0);
-
-    /**
-     * 
      * @param nota
      * @return
      *     returns cr.ac.una.tarea.soap.EvaluatorResultDto
@@ -94,5 +79,20 @@ public interface ModuleEvaluatorResult {
         Integer id)
         throws IOException_Exception
     ;
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "RegisterEvaluatorResult")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "RegisterEvaluatorResult", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterEvaluatorResult")
+    @ResponseWrapper(localName = "RegisterEvaluatorResultResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterEvaluatorResultResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/RegisterEvaluatorResultRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/RegisterEvaluatorResultResponse")
+    public Boolean registerEvaluatorResult(
+        @WebParam(name = "arg0", targetNamespace = "")
+        EvaluatorResultDto arg0);
 
 }

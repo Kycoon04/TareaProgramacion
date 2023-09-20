@@ -272,8 +272,6 @@ public class ViewModuleEvaluationController implements Initializable {
         this.tableColJobIdW.setCellValueFactory(new PropertyValueFactory("Id"));
         this.tableColJobNamW.setCellValueFactory(new PropertyValueFactory("Name"));
         this.tableColJobStaW.setCellValueFactory(new PropertyValueFactory("States"));
-        
-
     }
 
     @FXML

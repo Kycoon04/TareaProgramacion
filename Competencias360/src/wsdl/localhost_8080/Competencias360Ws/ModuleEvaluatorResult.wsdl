@@ -10,12 +10,6 @@
 <message name="DeleteResponse">
 <part name="parameters" element="tns:DeleteResponse"/>
 </message>
-<message name="RegisterEvaluatorResult">
-<part name="parameters" element="tns:RegisterEvaluatorResult"/>
-</message>
-<message name="RegisterEvaluatorResultResponse">
-<part name="parameters" element="tns:RegisterEvaluatorResultResponse"/>
-</message>
 <message name="getEvaluatorResultByGrade">
 <part name="parameters" element="tns:getEvaluatorResultByGrade"/>
 </message>
@@ -31,14 +25,16 @@
 <message name="getEvaluatorResultByIdResponse">
 <part name="parameters" element="tns:getEvaluatorResultByIdResponse"/>
 </message>
+<message name="RegisterEvaluatorResult">
+<part name="parameters" element="tns:RegisterEvaluatorResult"/>
+</message>
+<message name="RegisterEvaluatorResultResponse">
+<part name="parameters" element="tns:RegisterEvaluatorResultResponse"/>
+</message>
 <portType name="ModuleEvaluatorResult">
 <operation name="Delete">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/DeleteRequest" message="tns:Delete"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/DeleteResponse" message="tns:DeleteResponse"/>
-</operation>
-<operation name="RegisterEvaluatorResult">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/RegisterEvaluatorResultRequest" message="tns:RegisterEvaluatorResult"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/RegisterEvaluatorResultResponse" message="tns:RegisterEvaluatorResultResponse"/>
 </operation>
 <operation name="getEvaluatorResultByGrade">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/getEvaluatorResultByGradeRequest" message="tns:getEvaluatorResultByGrade"/>
@@ -49,6 +45,10 @@
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/getEvaluatorResultByIdRequest" message="tns:getEvaluatorResultById"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/getEvaluatorResultByIdResponse" message="tns:getEvaluatorResultByIdResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/getEvaluatorResultById/Fault/IOException"/>
+</operation>
+<operation name="RegisterEvaluatorResult">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/RegisterEvaluatorResultRequest" message="tns:RegisterEvaluatorResult"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/RegisterEvaluatorResultResponse" message="tns:RegisterEvaluatorResultResponse"/>
 </operation>
 </portType>
 <binding name="ModuleEvaluatorResultPortBinding" type="tns:ModuleEvaluatorResult">
@@ -62,15 +62,6 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="RegisterEvaluatorResult">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="getEvaluatorResultByGrade">
 <soap:operation soapAction=""/>
 <input>
@@ -94,6 +85,15 @@
 <fault name="IOException">
 <soap:fault name="IOException" use="literal"/>
 </fault>
+</operation>
+<operation name="RegisterEvaluatorResult">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
 </operation>
 </binding>
 <service name="ModuleEvaluatorResult">

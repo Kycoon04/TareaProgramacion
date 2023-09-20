@@ -19,17 +19,17 @@
 <message name="DeleteResponse">
 <part name="parameters" element="tns:DeleteResponse"/>
 </message>
-<message name="RegisterJob">
-<part name="parameters" element="tns:RegisterJob"/>
-</message>
-<message name="RegisterJobResponse">
-<part name="parameters" element="tns:RegisterJobResponse"/>
-</message>
 <message name="GetJobs">
 <part name="parameters" element="tns:GetJobs"/>
 </message>
 <message name="GetJobsResponse">
 <part name="parameters" element="tns:GetJobsResponse"/>
+</message>
+<message name="RegisterJob">
+<part name="parameters" element="tns:RegisterJob"/>
+</message>
+<message name="RegisterJobResponse">
+<part name="parameters" element="tns:RegisterJobResponse"/>
 </message>
 <portType name="ModuleJobs">
 <operation name="getJob">
@@ -41,14 +41,14 @@
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobs/DeleteRequest" message="tns:Delete"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobs/DeleteResponse" message="tns:DeleteResponse"/>
 </operation>
-<operation name="RegisterJob">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobs/RegisterJobRequest" message="tns:RegisterJob"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobs/RegisterJobResponse" message="tns:RegisterJobResponse"/>
-</operation>
 <operation name="GetJobs">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobs/GetJobsRequest" message="tns:GetJobs"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobs/GetJobsResponse" message="tns:GetJobsResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobs/GetJobs/Fault/IOException"/>
+</operation>
+<operation name="RegisterJob">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobs/RegisterJobRequest" message="tns:RegisterJob"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobs/RegisterJobResponse" message="tns:RegisterJobResponse"/>
 </operation>
 </portType>
 <binding name="ModuleJobsPortBinding" type="tns:ModuleJobs">
@@ -74,15 +74,6 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="RegisterJob">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="GetJobs">
 <soap:operation soapAction=""/>
 <input>
@@ -94,6 +85,15 @@
 <fault name="IOException">
 <soap:fault name="IOException" use="literal"/>
 </fault>
+</operation>
+<operation name="RegisterJob">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
 </operation>
 </binding>
 <service name="ModuleJobs">

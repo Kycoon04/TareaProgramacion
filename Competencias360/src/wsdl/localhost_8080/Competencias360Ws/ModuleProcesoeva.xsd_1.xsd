@@ -33,6 +33,9 @@
 
 <xs:complexType name="procesoevaDto">
 <xs:sequence>
+<xs:element name="getAplicationPeriodo" type="xs:string" minOccurs="0"/>
+<xs:element name="getFinalPeriodo" type="xs:string" minOccurs="0"/>
+<xs:element name="getInicialPeriodo" type="xs:string" minOccurs="0"/>
 <xs:element name="id" type="xs:int" minOccurs="0"/>
 <xs:element name="name" type="xs:string" minOccurs="0"/>
 <xs:element name="state" type="xs:string" minOccurs="0"/>

@@ -18,6 +18,18 @@
 
 <xs:element name="getByCcIdResponse" type="tns:getByCcIdResponse"/>
 
+<xs:complexType name="Delete">
+<xs:sequence>
+<xs:element name="Id" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="DeleteResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="findByCcName">
 <xs:sequence>
 <xs:element name="name" type="xs:string" minOccurs="0"/>
@@ -53,13 +65,13 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="Delete">
+<xs:complexType name="RegisterCharacteristic">
 <xs:sequence>
-<xs:element name="Id" type="xs:int" minOccurs="0"/>
+<xs:element name="arg0" type="tns:characteristicDto" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="DeleteResponse">
+<xs:complexType name="RegisterCharacteristicResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" minOccurs="0"/>
 </xs:sequence>
@@ -74,18 +86,6 @@
 <xs:complexType name="getByCcIdResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:characteristicDto" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="RegisterCharacteristic">
-<xs:sequence>
-<xs:element name="arg0" type="tns:characteristicDto" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="RegisterCharacteristicResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

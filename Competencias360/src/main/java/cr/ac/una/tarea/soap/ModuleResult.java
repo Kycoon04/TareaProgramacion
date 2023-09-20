@@ -27,38 +27,18 @@ public interface ModuleResult {
 
     /**
      * 
-     * @param arg0
+     * @param id
      * @return
      *     returns java.lang.Boolean
      */
-    @WebMethod(operationName = "RegisterResult")
+    @WebMethod(operationName = "Delete")
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "RegisterResult", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterResult")
-    @ResponseWrapper(localName = "RegisterResultResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterResultResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleResult/RegisterResultRequest", output = "http://controller.tareaws.una.ac.cr/ModuleResult/RegisterResultResponse")
-    public Boolean registerResult(
-        @WebParam(name = "arg0", targetNamespace = "")
-        ResultDto arg0);
-
-    /**
-     * 
-     * @param nota
-     * @return
-     *     returns cr.ac.una.tarea.soap.ResultDto
-     * @throws IOException_Exception
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getResultByGrade", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetResultByGrade")
-    @ResponseWrapper(localName = "getResultByGradeResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetResultByGradeResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleResult/getResultByGradeRequest", output = "http://controller.tareaws.una.ac.cr/ModuleResult/getResultByGradeResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleResult/getResultByGrade/Fault/IOException")
-    })
-    public ResultDto getResultByGrade(
-        @WebParam(name = "nota", targetNamespace = "")
-        Integer nota)
-        throws IOException_Exception
-    ;
+    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
+    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleResult/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleResult/DeleteResponse")
+    public Boolean delete(
+        @WebParam(name = "Id", targetNamespace = "")
+        Integer id);
 
     /**
      * 
@@ -82,17 +62,37 @@ public interface ModuleResult {
 
     /**
      * 
-     * @param id
+     * @param nota
+     * @return
+     *     returns cr.ac.una.tarea.soap.ResultDto
+     * @throws IOException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getResultByGrade", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetResultByGrade")
+    @ResponseWrapper(localName = "getResultByGradeResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetResultByGradeResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleResult/getResultByGradeRequest", output = "http://controller.tareaws.una.ac.cr/ModuleResult/getResultByGradeResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleResult/getResultByGrade/Fault/IOException")
+    })
+    public ResultDto getResultByGrade(
+        @WebParam(name = "nota", targetNamespace = "")
+        Integer nota)
+        throws IOException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
      * @return
      *     returns java.lang.Boolean
      */
-    @WebMethod(operationName = "Delete")
+    @WebMethod(operationName = "RegisterResult")
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
-    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleResult/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleResult/DeleteResponse")
-    public Boolean delete(
-        @WebParam(name = "Id", targetNamespace = "")
-        Integer id);
+    @RequestWrapper(localName = "RegisterResult", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterResult")
+    @ResponseWrapper(localName = "RegisterResultResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterResultResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleResult/RegisterResultRequest", output = "http://controller.tareaws.una.ac.cr/ModuleResult/RegisterResultResponse")
+    public Boolean registerResult(
+        @WebParam(name = "arg0", targetNamespace = "")
+        ResultDto arg0);
 
 }

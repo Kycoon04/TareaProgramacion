@@ -68,11 +68,13 @@ public class Procesoeva implements Serializable {
         this.enId = enId;
     }
 
-    public Procesoeva(Integer enId, String enName, String enState, LocalDate aplication) {
+    public Procesoeva(Integer enId, String enName, String enState, LocalDate aplication, LocalDate fin, LocalDate ini) {
         this.enId = enId;
         this.enName = enName;
         this.enState = enState;
         this.enApplication= aplication; 
+        this.enFinalperiod= fin;
+        this.enInicialperiod= ini;
     }
 
     public Integer getEnId() {

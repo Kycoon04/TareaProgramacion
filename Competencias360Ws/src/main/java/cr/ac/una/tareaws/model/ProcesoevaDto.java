@@ -9,6 +9,9 @@ public class ProcesoevaDto {
     private LocalDate Inicialperiod;
     private LocalDate Finalperiod;
     private LocalDate Application;
+    private String getInicialPeriodo; 
+    private String getFinalPeriodo; 
+    private String getAplicationPeriodo; 
     
     public ProcesoevaDto(){
     }
@@ -19,6 +22,34 @@ public class ProcesoevaDto {
         this.Application = proceso.getEnApplication();
         this.Finalperiod = proceso.getEnFinalperiod();
         this.Inicialperiod = proceso.getEnInicialperiod();
+    }
+
+    public String getGetFinalPeriodo() {
+        getFinalPeriodo= Finalperiod.toString();
+        return getFinalPeriodo;
+    }
+
+    public void setGetFinalPeriodo(String getFinalPeriodo) {
+        this.getFinalPeriodo = getFinalPeriodo;
+    }
+
+    public String getGetAplicationPeriodo() {
+        getAplicationPeriodo= Application.toString();
+        return getAplicationPeriodo;
+    }
+
+    public void setGetAplicationPeriodo(String getAplicationPeriodo) {
+        this.getAplicationPeriodo = getAplicationPeriodo;
+    }
+
+    public String getGetInicialPeriodo() {
+        getInicialPeriodo= Inicialperiod.toString();
+        return getInicialPeriodo;
+    }
+
+    
+    public void setGetInicialPeriodo(String getInicialPeriodo) {
+        this.getInicialPeriodo = getInicialPeriodo;
     }
 
     public Integer getId() {

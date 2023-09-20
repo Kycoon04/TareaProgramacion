@@ -32,6 +32,7 @@ public class ProcesosevaDto {
         this.id.set(procesoevadto.getId());
         this.name.set(procesoevadto.getName());
         this.state.set(procesoevadto.getState());
+       
     }
 
     public LocalDate getInicialperiod() {

@@ -4,12 +4,6 @@
 <xsd:import namespace="http://controller.tareaws.una.ac.cr/" schemaLocation="http://localhost:8080/Competencias360Ws/ModuleEvaluated?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="RegisterEvaluated">
-<part name="parameters" element="tns:RegisterEvaluated"/>
-</message>
-<message name="RegisterEvaluatedResponse">
-<part name="parameters" element="tns:RegisterEvaluatedResponse"/>
-</message>
 <message name="Delete">
 <part name="parameters" element="tns:Delete"/>
 </message>
@@ -25,11 +19,13 @@
 <message name="IOException">
 <part name="fault" element="tns:IOException"/>
 </message>
+<message name="RegisterEvaluated">
+<part name="parameters" element="tns:RegisterEvaluated"/>
+</message>
+<message name="RegisterEvaluatedResponse">
+<part name="parameters" element="tns:RegisterEvaluatedResponse"/>
+</message>
 <portType name="ModuleEvaluated">
-<operation name="RegisterEvaluated">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/RegisterEvaluatedRequest" message="tns:RegisterEvaluated"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/RegisterEvaluatedResponse" message="tns:RegisterEvaluatedResponse"/>
-</operation>
 <operation name="Delete">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/DeleteRequest" message="tns:Delete"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/DeleteResponse" message="tns:DeleteResponse"/>
@@ -39,18 +35,13 @@
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedByIdResponse" message="tns:GetEvaluatedByIdResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedById/Fault/IOException"/>
 </operation>
+<operation name="RegisterEvaluated">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/RegisterEvaluatedRequest" message="tns:RegisterEvaluated"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/RegisterEvaluatedResponse" message="tns:RegisterEvaluatedResponse"/>
+</operation>
 </portType>
 <binding name="ModuleEvaluatedPortBinding" type="tns:ModuleEvaluated">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="RegisterEvaluated">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="Delete">
 <soap:operation soapAction=""/>
 <input>
@@ -71,6 +62,15 @@
 <fault name="IOException">
 <soap:fault name="IOException" use="literal"/>
 </fault>
+</operation>
+<operation name="RegisterEvaluated">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
 </operation>
 </binding>
 <service name="ModuleEvaluated">
