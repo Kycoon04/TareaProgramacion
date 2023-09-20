@@ -4,13 +4,19 @@
  */
 package cr.ac.una.tarea.controller;
 
+import cr.ac.una.tarea.model.EvaluatedsDto;
 import cr.ac.una.tarea.model.JobDto;
 import cr.ac.una.tarea.model.ProcesosevaDto;
 import cr.ac.una.tarea.model.WorkerDto;
+import cr.ac.una.tarea.service.EvaluatedService;
 import cr.ac.una.tarea.service.JobsService;
 import cr.ac.una.tarea.service.ProcesoevaService;
 import cr.ac.una.tarea.service.WorkersService;
+import cr.ac.una.tarea.soap.ModuleProcesoeva;
+import cr.ac.una.tarea.soap.ModuleProcesoeva_Service;
+import cr.ac.una.tarea.soap.Procesoeva;
 import cr.ac.una.tarea.soap.ProcesoevaDto;
+import cr.ac.una.tarea.soap.Workers;
 import cr.ac.una.tarea.util.FlowController;
 import cr.ac.una.tarea.util.Mensaje;
 import cr.ac.una.tarea.util.Respuesta;
@@ -50,7 +56,7 @@ import javafx.scene.text.Text;
  * @author Anderson
  */
 public class ViewModuleEvaluationController implements Initializable {
-
+    
     @FXML
     private BorderPane OptionsMenuView;
     @FXML
@@ -111,7 +117,7 @@ public class ViewModuleEvaluationController implements Initializable {
     private TableColumn<WorkerDto, String> tableColSelEmail;
     @FXML
     private TableColumn<WorkerDto, String> tableColSelAdmi;
-
+    
     private ObservableList<WorkerDto> workerList;
     private ObservableList<JobDto> jobsList;
     private ObservableList<ProcesosevaDto> procesosList;
@@ -257,7 +263,7 @@ public class ViewModuleEvaluationController implements Initializable {
         this.tableColUserName.setCellValueFactory(new PropertyValueFactory("username"));
         this.tableColEmail.setCellValueFactory(new PropertyValueFactory("email"));
         this.tableColAdmi.setCellValueFactory(new PropertyValueFactory("administrator"));
-
+        
         this.tableColSelAct.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColSelIdentif.setCellValueFactory(new PropertyValueFactory("iden"));
         this.tableColSelName.setCellValueFactory(new PropertyValueFactory("name"));
@@ -265,7 +271,7 @@ public class ViewModuleEvaluationController implements Initializable {
         this.tableColSelUserName.setCellValueFactory(new PropertyValueFactory("username"));
         this.tableColSelEmail.setCellValueFactory(new PropertyValueFactory("email"));
         this.tableColSelAdmi.setCellValueFactory(new PropertyValueFactory("administrator"));
-
+        
         this.tableColCREAct.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColCREIdentif.setCellValueFactory(new PropertyValueFactory("iden"));
         this.tableColCREName.setCellValueFactory(new PropertyValueFactory("name"));
@@ -275,36 +281,36 @@ public class ViewModuleEvaluationController implements Initializable {
         this.tableColCREEmail.setCellValueFactory(new PropertyValueFactory("email"));
         this.tableColCRETelephone.setCellValueFactory(new PropertyValueFactory("telephone"));
         this.tableColCREAdmi.setCellValueFactory(new PropertyValueFactory("administrator"));
-
+        
         this.tableColJobIdW.setCellValueFactory(new PropertyValueFactory("Id"));
         this.tableColJobNamW.setCellValueFactory(new PropertyValueFactory("Name"));
         this.tableColJobStaW.setCellValueFactory(new PropertyValueFactory("States"));
-
+        
         this.tableColProEva_State.setCellValueFactory(new PropertyValueFactory("State"));
-
+        
         this.tableColProEva_Name.setCellValueFactory(new PropertyValueFactory("Name"));
-
+        
         this.tableColProEva_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));
-
+        
         this.tableColProEva_FinalPer.setCellValueFactory(new PropertyValueFactory("Finalperiod"));
-
+        
         this.tableColProEva_Apli.setCellValueFactory(new PropertyValueFactory("Application"));
     }
-
+    
     @FXML
     private void openEvaluations(MouseEvent event) {
     }
-
+    
     @FXML
     private void CompetencesModi(ActionEvent event) {
     }
-
+    
     @FXML
     private void viewChooseJob(MouseEvent event) {
         ImportListJobs();
         viewChooseJob.toFront();
     }
-
+    
     @FXML
     private void jobClickedWorker(MouseEvent event) {
         if (event.getClickCount() == 2) {
@@ -312,14 +318,14 @@ public class ViewModuleEvaluationController implements Initializable {
                 jobDto = tableViewJobsW.getSelectionModel().getSelectedItem();
                 JobMainField.setText(jobDto.getName());
                 viewSelectedJob.toFront();
-
+                
             } catch (Exception ex) {
                 //new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un trabajo en este campo.");
             }
         }
-
+        
     }
-
+    
     public void ImportListJobs() {
         JobsService jobsService = new JobsService();
         Respuesta respuesta = jobsService.getJobs();
@@ -328,11 +334,11 @@ public class ViewModuleEvaluationController implements Initializable {
         this.tableViewJobsW.refresh();
         this.tableViewJobsW.setItems(jobsList);
     }
-
+    
     @FXML
     private void searchJob_NameW(KeyEvent event) {
         FilteredList<JobDto> filteredJob = new FilteredList<>(jobsList, f -> true);
-
+        
         textFieldSJob_NameW.textProperty().addListener((observable, value, newValue) -> {
             filteredJob.setPredicate(JobDto -> {
                 if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
@@ -348,11 +354,11 @@ public class ViewModuleEvaluationController implements Initializable {
         });
         filteredJobsWorker(filteredJob);
     }
-
+    
     @FXML
     private void searchJob_StateW(KeyEvent event) {
         FilteredList<JobDto> filteredJob = new FilteredList<>(jobsList, f -> true);
-
+        
         textFieldSJob_StateW.textProperty().addListener((observable, value, newValue) -> {
             filteredJob.setPredicate(JobDto -> {
                 if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
@@ -368,31 +374,31 @@ public class ViewModuleEvaluationController implements Initializable {
         });
         filteredJobsWorker(filteredJob);
     }
-
+    
     private void filteredJobsWorker(FilteredList<JobDto> list) {
         SortedList<JobDto> sorted = new SortedList<>(list);
         sorted.comparatorProperty().bind(tableViewJobsW.comparatorProperty());
         tableViewJobsW.setItems(sorted);
     }
-
+    
     @FXML
     private void workerClicked(MouseEvent event) {
         if (event.getClickCount() == 2) {
-
+            
             WorkerDto selectedWorker = tableViewWorkers.getSelectionModel().getSelectedItem();
             workersListSel.add(selectedWorker);
             ObservableList<WorkerDto> workersAss = FXCollections.observableArrayList(workersListSel);
-
+            
             this.tableViewSelWorkers.refresh();
             this.tableViewSelWorkers.setItems(workersAss);
-
+            
         }
     }
-
+    
     @FXML
     private void searchWorker_Name(KeyEvent event) {
         FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
-
+        
         textFieldSearch_Name.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
                 if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
@@ -408,11 +414,11 @@ public class ViewModuleEvaluationController implements Initializable {
         });
         filteredWorkers(filteredWorker);
     }
-
+    
     @FXML
     private void searchWorker_Pusername(KeyEvent event) {
         FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
-
+        
         textFieldSearch_Pusername.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
                 if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
@@ -428,11 +434,11 @@ public class ViewModuleEvaluationController implements Initializable {
         });
         filteredWorkers(filteredWorker);
     }
-
+    
     @FXML
     private void searchWorker_State(KeyEvent event) {
         FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
-
+        
         textFieldSearch_State.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
                 if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
@@ -447,15 +453,15 @@ public class ViewModuleEvaluationController implements Initializable {
             });
         });
         filteredWorkers(filteredWorker);
-
+        
     }
-
+    
     private void filteredWorkers(FilteredList<WorkerDto> list) {
         SortedList<WorkerDto> sorted = new SortedList<>(list);
         sorted.comparatorProperty().bind(tableViewWorkers.comparatorProperty());
         tableViewWorkers.setItems(sorted);
     }
-
+    
     public void ImportListWorker() {
         WorkersService service = new WorkersService();
         Respuesta respuesta = service.getUsuarios();
@@ -467,7 +473,7 @@ public class ViewModuleEvaluationController implements Initializable {
         this.tableViewWorkers.refresh();
         this.tableViewWorkers.setItems(workerList);
     }
-
+    
     public void changeTextAdmi(List<WorkerDto> list) {
         String role = "";
         for (int i = 0; i < list.size(); i++) {
@@ -479,28 +485,28 @@ public class ViewModuleEvaluationController implements Initializable {
             }
         }
     }
-
+    
     @FXML
     private void addAllWorkers(ActionEvent event) {
         this.tableViewSelWorkers.refresh();
         this.tableViewSelWorkers.setItems(workerList);
     }
-
+    
     @FXML
     private void addEvaluateWorkers(ActionEvent event) {
     }
-
+    
     @FXML
     private void backSettings(ActionEvent event) {
         OptionsSettingView.toFront();
     }
     Predicate<WorkerDto> WorkerNull = worker -> worker.getJob() != null;
-
+    
     public List<WorkerDto> getWorkersJobs(String name) {
         return listWorkers.stream().
                 filter(WorkerNull.and(x -> x.getJob().getJsName().equals(name))).collect(Collectors.toList());
     }
-
+    
     @FXML
     private void OpenSelectWorkers(ActionEvent event) {
         ImportListWorker();
@@ -513,7 +519,7 @@ public class ViewModuleEvaluationController implements Initializable {
         textEvaJob.setText(jobDto.getName());
         OptionsSettingWorkerView.toFront();
     }
-
+    
     @FXML
     private void deleteWorkers(ActionEvent event) {
         workersListSel.clear();
@@ -521,18 +527,18 @@ public class ViewModuleEvaluationController implements Initializable {
         this.tableViewSelWorkers.refresh();
         this.tableViewSelWorkers.setItems(workersAss);
     }
-
+    
     @FXML
     private void assignEvaluations(ActionEvent event) {
         OptionsSettingView.toFront();
         viewSelectedJob.toFront();
     }
-
+    
     @FXML
     private void back(MouseEvent event) {
         OptionsEvaConfigView.toFront();
     }
-
+    
     @FXML
     private void workerClickedCRE(MouseEvent event) {
         if (event.getClickCount() == 2) {
@@ -542,18 +548,18 @@ public class ViewModuleEvaluationController implements Initializable {
                 textCREJob.setText("Puesto: " + workerDto.getJob().getJsName());
                 textCREIdent.setText("Numero de Identificacion: " + workerDto.getIden());
                 viewSelectedWorker.toFront();
-
+                
             } catch (Exception ex) {
                 //new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un trabajo en este campo.");
             }
         }
-
+        
     }
-
+    
     @FXML
     private void searchWorkerCRE_Name(KeyEvent event) {
         FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
-
+        
         textFieldSearchCRE_Name.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
                 if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
@@ -569,11 +575,11 @@ public class ViewModuleEvaluationController implements Initializable {
         });
         filteredWorkersCRE(filteredWorker);
     }
-
+    
     @FXML
     private void searchWorkerCRE_Pusername(KeyEvent event) {
         FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
-
+        
         textFieldSearchCRE_Pusername.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
                 if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
@@ -589,11 +595,11 @@ public class ViewModuleEvaluationController implements Initializable {
         });
         filteredWorkersCRE(filteredWorker);
     }
-
+    
     @FXML
     private void searchWorkerCRE_Identification(KeyEvent event) {
         FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
-
+        
         textFieldSearchCRE_Ident.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
                 if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
@@ -609,11 +615,11 @@ public class ViewModuleEvaluationController implements Initializable {
         });
         filteredWorkersCRE(filteredWorker);
     }
-
+    
     @FXML
     private void searchWorkerCRE_Rol(KeyEvent event) {
         FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
-
+        
         textFieldSearchCRE_Rol.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
                 if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
@@ -622,7 +628,7 @@ public class ViewModuleEvaluationController implements Initializable {
                 String search = newValue.toLowerCase();
                 if (WorkerDto.getAdministrator().toLowerCase().contains(search)) {
                     return true;
-
+                    
                 } else {
                     return false;
                 }
@@ -630,11 +636,11 @@ public class ViewModuleEvaluationController implements Initializable {
         });
         filteredWorkersCRE(filteredWorker);
     }
-
+    
     @FXML
     private void searchWorkerCRE_Susername(KeyEvent event) {
         FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
-
+        
         textFieldSearchCRE_Susername.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
                 if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
@@ -650,11 +656,11 @@ public class ViewModuleEvaluationController implements Initializable {
         });
         filteredWorkersCRE(filteredWorker);
     }
-
+    
     @FXML
     private void searchWorkerCRE_State(KeyEvent event) {
         FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
-
+        
         textFieldSearchCRE_State.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
                 if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
@@ -670,98 +676,122 @@ public class ViewModuleEvaluationController implements Initializable {
         });
         filteredWorkersCRE(filteredWorker);
     }
-
+    
     private void filteredWorkersCRE(FilteredList<WorkerDto> list) {
         SortedList<WorkerDto> sorted = new SortedList<>(list);
         sorted.comparatorProperty().bind(tableViewWorkersCRE.comparatorProperty());
         tableViewWorkersCRE.setItems(sorted);
     }
+
     public void ImportListProcesoEva() {
         ProcesoevaService service = new ProcesoevaService();
         Respuesta respuesta = service.getProcesos();
         List<ProcesosevaDto> listProcesos = (List<ProcesosevaDto>) respuesta.getResultado("ProcesosevaDto");
-       procesosList = FXCollections.observableArrayList(listProcesos);
-       
+        procesosList = FXCollections.observableArrayList(listProcesos);
+        
         this.tableViewProEva.refresh();
         this.tableViewProEva.setItems(procesosList);
     }
-
+    
     @FXML
     private void openSettingRelational(ActionEvent event) {
         ImportListWorker();
         viewSelectedJob.toFront();
         OptionsSettingRelationalView.toFront();
     }
-
+    
     @FXML
     private void viewChooseWorker(MouseEvent event) {
         viewChooseWorker.toFront();
     }
-
+    
     @FXML
     private void UpdateJob(ActionEvent event) {
         ProcesoevaService service = new ProcesoevaService();
         ProcesosevaDto procesosevaDto = new ProcesosevaDto();
-
+        
         procesosevaDto.setState(choiceBoxStateEva.getValue());
         procesosevaDto.setName(TitleEvaField.getText());
-
+        
         procesosevaDto.setApplication(DateProEva_Application.getValue());
         procesosevaDto.setInicialperiod(DateProEva_Inicial.getValue());
         procesosevaDto.setFinalperiod(DateProEva_Final.getValue());
-
+        
         service.SaveProceso(procesosevaDto);
         ImportListProcesoEva();
-
+        
     }
-
-
+    
     @FXML
     private void searchJob_Name(KeyEvent event) {
     }
-
+    
     @FXML
     private void searchJob_State(KeyEvent event) {
     }
-
+    
     @FXML
     private void openSettingEva(MouseEvent event) {
         OptionsMenuView.toFront();
     }
-
+    
     @FXML
     private void backMaintenance(MouseEvent event) {
         FlowController.getInstance().goMain("ViewOptionsModules");
     }
-
+    
     @FXML
     private void addEvaluators(ActionEvent event) {
     }
-
+    
     @FXML
     private void openSelectEvaluators(ActionEvent event) {
         OptionsSettingEvaluatorsView.toFront();
+        EvaluatedService evaluated = new EvaluatedService();
+        EvaluatedsDto evaluatedDto = new EvaluatedsDto();
+        
+        Procesoeva proceso = new Procesoeva();
+        proceso.setEnId(procesoDto.getId());
+        proceso.setEnName(procesoDto.getName());
+        proceso.setEnState(procesoDto.getState());
+        Workers worker = new Workers();
+        worker.setWrCodeactive(workerDto.getCode());
+        worker.setWrId(workerDto.getId());
+        worker.setWrJob(workerDto.getJob());
+        worker.setWrRecover(workerDto.getRecover());
+        worker.setWrActive(workerDto.getActive());
+        worker.setWrAdmin(workerDto.getAdministrator());
+        worker.setWrEmail(workerDto.getEmail());
+        worker.setWrPhoto(workerDto.getPhoto());
+        worker.setWrIdentification(workerDto.getIden());
+        worker.setWrLandline(workerDto.getLandline());
+        worker.setWrName(workerDto.getName());
+        worker.setWrPassword(workerDto.getPassword());
+        worker.setWrPsurname(workerDto.getPsurname());
+        worker.setWrSsurname(workerDto.getSsurname());
+        worker.setWrTelephone(workerDto.getTelephone());
+        worker.setWrUsername(workerDto.getUsername());
+        evaluatedDto.setEsProcesoeva(proceso);
+        evaluatedDto.setEsWorker(worker);
+        evaluated.SaveEvaluated(evaluatedDto, procesoDto);
     }
-
+    
     @FXML
     private void procesoevaClicked(MouseEvent event) {
-        System.out.println("AAAAA");
-         if (event.getClickCount() == 2) {
-            //try {
+        if (event.getClickCount() == 2) {
+            try {
                 procesoDto = tableViewProEva.getSelectionModel().getSelectedItem();
-                System.out.println(""+procesoDto.getName());
+                System.out.println("" + procesoDto.getName());
                 
-                 TitleEvaField.setText(procesoDto.getName());
-                 choiceBoxStateEva.setValue(procesoDto.getState());
-                 DateProEva_Inicial.setValue(procesoDto.getInicialperiod());
-                 DateProEva_Final.setValue(procesoDto.getFinalperiod());
-                 DateProEva_Application.setValue(procesoDto.getApplication());
-                 
-
-            //} catch (Exception ex) {
+                TitleEvaField.setText(procesoDto.getName());
+                choiceBoxStateEva.setValue(procesoDto.getState());
+                DateProEva_Inicial.setValue(procesoDto.getInicialperiod());
+                DateProEva_Final.setValue(procesoDto.getFinalperiod());
+                DateProEva_Application.setValue(procesoDto.getApplication());
+            } catch (Exception ex) {
                 //new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un trabajo en este campo.");
-            //}
+            }
         }
     }
-
+    
 }

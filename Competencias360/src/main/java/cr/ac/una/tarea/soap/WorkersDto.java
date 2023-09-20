@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para workersDto complex type.
+ * <p>Java class for workersDto complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="workersDto">
@@ -79,7 +79,7 @@ public class WorkersDto {
     protected String username;
 
     /**
-     * Obtiene el valor de la propiedad active.
+     * Gets the value of the active property.
      * 
      * @return
      *     possible object is
@@ -91,7 +91,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad active.
+     * Sets the value of the active property.
      * 
      * @param value
      *     allowed object is
@@ -103,7 +103,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad administrator.
+     * Gets the value of the administrator property.
      * 
      * @return
      *     possible object is
@@ -115,7 +115,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad administrator.
+     * Sets the value of the administrator property.
      * 
      * @param value
      *     allowed object is
@@ -127,7 +127,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad code.
+     * Gets the value of the code property.
      * 
      * @return
      *     possible object is
@@ -139,7 +139,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad code.
+     * Sets the value of the code property.
      * 
      * @param value
      *     allowed object is
@@ -151,7 +151,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad email.
+     * Gets the value of the email property.
      * 
      * @return
      *     possible object is
@@ -163,7 +163,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad email.
+     * Sets the value of the email property.
      * 
      * @param value
      *     allowed object is
@@ -175,7 +175,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad id.
+     * Gets the value of the id property.
      * 
      * @return
      *     possible object is
@@ -187,7 +187,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad id.
+     * Sets the value of the id property.
      * 
      * @param value
      *     allowed object is
@@ -199,7 +199,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad identification.
+     * Gets the value of the identification property.
      * 
      * @return
      *     possible object is
@@ -211,7 +211,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad identification.
+     * Sets the value of the identification property.
      * 
      * @param value
      *     allowed object is
@@ -223,7 +223,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad job.
+     * Gets the value of the job property.
      * 
      * @return
      *     possible object is
@@ -235,7 +235,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad job.
+     * Sets the value of the job property.
      * 
      * @param value
      *     allowed object is
@@ -247,7 +247,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad landline.
+     * Gets the value of the landline property.
      * 
      * @return
      *     possible object is
@@ -259,7 +259,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad landline.
+     * Sets the value of the landline property.
      * 
      * @param value
      *     allowed object is
@@ -271,7 +271,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad name.
+     * Gets the value of the name property.
      * 
      * @return
      *     possible object is
@@ -283,7 +283,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad name.
+     * Sets the value of the name property.
      * 
      * @param value
      *     allowed object is
@@ -295,7 +295,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad password.
+     * Gets the value of the password property.
      * 
      * @return
      *     possible object is
@@ -307,7 +307,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad password.
+     * Sets the value of the password property.
      * 
      * @param value
      *     allowed object is
@@ -319,7 +319,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad photo.
+     * Gets the value of the photo property.
      * 
      * @return
      *     possible object is
@@ -330,7 +330,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad photo.
+     * Sets the value of the photo property.
      * 
      * @param value
      *     allowed object is
@@ -341,7 +341,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad psurname.
+     * Gets the value of the psurname property.
      * 
      * @return
      *     possible object is
@@ -353,7 +353,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad psurname.
+     * Sets the value of the psurname property.
      * 
      * @param value
      *     allowed object is
@@ -365,7 +365,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad recover.
+     * Gets the value of the recover property.
      * 
      * @return
      *     possible object is
@@ -377,7 +377,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad recover.
+     * Sets the value of the recover property.
      * 
      * @param value
      *     allowed object is
@@ -389,7 +389,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad ssurname.
+     * Gets the value of the ssurname property.
      * 
      * @return
      *     possible object is
@@ -401,7 +401,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad ssurname.
+     * Sets the value of the ssurname property.
      * 
      * @param value
      *     allowed object is
@@ -413,7 +413,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad telephone.
+     * Gets the value of the telephone property.
      * 
      * @return
      *     possible object is
@@ -425,7 +425,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad telephone.
+     * Sets the value of the telephone property.
      * 
      * @param value
      *     allowed object is
@@ -437,7 +437,7 @@ public class WorkersDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad username.
+     * Gets the value of the username property.
      * 
      * @return
      *     possible object is
@@ -449,7 +449,7 @@ public class WorkersDto {
     }
 
     /**
-     * Define el valor de la propiedad username.
+     * Sets the value of the username property.
      * 
      * @param value
      *     allowed object is

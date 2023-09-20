@@ -7,12 +7,12 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for GetJobCompetences complex type.
+ * <p>Java class for setDateResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
- * <complexType name="GetJobCompetences">
+ * <complexType name="setDateResponse">
  *   <complexContent>
  *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       <sequence>
@@ -25,8 +25,8 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetJobCompetences")
-public class GetJobCompetences {
+@XmlType(name = "setDateResponse")
+public class SetDateResponse {
 
 
 }

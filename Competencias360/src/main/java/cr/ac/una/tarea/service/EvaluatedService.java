@@ -4,31 +4,41 @@
  */
 package cr.ac.una.tarea.service;
 
-import cr.ac.una.tarea.model.EvaJobCompetenceDto;
+import cr.ac.una.tarea.model.EvaluatedsDto;
+import cr.ac.una.tarea.model.ProcesosevaDto;
+import cr.ac.una.tarea.soap.EvaluatedDto;
 import cr.ac.una.tarea.soap.JobsCompetencesDto;
+import cr.ac.una.tarea.soap.ModuleEvaluated;
+import cr.ac.una.tarea.soap.ModuleEvaluated_Service;
 import cr.ac.una.tarea.soap.ModuleJobsCompetences;
 import cr.ac.una.tarea.soap.ModuleJobsCompetences_Service;
+import cr.ac.una.tarea.soap.Procesoeva;
 import cr.ac.una.tarea.util.Respuesta;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author dilan
+ * @author jomav
  */
-public class JobsCompetencesService {
-
-    public Respuesta SaveJobCompetences(EvaJobCompetenceDto evaJobCompetenceDto) {
+public class EvaluatedService {
+    
+       public Respuesta SaveEvaluated(EvaluatedsDto evaluatedDto, ProcesosevaDto proceso) {
         try {
-            ModuleJobsCompetences_Service servicio = new ModuleJobsCompetences_Service();
-            ModuleJobsCompetences cliente = servicio.getModuleJobsCompetencesPort();
+            ModuleEvaluated_Service servicio = new ModuleEvaluated_Service();
+            ModuleEvaluated cliente = servicio.getModuleEvaluatedPort();
 
-            JobsCompetencesDto jobCompetencesDto = new JobsCompetencesDto();
-            jobCompetencesDto.setJobs(evaJobCompetenceDto.getJobs());
-            jobCompetencesDto.setJxcCompetence(evaJobCompetenceDto.getJxcCompetence());
-
-            cliente.registerJobCompetences(jobCompetencesDto);
-            return new Respuesta(true, "", "", "Competencia", jobCompetencesDto);
+            cliente.setDate(evaluatedDto.getEsProcesoeva(), 
+                    proceso.getApplication().toString(), 
+                    proceso.getFinalperiod().toString(), 
+                    proceso.getInicialperiod().toString());
+            
+            EvaluatedDto evaluatedsDto = new EvaluatedDto();
+            evaluatedsDto.setEsProcesoeva(evaluatedDto.getEsProcesoeva());
+            evaluatedsDto.setEsWorker(evaluatedDto.getEsWorker());
+            
+            cliente.registerEvaluated(evaluatedsDto);
+            return new Respuesta(true, "", "", "Evaluated", evaluatedsDto);
         } catch (Exception ex) {
             Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error guardando las comptencias.", ex);
             return new Respuesta(false, "Error guardando el empleado.", "guardarCompetencias " + ex.getMessage());

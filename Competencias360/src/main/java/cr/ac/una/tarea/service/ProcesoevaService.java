@@ -50,10 +50,10 @@ public class ProcesoevaService {
             procesoDto.setId(procesosevaDto.getId());
             procesoDto.setName(procesosevaDto.getName());
             procesoDto.setState(procesosevaDto.getState());
-
+            
             cliente.setDates(procesoDto, procesosevaDto.getApplication().toString(),
                     procesosevaDto.getFinalperiod().toString(), procesosevaDto.getInicialperiod().toString());
-
+            
             return new Respuesta(true, "", "", "Competencia", procesoDto);
         } catch (Exception ex) {
             Logger.getLogger(JobsService.class.getName()).log(Level.SEVERE, "Error guardando el empleado.", ex);

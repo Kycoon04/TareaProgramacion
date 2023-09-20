@@ -10,9 +10,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para evaluatedDto complex type.
+ * <p>Java class for evaluatedDto complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="evaluatedDto">
@@ -47,7 +47,7 @@ public class EvaluatedDto {
     protected List<Evaluators> evaluatorsCollection;
 
     /**
-     * Obtiene el valor de la propiedad esId.
+     * Gets the value of the esId property.
      * 
      * @return
      *     possible object is
@@ -59,7 +59,7 @@ public class EvaluatedDto {
     }
 
     /**
-     * Define el valor de la propiedad esId.
+     * Sets the value of the esId property.
      * 
      * @param value
      *     allowed object is
@@ -71,7 +71,7 @@ public class EvaluatedDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad esProcesoeva.
+     * Gets the value of the esProcesoeva property.
      * 
      * @return
      *     possible object is
@@ -83,7 +83,7 @@ public class EvaluatedDto {
     }
 
     /**
-     * Define el valor de la propiedad esProcesoeva.
+     * Sets the value of the esProcesoeva property.
      * 
      * @param value
      *     allowed object is
@@ -95,7 +95,7 @@ public class EvaluatedDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad esWorker.
+     * Gets the value of the esWorker property.
      * 
      * @return
      *     possible object is
@@ -107,7 +107,7 @@ public class EvaluatedDto {
     }
 
     /**
-     * Define el valor de la propiedad esWorker.
+     * Sets the value of the esWorker property.
      * 
      * @param value
      *     allowed object is

@@ -1,5 +1,6 @@
 package cr.ac.una.tarea.model;
 
+import cr.ac.una.tarea.soap.JobsDto;
 import java.io.IOException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,7 +19,7 @@ public class EvaJobDto {
         this.name = new SimpleStringProperty();
         this.state = new SimpleStringProperty();
     }
-    public EvaJobDto(EvaJobDto jobDto) throws IOException {
+    public EvaJobDto(JobsDto jobDto) throws IOException {
         this.id.set(jobDto.getId());
         this.name.set(jobDto.getName());
         this.state.set(jobDto.getState());

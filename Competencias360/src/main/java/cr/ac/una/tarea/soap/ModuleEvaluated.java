@@ -27,6 +27,27 @@ public interface ModuleEvaluated {
 
     /**
      * 
+     * @param aplicacion
+     * @param dto
+     * @param finalizado
+     * @param inicio
+     */
+    @WebMethod
+    @RequestWrapper(localName = "setDate", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.SetDate")
+    @ResponseWrapper(localName = "setDateResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.SetDateResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluated/setDateRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluated/setDateResponse")
+    public void setDate(
+        @WebParam(name = "dto", targetNamespace = "")
+        Procesoeva dto,
+        @WebParam(name = "Aplicacion", targetNamespace = "")
+        String aplicacion,
+        @WebParam(name = "finalizado", targetNamespace = "")
+        String finalizado,
+        @WebParam(name = "inicio", targetNamespace = "")
+        String inicio);
+
+    /**
+     * 
      * @param id
      * @return
      *     returns java.lang.Boolean
@@ -39,6 +60,21 @@ public interface ModuleEvaluated {
     public Boolean delete(
         @WebParam(name = "Id", targetNamespace = "")
         Integer id);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "RegisterEvaluated")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "RegisterEvaluated", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterEvaluated")
+    @ResponseWrapper(localName = "RegisterEvaluatedResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterEvaluatedResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluated/RegisterEvaluatedRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluated/RegisterEvaluatedResponse")
+    public Boolean registerEvaluated(
+        @WebParam(name = "arg0", targetNamespace = "")
+        EvaluatedDto arg0);
 
     /**
      * 
@@ -59,20 +95,5 @@ public interface ModuleEvaluated {
         Integer id)
         throws IOException_Exception
     ;
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "RegisterEvaluated")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "RegisterEvaluated", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterEvaluated")
-    @ResponseWrapper(localName = "RegisterEvaluatedResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterEvaluatedResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluated/RegisterEvaluatedRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluated/RegisterEvaluatedResponse")
-    public Boolean registerEvaluated(
-        @WebParam(name = "arg0", targetNamespace = "")
-        EvaluatedDto arg0);
 
 }

@@ -4,8 +4,6 @@
     <system systemId="file:/C:/Users/jomav/OneDrive%20-%20Universidad%20Nacional%20de%20Costa%20Rica/Universidad/Semestres/Segundo%20año/IV%20Semestre/Programación%20III/Evaluaciones/TareaProgramacionIII/Competencias360/src/main/java/cr/ac/una/tarea/util/ModuleWorkers.wsdl" uri="wsdl/ModuleWorkers.wsdl"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleJobsCompetences?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleJobsCompetences.wsdl"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleJobsCompetences?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleJobsCompetences.xsd_1.xsd"/>
-    <system systemId="http://localhost:8080/Competencias360Ws/ModuleEvaluated?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleEvaluated.wsdl"/>
-    <system systemId="http://localhost:8080/Competencias360Ws/ModuleEvaluated?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleEvaluated.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleEvaluatorResult?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleEvaluatorResult.wsdl"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleEvaluatorResult?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleEvaluatorResult.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleResult?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleResult.wsdl"/>
@@ -24,4 +22,6 @@
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleCharacteristic?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleCharacteristic.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleProcesoeva?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleProcesoeva.wsdl"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleProcesoeva?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleProcesoeva.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/Competencias360Ws/ModuleEvaluated?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleEvaluated.wsdl"/>
+    <system systemId="http://localhost:8080/Competencias360Ws/ModuleEvaluated?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleEvaluated.xsd_1.xsd"/>
 </catalog>
