@@ -31,6 +31,12 @@
 <message name="IOException">
 <part name="fault" element="tns:IOException"/>
 </message>
+<message name="GetEvaluateds">
+<part name="parameters" element="tns:GetEvaluateds"/>
+</message>
+<message name="GetEvaluatedsResponse">
+<part name="parameters" element="tns:GetEvaluatedsResponse"/>
+</message>
 <portType name="ModuleEvaluated">
 <operation name="setDate">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/setDateRequest" message="tns:setDate"/>
@@ -48,6 +54,11 @@
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedByIdRequest" message="tns:GetEvaluatedById"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedByIdResponse" message="tns:GetEvaluatedByIdResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedById/Fault/IOException"/>
+</operation>
+<operation name="GetEvaluateds">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedsRequest" message="tns:GetEvaluateds"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedsResponse" message="tns:GetEvaluatedsResponse"/>
+<fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluateds/Fault/IOException"/>
 </operation>
 </portType>
 <binding name="ModuleEvaluatedPortBinding" type="tns:ModuleEvaluated">
@@ -80,6 +91,18 @@
 </output>
 </operation>
 <operation name="GetEvaluatedById">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="IOException">
+<soap:fault name="IOException" use="literal"/>
+</fault>
+</operation>
+<operation name="GetEvaluateds">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

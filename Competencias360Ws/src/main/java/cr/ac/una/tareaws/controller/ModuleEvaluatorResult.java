@@ -4,8 +4,10 @@
  */
 package cr.ac.una.tareaws.controller;
 
+import cr.ac.una.tareaws.model.EvaluatedDto;
 import cr.ac.una.tareaws.model.EvaluatorResult;
 import cr.ac.una.tareaws.model.EvaluatorResultDto;
+import cr.ac.una.tareaws.model.Procesoeva;
 import cr.ac.una.tareaws.service.EvaluatorResultService;
 import cr.ac.una.tareaws.util.Respuesta;
 import jakarta.ejb.EJB;
@@ -13,6 +15,7 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import java.io.IOException;
+import java.time.LocalDate;
 
 /**
  *

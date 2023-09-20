@@ -11,6 +11,7 @@ import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -80,6 +81,36 @@ public class EvaluatedService {
             }
             LOG.log(Level.SEVERE, "Ocurrio un error al guardar el trabajo x Competencia.", ex);
             return new Respuesta(false, "Ocurrio un error al eliminar el trabajo x Competencia.", "eliminarTrabajoxCompetencia " + ex.getMessage());
+        }
+    }
+
+    public Respuesta getEvaluated() {
+        try {
+            Query qryJob = em.createNamedQuery("Evaluated.findAll", Evaluated.class);
+            List<Evaluated> evaluated = qryJob.getResultList();
+            return new Respuesta(true, "", "", "Evaluated", evaluated);
+        } catch (NoResultException ex) {
+            return new Respuesta(false, "trabajo x Competencia", "getEvaluated NoResultException");
+        } catch (Exception ex) {
+            Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error obteniendo puestos", ex);
+            return new Respuesta(false, "Error al obtener trabajo x Competencia", "getEvaluated" + ex.getMessage());
+        }
+    }
+
+    public Respuesta getEvaluatedByInfomation(Integer worker, Integer proceso) {
+        try {
+            Query qryEvaluated = em.createNamedQuery("Evaluated.findByEsWorker", Evaluated.class);
+            qryEvaluated.setParameter("esWorker", worker);
+            qryEvaluated.setParameter("esProceso", proceso);
+            return new Respuesta(true, "", "", "Evaluated", qryEvaluated.getSingleResult());
+        } catch (NoResultException ex) {
+            return new Respuesta(false, "No existe un Evaluado con las credenciales ingresadas.", "getEvaluated NoResultException");
+        } catch (NonUniqueResultException ex) {
+            Logger.getLogger(CompetencesService.class.getName()).log(Level.SEVERE, "Ocurrio un error al consultar el Evaluated.", ex);
+            return new Respuesta(false, "Ocurrio un error al consultar el Evaluado.", "getEvaluated NonUniqueResultException");
+        } catch (Exception ex) {
+            Logger.getLogger(CompetencesService.class.getName()).log(Level.SEVERE, "Error obteniendo el Evaluado [" + worker + "]", ex);
+            return new Respuesta(false, "Error obteniendo el Evaluado.", "getEvaluated " + ex.getMessage());
         }
     }
 }

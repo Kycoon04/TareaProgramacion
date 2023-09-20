@@ -8,16 +8,16 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for getResultByGradeResponse complex type.
+ * <p>Java class for GetEvaluatedByInfoResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
- * <complexType name="getResultByGradeResponse">
+ * <complexType name="GetEvaluatedByInfoResponse">
  *   <complexContent>
  *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       <sequence>
- *         <element name="return" type="{http://controller.tareaws.una.ac.cr/}resultDto" minOccurs="0"/>
+ *         <element name="return" type="{http://controller.tareaws.una.ac.cr/}evaluatedDto" minOccurs="0"/>
  *       </sequence>
  *     </restriction>
  *   </complexContent>
@@ -27,23 +27,23 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getResultByGradeResponse", propOrder = {
+@XmlType(name = "GetEvaluatedByInfoResponse", propOrder = {
     "_return"
 })
-public class GetResultByGradeResponse {
+public class GetEvaluatedByInfoResponse {
 
     @XmlElement(name = "return")
-    protected ResultDto _return;
+    protected EvaluatedDto _return;
 
     /**
      * Gets the value of the return property.
      * 
      * @return
      *     possible object is
-     *     {@link ResultDto }
+     *     {@link EvaluatedDto }
      *     
      */
-    public ResultDto getReturn() {
+    public EvaluatedDto getReturn() {
         return _return;
     }
 
@@ -52,10 +52,10 @@ public class GetResultByGradeResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link ResultDto }
+     *     {@link EvaluatedDto }
      *     
      */
-    public void setReturn(ResultDto value) {
+    public void setReturn(EvaluatedDto value) {
         this._return = value;
     }
 

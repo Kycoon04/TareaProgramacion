@@ -55,7 +55,7 @@
                               <Font name="Tw Cen MT" size="39.0" />
                            </font>
                         </Text>
-                        <TableView fx:id="tableViewWorkersPE" layoutX="22.0" layoutY="60.0" onMouseClicked="#workerClicked" prefHeight="279.0" prefWidth="660.0">
+                        <TableView fx:id="tableViewWorkersPE" layoutX="22.0" layoutY="60.0" onMouseClicked="#workerClickedPE" prefHeight="279.0" prefWidth="660.0">
                            <columns>
                               <TableColumn fx:id="tableColActPE" prefWidth="48.800015449523926" text="Estado" />
                               <TableColumn fx:id="tableColIdentifPE" prefWidth="102.39999008178711" text="Cedula" />

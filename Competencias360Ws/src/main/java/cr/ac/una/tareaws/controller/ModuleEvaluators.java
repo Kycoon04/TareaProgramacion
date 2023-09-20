@@ -4,8 +4,11 @@
  */
 package cr.ac.una.tareaws.controller;
 
+import cr.ac.una.tareaws.model.Evaluated;
+import cr.ac.una.tareaws.model.EvaluatedDto;
 import cr.ac.una.tareaws.model.Evaluators;
 import cr.ac.una.tareaws.model.EvaluatorsDto;
+import cr.ac.una.tareaws.model.Procesoeva;
 import cr.ac.una.tareaws.service.EvaluatorService;
 import cr.ac.una.tareaws.util.Respuesta;
 import jakarta.ejb.EJB;
@@ -13,6 +16,7 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import java.io.IOException;
+import java.time.LocalDate;
 
 /**
  *
@@ -54,5 +58,10 @@ public class ModuleEvaluators {
         Respuesta respuesta = evaluatorsService.DeleteEvaluator(id);
         return respuesta.getEstado();
     }
-    
+        @WebMethod(operationName = "setAllDates")
+    public void setAllDates(@WebParam(name = "dto") Procesoeva proceso, @WebParam(name = "Aplicacion") String Aplicacion,@WebParam(name = "finalizado") String finalizado,@WebParam(name = "inicio") String inicio) {
+        proceso.setEnApplication(LocalDate.parse(Aplicacion));
+        proceso.setEnFinalperiod(LocalDate.parse(finalizado));
+        proceso.setEnInicialperiod(LocalDate.parse(inicio));
+    }  
 }

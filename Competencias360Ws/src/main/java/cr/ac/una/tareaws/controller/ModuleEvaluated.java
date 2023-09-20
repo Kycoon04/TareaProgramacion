@@ -17,6 +17,8 @@ import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -33,7 +35,12 @@ public class ModuleEvaluated {
         EvaluatedDto evaluatedDto = new EvaluatedDto((Evaluated) respuesta.getResultado("Evaluated"));
         return evaluatedDto;
     }   
-
+    @WebMethod(operationName = "GetEvaluatedByInfo")
+    public EvaluatedDto GetEvaluatedByInfo(@WebParam(name = "worker") Integer worker,@WebParam(name = "proceso") Integer proceso) throws IOException {
+        Respuesta respuesta = evaluatedService.getEvaluatedByInfomation(worker,proceso);
+        EvaluatedDto evaluatedDto = new EvaluatedDto((Evaluated) respuesta.getResultado("Evaluated"));
+        return evaluatedDto;
+    }   
    @WebMethod(operationName = "RegisterEvaluated")
     public Boolean RegisterEvaluated(EvaluatedDto evaluatedDto) {
         Respuesta respuesta = evaluatedService.SaveEvaluated(evaluatedDto);
@@ -51,4 +58,15 @@ public class ModuleEvaluated {
         proceso.setEnFinalperiod(LocalDate.parse(finalizado));
         proceso.setEnInicialperiod(LocalDate.parse(inicio));
     }  
+        @WebMethod(operationName = "GetEvaluateds")
+    public List<EvaluatedDto> GetEvaluateds() throws IOException {
+        Respuesta respuesta = evaluatedService.getEvaluated();
+        List<Evaluated> evaluated = (List<Evaluated>) respuesta.getResultado("Evaluated");
+        List<EvaluatedDto> evaluatedDto = new ArrayList<>();
+        for (Evaluated j : evaluated) {
+            EvaluatedDto jobDto = new EvaluatedDto(j);
+            evaluatedDto.add(jobDto);
+        }
+        return evaluatedDto;
+    }
 }

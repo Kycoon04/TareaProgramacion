@@ -1,6 +1,7 @@
 
 package cr.ac.una.tarea.soap;
 
+import java.util.List;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
@@ -93,6 +94,23 @@ public interface ModuleEvaluated {
     public EvaluatedDto getEvaluatedById(
         @WebParam(name = "id", targetNamespace = "")
         Integer id)
+        throws IOException_Exception
+    ;
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<cr.ac.una.tarea.soap.EvaluatedDto>
+     * @throws IOException_Exception
+     */
+    @WebMethod(operationName = "GetEvaluateds")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "GetEvaluateds", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetEvaluateds")
+    @ResponseWrapper(localName = "GetEvaluatedsResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetEvaluatedsResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedsRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedsResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluateds/Fault/IOException")
+    })
+    public List<EvaluatedDto> getEvaluateds()
         throws IOException_Exception
     ;
 

@@ -8,16 +8,16 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for setDates complex type.
+ * <p>Java class for setAllDates complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
- * <complexType name="setDates">
+ * <complexType name="setAllDates">
  *   <complexContent>
  *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       <sequence>
- *         <element name="dto" type="{http://controller.tareaws.una.ac.cr/}procesoevaDto" minOccurs="0"/>
+ *         <element name="dto" type="{http://controller.tareaws.una.ac.cr/}procesoeva" minOccurs="0"/>
  *         <element name="Aplicacion" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="finalizado" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="inicio" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -30,15 +30,15 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "setDates", propOrder = {
+@XmlType(name = "setAllDates", propOrder = {
     "dto",
     "aplicacion",
     "finalizado",
     "inicio"
 })
-public class SetDates {
+public class SetAllDates {
 
-    protected ProcesoevaDto dto;
+    protected Procesoeva dto;
     @XmlElement(name = "Aplicacion")
     protected String aplicacion;
     protected String finalizado;
@@ -49,10 +49,10 @@ public class SetDates {
      * 
      * @return
      *     possible object is
-     *     {@link ProcesoevaDto }
+     *     {@link Procesoeva }
      *     
      */
-    public ProcesoevaDto getDto() {
+    public Procesoeva getDto() {
         return dto;
     }
 
@@ -61,10 +61,10 @@ public class SetDates {
      * 
      * @param value
      *     allowed object is
-     *     {@link ProcesoevaDto }
+     *     {@link Procesoeva }
      *     
      */
-    public void setDto(ProcesoevaDto value) {
+    public void setDto(Procesoeva value) {
         this.dto = value;
     }
 

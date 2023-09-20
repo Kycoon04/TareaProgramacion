@@ -5,18 +5,23 @@
 package cr.ac.una.tarea.controller;
 
 import cr.ac.una.tarea.model.EvaluatedsDto;
+import cr.ac.una.tarea.model.EvaluatorDto;
 import cr.ac.una.tarea.model.JobDto;
 import cr.ac.una.tarea.model.ProcesosevaDto;
 import cr.ac.una.tarea.model.WorkerDto;
 import cr.ac.una.tarea.service.EvaluatedService;
+import cr.ac.una.tarea.service.EvaluatorService;
 import cr.ac.una.tarea.service.JobsService;
 import cr.ac.una.tarea.service.ProcesoevaService;
 import cr.ac.una.tarea.service.WorkersService;
+import cr.ac.una.tarea.soap.Evaluated;
+import cr.ac.una.tarea.soap.EvaluatedDto;
 import cr.ac.una.tarea.soap.ModuleProcesoeva;
 import cr.ac.una.tarea.soap.ModuleProcesoeva_Service;
 import cr.ac.una.tarea.soap.Procesoeva;
 import cr.ac.una.tarea.soap.ProcesoevaDto;
 import cr.ac.una.tarea.soap.Workers;
+import cr.ac.una.tarea.soap.WorkersDto;
 import cr.ac.una.tarea.util.FlowController;
 import cr.ac.una.tarea.util.Mensaje;
 import cr.ac.una.tarea.util.Respuesta;
@@ -119,9 +124,10 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private TableColumn<WorkerDto, String> tableColSelAdmi;
 
     private ObservableList<WorkerDto> workerList;
+    private ObservableList<WorkerDto> workerListCRE;
     private ObservableList<JobDto> jobsList;
     private ObservableList<ProcesosevaDto> procesosList;
-    private ObservableList<WorkerDto> workersAss=FXCollections.observableArrayList();
+    private ObservableList<WorkerDto> workersAss = FXCollections.observableArrayList();
     List<WorkerDto> workersListSel = new ArrayList<>();
     @FXML
     private Text textEvaJob;
@@ -207,35 +213,36 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private BorderPane OptionsSettingEvaluatorsView;
     @FXML
-    private TableView<ProcesoevaDto> tableViewWorkersPE;
+    private TableView<WorkerDto> tableViewWorkersPE;
     @FXML
-    private TableColumn<ProcesoevaDto, String> tableColActPE;
+    private TableColumn<WorkerDto, String> tableColActPE;
     @FXML
-    private TableColumn<ProcesoevaDto, String> tableColIdentifPE;
+    private TableColumn<WorkerDto, String> tableColIdentifPE;
     @FXML
-    private TableColumn<ProcesoevaDto, String> tableColNamePE;
+    private TableColumn<WorkerDto, String> tableColNamePE;
     @FXML
-    private TableColumn<ProcesoevaDto, String> tableColPsurnamePE;
+    private TableColumn<WorkerDto, String> tableColPsurnamePE;
     @FXML
-    private TableColumn<?, ?> tableColUserNamePE;
+    private TableColumn<WorkerDto, String> tableColUserNamePE;
     @FXML
-    private TableColumn<?, ?> tableColEmailPE;
+    private TableColumn<WorkerDto, String> tableColEmailPE;
     @FXML
-    private TableColumn<?, ?> tableColAdmiPE;
+    private TableColumn<WorkerDto, String> tableColAdmiPE;
+
     @FXML
-    private TableView<?> tableViewSelWorkers1;
+    private TableView<WorkerDto> tableViewSelWorkers1;
     @FXML
-    private TableColumn<?, ?> tableColSelIdentifPE;
+    private TableColumn<WorkerDto, String> tableColSelIdentifPE;
     @FXML
-    private TableColumn<?, ?> tableColSelNamePE;
+    private TableColumn<WorkerDto, String> tableColSelNamePE;
     @FXML
-    private TableColumn<?, ?> tableColSelPsurnamePE;
+    private TableColumn<WorkerDto, String> tableColSelPsurnamePE;
     @FXML
-    private TableColumn<?, ?> tableColSelUserNamePE;
+    private TableColumn<WorkerDto, String> tableColSelUserNamePE;
     @FXML
-    private TableColumn<?, ?> tableColSelEmailPE;
+    private TableColumn<WorkerDto, String> tableColSelEmailPE;
     @FXML
-    private TableColumn<?, ?> tableColSelConPE;
+    private TableColumn<WorkerDto, String> tableColSelConPE;
     @FXML
     private TextField textFieldSearchPE_Name;
     @FXML
@@ -244,7 +251,9 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private TextField textFieldSearchPE_State;
     @FXML
     private Text textNameWorker;
+    EvaluatedsDto evaluatedDto = new EvaluatedsDto();
     List<WorkerDto> listWorkers = new ArrayList<>();
+    List<WorkerDto> listWorkersEvaluated = new ArrayList<>();
     @FXML
     private TableView<ProcesosevaDto> tableViewProEva;
     @FXML
@@ -259,6 +268,22 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         choiceBoxStateEva.getItems().addAll(states);
         ImportListProcesoEva();
         OptionsEvaConfigView.toFront();
+
+        this.tableColActPE.setCellValueFactory(new PropertyValueFactory("Actives"));
+        this.tableColIdentifPE.setCellValueFactory(new PropertyValueFactory("iden"));
+        this.tableColNamePE.setCellValueFactory(new PropertyValueFactory("name"));
+        this.tableColPsurnamePE.setCellValueFactory(new PropertyValueFactory("psurname"));
+        this.tableColUserNamePE.setCellValueFactory(new PropertyValueFactory("username"));
+        this.tableColEmailPE.setCellValueFactory(new PropertyValueFactory("email"));
+        this.tableColAdmiPE.setCellValueFactory(new PropertyValueFactory("administrator"));
+
+        this.tableColSelIdentifPE.setCellValueFactory(new PropertyValueFactory("iden"));
+        this.tableColSelNamePE.setCellValueFactory(new PropertyValueFactory("name"));
+        this.tableColSelPsurnamePE.setCellValueFactory(new PropertyValueFactory("psurname"));
+        this.tableColSelUserNamePE.setCellValueFactory(new PropertyValueFactory("username"));
+        this.tableColSelEmailPE.setCellValueFactory(new PropertyValueFactory("email"));
+        this.tableColSelConPE.setCellValueFactory(new PropertyValueFactory("administrator"));
+
         this.tableColAct.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColIdentif.setCellValueFactory(new PropertyValueFactory("iden"));
         this.tableColName.setCellValueFactory(new PropertyValueFactory("name"));
@@ -467,12 +492,43 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     public void ImportListWorker() {
         WorkersService service = new WorkersService();
+        EvaluatedService evaluatedservice = new EvaluatedService();
+
         Respuesta respuesta = service.getUsuarios();
         listWorkers = (List<WorkerDto>) respuesta.getResultado("Usuarios");
+
+        respuesta = evaluatedservice.getEvaluateds();
+        List<EvaluatedsDto> EvaluatedDto = (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
+
+        for (EvaluatedsDto evaluated : EvaluatedDto) {
+            WorkerDto workerDto = new WorkerDto();
+            workerDto.setPhoto(evaluated.getEsWorker().getWrPhoto());
+            workerDto.setId(evaluated.getEsWorker().getWrId());
+            workerDto.setJob(evaluated.getEsWorker().getWrJob());
+            workerDto.setRecover(evaluated.getEsWorker().getWrRecover());
+            workerDto.setActive(evaluated.getEsWorker().getWrActive());
+            workerDto.setAdministrator(evaluated.getEsWorker().getWrAdmin());
+            workerDto.setEmail(evaluated.getEsWorker().getWrEmail());
+            workerDto.setIdentification(evaluated.getEsWorker().getWrIdentification());
+            workerDto.setLandline(evaluated.getEsWorker().getWrLandline());
+            workerDto.setName(evaluated.getEsWorker().getWrName());
+            workerDto.setPassword(evaluated.getEsWorker().getWrPassword());
+            workerDto.setPsurname(evaluated.getEsWorker().getWrPsurname());
+            workerDto.setSsurname(evaluated.getEsWorker().getWrSsurname());
+            workerDto.setTelephone(evaluated.getEsWorker().getWrTelephone());
+            workerDto.setUsername(evaluated.getEsWorker().getWrUsername());
+            listWorkersEvaluated.add(workerDto);
+        }
         changeTextAdmi(listWorkers);
+
         workerList = FXCollections.observableArrayList(listWorkers);
+        workerListCRE = FXCollections.observableArrayList(listWorkersEvaluated);
+
+        this.tableViewWorkersPE.refresh();
+        this.tableViewWorkersPE.setItems(workerList);
+
         this.tableViewWorkersCRE.refresh();
-        this.tableViewWorkersCRE.setItems(workerList);
+        this.tableViewWorkersCRE.setItems(workerListCRE);
         this.tableViewWorkers.refresh();
         this.tableViewWorkers.setItems(workerList);
     }
@@ -498,7 +554,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private void addEvaluateWorkers(ActionEvent event) {
         EvaluatedService evaluated = new EvaluatedService();
-        EvaluatedsDto evaluatedDto = new EvaluatedsDto();
 
         for (WorkerDto workerSel : workersListSel) {
             Procesoeva proceso = new Procesoeva();
@@ -548,8 +603,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         ImportListWorker();
         listWorkers = getWorkersJobs(jobDto.getName());
         workerList = FXCollections.observableArrayList(listWorkers);
-        this.tableViewWorkersCRE.refresh();
-        this.tableViewWorkersCRE.setItems(workerList);
         this.tableViewWorkers.refresh();
         this.tableViewWorkers.setItems(workerList);
         textEvaJob.setText(jobDto.getName());
@@ -579,11 +632,37 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private void workerClickedCRE(MouseEvent event) {
         if (event.getClickCount() == 2) {
             try {
+
                 workerDto = tableViewWorkersCRE.getSelectionModel().getSelectedItem();
                 WorkerCREMainField.setText(workerDto.getName() + " " + workerDto.getPsurname() + " " + workerDto.getSsurname());
                 textCREJob.setText("Puesto: " + workerDto.getJob().getJsName());
                 textCREIdent.setText("Numero de Identificacion: " + workerDto.getIden());
                 viewSelectedWorker.toFront();
+
+                Procesoeva proceso = new Procesoeva();
+                proceso.setEnId(procesoDto.getId());
+                proceso.setEnName(procesoDto.getName());
+                proceso.setEnState(procesoDto.getState());
+                
+                Workers worker = new Workers();
+                worker.setWrCodeactive(workerDto.getCode());
+                worker.setWrId(workerDto.getId());
+                worker.setWrJob(workerDto.getJob());
+                worker.setWrRecover(workerDto.getRecover());
+                worker.setWrActive(workerDto.getActive());
+                worker.setWrAdmin(workerDto.getAdministrator());
+                worker.setWrEmail(workerDto.getEmail());
+                worker.setWrPhoto(workerDto.getPhoto());
+                worker.setWrIdentification(workerDto.getIden());
+                worker.setWrLandline(workerDto.getLandline());
+                worker.setWrName(workerDto.getName());
+                worker.setWrPassword(workerDto.getPassword());
+                worker.setWrPsurname(workerDto.getPsurname());
+                worker.setWrSsurname(workerDto.getSsurname());
+                worker.setWrTelephone(workerDto.getTelephone());
+                worker.setWrUsername(workerDto.getUsername());
+                evaluatedDto.setEsProcesoeva(proceso);
+                evaluatedDto.setEsWorker(worker);
 
             } catch (Exception ex) {
                 //new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un trabajo en este campo.");
@@ -769,19 +848,19 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private void openSettingEva(MouseEvent event) {
         boolean flag = false;
-            if (!(TitleEvaField.getText().isEmpty() &&(choiceBoxStateEva == null))) {
-                for (ProcesosevaDto proceso : procesosList) {
-                    if (proceso.getName().equals(TitleEvaField.getText())) {
-                        flag = true;
-                    }
-                }
-                if (flag) {
-                    textProcesoEva_title.setText(TitleEvaField.getText());
-                    OptionsMenuView.toFront();
-                } else {
-                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No se ha registrado este proceso.");
+        if (!(TitleEvaField.getText().isEmpty() && (choiceBoxStateEva == null))) {
+            for (ProcesosevaDto proceso : procesosList) {
+                if (proceso.getName().equals(TitleEvaField.getText())) {
+                    flag = true;
                 }
             }
+            if (flag) {
+                textProcesoEva_title.setText(TitleEvaField.getText());
+                OptionsMenuView.toFront();
+            } else {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No se ha registrado este proceso.");
+            }
+        }
     }
 
     @FXML
@@ -789,8 +868,59 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         FlowController.getInstance().goMain("ViewOptionsModules");
     }
 
+    Predicate <EvaluatedsDto> pName(String nombre) { return x-> x.getEsWorker().getWrName().equals(nombre);}
+    Predicate <EvaluatedsDto> pProceso(String proceso) {return x-> x.getEsProcesoeva().getEnName().equals(proceso);}
     @FXML
     private void addEvaluators(ActionEvent event) {
+
+        EvaluatorService cliente = new EvaluatorService();
+        EvaluatorDto evaluator = new EvaluatorDto();
+
+        for (WorkerDto workerSel : workersListSel) {
+            evaluator.setEvsConnection("Jefatura");
+            evaluator.setEvsFeedback("N/A");
+            evaluator.setEvsState("N");
+
+            Workers worker = new Workers();
+            worker.setWrCodeactive(workerSel.getCode());
+            worker.setWrId(workerSel.getId());
+            worker.setWrJob(workerSel.getJob());
+            worker.setWrRecover(workerSel.getRecover());
+            worker.setWrActive(workerSel.getActive());
+            worker.setWrAdmin(workerSel.getAdministrator());
+            worker.setWrEmail(workerSel.getEmail());
+            worker.setWrPhoto(workerSel.getPhoto());
+            worker.setWrIdentification(workerSel.getIden());
+            worker.setWrLandline(workerSel.getLandline());
+            worker.setWrName(workerSel.getName());
+            worker.setWrPassword(workerSel.getPassword());
+            worker.setWrPsurname(workerSel.getPsurname());
+            worker.setWrSsurname(workerSel.getSsurname());
+            worker.setWrTelephone(workerSel.getTelephone());
+            worker.setWrUsername(workerSel.getUsername());
+            evaluator.setEvsWorker(worker);
+            
+            Evaluated evaluated = new Evaluated();
+            EvaluatedService evaluatedservice = new EvaluatedService();
+            
+            Respuesta respuesta = evaluatedservice.getEvaluateds();
+            List<EvaluatedsDto> posible= (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
+            
+           List<EvaluatedsDto> lista = posible.stream().filter(
+                   pName(evaluatedDto.getEsWorker().getWrName())
+                           .and(pProceso(evaluatedDto.getEsProcesoeva().getEnName()))).toList();
+            
+           evaluated.setEsId(lista.get(0).getId());
+           evaluated.setEsProcesoeva(lista.get(0).getEsProcesoeva());
+           evaluated.setEsWorker(lista.get(0).getEsWorker());
+               
+            evaluator.setEvsEvaluated(evaluated);
+           
+            
+            
+            
+            cliente.SaveEvaluator(evaluator,procesoDto);
+        }
     }
 
     @FXML
@@ -820,6 +950,20 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @Override
     public void initialize() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @FXML
+    private void workerClickedPE(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+
+            WorkerDto selectedWorker = tableViewWorkersPE.getSelectionModel().getSelectedItem();
+            workersListSel.add(selectedWorker);
+            workersAss = FXCollections.observableArrayList(workersListSel);
+
+            this.tableViewSelWorkers1.refresh();
+            this.tableViewSelWorkers1.setItems(workersAss);
+
+        }
     }
 
 }
