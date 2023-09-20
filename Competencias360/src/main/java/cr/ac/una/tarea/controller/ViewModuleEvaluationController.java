@@ -27,6 +27,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -167,8 +168,6 @@ public class ViewModuleEvaluationController implements Initializable {
     @FXML
     private BorderPane OptionsEvaConfigView;
     @FXML
-    private TextField TitleEvaField1;
-    @FXML
     private TableView<?> tableViewProEva;
     @FXML
     private TableColumn<?, ?> tableColProEva_State;
@@ -181,9 +180,57 @@ public class ViewModuleEvaluationController implements Initializable {
     @FXML
     private TableColumn<?, ?> tableColProEva_Apli;
     @FXML
-    private TextField textFieldSJob_Name1;
+    private DatePicker DateProEva_Inicial;
     @FXML
-    private TextField textFieldSJob_State1;
+    private DatePicker DateProEva_Final;
+    @FXML
+    private DatePicker DateProEva_Application;
+    @FXML
+    private TextField TitleEvaField;
+    @FXML
+    private TextField textFieldProEva_Name;
+    @FXML
+    private TextField textFieldProEva_State;
+    @FXML
+    private BorderPane OptionsSettingEvaluatorsView;
+    @FXML
+    private TableView<?> tableViewWorkersPE;
+    @FXML
+    private TableColumn<?, ?> tableColActPE;
+    @FXML
+    private TableColumn<?, ?> tableColIdentifPE;
+    @FXML
+    private TableColumn<?, ?> tableColNamePE;
+    @FXML
+    private TableColumn<?, ?> tableColPsurnamePE;
+    @FXML
+    private TableColumn<?, ?> tableColUserNamePE;
+    @FXML
+    private TableColumn<?, ?> tableColEmailPE;
+    @FXML
+    private TableColumn<?, ?> tableColAdmiPE;
+    @FXML
+    private TableView<?> tableViewSelWorkers1;
+    @FXML
+    private TableColumn<?, ?> tableColSelIdentifPE;
+    @FXML
+    private TableColumn<?, ?> tableColSelNamePE;
+    @FXML
+    private TableColumn<?, ?> tableColSelPsurnamePE;
+    @FXML
+    private TableColumn<?, ?> tableColSelUserNamePE;
+    @FXML
+    private TableColumn<?, ?> tableColSelEmailPE;
+    @FXML
+    private TableColumn<?, ?> tableColSelConPE;
+    @FXML
+    private TextField textFieldSearchPE_Name;
+    @FXML
+    private TextField textFieldSearchPE_Pusername;
+    @FXML
+    private TextField textFieldSearchPE_State;
+    @FXML
+    private Text textNameWorker;
     
 
 
@@ -621,7 +668,7 @@ public class ViewModuleEvaluationController implements Initializable {
     ProcesosevaDto procesosevaDto = new ProcesosevaDto();
     
     procesosevaDto.setState(choiceBoxStateEva.getValue());
-    procesosevaDto.setName(TitleEvaField1.getText());
+    procesosevaDto.setName(TitleEvaField.getText());
     //procesosevaDto.setApplication(/*campode aplication*/);
     //asi con los otros 2
     }
@@ -647,6 +694,15 @@ public class ViewModuleEvaluationController implements Initializable {
     @FXML
     private void backMaintenance(MouseEvent event) {
         FlowController.getInstance().goMain("ViewOptionsModules");
+    }
+
+    @FXML
+    private void addEvaluators(ActionEvent event) {
+    }
+
+    @FXML
+    private void openSelectEvaluators(ActionEvent event) {
+        OptionsSettingEvaluatorsView.toFront();
     }
 
 }

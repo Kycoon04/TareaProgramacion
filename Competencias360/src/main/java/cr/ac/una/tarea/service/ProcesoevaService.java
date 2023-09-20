@@ -24,8 +24,8 @@ public class ProcesoevaService {
             procesoDto.setName(procesosevaDto.getName());
             procesoDto.setName(procesosevaDto.getState());
             
-            cliente.setDates(procesoDto, procesosevaDto.getApplication().toString(), 
-                    procesosevaDto.getFinalperiod().toString(),procesosevaDto.getInicialperiod().toString());
+            /*cliente.setDates(procesoDto, procesosevaDto.getApplication().toString(), 
+                    procesosevaDto.getFinalperiod().toString(),procesosevaDto.getInicialperiod().toString());*/
             
             
             cliente.registerProcesova(procesoDto);
