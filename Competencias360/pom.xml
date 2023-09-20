@@ -227,7 +227,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+                        <plugin>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
                 <version>4.0.1</version>

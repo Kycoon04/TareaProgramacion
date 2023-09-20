@@ -73,33 +73,15 @@
 
 <xs:complexType name="jobs">
 <xs:sequence>
-<xs:element name="jobsCompetences" type="tns:jobsCompetences" minOccurs="0"/>
 <xs:element name="jsId" type="xs:int" minOccurs="0"/>
 <xs:element name="jsName" type="xs:string" minOccurs="0"/>
 <xs:element name="jsState" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="jobsCompetences">
-<xs:sequence>
-<xs:element name="jobs" type="tns:jobs" minOccurs="0"/>
-<xs:element name="jxcCompetence" type="tns:competences" minOccurs="0"/>
-<xs:element name="jxcIdcojob" type="xs:int" minOccurs="0"/>
-<xs:element name="jxcJob" type="xs:int" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="competences">
-<xs:sequence>
-<xs:element name="csCharacteristics" type="xs:string" minOccurs="0"/>
-<xs:element name="csId" type="xs:int" minOccurs="0"/>
-<xs:element name="csName" type="xs:string" minOccurs="0"/>
-<xs:element name="csState" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="evaluators">
 <xs:sequence>
+<xs:element name="evsConnection" type="xs:string" minOccurs="0"/>
 <xs:element name="evsEvaluated" type="tns:evaluated" minOccurs="0"/>
 <xs:element name="evsFeedback" type="xs:string" minOccurs="0"/>
 <xs:element name="evsId" type="xs:int" minOccurs="0"/>

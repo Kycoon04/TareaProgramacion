@@ -4,32 +4,14 @@
 <xsd:import namespace="http://controller.tareaws.una.ac.cr/" schemaLocation="http://localhost:8080/Competencias360Ws/ModuleJobsCompetences?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="Delete">
-<part name="parameters" element="tns:Delete"/>
-</message>
-<message name="DeleteResponse">
-<part name="parameters" element="tns:DeleteResponse"/>
-</message>
-<message name="RegisterJobCompetences">
-<part name="parameters" element="tns:RegisterJobCompetences"/>
-</message>
-<message name="RegisterJobCompetencesResponse">
-<part name="parameters" element="tns:RegisterJobCompetencesResponse"/>
-</message>
-<message name="getJobCompetenceIDJob">
-<part name="parameters" element="tns:getJobCompetenceIDJob"/>
-</message>
-<message name="getJobCompetenceIDJobResponse">
-<part name="parameters" element="tns:getJobCompetenceIDJobResponse"/>
-</message>
-<message name="IOException">
-<part name="fault" element="tns:IOException"/>
-</message>
 <message name="getJobCompetenceId">
 <part name="parameters" element="tns:getJobCompetenceId"/>
 </message>
 <message name="getJobCompetenceIdResponse">
 <part name="parameters" element="tns:getJobCompetenceIdResponse"/>
+</message>
+<message name="IOException">
+<part name="fault" element="tns:IOException"/>
 </message>
 <message name="GetJobCompetences">
 <part name="parameters" element="tns:GetJobCompetences"/>
@@ -37,20 +19,25 @@
 <message name="GetJobCompetencesResponse">
 <part name="parameters" element="tns:GetJobCompetencesResponse"/>
 </message>
+<message name="Delete">
+<part name="parameters" element="tns:Delete"/>
+</message>
+<message name="DeleteResponse">
+<part name="parameters" element="tns:DeleteResponse"/>
+</message>
+<message name="getJobCompetenceIDJob">
+<part name="parameters" element="tns:getJobCompetenceIDJob"/>
+</message>
+<message name="getJobCompetenceIDJobResponse">
+<part name="parameters" element="tns:getJobCompetenceIDJobResponse"/>
+</message>
+<message name="RegisterJobCompetences">
+<part name="parameters" element="tns:RegisterJobCompetences"/>
+</message>
+<message name="RegisterJobCompetencesResponse">
+<part name="parameters" element="tns:RegisterJobCompetencesResponse"/>
+</message>
 <portType name="ModuleJobsCompetences">
-<operation name="Delete">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/DeleteRequest" message="tns:Delete"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/DeleteResponse" message="tns:DeleteResponse"/>
-</operation>
-<operation name="RegisterJobCompetences">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/RegisterJobCompetencesRequest" message="tns:RegisterJobCompetences"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/RegisterJobCompetencesResponse" message="tns:RegisterJobCompetencesResponse"/>
-</operation>
-<operation name="getJobCompetenceIDJob">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIDJobRequest" message="tns:getJobCompetenceIDJob"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIDJobResponse" message="tns:getJobCompetenceIDJobResponse"/>
-<fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIDJob/Fault/IOException"/>
-</operation>
 <operation name="getJobCompetenceId">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIdRequest" message="tns:getJobCompetenceId"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIdResponse" message="tns:getJobCompetenceIdResponse"/>
@@ -61,39 +48,22 @@
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/GetJobCompetencesResponse" message="tns:GetJobCompetencesResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/GetJobCompetences/Fault/IOException"/>
 </operation>
+<operation name="Delete">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/DeleteRequest" message="tns:Delete"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/DeleteResponse" message="tns:DeleteResponse"/>
+</operation>
+<operation name="getJobCompetenceIDJob">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIDJobRequest" message="tns:getJobCompetenceIDJob"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIDJobResponse" message="tns:getJobCompetenceIDJobResponse"/>
+<fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/getJobCompetenceIDJob/Fault/IOException"/>
+</operation>
+<operation name="RegisterJobCompetences">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/RegisterJobCompetencesRequest" message="tns:RegisterJobCompetences"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleJobsCompetences/RegisterJobCompetencesResponse" message="tns:RegisterJobCompetencesResponse"/>
+</operation>
 </portType>
 <binding name="ModuleJobsCompetencesPortBinding" type="tns:ModuleJobsCompetences">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="Delete">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="RegisterJobCompetences">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getJobCompetenceIDJob">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-<fault name="IOException">
-<soap:fault name="IOException" use="literal"/>
-</fault>
-</operation>
 <operation name="getJobCompetenceId">
 <soap:operation soapAction=""/>
 <input>
@@ -117,6 +87,36 @@
 <fault name="IOException">
 <soap:fault name="IOException" use="literal"/>
 </fault>
+</operation>
+<operation name="Delete">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getJobCompetenceIDJob">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="IOException">
+<soap:fault name="IOException" use="literal"/>
+</fault>
+</operation>
+<operation name="RegisterJobCompetences">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
 </operation>
 </binding>
 <service name="ModuleJobsCompetences">

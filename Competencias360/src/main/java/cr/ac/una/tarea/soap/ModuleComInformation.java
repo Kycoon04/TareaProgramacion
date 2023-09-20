@@ -27,18 +27,23 @@ public interface ModuleComInformation {
 
     /**
      * 
-     * @param id
+     * @param name
      * @return
-     *     returns java.lang.Boolean
+     *     returns cr.ac.una.tarea.soap.ComInformationDto
+     * @throws IOException_Exception
      */
-    @WebMethod(operationName = "Delete")
+    @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
-    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleComInformation/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleComInformation/DeleteResponse")
-    public Boolean delete(
-        @WebParam(name = "Id", targetNamespace = "")
-        Integer id);
+    @RequestWrapper(localName = "getInformation", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetInformation")
+    @ResponseWrapper(localName = "getInformationResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetInformationResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformationRequest", output = "http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformationResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformation/Fault/IOException")
+    })
+    public ComInformationDto getInformation(
+        @WebParam(name = "Name", targetNamespace = "")
+        String name)
+        throws IOException_Exception
+    ;
 
     /**
      * 
@@ -57,22 +62,17 @@ public interface ModuleComInformation {
 
     /**
      * 
-     * @param name
+     * @param id
      * @return
-     *     returns cr.ac.una.tarea.soap.ComInformationDto
-     * @throws IOException_Exception
+     *     returns java.lang.Boolean
      */
-    @WebMethod
+    @WebMethod(operationName = "Delete")
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getInformation", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetInformation")
-    @ResponseWrapper(localName = "getInformationResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetInformationResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformationRequest", output = "http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformationResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformation/Fault/IOException")
-    })
-    public ComInformationDto getInformation(
-        @WebParam(name = "Name", targetNamespace = "")
-        String name)
-        throws IOException_Exception
-    ;
+    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
+    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleComInformation/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleComInformation/DeleteResponse")
+    public Boolean delete(
+        @WebParam(name = "Id", targetNamespace = "")
+        Integer id);
 
 }

@@ -12,6 +12,31 @@
 
 <xs:element name="getProcesovaResponse" type="tns:getProcesovaResponse"/>
 
+<xs:element name="setDates" type="tns:setDates"/>
+
+<xs:element name="setDatesResponse" type="tns:setDatesResponse"/>
+
+<xs:complexType name="setDates">
+<xs:sequence>
+<xs:element name="dto" type="tns:procesoevaDto" minOccurs="0"/>
+<xs:element name="Aplicacion" type="xs:string" minOccurs="0"/>
+<xs:element name="finalizado" type="xs:string" minOccurs="0"/>
+<xs:element name="inicio" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="procesoevaDto">
+<xs:sequence>
+<xs:element name="id" type="xs:int" minOccurs="0"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="state" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setDatesResponse">
+<xs:sequence/>
+</xs:complexType>
+
 <xs:complexType name="getProcesova">
 <xs:sequence>
 <xs:element name="Name" type="xs:string" minOccurs="0"/>
@@ -22,21 +47,6 @@
 <xs:sequence>
 <xs:element name="return" type="tns:procesoevaDto" minOccurs="0"/>
 </xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="procesoevaDto">
-<xs:sequence>
-<xs:element name="application" type="tns:localDate" minOccurs="0"/>
-<xs:element name="finalperiod" type="tns:localDate" minOccurs="0"/>
-<xs:element name="id" type="xs:int" minOccurs="0"/>
-<xs:element name="inicialperiod" type="tns:localDate" minOccurs="0"/>
-<xs:element name="name" type="xs:string" minOccurs="0"/>
-<xs:element name="state" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="localDate" final="extension restriction">
-<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="Delete">

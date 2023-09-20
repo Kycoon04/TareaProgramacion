@@ -4,6 +4,12 @@
 <xsd:import namespace="http://controller.tareaws.una.ac.cr/" schemaLocation="http://localhost:8080/Competencias360Ws/ModuleEvaluatorResult?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="Delete">
+<part name="parameters" element="tns:Delete"/>
+</message>
+<message name="DeleteResponse">
+<part name="parameters" element="tns:DeleteResponse"/>
+</message>
 <message name="RegisterEvaluatorResult">
 <part name="parameters" element="tns:RegisterEvaluatorResult"/>
 </message>
@@ -19,12 +25,6 @@
 <message name="IOException">
 <part name="fault" element="tns:IOException"/>
 </message>
-<message name="Delete">
-<part name="parameters" element="tns:Delete"/>
-</message>
-<message name="DeleteResponse">
-<part name="parameters" element="tns:DeleteResponse"/>
-</message>
 <message name="getEvaluatorResultById">
 <part name="parameters" element="tns:getEvaluatorResultById"/>
 </message>
@@ -32,6 +32,10 @@
 <part name="parameters" element="tns:getEvaluatorResultByIdResponse"/>
 </message>
 <portType name="ModuleEvaluatorResult">
+<operation name="Delete">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/DeleteRequest" message="tns:Delete"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/DeleteResponse" message="tns:DeleteResponse"/>
+</operation>
 <operation name="RegisterEvaluatorResult">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/RegisterEvaluatorResultRequest" message="tns:RegisterEvaluatorResult"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/RegisterEvaluatorResultResponse" message="tns:RegisterEvaluatorResultResponse"/>
@@ -41,10 +45,6 @@
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/getEvaluatorResultByGradeResponse" message="tns:getEvaluatorResultByGradeResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/getEvaluatorResultByGrade/Fault/IOException"/>
 </operation>
-<operation name="Delete">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/DeleteRequest" message="tns:Delete"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/DeleteResponse" message="tns:DeleteResponse"/>
-</operation>
 <operation name="getEvaluatorResultById">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/getEvaluatorResultByIdRequest" message="tns:getEvaluatorResultById"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/getEvaluatorResultByIdResponse" message="tns:getEvaluatorResultByIdResponse"/>
@@ -53,6 +53,15 @@
 </portType>
 <binding name="ModuleEvaluatorResultPortBinding" type="tns:ModuleEvaluatorResult">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="Delete">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="RegisterEvaluatorResult">
 <soap:operation soapAction=""/>
 <input>
@@ -73,15 +82,6 @@
 <fault name="IOException">
 <soap:fault name="IOException" use="literal"/>
 </fault>
-</operation>
-<operation name="Delete">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
 </operation>
 <operation name="getEvaluatorResultById">
 <soap:operation soapAction=""/>

@@ -26,21 +26,6 @@ public interface ModuleProcesoeva {
 
     /**
      * 
-     * @param id
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "Delete")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
-    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/DeleteResponse")
-    public Boolean delete(
-        @WebParam(name = "Id", targetNamespace = "")
-        Integer id);
-
-    /**
-     * 
      * @param arg0
      * @return
      *     returns java.lang.Boolean
@@ -68,5 +53,41 @@ public interface ModuleProcesoeva {
     public ProcesoevaDto getProcesova(
         @WebParam(name = "Name", targetNamespace = "")
         String name);
+
+    /**
+     * 
+     * @param aplicacion
+     * @param dto
+     * @param finalizado
+     * @param inicio
+     */
+    @WebMethod
+    @RequestWrapper(localName = "setDates", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.SetDates")
+    @ResponseWrapper(localName = "setDatesResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.SetDatesResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/setDatesRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/setDatesResponse")
+    public void setDates(
+        @WebParam(name = "dto", targetNamespace = "")
+        ProcesoevaDto dto,
+        @WebParam(name = "Aplicacion", targetNamespace = "")
+        String aplicacion,
+        @WebParam(name = "finalizado", targetNamespace = "")
+        String finalizado,
+        @WebParam(name = "inicio", targetNamespace = "")
+        String inicio);
+
+    /**
+     * 
+     * @param id
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "Delete")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
+    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/DeleteResponse")
+    public Boolean delete(
+        @WebParam(name = "Id", targetNamespace = "")
+        Integer id);
 
 }

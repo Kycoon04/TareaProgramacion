@@ -5,8 +5,10 @@
 package cr.ac.una.tarea.controller;
 
 import cr.ac.una.tarea.model.JobDto;
+import cr.ac.una.tarea.model.ProcesosevaDto;
 import cr.ac.una.tarea.model.WorkerDto;
 import cr.ac.una.tarea.service.JobsService;
+import cr.ac.una.tarea.service.ProcesoevaService;
 import cr.ac.una.tarea.service.WorkersService;
 import cr.ac.una.tarea.util.FlowController;
 import cr.ac.una.tarea.util.Mensaje;
@@ -615,6 +617,13 @@ public class ViewModuleEvaluationController implements Initializable {
 
     @FXML
     private void UpdateJob(ActionEvent event) {
+    ProcesoevaService service = new ProcesoevaService();
+    ProcesosevaDto procesosevaDto = new ProcesosevaDto();
+    
+    procesosevaDto.setState(choiceBoxStateEva.getValue());
+    procesosevaDto.setName(TitleEvaField1.getText());
+    //procesosevaDto.setApplication(/*campode aplication*/);
+    //asi con los otros 2
     }
 
 

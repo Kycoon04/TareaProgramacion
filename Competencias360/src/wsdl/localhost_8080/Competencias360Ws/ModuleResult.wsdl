@@ -4,21 +4,6 @@
 <xsd:import namespace="http://controller.tareaws.una.ac.cr/" schemaLocation="http://localhost:8080/Competencias360Ws/ModuleResult?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="Delete">
-<part name="parameters" element="tns:Delete"/>
-</message>
-<message name="DeleteResponse">
-<part name="parameters" element="tns:DeleteResponse"/>
-</message>
-<message name="getResultById">
-<part name="parameters" element="tns:getResultById"/>
-</message>
-<message name="getResultByIdResponse">
-<part name="parameters" element="tns:getResultByIdResponse"/>
-</message>
-<message name="IOException">
-<part name="fault" element="tns:IOException"/>
-</message>
 <message name="RegisterResult">
 <part name="parameters" element="tns:RegisterResult"/>
 </message>
@@ -31,16 +16,22 @@
 <message name="getResultByGradeResponse">
 <part name="parameters" element="tns:getResultByGradeResponse"/>
 </message>
+<message name="IOException">
+<part name="fault" element="tns:IOException"/>
+</message>
+<message name="getResultById">
+<part name="parameters" element="tns:getResultById"/>
+</message>
+<message name="getResultByIdResponse">
+<part name="parameters" element="tns:getResultByIdResponse"/>
+</message>
+<message name="Delete">
+<part name="parameters" element="tns:Delete"/>
+</message>
+<message name="DeleteResponse">
+<part name="parameters" element="tns:DeleteResponse"/>
+</message>
 <portType name="ModuleResult">
-<operation name="Delete">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleResult/DeleteRequest" message="tns:Delete"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleResult/DeleteResponse" message="tns:DeleteResponse"/>
-</operation>
-<operation name="getResultById">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleResult/getResultByIdRequest" message="tns:getResultById"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleResult/getResultByIdResponse" message="tns:getResultByIdResponse"/>
-<fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleResult/getResultById/Fault/IOException"/>
-</operation>
 <operation name="RegisterResult">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleResult/RegisterResultRequest" message="tns:RegisterResult"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleResult/RegisterResultResponse" message="tns:RegisterResultResponse"/>
@@ -50,30 +41,18 @@
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleResult/getResultByGradeResponse" message="tns:getResultByGradeResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleResult/getResultByGrade/Fault/IOException"/>
 </operation>
+<operation name="getResultById">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleResult/getResultByIdRequest" message="tns:getResultById"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleResult/getResultByIdResponse" message="tns:getResultByIdResponse"/>
+<fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleResult/getResultById/Fault/IOException"/>
+</operation>
+<operation name="Delete">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleResult/DeleteRequest" message="tns:Delete"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleResult/DeleteResponse" message="tns:DeleteResponse"/>
+</operation>
 </portType>
 <binding name="ModuleResultPortBinding" type="tns:ModuleResult">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="Delete">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getResultById">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-<fault name="IOException">
-<soap:fault name="IOException" use="literal"/>
-</fault>
-</operation>
 <operation name="RegisterResult">
 <soap:operation soapAction=""/>
 <input>
@@ -94,6 +73,27 @@
 <fault name="IOException">
 <soap:fault name="IOException" use="literal"/>
 </fault>
+</operation>
+<operation name="getResultById">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="IOException">
+<soap:fault name="IOException" use="literal"/>
+</fault>
+</operation>
+<operation name="Delete">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
 </operation>
 </binding>
 <service name="ModuleResult">

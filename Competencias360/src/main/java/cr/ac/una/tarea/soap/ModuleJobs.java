@@ -28,38 +28,6 @@ public interface ModuleJobs {
 
     /**
      * 
-     * @param arg0
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "RegisterJob")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "RegisterJob", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterJob")
-    @ResponseWrapper(localName = "RegisterJobResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterJobResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleJobs/RegisterJobRequest", output = "http://controller.tareaws.una.ac.cr/ModuleJobs/RegisterJobResponse")
-    public Boolean registerJob(
-        @WebParam(name = "arg0", targetNamespace = "")
-        JobsDto arg0);
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<cr.ac.una.tarea.soap.JobsDto>
-     * @throws IOException_Exception
-     */
-    @WebMethod(operationName = "GetJobs")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "GetJobs", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetJobs")
-    @ResponseWrapper(localName = "GetJobsResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetJobsResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleJobs/GetJobsRequest", output = "http://controller.tareaws.una.ac.cr/ModuleJobs/GetJobsResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleJobs/GetJobs/Fault/IOException")
-    })
-    public List<JobsDto> getJobs()
-        throws IOException_Exception
-    ;
-
-    /**
-     * 
      * @param name
      * @return
      *     returns cr.ac.una.tarea.soap.JobsDto
@@ -92,5 +60,37 @@ public interface ModuleJobs {
     public Boolean delete(
         @WebParam(name = "Id", targetNamespace = "")
         Integer id);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "RegisterJob")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "RegisterJob", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterJob")
+    @ResponseWrapper(localName = "RegisterJobResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterJobResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleJobs/RegisterJobRequest", output = "http://controller.tareaws.una.ac.cr/ModuleJobs/RegisterJobResponse")
+    public Boolean registerJob(
+        @WebParam(name = "arg0", targetNamespace = "")
+        JobsDto arg0);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<cr.ac.una.tarea.soap.JobsDto>
+     * @throws IOException_Exception
+     */
+    @WebMethod(operationName = "GetJobs")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "GetJobs", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetJobs")
+    @ResponseWrapper(localName = "GetJobsResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetJobsResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleJobs/GetJobsRequest", output = "http://controller.tareaws.una.ac.cr/ModuleJobs/GetJobsResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleJobs/GetJobs/Fault/IOException")
+    })
+    public List<JobsDto> getJobs()
+        throws IOException_Exception
+    ;
 
 }

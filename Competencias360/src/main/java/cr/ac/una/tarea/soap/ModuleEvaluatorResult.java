@@ -27,6 +27,21 @@ public interface ModuleEvaluatorResult {
 
     /**
      * 
+     * @param id
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "Delete")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
+    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/DeleteResponse")
+    public Boolean delete(
+        @WebParam(name = "Id", targetNamespace = "")
+        Integer id);
+
+    /**
+     * 
      * @param arg0
      * @return
      *     returns java.lang.Boolean
@@ -59,21 +74,6 @@ public interface ModuleEvaluatorResult {
         Integer nota)
         throws IOException_Exception
     ;
-
-    /**
-     * 
-     * @param id
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "Delete")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
-    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/DeleteResponse")
-    public Boolean delete(
-        @WebParam(name = "Id", targetNamespace = "")
-        Integer id);
 
     /**
      * 

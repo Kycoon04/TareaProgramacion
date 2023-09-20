@@ -57,16 +57,16 @@ public class ProcesoevaDto {
         this.state = state;
     }
 
-    public void setInicialperiod(LocalDate Inicialperiod) {
-        this.Inicialperiod = Inicialperiod;
+    public void setInicialperiod(String Inicialperiod) {
+        
     }
 
-    public void setFinalperiod(LocalDate Finalperiod) {
-        this.Finalperiod = Finalperiod;
+    public void setFinalperiod(String Finalperiod) {
+       
     }
 
-    public void setApplication(LocalDate Application) {
-        this.Application = Application;
+    public void setApplication(String Application) {
+       
     }
     
 }

@@ -72,7 +72,7 @@ public class ProcesoevaService {
             return new Respuesta(false, "Ocurrio un error al guardar el Proceso.", "guardarProceso " + ex.getMessage());
         }
     }
-        public Respuesta DeleteProceso(Integer id) {
+    public Respuesta DeleteProceso(Integer id) {
         try {
             Procesoeva procesoeva;
             if (id != null && id > 0) {

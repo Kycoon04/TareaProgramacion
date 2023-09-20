@@ -36,9 +36,18 @@
 
 <xs:complexType name="jobsCompetencesDto">
 <xs:sequence>
+<xs:element name="jobs" type="tns:jobs" minOccurs="0"/>
 <xs:element name="jxcCompetence" type="tns:competences" minOccurs="0"/>
 <xs:element name="jxcIdcojob" type="xs:int" minOccurs="0"/>
 <xs:element name="jxcJob" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="jobs">
+<xs:sequence>
+<xs:element name="jsId" type="xs:int" minOccurs="0"/>
+<xs:element name="jsName" type="xs:string" minOccurs="0"/>
+<xs:element name="jsState" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -79,18 +88,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="Delete">
-<xs:sequence>
-<xs:element name="Id" type="xs:int" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="DeleteResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="getJobCompetenceId">
 <xs:sequence>
 <xs:element name="id" type="xs:int" minOccurs="0"/>
@@ -100,6 +97,18 @@
 <xs:complexType name="getJobCompetenceIdResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:jobsCompetencesDto" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Delete">
+<xs:sequence>
+<xs:element name="Id" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="DeleteResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

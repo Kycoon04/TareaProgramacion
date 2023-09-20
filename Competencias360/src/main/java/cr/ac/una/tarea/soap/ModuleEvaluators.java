@@ -27,61 +27,6 @@ public interface ModuleEvaluators {
 
     /**
      * 
-     * @param feedBack
-     * @return
-     *     returns cr.ac.una.tarea.soap.EvaluatorsDto
-     * @throws IOException_Exception
-     */
-    @WebMethod(operationName = "GetEvaluatorByFeedBack")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "GetEvaluatorByFeedBack", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetEvaluatorByFeedBack")
-    @ResponseWrapper(localName = "GetEvaluatorByFeedBackResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetEvaluatorByFeedBackResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByFeedBackRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByFeedBackResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByFeedBack/Fault/IOException")
-    })
-    public EvaluatorsDto getEvaluatorByFeedBack(
-        @WebParam(name = "FeedBack", targetNamespace = "")
-        String feedBack)
-        throws IOException_Exception
-    ;
-
-    /**
-     * 
-     * @param state
-     * @return
-     *     returns cr.ac.una.tarea.soap.EvaluatorsDto
-     * @throws IOException_Exception
-     */
-    @WebMethod(operationName = "GetEvaluatorByState")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "GetEvaluatorByState", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetEvaluatorByState")
-    @ResponseWrapper(localName = "GetEvaluatorByStateResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetEvaluatorByStateResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByStateRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByStateResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByState/Fault/IOException")
-    })
-    public EvaluatorsDto getEvaluatorByState(
-        @WebParam(name = "state", targetNamespace = "")
-        String state)
-        throws IOException_Exception
-    ;
-
-    /**
-     * 
-     * @param id
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "Delete")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
-    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/DeleteResponse")
-    public Boolean delete(
-        @WebParam(name = "Id", targetNamespace = "")
-        Integer id);
-
-    /**
-     * 
      * @param id
      * @return
      *     returns cr.ac.una.tarea.soap.EvaluatorsDto
@@ -114,5 +59,60 @@ public interface ModuleEvaluators {
     public Boolean registerEvaluators(
         @WebParam(name = "arg0", targetNamespace = "")
         EvaluatorsDto arg0);
+
+    /**
+     * 
+     * @param id
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "Delete")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
+    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/DeleteResponse")
+    public Boolean delete(
+        @WebParam(name = "Id", targetNamespace = "")
+        Integer id);
+
+    /**
+     * 
+     * @param state
+     * @return
+     *     returns cr.ac.una.tarea.soap.EvaluatorsDto
+     * @throws IOException_Exception
+     */
+    @WebMethod(operationName = "GetEvaluatorByState")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "GetEvaluatorByState", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetEvaluatorByState")
+    @ResponseWrapper(localName = "GetEvaluatorByStateResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetEvaluatorByStateResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByStateRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByStateResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByState/Fault/IOException")
+    })
+    public EvaluatorsDto getEvaluatorByState(
+        @WebParam(name = "state", targetNamespace = "")
+        String state)
+        throws IOException_Exception
+    ;
+
+    /**
+     * 
+     * @param feedBack
+     * @return
+     *     returns cr.ac.una.tarea.soap.EvaluatorsDto
+     * @throws IOException_Exception
+     */
+    @WebMethod(operationName = "GetEvaluatorByFeedBack")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "GetEvaluatorByFeedBack", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetEvaluatorByFeedBack")
+    @ResponseWrapper(localName = "GetEvaluatorByFeedBackResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetEvaluatorByFeedBackResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByFeedBackRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByFeedBackResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByFeedBack/Fault/IOException")
+    })
+    public EvaluatorsDto getEvaluatorByFeedBack(
+        @WebParam(name = "FeedBack", targetNamespace = "")
+        String feedBack)
+        throws IOException_Exception
+    ;
 
 }

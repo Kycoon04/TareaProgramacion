@@ -35,7 +35,8 @@
 <xs:element name="rsCompe" type="tns:competences" minOccurs="0"/>
 <xs:element name="rsEvaluated" type="tns:evaluated" minOccurs="0"/>
 <xs:element name="rsId" type="xs:int" minOccurs="0"/>
-<xs:element name="rsNota" type="xs:short" minOccurs="0"/>
+<xs:element name="rsNotajefatura" type="xs:short" minOccurs="0"/>
+<xs:element name="rsNotasis" type="xs:short" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -94,19 +95,9 @@
 
 <xs:complexType name="jobs">
 <xs:sequence>
-<xs:element name="jobsCompetences" type="tns:jobsCompetences" minOccurs="0"/>
 <xs:element name="jsId" type="xs:int" minOccurs="0"/>
 <xs:element name="jsName" type="xs:string" minOccurs="0"/>
 <xs:element name="jsState" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="jobsCompetences">
-<xs:sequence>
-<xs:element name="jobs" type="tns:jobs" minOccurs="0"/>
-<xs:element name="jxcCompetence" type="tns:competences" minOccurs="0"/>
-<xs:element name="jxcIdcojob" type="xs:int" minOccurs="0"/>
-<xs:element name="jxcJob" type="xs:int" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

@@ -4,6 +4,7 @@
  */
 package cr.ac.una.tarea.model;
 
+import cr.ac.una.tarea.soap.CompetencesDto;
 import cr.ac.una.tarea.soap.Jobs;
 import cr.ac.una.tarea.soap.WorkersDto;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class CompetenceDto {
         this.characteristics = new SimpleStringProperty();
     }
 
-    public CompetenceDto(CompetenceDto competenceDto) {
+    public CompetenceDto(CompetencesDto competenceDto) {
         this.id.set(competenceDto.getId());
         this.name.set(competenceDto.getName());
         this.state.set(competenceDto.getState());

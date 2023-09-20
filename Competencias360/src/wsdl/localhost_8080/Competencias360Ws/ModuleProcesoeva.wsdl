@@ -4,12 +4,6 @@
 <xsd:import namespace="http://controller.tareaws.una.ac.cr/" schemaLocation="http://localhost:8080/Competencias360Ws/ModuleProcesoeva?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="Delete">
-<part name="parameters" element="tns:Delete"/>
-</message>
-<message name="DeleteResponse">
-<part name="parameters" element="tns:DeleteResponse"/>
-</message>
 <message name="RegisterProcesova">
 <part name="parameters" element="tns:RegisterProcesova"/>
 </message>
@@ -22,11 +16,19 @@
 <message name="getProcesovaResponse">
 <part name="parameters" element="tns:getProcesovaResponse"/>
 </message>
+<message name="setDates">
+<part name="parameters" element="tns:setDates"/>
+</message>
+<message name="setDatesResponse">
+<part name="parameters" element="tns:setDatesResponse"/>
+</message>
+<message name="Delete">
+<part name="parameters" element="tns:Delete"/>
+</message>
+<message name="DeleteResponse">
+<part name="parameters" element="tns:DeleteResponse"/>
+</message>
 <portType name="ModuleProcesoeva">
-<operation name="Delete">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleProcesoeva/DeleteRequest" message="tns:Delete"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleProcesoeva/DeleteResponse" message="tns:DeleteResponse"/>
-</operation>
 <operation name="RegisterProcesova">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleProcesoeva/RegisterProcesovaRequest" message="tns:RegisterProcesova"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleProcesoeva/RegisterProcesovaResponse" message="tns:RegisterProcesovaResponse"/>
@@ -35,18 +37,17 @@
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleProcesoeva/getProcesovaRequest" message="tns:getProcesova"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleProcesoeva/getProcesovaResponse" message="tns:getProcesovaResponse"/>
 </operation>
+<operation name="setDates">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleProcesoeva/setDatesRequest" message="tns:setDates"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleProcesoeva/setDatesResponse" message="tns:setDatesResponse"/>
+</operation>
+<operation name="Delete">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleProcesoeva/DeleteRequest" message="tns:Delete"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleProcesoeva/DeleteResponse" message="tns:DeleteResponse"/>
+</operation>
 </portType>
 <binding name="ModuleProcesoevaPortBinding" type="tns:ModuleProcesoeva">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="Delete">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="RegisterProcesova">
 <soap:operation soapAction=""/>
 <input>
@@ -57,6 +58,24 @@
 </output>
 </operation>
 <operation name="getProcesova">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="setDates">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Delete">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

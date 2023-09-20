@@ -7,19 +7,16 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para procesoevaDto complex type.
+ * <p>Java class for procesoevaDto complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="procesoevaDto">
  *   <complexContent>
  *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       <sequence>
- *         <element name="application" type="{http://controller.tareaws.una.ac.cr/}localDate" minOccurs="0"/>
- *         <element name="finalperiod" type="{http://controller.tareaws.una.ac.cr/}localDate" minOccurs="0"/>
  *         <element name="id" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
- *         <element name="inicialperiod" type="{http://controller.tareaws.una.ac.cr/}localDate" minOccurs="0"/>
  *         <element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="state" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       </sequence>
@@ -32,72 +29,18 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "procesoevaDto", propOrder = {
-    "application",
-    "finalperiod",
     "id",
-    "inicialperiod",
     "name",
     "state"
 })
 public class ProcesoevaDto {
 
-    protected LocalDate application;
-    protected LocalDate finalperiod;
     protected Integer id;
-    protected LocalDate inicialperiod;
     protected String name;
     protected String state;
 
     /**
-     * Obtiene el valor de la propiedad application.
-     * 
-     * @return
-     *     possible object is
-     *     {@link LocalDate }
-     *     
-     */
-    public LocalDate getApplication() {
-        return application;
-    }
-
-    /**
-     * Define el valor de la propiedad application.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link LocalDate }
-     *     
-     */
-    public void setApplication(LocalDate value) {
-        this.application = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad finalperiod.
-     * 
-     * @return
-     *     possible object is
-     *     {@link LocalDate }
-     *     
-     */
-    public LocalDate getFinalperiod() {
-        return finalperiod;
-    }
-
-    /**
-     * Define el valor de la propiedad finalperiod.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link LocalDate }
-     *     
-     */
-    public void setFinalperiod(LocalDate value) {
-        this.finalperiod = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad id.
+     * Gets the value of the id property.
      * 
      * @return
      *     possible object is
@@ -109,7 +52,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Define el valor de la propiedad id.
+     * Sets the value of the id property.
      * 
      * @param value
      *     allowed object is
@@ -121,31 +64,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad inicialperiod.
-     * 
-     * @return
-     *     possible object is
-     *     {@link LocalDate }
-     *     
-     */
-    public LocalDate getInicialperiod() {
-        return inicialperiod;
-    }
-
-    /**
-     * Define el valor de la propiedad inicialperiod.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link LocalDate }
-     *     
-     */
-    public void setInicialperiod(LocalDate value) {
-        this.inicialperiod = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad name.
+     * Gets the value of the name property.
      * 
      * @return
      *     possible object is
@@ -157,7 +76,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Define el valor de la propiedad name.
+     * Sets the value of the name property.
      * 
      * @param value
      *     allowed object is
@@ -169,7 +88,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad state.
+     * Gets the value of the state property.
      * 
      * @return
      *     possible object is
@@ -181,7 +100,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Define el valor de la propiedad state.
+     * Sets the value of the state property.
      * 
      * @param value
      *     allowed object is

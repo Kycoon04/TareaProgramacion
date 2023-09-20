@@ -28,36 +28,6 @@ public interface ModuleCompetences {
 
     /**
      * 
-     * @param id
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "Delete")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
-    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCompetences/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCompetences/DeleteResponse")
-    public Boolean delete(
-        @WebParam(name = "Id", targetNamespace = "")
-        Integer id);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "RegisterCompetences")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "RegisterCompetences", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterCompetences")
-    @ResponseWrapper(localName = "RegisterCompetencesResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterCompetencesResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCompetences/RegisterCompetencesRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCompetences/RegisterCompetencesResponse")
-    public Boolean registerCompetences(
-        @WebParam(name = "arg0", targetNamespace = "")
-        CompetencesDto arg0);
-
-    /**
-     * 
      * @return
      *     returns java.util.List<cr.ac.una.tarea.soap.CompetencesDto>
      * @throws IOException_Exception
@@ -92,5 +62,35 @@ public interface ModuleCompetences {
         String name)
         throws IOException_Exception
     ;
+
+    /**
+     * 
+     * @param id
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "Delete")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
+    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCompetences/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCompetences/DeleteResponse")
+    public Boolean delete(
+        @WebParam(name = "Id", targetNamespace = "")
+        Integer id);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "RegisterCompetences")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "RegisterCompetences", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterCompetences")
+    @ResponseWrapper(localName = "RegisterCompetencesResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterCompetencesResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCompetences/RegisterCompetencesRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCompetences/RegisterCompetencesResponse")
+    public Boolean registerCompetences(
+        @WebParam(name = "arg0", targetNamespace = "")
+        CompetencesDto arg0);
 
 }
