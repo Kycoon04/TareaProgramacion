@@ -18,6 +18,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -232,6 +234,7 @@ public class ViewModuleEvaluationController implements Initializable {
     private TextField textFieldSearchPE_State;
     @FXML
     private Text textNameWorker;
+    List<WorkerDto> listWorkers =new ArrayList<>();
     
 
 
@@ -272,6 +275,7 @@ public class ViewModuleEvaluationController implements Initializable {
         this.tableColJobIdW.setCellValueFactory(new PropertyValueFactory("Id"));
         this.tableColJobNamW.setCellValueFactory(new PropertyValueFactory("Name"));
         this.tableColJobStaW.setCellValueFactory(new PropertyValueFactory("States"));
+       
     }
 
     @FXML
@@ -443,9 +447,9 @@ public class ViewModuleEvaluationController implements Initializable {
     public void ImportListWorker() {
         WorkersService service = new WorkersService();
         Respuesta respuesta = service.getUsuarios();
-        List<WorkerDto> list = (List<WorkerDto>) respuesta.getResultado("Usuarios");
-        changeTextAdmi(list);
-        workerList = FXCollections.observableArrayList(list);
+        listWorkers = (List<WorkerDto>) respuesta.getResultado("Usuarios");
+        changeTextAdmi(listWorkers);
+        workerList = FXCollections.observableArrayList(listWorkers);
         this.tableViewWorkersCRE.refresh();
         this.tableViewWorkersCRE.setItems(workerList);
         this.tableViewWorkers.refresh();
@@ -478,10 +482,20 @@ public class ViewModuleEvaluationController implements Initializable {
     private void backSettings(ActionEvent event) {
         OptionsSettingView.toFront();
     }
-
+    Predicate<WorkerDto> WorkerNull=worker->worker.getJob()!=null;
+    public List<WorkerDto> getWorkersJobs(String name) {
+        return listWorkers.stream().
+                filter(WorkerNull.and(x -> x.getJob().getJsName().equals(name))).collect(Collectors.toList());
+    }
     @FXML
     private void OpenSelectWorkers(ActionEvent event) {
         ImportListWorker();
+        listWorkers = getWorkersJobs(jobDto.getName());
+        workerList = FXCollections.observableArrayList(listWorkers);
+        this.tableViewWorkersCRE.refresh();
+        this.tableViewWorkersCRE.setItems(workerList);
+        this.tableViewWorkers.refresh();
+        this.tableViewWorkers.setItems(workerList);
         textEvaJob.setText(jobDto.getName());
         OptionsSettingWorkerView.toFront();
     }
