@@ -20,10 +20,8 @@ public class ProcesoevaService {
         try {
             ModuleProcesoeva_Service servicio = new ModuleProcesoeva_Service();
             ModuleProcesoeva cliente = servicio.getModuleProcesoevaPort();
-           
-
             List<ProcesoevaDto> procesosWs = cliente.getProcesos();
-            List<ProcesosevaDto> jobs = new ArrayList<>();
+            List<ProcesosevaDto> procesos = new ArrayList<>();
             
             for (ProcesoevaDto procesoevaDto : procesosWs) {
                 ProcesosevaDto procesosevaD = new ProcesosevaDto();
@@ -32,17 +30,13 @@ public class ProcesoevaService {
                 procesosevaD.setState(procesoevaDto.getState());              
                 procesosevaD.setInicialperiod(LocalDate.parse(procesoevaDto.getGetInicialPeriodo()));
                 procesosevaD.setApplication(LocalDate.parse(procesoevaDto.getGetAplicationPeriodo()));
-                procesosevaD.setFinalperiod(LocalDate.parse(procesoevaDto.getGetFinalPeriodo()));
-                System.out.println(procesoevaDto.getGetInicialPeriodo()); 
-                System.out.println(procesoevaDto.getGetFinalPeriodo()); 
-                System.out.println(procesoevaDto.getGetAplicationPeriodo()); 
-                jobs.add(procesosevaD);
+                procesosevaD.setFinalperiod(LocalDate.parse(procesoevaDto.getGetFinalPeriodo())); 
+                procesos.add(procesosevaD);
             }
-
-            return new Respuesta(true, "Error obteniendo los puestos.", "getJobs", "Jobs", jobs);
+            return new Respuesta(true, "Error obteniendo los puestos.", "getProceso", "ProcesosevaDto", procesos);
         } catch (Exception ex) {
-            Logger.getLogger(ProcesoevaService.class.getName()).log(Level.SEVERE, "Error obteniendo los puestos.", ex);
-            return new Respuesta(false, "Error obteniendo los puestos.", "getJobs" + ex.getMessage());
+            Logger.getLogger(ProcesoevaService.class.getName()).log(Level.SEVERE, "Error obteniendo los procesos.", ex);
+            return new Respuesta(false, "Error obteniendo los procesos.", "getJobs" + ex.getMessage());
         }
     }
     

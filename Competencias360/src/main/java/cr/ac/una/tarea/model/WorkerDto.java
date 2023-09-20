@@ -169,7 +169,6 @@ public class WorkerDto {
     public void setActive(String active) {
         this.active.set(active.equals("S"));
     }
-    
 
     public String getAdministrator() {
         return administrator.get();
