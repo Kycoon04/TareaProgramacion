@@ -4,6 +4,12 @@
 
 <xs:element name="DeleteResponse" type="tns:DeleteResponse"/>
 
+<xs:element name="GetProcesos" type="tns:GetProcesos"/>
+
+<xs:element name="GetProcesosResponse" type="tns:GetProcesosResponse"/>
+
+<xs:element name="IOException" type="tns:IOException"/>
+
 <xs:element name="RegisterProcesova" type="tns:RegisterProcesova"/>
 
 <xs:element name="RegisterProcesovaResponse" type="tns:RegisterProcesovaResponse"/>
@@ -70,6 +76,22 @@
 <xs:complexType name="RegisterProcesovaResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetProcesos">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="GetProcesosResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:procesoevaDto" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="IOException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

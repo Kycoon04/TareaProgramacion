@@ -1,12 +1,14 @@
 
 package cr.ac.una.tarea.soap;
 
+import java.util.List;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.ws.Action;
+import jakarta.xml.ws.FaultAction;
 import jakarta.xml.ws.RequestWrapper;
 import jakarta.xml.ws.ResponseWrapper;
 
@@ -23,6 +25,42 @@ import jakarta.xml.ws.ResponseWrapper;
 })
 public interface ModuleProcesoeva {
 
+
+    /**
+     * 
+     * @param id
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "Delete")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
+    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/DeleteResponse")
+    public Boolean delete(
+        @WebParam(name = "Id", targetNamespace = "")
+        Integer id);
+
+    /**
+     * 
+     * @param aplicacion
+     * @param dto
+     * @param finalizado
+     * @param inicio
+     */
+    @WebMethod
+    @RequestWrapper(localName = "setDates", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.SetDates")
+    @ResponseWrapper(localName = "setDatesResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.SetDatesResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/setDatesRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/setDatesResponse")
+    public void setDates(
+        @WebParam(name = "dto", targetNamespace = "")
+        ProcesoevaDto dto,
+        @WebParam(name = "Aplicacion", targetNamespace = "")
+        String aplicacion,
+        @WebParam(name = "finalizado", targetNamespace = "")
+        String finalizado,
+        @WebParam(name = "inicio", targetNamespace = "")
+        String inicio);
 
     /**
      * 
@@ -56,38 +94,19 @@ public interface ModuleProcesoeva {
 
     /**
      * 
-     * @param aplicacion
-     * @param dto
-     * @param finalizado
-     * @param inicio
-     */
-    @WebMethod
-    @RequestWrapper(localName = "setDates", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.SetDates")
-    @ResponseWrapper(localName = "setDatesResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.SetDatesResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/setDatesRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/setDatesResponse")
-    public void setDates(
-        @WebParam(name = "dto", targetNamespace = "")
-        ProcesoevaDto dto,
-        @WebParam(name = "Aplicacion", targetNamespace = "")
-        String aplicacion,
-        @WebParam(name = "finalizado", targetNamespace = "")
-        String finalizado,
-        @WebParam(name = "inicio", targetNamespace = "")
-        String inicio);
-
-    /**
-     * 
-     * @param id
      * @return
-     *     returns java.lang.Boolean
+     *     returns java.util.List<cr.ac.una.tarea.soap.ProcesoevaDto>
+     * @throws IOException_Exception
      */
-    @WebMethod(operationName = "Delete")
+    @WebMethod(operationName = "GetProcesos")
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
-    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/DeleteResponse")
-    public Boolean delete(
-        @WebParam(name = "Id", targetNamespace = "")
-        Integer id);
+    @RequestWrapper(localName = "GetProcesos", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetProcesos")
+    @ResponseWrapper(localName = "GetProcesosResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetProcesosResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/GetProcesosRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/GetProcesosResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/GetProcesos/Fault/IOException")
+    })
+    public List<ProcesoevaDto> getProcesos()
+        throws IOException_Exception
+    ;
 
 }

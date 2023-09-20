@@ -14,6 +14,7 @@ import cr.ac.una.tarea.util.FlowController;
 import cr.ac.una.tarea.util.Mensaje;
 import cr.ac.una.tarea.util.Respuesta;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -669,10 +670,14 @@ public class ViewModuleEvaluationController implements Initializable {
     
     procesosevaDto.setState(choiceBoxStateEva.getValue());
     procesosevaDto.setName(TitleEvaField.getText());
-    //procesosevaDto.setApplication(/*campode aplication*/);
-    //asi con los otros 2
+    
+    procesosevaDto.setApplication(DateProEva_Application.getValue());
+    procesosevaDto.setInicialperiod(DateProEva_Inicial.getValue());
+    procesosevaDto.setFinalperiod(DateProEva_Final.getValue());
+    
+    service.SaveProceso(procesosevaDto);
+    
     }
-
 
     @FXML
     private void jobClicked(MouseEvent event) {

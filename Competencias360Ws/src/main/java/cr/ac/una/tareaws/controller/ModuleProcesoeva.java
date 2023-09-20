@@ -8,7 +8,10 @@ import jakarta.ejb.EJB;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -44,5 +47,20 @@ public class ModuleProcesoeva {
         procesodto.setApplication(Aplicacion);
         procesodto.setFinalperiod(finalizado);
         procesodto.setInicialperiod(inicio);
+        RegisterProcesova(procesodto);
     }
+    
+    @WebMethod(operationName = "GetProcesos")
+    public List<ProcesoevaDto> GetProcesos() throws IOException {
+        Respuesta respuesta = procesoevaService.getProcesos();
+        List<Procesoeva> poc = (List<Procesoeva>) respuesta.getResultado("Procesos");
+        List<ProcesoevaDto> procesoevaDtos = new ArrayList<>();
+        for (Procesoeva j : poc) {
+            ProcesoevaDto procesoevaDto = new ProcesoevaDto(j);
+            procesoevaDtos.add(procesoevaDto);
+        }
+        return procesoevaDtos;
+    }
+    
 }
+     

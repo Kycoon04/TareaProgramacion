@@ -8,12 +8,42 @@ import cr.ac.una.tarea.util.Respuesta;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author jomav
  */
 public class ProcesoevaService {
 
+        public Respuesta getProcesos() {
+        try {
+            ModuleProcesoeva_Service servicio = new ModuleProcesoeva_Service();
+            ModuleProcesoeva cliente = servicio.getModuleProcesoevaPort();
+           
+
+            List<ProcesoevaDto> procesosWs = cliente.getProcesos();
+            List<ProcesosevaDto> jobs = new ArrayList<>();
+            
+            for (ProcesoevaDto procesoevaDto : procesosWs) {
+                ProcesosevaDto procesosevaD = new ProcesosevaDto();
+                procesosevaD.setName(procesoevaDto.getName());
+                procesosevaD.setId(procesoevaDto.getId());
+                procesosevaD.setState(procesoevaDto.getState());
+             //   procesosevaD.setApplication(procesoevaDto.get());
+             //   procesosevaD.setApplication(procesoevaDto.getState());
+             //   procesosevaD.setApplication(procesoevaDto.getState());
+                
+                jobs.add(procesosevaD);
+            }
+
+            return new Respuesta(true, "Error obteniendo los puestos.", "getJobs", "Jobs", jobs);
+        } catch (Exception ex) {
+            Logger.getLogger(ProcesoevaService.class.getName()).log(Level.SEVERE, "Error obteniendo los puestos.", ex);
+            return new Respuesta(false, "Error obteniendo los puestos.", "getJobs" + ex.getMessage());
+        }
+    }
+    
     public Respuesta SaveProceso(ProcesosevaDto procesosevaDto) {
         try {
             ModuleProcesoeva_Service servicio = new ModuleProcesoeva_Service();
@@ -22,14 +52,13 @@ public class ProcesoevaService {
             
             procesoDto.setId(procesosevaDto.getId());
             procesoDto.setName(procesosevaDto.getName());
-            procesoDto.setName(procesosevaDto.getState());
-            
-            /*cliente.setDates(procesoDto, procesosevaDto.getApplication().toString(), 
-                    procesosevaDto.getFinalperiod().toString(),procesosevaDto.getInicialperiod().toString());*/
+            procesoDto.setState(procesosevaDto.getState());
             
             
-            cliente.registerProcesova(procesoDto);
+           cliente.setDates(procesoDto, procesosevaDto.getApplication().toString(), 
+    procesosevaDto.getFinalperiod().toString(),procesosevaDto.getInicialperiod().toString());
             
+    
             return new Respuesta(true, "", "", "Competencia", procesoDto);
         } catch (Exception ex) {
             Logger.getLogger(JobsService.class.getName()).log(Level.SEVERE, "Error guardando el empleado.", ex);
@@ -66,27 +95,6 @@ public class ProcesoevaService {
         }
     }
 
-    public Respuesta getJobs() {
-        try {
-            ModuleJobs_Service servicio = new ModuleJobs_Service();
-            ModuleJobs cliente = servicio.getModuleJobsPort();
 
-            List<JobsDto> jobsWs = cliente.getJobs();
-            List<JobDto> jobs = new ArrayList<>();
-            for (JobsDto job : jobsWs) {
-                JobDto jobDto = new JobDto();
-                jobDto.setName(job.getName());
-                jobDto.setId(job.getId());
-                jobDto.setState(job.getState());
-
-                jobs.add(jobDto);
-            }
-
-            return new Respuesta(true, "Error obteniendo los puestos.", "getJobs", "Jobs", jobs);
-        } catch (Exception ex) {
-            Logger.getLogger(JobsService.class.getName()).log(Level.SEVERE, "Error obteniendo los puestos.", ex);
-            return new Respuesta(false, "Error obteniendo los puestos.", "getJobs" + ex.getMessage());
-        }
-    }
 */
 }

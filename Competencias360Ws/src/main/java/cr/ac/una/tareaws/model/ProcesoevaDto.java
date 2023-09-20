@@ -58,15 +58,15 @@ public class ProcesoevaDto {
     }
 
     public void setInicialperiod(String Inicialperiod) {
-        
+        this.Inicialperiod= LocalDate.parse(Inicialperiod);
     }
 
     public void setFinalperiod(String Finalperiod) {
-       
+       this.Finalperiod= LocalDate.parse(Finalperiod);
     }
 
     public void setApplication(String Application) {
-       
+       this.Application= LocalDate.parse(Application);
     }
     
 }
