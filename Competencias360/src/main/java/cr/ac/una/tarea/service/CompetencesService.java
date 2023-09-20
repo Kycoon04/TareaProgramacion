@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author dilan
  */
 public class CompetencesService {
-    
+
     public Respuesta SaveCompetence(CompetenceDto competenceDto) {
         try {
             ModuleCompetences_Service servicio = new ModuleCompetences_Service();

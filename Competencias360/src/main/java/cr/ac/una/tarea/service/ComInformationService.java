@@ -17,12 +17,12 @@ import java.util.logging.Logger;
  * @author dilan
  */
 public class ComInformationService {
-    
+
     public Respuesta SaveInformation(InformationDto comInformationDto) {
         try {
             ModuleComInformation_Service servicio = new ModuleComInformation_Service();
             ModuleComInformation cliente = servicio.getModuleComInformationPort();
-            
+
             ComInformationDto comInformation = new ComInformationDto();
             comInformation.setInformation(comInformationDto.getInformation());
             comInformation.setId(comInformationDto.getId());

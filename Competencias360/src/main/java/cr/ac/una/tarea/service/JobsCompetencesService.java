@@ -17,20 +17,19 @@ import java.util.logging.Logger;
  * @author dilan
  */
 public class JobsCompetencesService {
-    
-     public Respuesta SaveJobCompetences(EvaJobCompetenceDto evaJobCompetenceDto) {
+
+    public Respuesta SaveJobCompetences(EvaJobCompetenceDto evaJobCompetenceDto) {
         try {
             ModuleJobsCompetences_Service servicio = new ModuleJobsCompetences_Service();
             ModuleJobsCompetences cliente = servicio.getModuleJobsCompetencesPort();
-            
+
             JobsCompetencesDto jobCompetencesDto = new JobsCompetencesDto();
             jobCompetencesDto.setJobs(evaJobCompetenceDto.getJobs());
             jobCompetencesDto.setJxcCompetence(evaJobCompetenceDto.getJxcCompetence());
-            
+
             System.out.println(jobCompetencesDto.getJobs().getJsId());
             System.out.println(jobCompetencesDto.getJxcCompetence().getCsId());
-            
-            
+
             cliente.registerJobCompetences(jobCompetencesDto);
             return new Respuesta(true, "", "", "Competencia", jobCompetencesDto);
         } catch (Exception ex) {
@@ -39,8 +38,7 @@ public class JobsCompetencesService {
         }
     }
 
-     
-     /*
+    /*
         public Respuesta getJobCompetence(String jobName) {
         try {
             ModuleJobsCompetences_Service servicio = new ModuleJobsCompetences_Service();
@@ -79,8 +77,5 @@ public class JobsCompetencesService {
             return new Respuesta(false, "Error obteniendo los puestos.", "getJobs" + ex.getMessage());
         }
     }
-    */
-        
-        
-        
+     */
 }

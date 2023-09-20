@@ -10,11 +10,14 @@ import cr.ac.una.tarea.model.WorkerDto;
 import cr.ac.una.tarea.service.JobsService;
 import cr.ac.una.tarea.service.ProcesoevaService;
 import cr.ac.una.tarea.service.WorkersService;
+import cr.ac.una.tarea.soap.ProcesoevaDto;
 import cr.ac.una.tarea.util.FlowController;
 import cr.ac.una.tarea.util.Mensaje;
 import cr.ac.una.tarea.util.Respuesta;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -111,10 +114,13 @@ public class ViewModuleEvaluationController implements Initializable {
 
     private ObservableList<WorkerDto> workerList;
     private ObservableList<JobDto> jobsList;
+    private ObservableList<ProcesosevaDto> procesosList;
     List<WorkerDto> workersListSel = new ArrayList<>();
     @FXML
     private Text textEvaJob;
     JobDto jobDto;
+    WorkerDto workerDto;
+    ProcesosevaDto procesoDto;
     @FXML
     private BorderPane viewSelectedJob;
     @FXML
@@ -163,25 +169,22 @@ public class ViewModuleEvaluationController implements Initializable {
     private Text textCREJob;
     @FXML
     private Text textCREIdent;
-     WorkerDto workerDto;
-   
     @FXML
     private ChoiceBox<String> choiceBoxStateEva;
-    String states[]={"En construcción", "En aplicación", "En revisión", "Finalizada"};
+    String states[] = {"En construcción", "En aplicación", "En revisión", "Finalizada"};
     @FXML
     private BorderPane OptionsEvaConfigView;
+    //private TableView<ProcesoevaDto> tableViewProEva;
     @FXML
-    private TableView<?> tableViewProEva;
+    private TableColumn<ProcesosevaDto, String> tableColProEva_State;
     @FXML
-    private TableColumn<?, ?> tableColProEva_State;
+    private TableColumn<ProcesosevaDto, String> tableColProEva_Name;
     @FXML
-    private TableColumn<?, ?> tableColProEva_Name;
+    private TableColumn<ProcesosevaDto, String> tableColProEva_IniPer;
     @FXML
-    private TableColumn<?,?> tableColProEva_IniPer;
+    private TableColumn<ProcesosevaDto, String> tableColProEva_FinalPer;
     @FXML
-    private TableColumn<?, ?> tableColProEva_FinalPer;
-    @FXML
-    private TableColumn<?, ?> tableColProEva_Apli;
+    private TableColumn<ProcesosevaDto, String> tableColProEva_Apli;
     @FXML
     private DatePicker DateProEva_Inicial;
     @FXML
@@ -197,15 +200,15 @@ public class ViewModuleEvaluationController implements Initializable {
     @FXML
     private BorderPane OptionsSettingEvaluatorsView;
     @FXML
-    private TableView<?> tableViewWorkersPE;
+    private TableView<ProcesoevaDto> tableViewWorkersPE;
     @FXML
-    private TableColumn<?, ?> tableColActPE;
+    private TableColumn<ProcesoevaDto, String> tableColActPE;
     @FXML
-    private TableColumn<?, ?> tableColIdentifPE;
+    private TableColumn<ProcesoevaDto, String> tableColIdentifPE;
     @FXML
-    private TableColumn<?, ?> tableColNamePE;
+    private TableColumn<ProcesoevaDto, String> tableColNamePE;
     @FXML
-    private TableColumn<?, ?> tableColPsurnamePE;
+    private TableColumn<ProcesoevaDto, String> tableColPsurnamePE;
     @FXML
     private TableColumn<?, ?> tableColUserNamePE;
     @FXML
@@ -234,9 +237,9 @@ public class ViewModuleEvaluationController implements Initializable {
     private TextField textFieldSearchPE_State;
     @FXML
     private Text textNameWorker;
-    List<WorkerDto> listWorkers =new ArrayList<>();
-    
-
+    List<WorkerDto> listWorkers = new ArrayList<>();
+    @FXML
+    private TableView<ProcesosevaDto> tableViewProEva;
 
     /**
      * Initializes the controller class.
@@ -245,7 +248,8 @@ public class ViewModuleEvaluationController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         choiceBoxStateEva.getItems().addAll(states);
-         OptionsEvaConfigView.toFront();
+        ImportListProcesoEva();
+        OptionsEvaConfigView.toFront();
         this.tableColAct.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColIdentif.setCellValueFactory(new PropertyValueFactory("iden"));
         this.tableColName.setCellValueFactory(new PropertyValueFactory("name"));
@@ -261,7 +265,7 @@ public class ViewModuleEvaluationController implements Initializable {
         this.tableColSelUserName.setCellValueFactory(new PropertyValueFactory("username"));
         this.tableColSelEmail.setCellValueFactory(new PropertyValueFactory("email"));
         this.tableColSelAdmi.setCellValueFactory(new PropertyValueFactory("administrator"));
-        
+
         this.tableColCREAct.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColCREIdentif.setCellValueFactory(new PropertyValueFactory("iden"));
         this.tableColCREName.setCellValueFactory(new PropertyValueFactory("name"));
@@ -275,13 +279,21 @@ public class ViewModuleEvaluationController implements Initializable {
         this.tableColJobIdW.setCellValueFactory(new PropertyValueFactory("Id"));
         this.tableColJobNamW.setCellValueFactory(new PropertyValueFactory("Name"));
         this.tableColJobStaW.setCellValueFactory(new PropertyValueFactory("States"));
-       
+
+        this.tableColProEva_State.setCellValueFactory(new PropertyValueFactory("State"));
+
+        this.tableColProEva_Name.setCellValueFactory(new PropertyValueFactory("Name"));
+
+        this.tableColProEva_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));
+
+        this.tableColProEva_FinalPer.setCellValueFactory(new PropertyValueFactory("Finalperiod"));
+
+        this.tableColProEva_Apli.setCellValueFactory(new PropertyValueFactory("Application"));
     }
 
     @FXML
     private void openEvaluations(MouseEvent event) {
     }
-
 
     @FXML
     private void CompetencesModi(ActionEvent event) {
@@ -305,7 +317,7 @@ public class ViewModuleEvaluationController implements Initializable {
                 //new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un trabajo en este campo.");
             }
         }
-        
+
     }
 
     public void ImportListJobs() {
@@ -319,7 +331,7 @@ public class ViewModuleEvaluationController implements Initializable {
 
     @FXML
     private void searchJob_NameW(KeyEvent event) {
-         FilteredList<JobDto> filteredJob = new FilteredList<>(jobsList, f -> true);
+        FilteredList<JobDto> filteredJob = new FilteredList<>(jobsList, f -> true);
 
         textFieldSJob_NameW.textProperty().addListener((observable, value, newValue) -> {
             filteredJob.setPredicate(JobDto -> {
@@ -339,7 +351,7 @@ public class ViewModuleEvaluationController implements Initializable {
 
     @FXML
     private void searchJob_StateW(KeyEvent event) {
-    FilteredList<JobDto> filteredJob = new FilteredList<>(jobsList, f -> true);
+        FilteredList<JobDto> filteredJob = new FilteredList<>(jobsList, f -> true);
 
         textFieldSJob_StateW.textProperty().addListener((observable, value, newValue) -> {
             filteredJob.setPredicate(JobDto -> {
@@ -482,11 +494,13 @@ public class ViewModuleEvaluationController implements Initializable {
     private void backSettings(ActionEvent event) {
         OptionsSettingView.toFront();
     }
-    Predicate<WorkerDto> WorkerNull=worker->worker.getJob()!=null;
+    Predicate<WorkerDto> WorkerNull = worker -> worker.getJob() != null;
+
     public List<WorkerDto> getWorkersJobs(String name) {
         return listWorkers.stream().
                 filter(WorkerNull.and(x -> x.getJob().getJsName().equals(name))).collect(Collectors.toList());
     }
+
     @FXML
     private void OpenSelectWorkers(ActionEvent event) {
         ImportListWorker();
@@ -524,16 +538,16 @@ public class ViewModuleEvaluationController implements Initializable {
         if (event.getClickCount() == 2) {
             try {
                 workerDto = tableViewWorkersCRE.getSelectionModel().getSelectedItem();
-                WorkerCREMainField.setText(workerDto.getName()+" "+workerDto.getPsurname()+" "+workerDto.getSsurname());
-                textCREJob.setText("Puesto: "+workerDto.getJob().getJsName());
-                textCREIdent.setText("Numero de Identificacion: "+workerDto.getIden());
+                WorkerCREMainField.setText(workerDto.getName() + " " + workerDto.getPsurname() + " " + workerDto.getSsurname());
+                textCREJob.setText("Puesto: " + workerDto.getJob().getJsName());
+                textCREIdent.setText("Numero de Identificacion: " + workerDto.getIden());
                 viewSelectedWorker.toFront();
 
             } catch (Exception ex) {
                 //new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un trabajo en este campo.");
             }
         }
-        
+
     }
 
     @FXML
@@ -578,7 +592,7 @@ public class ViewModuleEvaluationController implements Initializable {
 
     @FXML
     private void searchWorkerCRE_Identification(KeyEvent event) {
-                FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
 
         textFieldSearchCRE_Ident.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
@@ -598,7 +612,7 @@ public class ViewModuleEvaluationController implements Initializable {
 
     @FXML
     private void searchWorkerCRE_Rol(KeyEvent event) {
-                FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
 
         textFieldSearchCRE_Rol.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
@@ -619,7 +633,7 @@ public class ViewModuleEvaluationController implements Initializable {
 
     @FXML
     private void searchWorkerCRE_Susername(KeyEvent event) {
-          FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
 
         textFieldSearchCRE_Susername.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
@@ -639,7 +653,7 @@ public class ViewModuleEvaluationController implements Initializable {
 
     @FXML
     private void searchWorkerCRE_State(KeyEvent event) {
-                FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
 
         textFieldSearchCRE_State.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
@@ -656,11 +670,20 @@ public class ViewModuleEvaluationController implements Initializable {
         });
         filteredWorkersCRE(filteredWorker);
     }
-    
+
     private void filteredWorkersCRE(FilteredList<WorkerDto> list) {
         SortedList<WorkerDto> sorted = new SortedList<>(list);
         sorted.comparatorProperty().bind(tableViewWorkersCRE.comparatorProperty());
         tableViewWorkersCRE.setItems(sorted);
+    }
+    public void ImportListProcesoEva() {
+        ProcesoevaService service = new ProcesoevaService();
+        Respuesta respuesta = service.getProcesos();
+        List<ProcesosevaDto> listProcesos = (List<ProcesosevaDto>) respuesta.getResultado("ProcesosevaDto");
+       procesosList = FXCollections.observableArrayList(listProcesos);
+       
+        this.tableViewProEva.refresh();
+        this.tableViewProEva.setItems(procesosList);
     }
 
     @FXML
@@ -677,23 +700,21 @@ public class ViewModuleEvaluationController implements Initializable {
 
     @FXML
     private void UpdateJob(ActionEvent event) {
-    ProcesoevaService service = new ProcesoevaService();
-    ProcesosevaDto procesosevaDto = new ProcesosevaDto();
-    
-    procesosevaDto.setState(choiceBoxStateEva.getValue());
-    procesosevaDto.setName(TitleEvaField.getText());
-    
-    procesosevaDto.setApplication(DateProEva_Application.getValue());
-    procesosevaDto.setInicialperiod(DateProEva_Inicial.getValue());
-    procesosevaDto.setFinalperiod(DateProEva_Final.getValue());
-    
-    service.SaveProceso(procesosevaDto);
-    
+        ProcesoevaService service = new ProcesoevaService();
+        ProcesosevaDto procesosevaDto = new ProcesosevaDto();
+
+        procesosevaDto.setState(choiceBoxStateEva.getValue());
+        procesosevaDto.setName(TitleEvaField.getText());
+
+        procesosevaDto.setApplication(DateProEva_Application.getValue());
+        procesosevaDto.setInicialperiod(DateProEva_Inicial.getValue());
+        procesosevaDto.setFinalperiod(DateProEva_Final.getValue());
+
+        service.SaveProceso(procesosevaDto);
+        ImportListProcesoEva();
+
     }
 
-    @FXML
-    private void jobClicked(MouseEvent event) {
-    }
 
     @FXML
     private void searchJob_Name(KeyEvent event) {
@@ -705,7 +726,7 @@ public class ViewModuleEvaluationController implements Initializable {
 
     @FXML
     private void openSettingEva(MouseEvent event) {
-         OptionsMenuView.toFront();
+        OptionsMenuView.toFront();
     }
 
     @FXML
@@ -720,6 +741,27 @@ public class ViewModuleEvaluationController implements Initializable {
     @FXML
     private void openSelectEvaluators(ActionEvent event) {
         OptionsSettingEvaluatorsView.toFront();
+    }
+
+    @FXML
+    private void procesoevaClicked(MouseEvent event) {
+        System.out.println("AAAAA");
+         if (event.getClickCount() == 2) {
+            //try {
+                procesoDto = tableViewProEva.getSelectionModel().getSelectedItem();
+                System.out.println(""+procesoDto.getName());
+                
+                 TitleEvaField.setText(procesoDto.getName());
+                 choiceBoxStateEva.setValue(procesoDto.getState());
+                 DateProEva_Inicial.setValue(procesoDto.getInicialperiod());
+                 DateProEva_Final.setValue(procesoDto.getFinalperiod());
+                 DateProEva_Application.setValue(procesoDto.getApplication());
+                 
+
+            //} catch (Exception ex) {
+                //new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un trabajo en este campo.");
+            //}
+        }
     }
 
 }

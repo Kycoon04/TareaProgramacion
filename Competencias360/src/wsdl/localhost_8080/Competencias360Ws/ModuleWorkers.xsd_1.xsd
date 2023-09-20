@@ -1,202 +1,202 @@
 <?xml version='1.0' encoding='UTF-8'?><!-- Published by XML-WS Runtime (https://github.com/eclipse-ee4j/metro-jax-ws). Runtime's version is Eclipse Metro/4.0.1 (RELEASE-4.0.1-18da659; 2022-07-02T08:47:18+0000) XMLWS-Impl/4.0.0 XMLWS-API/${jaxws-api.version} XMLB-Impl/4.0.0 XMLB-API/4.0.0 git-revision#18da659. --><xs:schema xmlns:tns="http://controller.tareaws.una.ac.cr/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://controller.tareaws.una.ac.cr/">
 
-<xs:element name="Active" type="tns:Active"/>
+    <xs:element name="Active" type="tns:Active"/>
 
-<xs:element name="ActiveResponse" type="tns:ActiveResponse"/>
+    <xs:element name="ActiveResponse" type="tns:ActiveResponse"/>
 
-<xs:element name="Delete" type="tns:Delete"/>
+    <xs:element name="Delete" type="tns:Delete"/>
 
-<xs:element name="DeleteResponse" type="tns:DeleteResponse"/>
+    <xs:element name="DeleteResponse" type="tns:DeleteResponse"/>
 
-<xs:element name="GetUsuarios" type="tns:GetUsuarios"/>
+    <xs:element name="GetUsuarios" type="tns:GetUsuarios"/>
 
-<xs:element name="GetUsuariosResponse" type="tns:GetUsuariosResponse"/>
+    <xs:element name="GetUsuariosResponse" type="tns:GetUsuariosResponse"/>
 
-<xs:element name="IOException" type="tns:IOException"/>
+    <xs:element name="IOException" type="tns:IOException"/>
 
-<xs:element name="IsActiveWorker" type="tns:IsActiveWorker"/>
+    <xs:element name="IsActiveWorker" type="tns:IsActiveWorker"/>
 
-<xs:element name="IsActiveWorkerResponse" type="tns:IsActiveWorkerResponse"/>
+    <xs:element name="IsActiveWorkerResponse" type="tns:IsActiveWorkerResponse"/>
 
-<xs:element name="IsAnAdmin" type="tns:IsAnAdmin"/>
+    <xs:element name="IsAnAdmin" type="tns:IsAnAdmin"/>
 
-<xs:element name="IsAnAdminResponse" type="tns:IsAnAdminResponse"/>
+    <xs:element name="IsAnAdminResponse" type="tns:IsAnAdminResponse"/>
 
-<xs:element name="IsTempPassword" type="tns:IsTempPassword"/>
+    <xs:element name="IsTempPassword" type="tns:IsTempPassword"/>
 
-<xs:element name="IsTempPasswordResponse" type="tns:IsTempPasswordResponse"/>
+    <xs:element name="IsTempPasswordResponse" type="tns:IsTempPasswordResponse"/>
 
-<xs:element name="Login" type="tns:Login"/>
+    <xs:element name="Login" type="tns:Login"/>
 
-<xs:element name="LoginResponse" type="tns:LoginResponse"/>
+    <xs:element name="LoginResponse" type="tns:LoginResponse"/>
 
-<xs:element name="Register" type="tns:Register"/>
+    <xs:element name="Register" type="tns:Register"/>
 
-<xs:element name="RegisterResponse" type="tns:RegisterResponse"/>
+    <xs:element name="RegisterResponse" type="tns:RegisterResponse"/>
 
-<xs:element name="ResetAccontPassword" type="tns:ResetAccontPassword"/>
+    <xs:element name="ResetAccontPassword" type="tns:ResetAccontPassword"/>
 
-<xs:element name="ResetAccontPasswordResponse" type="tns:ResetAccontPasswordResponse"/>
+    <xs:element name="ResetAccontPasswordResponse" type="tns:ResetAccontPasswordResponse"/>
 
-<xs:element name="getUsuario" type="tns:getUsuario"/>
+    <xs:element name="getUsuario" type="tns:getUsuario"/>
 
-<xs:element name="getUsuarioResponse" type="tns:getUsuarioResponse"/>
+    <xs:element name="getUsuarioResponse" type="tns:getUsuarioResponse"/>
 
-<xs:complexType name="Login">
-<xs:sequence>
-<xs:element name="User" type="xs:string" minOccurs="0"/>
-<xs:element name="Password" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="Login">
+        <xs:sequence>
+            <xs:element name="User" type="xs:string" minOccurs="0"/>
+            <xs:element name="Password" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="LoginResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="LoginResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="getUsuario">
-<xs:sequence>
-<xs:element name="User" type="xs:string" minOccurs="0"/>
-<xs:element name="Password" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="getUsuario">
+        <xs:sequence>
+            <xs:element name="User" type="xs:string" minOccurs="0"/>
+            <xs:element name="Password" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="getUsuarioResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:workersDto" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="getUsuarioResponse">
+        <xs:sequence>
+            <xs:element name="return" type="tns:workersDto" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="workersDto">
-<xs:sequence>
-<xs:element name="active" type="xs:string" minOccurs="0"/>
-<xs:element name="administrator" type="xs:string" minOccurs="0"/>
-<xs:element name="code" type="xs:string" minOccurs="0"/>
-<xs:element name="email" type="xs:string" minOccurs="0"/>
-<xs:element name="id" type="xs:int" minOccurs="0"/>
-<xs:element name="identification" type="xs:string" minOccurs="0"/>
-<xs:element name="job" type="tns:jobs" minOccurs="0"/>
-<xs:element name="landline" type="xs:string" minOccurs="0"/>
-<xs:element name="name" type="xs:string" minOccurs="0"/>
-<xs:element name="password" type="xs:string" minOccurs="0"/>
-<xs:element name="photo" type="xs:base64Binary" minOccurs="0"/>
-<xs:element name="psurname" type="xs:string" minOccurs="0"/>
-<xs:element name="recover" type="xs:string" minOccurs="0"/>
-<xs:element name="ssurname" type="xs:string" minOccurs="0"/>
-<xs:element name="telephone" type="xs:string" minOccurs="0"/>
-<xs:element name="username" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="workersDto">
+        <xs:sequence>
+            <xs:element name="active" type="xs:string" minOccurs="0"/>
+            <xs:element name="administrator" type="xs:string" minOccurs="0"/>
+            <xs:element name="code" type="xs:string" minOccurs="0"/>
+            <xs:element name="email" type="xs:string" minOccurs="0"/>
+            <xs:element name="id" type="xs:int" minOccurs="0"/>
+            <xs:element name="identification" type="xs:string" minOccurs="0"/>
+            <xs:element name="job" type="tns:jobs" minOccurs="0"/>
+            <xs:element name="landline" type="xs:string" minOccurs="0"/>
+            <xs:element name="name" type="xs:string" minOccurs="0"/>
+            <xs:element name="password" type="xs:string" minOccurs="0"/>
+            <xs:element name="photo" type="xs:base64Binary" minOccurs="0"/>
+            <xs:element name="psurname" type="xs:string" minOccurs="0"/>
+            <xs:element name="recover" type="xs:string" minOccurs="0"/>
+            <xs:element name="ssurname" type="xs:string" minOccurs="0"/>
+            <xs:element name="telephone" type="xs:string" minOccurs="0"/>
+            <xs:element name="username" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="jobs">
-<xs:sequence>
-<xs:element name="jsId" type="xs:int" minOccurs="0"/>
-<xs:element name="jsName" type="xs:string" minOccurs="0"/>
-<xs:element name="jsState" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="jobs">
+        <xs:sequence>
+            <xs:element name="jsId" type="xs:int" minOccurs="0"/>
+            <xs:element name="jsName" type="xs:string" minOccurs="0"/>
+            <xs:element name="jsState" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="IOException">
-<xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="IOException">
+        <xs:sequence>
+            <xs:element name="message" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="ResetAccontPassword">
-<xs:sequence>
-<xs:element name="Email" type="xs:string" minOccurs="0"/>
-<xs:element name="Password" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="ResetAccontPassword">
+        <xs:sequence>
+            <xs:element name="Email" type="xs:string" minOccurs="0"/>
+            <xs:element name="Password" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="ResetAccontPasswordResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="ResetAccontPasswordResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="IsActiveWorker">
-<xs:sequence>
-<xs:element name="Code" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="IsActiveWorker">
+        <xs:sequence>
+            <xs:element name="Code" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="IsActiveWorkerResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="IsActiveWorkerResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="Register">
-<xs:sequence>
-<xs:element name="arg0" type="tns:workersDto" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="Register">
+        <xs:sequence>
+            <xs:element name="arg0" type="tns:workersDto" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="RegisterResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="RegisterResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="Active">
-<xs:sequence>
-<xs:element name="Code" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="Active">
+        <xs:sequence>
+            <xs:element name="Code" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="ActiveResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="ActiveResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="Delete">
-<xs:sequence>
-<xs:element name="Id" type="xs:int" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="Delete">
+        <xs:sequence>
+            <xs:element name="Id" type="xs:int" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="DeleteResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="DeleteResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="IsAnAdmin">
-<xs:sequence>
-<xs:element name="User" type="xs:string" minOccurs="0"/>
-<xs:element name="Password" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="IsAnAdmin">
+        <xs:sequence>
+            <xs:element name="User" type="xs:string" minOccurs="0"/>
+            <xs:element name="Password" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="IsAnAdminResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="IsAnAdminResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="IsTempPassword">
-<xs:sequence>
-<xs:element name="User" type="xs:string" minOccurs="0"/>
-<xs:element name="Password" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="IsTempPassword">
+        <xs:sequence>
+            <xs:element name="User" type="xs:string" minOccurs="0"/>
+            <xs:element name="Password" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="IsTempPasswordResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="IsTempPasswordResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="GetUsuarios">
-<xs:sequence/>
-</xs:complexType>
+    <xs:complexType name="GetUsuarios">
+        <xs:sequence/>
+    </xs:complexType>
 
-<xs:complexType name="GetUsuariosResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:workersDto" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="GetUsuariosResponse">
+        <xs:sequence>
+            <xs:element name="return" type="tns:workersDto" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>
