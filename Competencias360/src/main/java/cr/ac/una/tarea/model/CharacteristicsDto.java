@@ -14,7 +14,6 @@ import javafx.beans.property.SimpleStringProperty;
  * @author dilan
  */
 public class CharacteristicsDto {
-
     private SimpleIntegerProperty ccId;
     private SimpleStringProperty ccName;
     private Competences ccComid;
@@ -57,5 +56,4 @@ public class CharacteristicsDto {
     public void setCcComid(Competences ccComid) {
         this.ccComid = ccComid;
     }
-
 }
