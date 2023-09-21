@@ -21,6 +21,7 @@ public class ComInformationDto {
         this.name = information.getCpName();
         this.email = information.getCpEmail();
         this.photo = information.getCpPhoto();
+        this.information= information.getCpInformation();
     }
     
     public void setId(Integer id) {

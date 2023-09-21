@@ -52,6 +52,7 @@ public class Cominformation implements Serializable {
         this.cpName = comInformationDto.getName();
         this.cpInformation = comInformationDto.getInformation();
         this.cpEmail = comInformationDto.getEmail();
+        this.cpPhoto= comInformationDto.getPhoto();
     }
     public Cominformation(Integer cpId) {
         this.cpId = cpId;

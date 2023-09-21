@@ -10,16 +10,16 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para GetJobsResponse complex type.
+ * <p>Clase Java para GetComInfoResponse complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
- * <complexType name="GetJobsResponse">
+ * <complexType name="GetComInfoResponse">
  *   <complexContent>
  *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       <sequence>
- *         <element name="return" type="{http://controller.tareaws.una.ac.cr/}jobsDto" maxOccurs="unbounded" minOccurs="0"/>
+ *         <element name="return" type="{http://controller.tareaws.una.ac.cr/}comInformationDto" maxOccurs="unbounded" minOccurs="0"/>
  *       </sequence>
  *     </restriction>
  *   </complexContent>
@@ -29,13 +29,13 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetJobsResponse", propOrder = {
+@XmlType(name = "GetComInfoResponse", propOrder = {
     "_return"
 })
-public class GetJobsResponse {
+public class GetComInfoResponse {
 
     @XmlElement(name = "return")
-    protected List<JobsDto> _return;
+    protected List<ComInformationDto> _return;
 
     /**
      * Gets the value of the return property.
@@ -55,13 +55,13 @@ public class GetJobsResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link JobsDto }
+     * {@link ComInformationDto }
      * 
      * 
      * @return
      *     The value of the return property.
      */
-    public List<JobsDto> getReturn() {
+    public List<ComInformationDto> getReturn() {
         if (_return == null) {
             _return = new ArrayList<>();
         }

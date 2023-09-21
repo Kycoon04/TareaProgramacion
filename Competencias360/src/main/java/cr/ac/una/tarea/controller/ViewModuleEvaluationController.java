@@ -531,7 +531,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             workerDto.setUsername(evaluated.getEsWorker().getWrUsername());
             listWorkersEvaluated.add(workerDto);
         }
-       
         this.tableViewWorkersPE.refresh();
         this.tableViewWorkersPE.setItems(workerList);
     }
@@ -817,7 +816,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void openSettingRelational(ActionEvent event) {
-        importEvaluators();
+       
         ImportListWorker();
         viewSelectedJob.toFront();
         OptionsSettingRelationalView.toFront();

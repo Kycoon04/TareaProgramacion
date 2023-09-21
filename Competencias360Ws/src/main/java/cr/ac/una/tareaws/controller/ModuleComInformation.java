@@ -6,6 +6,7 @@ package cr.ac.una.tareaws.controller;
 
 import cr.ac.una.tareaws.model.ComInformationDto;
 import cr.ac.una.tareaws.model.Cominformation;
+import cr.ac.una.tareaws.model.Jobs;
 import cr.ac.una.tareaws.service.ComInformationService;
 
 import cr.ac.una.tareaws.util.Respuesta;
@@ -14,6 +15,8 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -38,6 +41,18 @@ public class ModuleComInformation {
         return respuesta.getEstado();
     }
     
+    @WebMethod(operationName = "GetComInfo")
+    public List<ComInformationDto> GetComInfo() throws IOException {
+        Respuesta respuesta = comInformationService.getAllInfo();
+        List<Cominformation>  cominformations= (List<Cominformation>) respuesta.getResultado("Cominformation");
+        List<ComInformationDto> comInformationDto = new ArrayList<>();
+        for (Cominformation j : cominformations) {
+            ComInformationDto comInformationDt = new ComInformationDto(j);
+            comInformationDto.add(comInformationDt);
+        }
+        return comInformationDto;
+    }
+   
     
     @WebMethod(operationName = "Delete")
     public Boolean Delete(@WebParam(name = "Id") Integer id) {

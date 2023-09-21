@@ -8,9 +8,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for setDate complex type.
+ * <p>Clase Java para setDate complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="setDate">
@@ -45,7 +45,7 @@ public class SetDate {
     protected String inicio;
 
     /**
-     * Gets the value of the dto property.
+     * Obtiene el valor de la propiedad dto.
      * 
      * @return
      *     possible object is
@@ -57,7 +57,7 @@ public class SetDate {
     }
 
     /**
-     * Sets the value of the dto property.
+     * Define el valor de la propiedad dto.
      * 
      * @param value
      *     allowed object is
@@ -69,7 +69,7 @@ public class SetDate {
     }
 
     /**
-     * Gets the value of the aplicacion property.
+     * Obtiene el valor de la propiedad aplicacion.
      * 
      * @return
      *     possible object is
@@ -81,7 +81,7 @@ public class SetDate {
     }
 
     /**
-     * Sets the value of the aplicacion property.
+     * Define el valor de la propiedad aplicacion.
      * 
      * @param value
      *     allowed object is
@@ -93,7 +93,7 @@ public class SetDate {
     }
 
     /**
-     * Gets the value of the finalizado property.
+     * Obtiene el valor de la propiedad finalizado.
      * 
      * @return
      *     possible object is
@@ -105,7 +105,7 @@ public class SetDate {
     }
 
     /**
-     * Sets the value of the finalizado property.
+     * Define el valor de la propiedad finalizado.
      * 
      * @param value
      *     allowed object is
@@ -117,7 +117,7 @@ public class SetDate {
     }
 
     /**
-     * Gets the value of the inicio property.
+     * Obtiene el valor de la propiedad inicio.
      * 
      * @return
      *     possible object is
@@ -129,7 +129,7 @@ public class SetDate {
     }
 
     /**
-     * Sets the value of the inicio property.
+     * Define el valor de la propiedad inicio.
      * 
      * @param value
      *     allowed object is

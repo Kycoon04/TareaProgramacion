@@ -1,5 +1,6 @@
 package cr.ac.una.tarea.model;
 
+import cr.ac.una.tarea.soap.ComInformationDto;
 import java.io.IOException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -22,11 +23,11 @@ public class InformationDto {
         this.information = new SimpleStringProperty();
     }
 
-    public InformationDto(InformationDto informationDto) throws IOException {
-        this.id.set(informationDto.getId());
-        this.name.set(informationDto.getName());
-        this.email.set(informationDto.getEmail());
-        this.photo = informationDto.getPhoto();
+    public InformationDto(ComInformationDto comInformationDto) throws IOException {
+        this.id.set(comInformationDto.getId());
+        this.name.set(comInformationDto.getName());
+        this.email.set(comInformationDto.getEmail());
+        this.photo = comInformationDto.getPhoto();
     }
     
     public Integer getId() {

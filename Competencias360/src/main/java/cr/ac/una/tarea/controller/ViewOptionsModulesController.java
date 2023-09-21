@@ -263,7 +263,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TableColumn<CompetenceDto, String> tableColCCompNameAss;
     @FXML
     private TableColumn<CompetenceDto, String> tableColCCompStaAss;
-
+     List<InformationDto> list;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         OptionsMenuView.toFront();
@@ -481,25 +481,57 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         workerDto.setPhoto(buffer);
     }
 
+    public void imageToBytesInfo(File file) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(file);
+        byte[] buffer = new byte[(int) file.length()];
+        int bytesRead = fis.read(buffer);
+        informationDto.setPhoto(buffer);
+    }
+    
     @FXML
     private void InformationGeneral(ActionEvent event) {
+        ComInformationService comInformationService = new ComInformationService();
+        Respuesta respuesta = comInformationService.getComInformation();
+        
+       if(!respuesta.getEstado()){
+           System.out.println("Vacia");  
+           OptionsInformationView.toFront();
+       }else{
+           list = (List<InformationDto>) respuesta.getResultado("ComInformation");
+        NameInformationField.setText(list.get(0).getName());
+        EmailInformationField.setText(list.get(0).getEmail());
+        InfoInformationField.setText(list.get(0).getInformation());
+        System.out.println(list.get(0).getPhoto());
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(list.get(0).getPhoto());
+        Image image = new Image(byteArrayInputStream);
+        InformationMainPhoto.setFill(new ImagePattern(image));
         OptionsInformationView.toFront();
+       }
     }
 
     @FXML
     private void UpdateInformation(ActionEvent event) {
 
         ComInformationService comInformationService = new ComInformationService();
+        Respuesta respuesta1 = comInformationService.getComInformation();
+           
         informationDto.setName(NameInformationField.getText());
         informationDto.setInformation(InfoInformationField.getText());
         informationDto.setEmail(EmailInformationField.getText());
+        
+        if(respuesta1.getEstado()){
+              informationDto.setId(list.get(0).getId());
+              Respuesta respuesta = comInformationService.SaveInformation(informationDto);
+        }
         Respuesta respuesta = comInformationService.SaveInformation(informationDto);
-
+        
         if (!respuesta.getEstado()) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar empleado", getStage(), respuesta.getMensaje());
         } else {
             new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar empleado", getStage(), "Empleado actualizado correctamente.");
         }
+        
+        
     }
 
     @FXML
@@ -939,7 +971,18 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     }
 
     @FXML
-    private void SelectImageInformation(ActionEvent event) {
+    private void SelectImageInformation(ActionEvent event) throws IOException {
+            FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg"),
+                new FileChooser.ExtensionFilter("Todos los archivos", "*.*")
+        );
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            imageToBytesInfo(selectedFile);
+        }
+        Image image = new Image(selectedFile.toURI().toString());
+        InformationMainPhoto.setFill(new ImagePattern(image));
     }
 
     @FXML

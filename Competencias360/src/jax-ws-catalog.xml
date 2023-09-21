@@ -12,8 +12,6 @@
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleCompetences?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleCompetences.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleJobs?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleJobs.wsdl"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleJobs?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleJobs.xsd_1.xsd"/>
-    <system systemId="http://localhost:8080/Competencias360Ws/ModuleComInformation?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleComInformation.wsdl"/>
-    <system systemId="http://localhost:8080/Competencias360Ws/ModuleComInformation?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleComInformation.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleWorkers?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleWorkers.wsdl"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleWorkers?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleWorkers.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleProcesoeva?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleProcesoeva.wsdl"/>
@@ -24,4 +22,6 @@
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleEvaluators?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleEvaluators.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleCharacteristic?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleCharacteristic.wsdl"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleCharacteristic?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleCharacteristic.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/Competencias360Ws/ModuleComInformation?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleComInformation.wsdl"/>
+    <system systemId="http://localhost:8080/Competencias360Ws/ModuleComInformation?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleComInformation.xsd_1.xsd"/>
 </catalog>

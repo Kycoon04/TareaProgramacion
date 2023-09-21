@@ -11,6 +11,7 @@ import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,6 +61,22 @@ public class ComInformationService {
             return new Respuesta(false, "Error obteniendo el Information.", "getInformation " + ex.getMessage());
         }
     }
+    
+    
+    
+    public Respuesta getAllInfo() {
+        try {
+            Query qryJob = em.createNamedQuery("Cominformation.findAll", Cominformation.class);
+            List<Cominformation> cominformation = qryJob.getResultList();
+            return new Respuesta(true, "", "", "Cominformation", cominformation);
+        } catch (NoResultException ex) {
+            return new Respuesta(false, "No hay informacion en la base", "getInformation NoResultException");
+        } catch (Exception ex) {
+            Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error al obtener informacion", ex);
+            return new Respuesta(false, "Error al obtener informacion", "getInformation" + ex.getMessage());
+        }
+    }
+    
     
         public Respuesta Delete(Integer id) {
         try {
