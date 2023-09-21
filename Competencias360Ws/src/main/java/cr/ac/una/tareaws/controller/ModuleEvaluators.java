@@ -17,6 +17,8 @@ import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -63,5 +65,16 @@ public class ModuleEvaluators {
         proceso.setEnApplication(LocalDate.parse(Aplicacion));
         proceso.setEnFinalperiod(LocalDate.parse(finalizado));
         proceso.setEnInicialperiod(LocalDate.parse(inicio));
-    }  
+    } 
+    @WebMethod(operationName = "GetEvaluators")
+    public List<EvaluatorsDto> GetEvaluators() throws IOException {
+        Respuesta respuesta = evaluatorsService.getEvaluators();
+        List<Evaluators> ev = (List<Evaluators>) respuesta.getResultado("Evaluators");
+        List<EvaluatorsDto> evaDto = new ArrayList<>();
+        for (Evaluators j : ev) {
+            EvaluatorsDto jobDto = new EvaluatorsDto(j);
+            evaDto.add(jobDto);
+        }
+        return evaDto;
+    }
 }

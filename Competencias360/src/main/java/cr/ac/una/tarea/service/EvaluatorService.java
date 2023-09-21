@@ -14,6 +14,8 @@ import cr.ac.una.tarea.soap.ModuleEvaluators_Service;
 import cr.ac.una.tarea.soap.ModuleJobs_Service;
 import cr.ac.una.tarea.soap.Procesoeva;
 import cr.ac.una.tarea.util.Respuesta;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -78,6 +80,31 @@ public class EvaluatorService {
         } catch (Exception ex) {
             Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error eliminando el evaluador.", ex);
             return new Respuesta(false, "Error eliminando el Evaluador.", "eliminarEvaluador " + ex.getMessage());
+        }
+    }
+    public Respuesta getEvaluators() {
+        try {
+           ModuleEvaluators_Service servicio = new ModuleEvaluators_Service();
+            ModuleEvaluators cliente = servicio.getModuleEvaluatorsPort();
+
+            List<EvaluatorsDto> jobsWs = cliente.getEvaluators();
+            List<EvaluatorDto> e = new ArrayList<>();
+            for (EvaluatorsDto evt : jobsWs) {
+                EvaluatorDto es = new EvaluatorDto();
+                es.setEvsConnection(evt.getEvsConnection());
+                es.setEvsEvaluated(evt.getEvsEvaluated());
+                es.setEvsFeedback(evt.getEvsFeedback());
+                es.setEvsId(evt.getEvsId());
+                es.setEvsState(evt.getEvsState());
+                es.setEvsWorker(evt.getEvsWorker());
+
+                e.add(es);
+            }
+
+            return new Respuesta(true, "Error obteniendo los evaluadores.", "getEvaluators", "Evaluators", e);
+        } catch (Exception ex) {
+            Logger.getLogger(JobsService.class.getName()).log(Level.SEVERE, "Error obteniendo los puestos.", ex);
+            return new Respuesta(false, "Error obteniendo los evaluadores.", "getEvaluators" + ex.getMessage());
         }
     }
 }
