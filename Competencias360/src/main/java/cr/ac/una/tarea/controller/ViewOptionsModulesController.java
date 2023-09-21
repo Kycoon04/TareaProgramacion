@@ -491,8 +491,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private void InformationGeneral(ActionEvent event) {
         ComInformationService comInformationService = new ComInformationService();
-        Respuesta respuesta = comInformationService.getComInformation();
-        
+        Respuesta respuesta = comInformationService.getComInformation();    
        if(!respuesta.getEstado()){
            System.out.println("Vacia");  
            OptionsInformationView.toFront();

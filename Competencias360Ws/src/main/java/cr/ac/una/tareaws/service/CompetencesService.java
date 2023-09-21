@@ -59,7 +59,7 @@ public class CompetencesService {
             if (competencesDto.getId() != null && competencesDto.getId() > 0) {
                 competences = em.find(Competences.class, competencesDto.getId());
                 if (competences == null) {
-                    return new Respuesta(false, "No se encrontró el empleado a modificar.", "guardarEmpleado NoResultException");
+                    return new Respuesta(false, "No se encrontró la competencia a modificar.", "guardarCompetencia NoResultException");
                 }
                 competences.Actualizar(competencesDto);
                 competences = em.merge(competences);
@@ -70,8 +70,8 @@ public class CompetencesService {
             em.flush();
             return new Respuesta(true, "", "", "Competence", new CompetencesDto(competences));
         } catch (Exception ex) {
-            LOG.log(Level.SEVERE, "Ocurrio un error al guardar el empleado.", ex);
-            return new Respuesta(false, "Ocurrio un error al guardar el empleado.", "guardarEmpleado " + ex.getMessage());
+            LOG.log(Level.SEVERE, "Ocurrio un error al guardar la competencia.", ex);
+            return new Respuesta(false, "Ocurrio un error al guardar la competencia.", "guardarCompetencia " + ex.getMessage());
         }
     }
 

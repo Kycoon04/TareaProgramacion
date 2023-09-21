@@ -11,6 +11,7 @@ import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -115,4 +116,19 @@ public class EvaluatorService {
             return new Respuesta(false, "Ocurrio un error al eliminar el evaluador.", "eliminarEvaluador " + ex.getMessage());
         }
     }
+     public Respuesta getEvaluators() {
+        try {
+            Query qryJob = em.createNamedQuery("Evaluators.findAll", Evaluators.class);
+            List<Evaluators> ev = qryJob.getResultList();
+            return new Respuesta(true, "", "", "Evaluators", ev);
+        } catch (NoResultException ex) {
+            return new Respuesta(false, "No hay Evaluadores en la base", "getEvaluators NoResultException");
+        } catch (Exception ex) {
+            Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error obteniendo Evaluadores", ex);
+            return new Respuesta(false, "Error al obtener Evaluadores", "getEvaluators" + ex.getMessage());
+        }
+    }
+     
+    
+    
 }

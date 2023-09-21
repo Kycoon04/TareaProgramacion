@@ -8,6 +8,7 @@ import cr.ac.una.tareaws.model.Evaluated;
 import cr.ac.una.tareaws.model.EvaluatedDto;
 import cr.ac.una.tareaws.model.Evaluators;
 import cr.ac.una.tareaws.model.EvaluatorsDto;
+import cr.ac.una.tareaws.model.Jobs;
 import cr.ac.una.tareaws.model.Procesoeva;
 import cr.ac.una.tareaws.service.EvaluatorService;
 import cr.ac.una.tareaws.util.Respuesta;
@@ -17,6 +18,8 @@ import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -64,4 +67,16 @@ public class ModuleEvaluators {
         proceso.setEnFinalperiod(LocalDate.parse(finalizado));
         proceso.setEnInicialperiod(LocalDate.parse(inicio));
     }  
+    
+    @WebMethod(operationName = "GetEvaluators")
+    public List<EvaluatorsDto> GetEvaluators() throws IOException {
+        Respuesta respuesta = evaluatorsService.getEvaluators();
+        List<Evaluators> ev = (List<Evaluators>) respuesta.getResultado("Evaluators");
+        List<EvaluatorsDto> evaDto = new ArrayList<>();
+        for (Evaluators j : ev) {
+            EvaluatorsDto jobDto = new EvaluatorsDto(j);
+            evaDto.add(jobDto);
+        }
+        return evaDto;
+    }
 }
