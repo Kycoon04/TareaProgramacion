@@ -1,6 +1,5 @@
 package cr.ac.una.tarea.model;
 
-
 import cr.ac.una.tarea.soap.Jobs;
 import cr.ac.una.tarea.soap.WorkersDto;
 import java.util.Objects;
@@ -46,11 +45,12 @@ public class WorkerDto {
         this.telephone = new SimpleStringProperty();
         this.administrator = new SimpleStringProperty("N");
         this.active = new SimpleBooleanProperty(false);
-        this.job= new Jobs();
-        this.recover=new SimpleBooleanProperty();
-        
+        this.job = new Jobs();
+        this.recover = new SimpleBooleanProperty();
+
     }
-    public WorkerDto(WorkersDto Worker){
+
+    public WorkerDto(WorkersDto Worker) {
         this.code.set(Worker.getCode());
         this.id.set(Worker.getId());
         this.name.set(Worker.getName());
@@ -68,14 +68,22 @@ public class WorkerDto {
         this.job = Worker.getJob();
         this.recover.set(Worker.getRecover().equals("S"));
     }
-    
-        public String getCode() {
+
+    public String getCode() {
         return code.get();
+    }
+
+    public boolean isFill(WorkerDto wor) {
+        if (wor.getName() != "" && wor.getSsurname() != "" && wor.getUsername() != "" && wor.getEmail() != "" && wor.getPassword() != "") {
+            return true;
+        }
+        return false;
     }
 
     public void setCode(String codeP) {
         this.code.set(codeP);
     }
+
     public String getIden() {
         return identification.get();
     }
@@ -83,6 +91,7 @@ public class WorkerDto {
     public void setUsername(String usernameP) {
         this.username.set(usernameP);
     }
+
     public String getUsername() {
         return username.get();
     }
@@ -90,6 +99,7 @@ public class WorkerDto {
     public void setIdentification(String identificationP) {
         this.identification.set(identificationP);
     }
+
     public String getName() {
         return name.get();
     }
@@ -101,6 +111,7 @@ public class WorkerDto {
     public String getPsurname() {
         return psurname.get();
     }
+
     public void setPsurname(String psurname) {
         this.psurname.set(psurname);
     }
@@ -126,7 +137,7 @@ public class WorkerDto {
     }
 
     public void setEmail(String email) {
-        this.email.set(email); 
+        this.email.set(email);
     }
 
     public String getPassword() {
@@ -154,14 +165,15 @@ public class WorkerDto {
     }
 
     public String getActive() {
-        return active.get()? "S":"N";
+        return active.get() ? "S" : "N";
     }
+
     public String getActives() {
         String act;
-        if(active.get()){
-            act="Activo";
-        }else{
-            act="Inactivo";
+        if (active.get()) {
+            act = "Activo";
+        } else {
+            act = "Inactivo";
         }
         return act;
     }
@@ -177,7 +189,7 @@ public class WorkerDto {
     public void setAdministrator(String administrator) {
         this.administrator.set(administrator);
     }
-    
+
     public Long getVersion() {
         return version;
     }
@@ -201,16 +213,20 @@ public class WorkerDto {
     public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
-    public Jobs getJob(){
+
+    public Jobs getJob() {
         return job;
     }
-    public void setJob(Jobs job){
+
+    public void setJob(Jobs job) {
         this.job = job;
     }
-     public String getRecover(){
-        return recover.get()? "S":"N";
+
+    public String getRecover() {
+        return recover.get() ? "S" : "N";
     }
-    public void setRecover(String Recover){
+
+    public void setRecover(String Recover) {
         this.recover.set(Recover.equals("S"));
     }
 
@@ -220,7 +236,7 @@ public class WorkerDto {
         hash = 61 * hash + Objects.hashCode(this.id);
         return hash;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -235,7 +251,7 @@ public class WorkerDto {
         final WorkerDto other = (WorkerDto) obj;
         return Objects.equals(this.id, other.id);
     }
-    
+
     @Override
     public String toString() {
         return "EmpleadoDto{" + "id=" + id + ", nombre=" + name + ", primerApellido=" + psurname + ", segundoApellido=" + ssurname + ", cedula=" + id + '}';

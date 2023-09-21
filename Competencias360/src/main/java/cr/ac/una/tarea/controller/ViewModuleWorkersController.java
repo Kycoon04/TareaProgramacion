@@ -212,7 +212,7 @@ public class ViewModuleWorkersController extends Controller implements Initializ
     @FXML
     private void ConfirmRegister(ActionEvent event) {
         try {
-            if (password2RegisField.getText().equals(passwordRegisField.getText())) {
+            if (password2RegisField.getText().equals(passwordRegisField.getText())&& userRegisField.getText()!=null && surname1RegisField.getText()!=null && usernameRegisField.getText()!=null && surname2RegisField.getText()!=null ) {
                 WorkersService workersService = new WorkersService();
                 workerDto.setCode(CodeRamdon());
                 Respuesta respuesta = workersService.guardarEmpleado(workerDto);
@@ -228,7 +228,7 @@ public class ViewModuleWorkersController extends Controller implements Initializ
                     new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar empleado", getStage(), "Empleado actualizado correctamente.");
                 }
             }else{
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar Empleado", getStage(), "Las contraseñas no coinciden.");
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar Empleado", getStage(), "Verifica los campos.");
             }
         } catch (Exception ex) {
             Logger.getLogger(ViewModuleWorkersController.class

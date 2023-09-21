@@ -35,7 +35,7 @@ public class WorkersService {
         try {
             ModuleWorkers_Service servicio = new ModuleWorkers_Service();
             ModuleWorkers cliente = servicio.getModuleWorkersPort();
-
+            
             WorkerDto workerDto = new WorkerDto();
             workerDto.setId(cliente.getUsuario(usuario, clave).getId());
             workerDto.setJob(cliente.getUsuario(usuario, clave).getJob());
@@ -70,6 +70,7 @@ public class WorkersService {
 
     public Respuesta guardarEmpleado(WorkerDto workerDto) {
         try {
+            WorkersDto worker1 = new WorkersDto();
             ModuleWorkers_Service servicio = new ModuleWorkers_Service();
             ModuleWorkers cliente = servicio.getModuleWorkersPort();
             WorkersDto worker = new WorkersDto();
@@ -90,6 +91,7 @@ public class WorkersService {
             worker.setTelephone(workerDto.getTelephone());
             worker.setUsername(workerDto.getUsername());
             cliente.register(worker);
+            
             return new Respuesta(true, "", "", "Empleado", workerDto);
         } catch (Exception ex) {
             Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error guardando el empleado.", ex);

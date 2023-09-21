@@ -111,7 +111,7 @@ public class EvaluatorService {
             if (ex.getCause() != null && ex.getCause().getCause().getClass() == SQLIntegrityConstraintViolationException.class) {
                 return new Respuesta(false, "No se puede eliminar el evaluador porque tiene relaciones con otros registros.", "eliminarEvaluador " + ex.getMessage());
             }
-            LOG.log(Level.SEVERE, "Ocurrio un error al guardar el evaluador.", ex);
+            LOG.log(Level.SEVERE, "Ocurrio un error al eliminar el evaluador.", ex);
             return new Respuesta(false, "Ocurrio un error al eliminar el evaluador.", "eliminarEvaluador " + ex.getMessage());
         }
     }
