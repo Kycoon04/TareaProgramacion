@@ -13,6 +13,8 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -47,5 +49,16 @@ public class ModuleCharacteristic {
     public Boolean Delete(@WebParam(name = "Id") Integer id) {
         Respuesta respuesta = characteristicService.Delete(id);
         return respuesta.getEstado();
+    }
+        @WebMethod(operationName = "GetCharacteristics")
+    public List<CharacteristicDto> GetCharacteristics() throws IOException {
+        Respuesta respuesta = characteristicService.getCharacteristics();
+        List<Characteristic> characteristics = (List<Characteristic>) respuesta.getResultado("Characteristic");
+        List<CharacteristicDto> CharacteristicDto = new ArrayList<>();
+        for (Characteristic j : characteristics) {
+            CharacteristicDto characteristicDto = new CharacteristicDto(j);
+            CharacteristicDto.add(characteristicDto);
+        }
+        return CharacteristicDto;
     }
 }

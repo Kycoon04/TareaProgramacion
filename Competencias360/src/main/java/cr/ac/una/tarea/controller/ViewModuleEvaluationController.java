@@ -491,15 +491,27 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     }
 
     public void ImportListWorker() {
+
+        WorkersService service = new WorkersService();
+        Respuesta respuesta = service.getUsuarios();
+        listWorkers = (List<WorkerDto>) respuesta.getResultado("Usuarios");
+        changeTextAdmi(listWorkers);
+        workerList = FXCollections.observableArrayList(listWorkers);
+        workerListCRE = FXCollections.observableArrayList(listWorkersEvaluated);
+        this.tableViewWorkersCRE.refresh();
+        this.tableViewWorkersCRE.setItems(workerListCRE);
+        this.tableViewWorkers.refresh();
+        this.tableViewWorkers.setItems(workerList);
+    }
+
+    public void importEvaluators() {
+
         WorkersService service = new WorkersService();
         EvaluatedService evaluatedservice = new EvaluatedService();
 
-        Respuesta respuesta = service.getUsuarios();
-        listWorkers = (List<WorkerDto>) respuesta.getResultado("Usuarios");
-
-        respuesta = evaluatedservice.getEvaluateds();
+        Respuesta respuesta = evaluatedservice.getEvaluateds();
         List<EvaluatedsDto> EvaluatedDto = (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
-
+         this.listWorkersEvaluated.clear();
         for (EvaluatedsDto evaluated : EvaluatedDto) {
             WorkerDto workerDto = new WorkerDto();
             workerDto.setPhoto(evaluated.getEsWorker().getWrPhoto());
@@ -519,18 +531,13 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             workerDto.setUsername(evaluated.getEsWorker().getWrUsername());
             listWorkersEvaluated.add(workerDto);
         }
-        changeTextAdmi(listWorkers);
-
-        workerList = FXCollections.observableArrayList(listWorkers);
-        workerListCRE = FXCollections.observableArrayList(listWorkersEvaluated);
-
+       
         this.tableViewWorkersPE.refresh();
         this.tableViewWorkersPE.setItems(workerList);
+    }
 
-        this.tableViewWorkersCRE.refresh();
-        this.tableViewWorkersCRE.setItems(workerListCRE);
-        this.tableViewWorkers.refresh();
-        this.tableViewWorkers.setItems(workerList);
+    public void importWorkersEv() {
+
     }
 
     public void changeTextAdmi(List<WorkerDto> list) {
@@ -643,7 +650,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                 proceso.setEnId(procesoDto.getId());
                 proceso.setEnName(procesoDto.getName());
                 proceso.setEnState(procesoDto.getState());
-                
+
                 Workers worker = new Workers();
                 worker.setWrCodeactive(workerDto.getCode());
                 worker.setWrId(workerDto.getId());
@@ -810,6 +817,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void openSettingRelational(ActionEvent event) {
+        importEvaluators();
         ImportListWorker();
         viewSelectedJob.toFront();
         OptionsSettingRelationalView.toFront();
@@ -868,8 +876,14 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         FlowController.getInstance().goMain("ViewOptionsModules");
     }
 
-    Predicate <EvaluatedsDto> pName(String nombre) { return x-> x.getEsWorker().getWrName().equals(nombre);}
-    Predicate <EvaluatedsDto> pProceso(String proceso) {return x-> x.getEsProcesoeva().getEnName().equals(proceso);}
+    Predicate<EvaluatedsDto> pName(String nombre) {
+        return x -> x.getEsWorker().getWrName().equals(nombre);
+    }
+
+    Predicate<EvaluatedsDto> pProceso(String proceso) {
+        return x -> x.getEsProcesoeva().getEnName().equals(proceso);
+    }
+
     @FXML
     private void addEvaluators(ActionEvent event) {
 
@@ -899,27 +913,24 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             worker.setWrTelephone(workerSel.getTelephone());
             worker.setWrUsername(workerSel.getUsername());
             evaluator.setEvsWorker(worker);
-            
+
             Evaluated evaluated = new Evaluated();
             EvaluatedService evaluatedservice = new EvaluatedService();
-            
+
             Respuesta respuesta = evaluatedservice.getEvaluateds();
-            List<EvaluatedsDto> posible= (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
-            
-           List<EvaluatedsDto> lista = posible.stream().filter(
-                   pName(evaluatedDto.getEsWorker().getWrName())
-                           .and(pProceso(evaluatedDto.getEsProcesoeva().getEnName()))).toList();
-            
-           evaluated.setEsId(lista.get(0).getId());
-           evaluated.setEsProcesoeva(lista.get(0).getEsProcesoeva());
-           evaluated.setEsWorker(lista.get(0).getEsWorker());
-               
+            List<EvaluatedsDto> posible = (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
+
+            List<EvaluatedsDto> lista = posible.stream().filter(
+                    pName(evaluatedDto.getEsWorker().getWrName())
+                            .and(pProceso(evaluatedDto.getEsProcesoeva().getEnName()))).toList();
+
+            evaluated.setEsId(lista.get(0).getId());
+            evaluated.setEsProcesoeva(lista.get(0).getEsProcesoeva());
+            evaluated.setEsWorker(lista.get(0).getEsWorker());
+
             evaluator.setEvsEvaluated(evaluated);
-           
-            
-            
-            
-            cliente.SaveEvaluator(evaluator,procesoDto);
+
+            cliente.SaveEvaluator(evaluator, procesoDto);
         }
     }
 

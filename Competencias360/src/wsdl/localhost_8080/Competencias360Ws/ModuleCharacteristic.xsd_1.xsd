@@ -4,6 +4,10 @@
 
 <xs:element name="DeleteResponse" type="tns:DeleteResponse"/>
 
+<xs:element name="GetCharacteristics" type="tns:GetCharacteristics"/>
+
+<xs:element name="GetCharacteristicsResponse" type="tns:GetCharacteristicsResponse"/>
+
 <xs:element name="IOException" type="tns:IOException"/>
 
 <xs:element name="RegisterCharacteristic" type="tns:RegisterCharacteristic"/>
@@ -17,18 +21,6 @@
 <xs:element name="getByCcId" type="tns:getByCcId"/>
 
 <xs:element name="getByCcIdResponse" type="tns:getByCcIdResponse"/>
-
-<xs:complexType name="Delete">
-<xs:sequence>
-<xs:element name="Id" type="xs:int" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="DeleteResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
 
 <xs:complexType name="findByCcName">
 <xs:sequence>
@@ -62,6 +54,28 @@
 <xs:complexType name="IOException">
 <xs:sequence>
 <xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Delete">
+<xs:sequence>
+<xs:element name="Id" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="DeleteResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetCharacteristics">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="GetCharacteristicsResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:characteristicDto" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 

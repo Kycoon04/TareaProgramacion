@@ -1,6 +1,7 @@
 
 package cr.ac.una.tarea.soap;
 
+import java.util.List;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
@@ -27,18 +28,20 @@ public interface ModuleCharacteristic {
 
     /**
      * 
-     * @param id
      * @return
-     *     returns java.lang.Boolean
+     *     returns java.util.List<cr.ac.una.tarea.soap.CharacteristicDto>
+     * @throws IOException_Exception
      */
-    @WebMethod(operationName = "Delete")
+    @WebMethod(operationName = "GetCharacteristics")
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
-    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteResponse")
-    public Boolean delete(
-        @WebParam(name = "Id", targetNamespace = "")
-        Integer id);
+    @RequestWrapper(localName = "GetCharacteristics", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetCharacteristics")
+    @ResponseWrapper(localName = "GetCharacteristicsResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetCharacteristicsResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/GetCharacteristicsRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/GetCharacteristicsResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/GetCharacteristics/Fault/IOException")
+    })
+    public List<CharacteristicDto> getCharacteristics()
+        throws IOException_Exception
+    ;
 
     /**
      * 
@@ -79,6 +82,21 @@ public interface ModuleCharacteristic {
         String name)
         throws IOException_Exception
     ;
+
+    /**
+     * 
+     * @param id
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "Delete")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
+    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteResponse")
+    public Boolean delete(
+        @WebParam(name = "Id", targetNamespace = "")
+        Integer id);
 
     /**
      * 

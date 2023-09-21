@@ -4,11 +4,14 @@
 <xsd:import namespace="http://controller.tareaws.una.ac.cr/" schemaLocation="http://localhost:8080/Competencias360Ws/ModuleCharacteristic?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="Delete">
-<part name="parameters" element="tns:Delete"/>
+<message name="GetCharacteristics">
+<part name="parameters" element="tns:GetCharacteristics"/>
 </message>
-<message name="DeleteResponse">
-<part name="parameters" element="tns:DeleteResponse"/>
+<message name="GetCharacteristicsResponse">
+<part name="parameters" element="tns:GetCharacteristicsResponse"/>
+</message>
+<message name="IOException">
+<part name="fault" element="tns:IOException"/>
 </message>
 <message name="getByCcId">
 <part name="parameters" element="tns:getByCcId"/>
@@ -16,14 +19,17 @@
 <message name="getByCcIdResponse">
 <part name="parameters" element="tns:getByCcIdResponse"/>
 </message>
-<message name="IOException">
-<part name="fault" element="tns:IOException"/>
-</message>
 <message name="findByCcName">
 <part name="parameters" element="tns:findByCcName"/>
 </message>
 <message name="findByCcNameResponse">
 <part name="parameters" element="tns:findByCcNameResponse"/>
+</message>
+<message name="Delete">
+<part name="parameters" element="tns:Delete"/>
+</message>
+<message name="DeleteResponse">
+<part name="parameters" element="tns:DeleteResponse"/>
 </message>
 <message name="RegisterCharacteristic">
 <part name="parameters" element="tns:RegisterCharacteristic"/>
@@ -32,9 +38,10 @@
 <part name="parameters" element="tns:RegisterCharacteristicResponse"/>
 </message>
 <portType name="ModuleCharacteristic">
-<operation name="Delete">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteRequest" message="tns:Delete"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteResponse" message="tns:DeleteResponse"/>
+<operation name="GetCharacteristics">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleCharacteristic/GetCharacteristicsRequest" message="tns:GetCharacteristics"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleCharacteristic/GetCharacteristicsResponse" message="tns:GetCharacteristicsResponse"/>
+<fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleCharacteristic/GetCharacteristics/Fault/IOException"/>
 </operation>
 <operation name="getByCcId">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleCharacteristic/getByCcIdRequest" message="tns:getByCcId"/>
@@ -46,6 +53,10 @@
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleCharacteristic/findByCcNameResponse" message="tns:findByCcNameResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleCharacteristic/findByCcName/Fault/IOException"/>
 </operation>
+<operation name="Delete">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteRequest" message="tns:Delete"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteResponse" message="tns:DeleteResponse"/>
+</operation>
 <operation name="RegisterCharacteristic">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleCharacteristic/RegisterCharacteristicRequest" message="tns:RegisterCharacteristic"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleCharacteristic/RegisterCharacteristicResponse" message="tns:RegisterCharacteristicResponse"/>
@@ -53,7 +64,7 @@
 </portType>
 <binding name="ModuleCharacteristicPortBinding" type="tns:ModuleCharacteristic">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="Delete">
+<operation name="GetCharacteristics">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -61,6 +72,9 @@
 <output>
 <soap:body use="literal"/>
 </output>
+<fault name="IOException">
+<soap:fault name="IOException" use="literal"/>
+</fault>
 </operation>
 <operation name="getByCcId">
 <soap:operation soapAction=""/>
@@ -85,6 +99,15 @@
 <fault name="IOException">
 <soap:fault name="IOException" use="literal"/>
 </fault>
+</operation>
+<operation name="Delete">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
 </operation>
 <operation name="RegisterCharacteristic">
 <soap:operation soapAction=""/>

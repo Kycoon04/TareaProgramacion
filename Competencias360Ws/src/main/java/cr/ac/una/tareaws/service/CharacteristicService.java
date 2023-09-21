@@ -11,6 +11,7 @@ import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -97,6 +98,19 @@ public class CharacteristicService {
             }
             LOG.log(Level.SEVERE, "Ocurrio un error al guardar el characteristic.", ex);
             return new Respuesta(false, "Ocurrio un error al eliminar el characteristic.", "eliminarTrabajoxCompetencia " + ex.getMessage());
+        }
+    }
+      
+           public Respuesta getCharacteristics() {
+        try {
+            Query qryJob = em.createNamedQuery("Characteristic.findAll", Characteristic.class);
+            List<Characteristic> characteristic = qryJob.getResultList();
+            return new Respuesta(true, "", "", "Characteristic", characteristic);
+        } catch (NoResultException ex) {
+            return new Respuesta(false, "No hay caracteristicas en la base", "getCharacteristics NoResultException");
+        } catch (Exception ex) {
+            Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error obteniendo caracteristicas", ex);
+            return new Respuesta(false, "Error al obtener caracteristicas", "getCharacteristics" + ex.getMessage());
         }
     }
       

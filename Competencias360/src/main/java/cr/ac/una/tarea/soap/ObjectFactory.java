@@ -26,6 +26,8 @@ public class ObjectFactory {
 
     private static final QName _Delete_QNAME = new QName("http://controller.tareaws.una.ac.cr/", "Delete");
     private static final QName _DeleteResponse_QNAME = new QName("http://controller.tareaws.una.ac.cr/", "DeleteResponse");
+    private static final QName _GetCharacteristics_QNAME = new QName("http://controller.tareaws.una.ac.cr/", "GetCharacteristics");
+    private static final QName _GetCharacteristicsResponse_QNAME = new QName("http://controller.tareaws.una.ac.cr/", "GetCharacteristicsResponse");
     private static final QName _IOException_QNAME = new QName("http://controller.tareaws.una.ac.cr/", "IOException");
     private static final QName _RegisterCharacteristic_QNAME = new QName("http://controller.tareaws.una.ac.cr/", "RegisterCharacteristic");
     private static final QName _RegisterCharacteristicResponse_QNAME = new QName("http://controller.tareaws.una.ac.cr/", "RegisterCharacteristicResponse");
@@ -59,6 +61,26 @@ public class ObjectFactory {
      */
     public DeleteResponse createDeleteResponse() {
         return new DeleteResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCharacteristics }
+     * 
+     * @return
+     *     the new instance of {@link GetCharacteristics }
+     */
+    public GetCharacteristics createGetCharacteristics() {
+        return new GetCharacteristics();
+    }
+
+    /**
+     * Create an instance of {@link GetCharacteristicsResponse }
+     * 
+     * @return
+     *     the new instance of {@link GetCharacteristicsResponse }
+     */
+    public GetCharacteristicsResponse createGetCharacteristicsResponse() {
+        return new GetCharacteristicsResponse();
     }
 
     /**
@@ -175,6 +197,32 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://controller.tareaws.una.ac.cr/", name = "DeleteResponse")
     public JAXBElement<DeleteResponse> createDeleteResponse(DeleteResponse value) {
         return new JAXBElement<>(_DeleteResponse_QNAME, DeleteResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCharacteristics }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetCharacteristics }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.tareaws.una.ac.cr/", name = "GetCharacteristics")
+    public JAXBElement<GetCharacteristics> createGetCharacteristics(GetCharacteristics value) {
+        return new JAXBElement<>(_GetCharacteristics_QNAME, GetCharacteristics.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCharacteristicsResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetCharacteristicsResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.tareaws.una.ac.cr/", name = "GetCharacteristicsResponse")
+    public JAXBElement<GetCharacteristicsResponse> createGetCharacteristicsResponse(GetCharacteristicsResponse value) {
+        return new JAXBElement<>(_GetCharacteristicsResponse_QNAME, GetCharacteristicsResponse.class, null, value);
     }
 
     /**
