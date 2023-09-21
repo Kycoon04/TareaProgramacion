@@ -21,7 +21,7 @@ import java.util.stream.Collector.Characteristics;
  *
  * @author dilan
  */
-public class characteristicService {
+public class CharacteristicService {
    
     
     public Respuesta SaveCharacteristic(CharacteristicsDto characteristicsDto) {
@@ -62,6 +62,9 @@ public class characteristicService {
 
             List<CharacteristicDto> jobsWs = cliente.getCharacteristics();
             List<CharacteristicsDto> characteristics = new ArrayList<>();
+            
+              System.out.println(jobsWs.get(0).getCcComid());
+            
             for (CharacteristicDto job : jobsWs) {
                 CharacteristicsDto characteristicDto = new CharacteristicsDto();
                 characteristicDto.setCcComid(job.getCcComid());
@@ -69,11 +72,13 @@ public class characteristicService {
                 characteristicDto.setCcName(job.getCcName());
                 characteristics.add(characteristicDto);
             }
-
-            return new Respuesta(true, "Error obteniendo los puestos.", "getJobs", "Jobs", characteristics);
+            
+               System.out.println(characteristics.get(0).getCcComid());
+               
+            return new Respuesta(true, "Error obteniendo las caracteristicas.", "getCharacteristic", "Characteristic", characteristics);
         } catch (Exception ex) {
-            Logger.getLogger(JobsService.class.getName()).log(Level.SEVERE, "Error obteniendo los puestos.", ex);
-            return new Respuesta(false, "Error obteniendo los puestos.", "getJobs" + ex.getMessage());
+            Logger.getLogger(CharacteristicService.class.getName()).log(Level.SEVERE, "Error obteniendo los caracteristicas.", ex);
+            return new Respuesta(false, "Error obteniendo las caracteristicas.", "getCharacteristic" + ex.getMessage());
         }
     }
 }

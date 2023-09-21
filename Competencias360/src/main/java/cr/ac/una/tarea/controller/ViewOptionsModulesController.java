@@ -6,6 +6,7 @@ import cr.ac.una.tarea.model.EvaJobCompetenceDto;
 import cr.ac.una.tarea.model.InformationDto;
 import cr.ac.una.tarea.model.JobDto;
 import cr.ac.una.tarea.model.WorkerDto;
+import cr.ac.una.tarea.service.CharacteristicService;
 import cr.ac.una.tarea.service.ComInformationService;
 import cr.ac.una.tarea.service.CompetencesService;
 import cr.ac.una.tarea.service.JobsCompetencesService;
@@ -216,7 +217,8 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TableColumn<CompetenceDto, String> tableColCompCharacAss;
 
     boolean delete = false;
-
+    private ObservableList<CharacteristicsDto> selectedCharacteristicList;
+    private ObservableList<CharacteristicsDto> characteristicList;
     private ObservableList<WorkerDto> workerList;
     private ObservableList<JobDto> jobsList;
     private ObservableList<CompetenceDto> competencesList;
@@ -240,8 +242,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private TableView<CharacteristicsDto> tableViewCharacteristicsAss;
     @FXML
-    private TableColumn<CharacteristicsDto, String> tableColCharactStaAss;
-    @FXML
     private TableColumn<CharacteristicsDto, String> tableColCharactNameAss;
     @FXML
     private Text textAsCompetence;
@@ -257,7 +257,10 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TableColumn<CharacteristicsDto, String> tableColCharactName;
     @FXML
     private TextField textFieldMCharact_Name;
+    @FXML
+    private TableColumn<?, ?> tableColCharacIdAss;
 
+    CharacteristicsDto selectedCharacteristics; 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         OptionsMenuView.toFront();
@@ -280,6 +283,15 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         this.tableColAsCompSta.setCellValueFactory(new PropertyValueFactory("States"));
         this.tableColAsCompName.setCellValueFactory(new PropertyValueFactory("Name"));
 
+        this.tableColCharactId.setCellValueFactory(new PropertyValueFactory("CcId"));
+        this.tableColCharactName.setCellValueFactory(new PropertyValueFactory("CcName"));
+
+        this.tableColAsCharactId.setCellValueFactory(new PropertyValueFactory("CcId"));
+        this.tableColAsCharactName.setCellValueFactory(new PropertyValueFactory("CcName"));
+        
+        this.tableColCharacIdAss.setCellValueFactory(new PropertyValueFactory("CcId"));
+        this.tableColCharactNameAss.setCellValueFactory(new PropertyValueFactory("CcName"));
+        
         this.tableColCompCharacAss.setCellValueFactory(new PropertyValueFactory("Characteristics"));
         this.tableColCompStaAss.setCellValueFactory(new PropertyValueFactory("States"));
         this.tableColCompNameAss.setCellValueFactory(new PropertyValueFactory("Name"));
@@ -968,7 +980,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private void back(MouseEvent event) {
         OptionsMenuView.toFront();
-    
+
     }
 
     @FXML
@@ -1011,28 +1023,63 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void registerAsociCharact(MouseEvent event) {
+         CharacteristicService cs = new CharacteristicService();
+         CharacteristicsDto caract= new  CharacteristicsDto(); 
+         
+         //caract.setCcComid(ccComid);
+         cs.SaveCharacteristic(caract);
+         
     }
 
     @FXML
     private void associateCharacteristics(ActionEvent event) {
+        ImportListCharacteristics();
         OptionsAssociateCharactView.toFront();
     }
 
     @FXML
     private void UpdateCharacteristics(ActionEvent event) {
+        CharacteristicService cs = new CharacteristicService();
+        CharacteristicsDto caract= new  CharacteristicsDto();
+        caract.setCcName(selectedCharacteristics.getCcName());
+        caract.setCcId(selectedCharacteristics.getCcId());
+        cs.SaveCharacteristic(caract);
     }
 
     @FXML
     private void characteristicClicked(MouseEvent event) {
-         if (event.getClickCount() == 2) {
-
-            CharacteristicsDto selectedCharacteristics = tableViewCharacteristics.getSelectionModel().getSelectedItem();
+        if (event.getClickCount() == 2) {
+            selectedCharacteristics = tableViewCharacteristics.getSelectionModel().getSelectedItem();
             NameCharacteristicField.setText(selectedCharacteristics.getCcName());
         }
     }
 
+    public void ImportListCharacteristics() {
+        CharacteristicService characteristicsService = new CharacteristicService();
+        Respuesta respuesta = characteristicsService.getCharacteristic();
+        List<CharacteristicsDto> list = (List<CharacteristicsDto>) respuesta.getResultado("Characteristic");
+        characteristicList = FXCollections.observableArrayList(list);
+        this.tableViewCharacteristics.refresh();
+        this.tableViewCharacteristics.setItems(characteristicList); 
+        this.tableViewAsCharact.refresh();
+        this.tableViewAsCharact.setItems(characteristicList); 
+    }
+
     @FXML
     private void CharacteristicsModi(ActionEvent event) {
+        ImportListCharacteristics();
         OptionsCharacteristicsView.toFront();
+    }
+
+    @FXML
+    private void characteristicSelectClick(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            CharacteristicsDto selectedCharacteristics = tableViewAsCharact.getSelectionModel().getSelectedItem();
+            List<CharacteristicsDto> list= new ArrayList<>();
+            list.add(selectedCharacteristics);
+            selectedCharacteristicList = FXCollections.observableArrayList(list);
+            tableViewCharacteristicsAss.refresh();
+            tableViewCharacteristicsAss.setItems(selectedCharacteristicList);
+        }
     }
 }

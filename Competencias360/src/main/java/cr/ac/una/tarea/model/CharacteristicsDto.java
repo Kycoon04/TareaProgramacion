@@ -19,6 +19,10 @@ public class CharacteristicsDto {
     private Competences ccComid;
 
     public CharacteristicsDto() {
+        this.ccId = new SimpleIntegerProperty();
+        this.ccName = new SimpleStringProperty();
+        this.ccComid = new Competences();
+        
     }
 
     public CharacteristicsDto(Integer ccId, String ccName) {
@@ -33,6 +37,9 @@ public class CharacteristicsDto {
         this.ccComid = characteristicDto.getCcComid();
     }
 
+
+    
+    
     public Integer getCcId() {
         return ccId.get();
     }
