@@ -1,5 +1,6 @@
 package cr.ac.una.tarea.controller;
 
+import cr.ac.una.tarea.model.CharacteristicsDto;
 import cr.ac.una.tarea.model.CompetenceDto;
 import cr.ac.una.tarea.model.EvaJobCompetenceDto;
 import cr.ac.una.tarea.model.InformationDto;
@@ -121,7 +122,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private BorderPane OptionsCompetencesView;
     @FXML
     private TextField NameCompetencesField;
-    @FXML
     private TextField CharacteristicsCompetencesField;
     @FXML
     private BorderPane OptionsPuestosView;
@@ -230,29 +230,33 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private Label txtEliminarPuesto;
     @FXML
-    private TableView<?> tableViewJobs1;
+    private BorderPane OptionsAssociateCharactView;
     @FXML
-    private TableColumn<?, ?> tableColJobId1;
+    private TableView<CharacteristicsDto> tableViewAsCharact;
     @FXML
-    private TableColumn<?, ?> tableColJobNam1;
+    private TableColumn<CharacteristicsDto, String> tableColAsCharactId;
     @FXML
-    private TableColumn<?, ?> tableColJobSta1;
+    private TableColumn<CharacteristicsDto, String> tableColAsCharactName;
     @FXML
-    private TextField textFieldSJob_Name1;
+    private TableView<CharacteristicsDto> tableViewCharacteristicsAss;
     @FXML
-    private TextField textFieldSJob_State1;
+    private TableColumn<CharacteristicsDto, String> tableColCharactStaAss;
     @FXML
-    private TableView<?> tableViewJobs11;
+    private TableColumn<CharacteristicsDto, String> tableColCharactNameAss;
     @FXML
-    private TableColumn<?, ?> tableColJobId11;
+    private Text textAsCompetence;
     @FXML
-    private TableColumn<?, ?> tableColJobNam11;
+    private BorderPane OptionsCharacteristicsView;
     @FXML
-    private TableColumn<?, ?> tableColJobSta11;
+    private TextField NameCharacteristicField;
     @FXML
-    private TextField textFieldSJob_Name11;
+    private TableView<CharacteristicsDto> tableViewCharacteristics;
     @FXML
-    private TextField textFieldSJob_State11;
+    private TableColumn<CharacteristicsDto, String> tableColCharactId;
+    @FXML
+    private TableColumn<CharacteristicsDto, String> tableColCharactName;
+    @FXML
+    private TextField textFieldMCharact_Name;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -963,7 +967,8 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void back(MouseEvent event) {
-    registerAsoci();
+        OptionsMenuView.toFront();
+    
     }
 
     @FXML
@@ -981,7 +986,8 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         deleteClicked(event);
     }
 
-    private void registerAsoci() {
+    @FXML
+    private void registerAsoci(MouseEvent event) {
         JobsCompetencesService jb = new JobsCompetencesService();
         for (CompetenceDto selectedCompetence : competencesListAss) {
             EvaJobCompetenceDto evaJobCompetenceDto = new EvaJobCompetenceDto();
@@ -1001,5 +1007,32 @@ public class ViewOptionsModulesController extends Controller implements Initiali
             evaJobCompetenceDto.setJxcCompetence(competence);
             Respuesta a = jb.SaveJobCompetences(evaJobCompetenceDto);
         }
+    }
+
+    @FXML
+    private void registerAsociCharact(MouseEvent event) {
+    }
+
+    @FXML
+    private void associateCharacteristics(ActionEvent event) {
+        OptionsAssociateCharactView.toFront();
+    }
+
+    @FXML
+    private void UpdateCharacteristics(ActionEvent event) {
+    }
+
+    @FXML
+    private void characteristicClicked(MouseEvent event) {
+         if (event.getClickCount() == 2) {
+
+            CharacteristicsDto selectedCharacteristics = tableViewCharacteristics.getSelectionModel().getSelectedItem();
+            NameCharacteristicField.setText(selectedCharacteristics.getCcName());
+        }
+    }
+
+    @FXML
+    private void CharacteristicsModi(ActionEvent event) {
+        OptionsCharacteristicsView.toFront();
     }
 }

@@ -844,17 +844,17 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private void searchJob_State(KeyEvent event) {
     }
+    
+    public boolean existsProcess(String name){
+        return procesosList.stream().
+                anyMatch(x->x.getName().equals(name));
+    }
 
     @FXML
     private void openSettingEva(MouseEvent event) {
-        boolean flag = false;
+        
         if (!(TitleEvaField.getText().isEmpty() && (choiceBoxStateEva == null))) {
-            for (ProcesosevaDto proceso : procesosList) {
-                if (proceso.getName().equals(TitleEvaField.getText())) {
-                    flag = true;
-                }
-            }
-            if (flag) {
+            if (existsProcess(TitleEvaField.getText())) {
                 textProcesoEva_title.setText(TitleEvaField.getText());
                 OptionsMenuView.toFront();
             } else {

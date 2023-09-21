@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for competences complex type.
+ * <p>Clase Java para competences complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="competences">
@@ -43,7 +43,7 @@ public class Competences {
     protected String csState;
 
     /**
-     * Gets the value of the csCharacteristics property.
+     * Obtiene el valor de la propiedad csCharacteristics.
      * 
      * @return
      *     possible object is
@@ -55,7 +55,7 @@ public class Competences {
     }
 
     /**
-     * Sets the value of the csCharacteristics property.
+     * Define el valor de la propiedad csCharacteristics.
      * 
      * @param value
      *     allowed object is
@@ -67,7 +67,7 @@ public class Competences {
     }
 
     /**
-     * Gets the value of the csId property.
+     * Obtiene el valor de la propiedad csId.
      * 
      * @return
      *     possible object is
@@ -79,7 +79,7 @@ public class Competences {
     }
 
     /**
-     * Sets the value of the csId property.
+     * Define el valor de la propiedad csId.
      * 
      * @param value
      *     allowed object is
@@ -91,7 +91,7 @@ public class Competences {
     }
 
     /**
-     * Gets the value of the csName property.
+     * Obtiene el valor de la propiedad csName.
      * 
      * @return
      *     possible object is
@@ -103,7 +103,7 @@ public class Competences {
     }
 
     /**
-     * Sets the value of the csName property.
+     * Define el valor de la propiedad csName.
      * 
      * @param value
      *     allowed object is
@@ -115,7 +115,7 @@ public class Competences {
     }
 
     /**
-     * Gets the value of the csState property.
+     * Obtiene el valor de la propiedad csState.
      * 
      * @return
      *     possible object is
@@ -127,7 +127,7 @@ public class Competences {
     }
 
     /**
-     * Sets the value of the csState property.
+     * Define el valor de la propiedad csState.
      * 
      * @param value
      *     allowed object is

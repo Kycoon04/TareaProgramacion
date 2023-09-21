@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for resultDto complex type.
+ * <p>Clase Java para resultDto complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="resultDto">
@@ -46,7 +46,7 @@ public class ResultDto {
     protected Short rsNotasis;
 
     /**
-     * Gets the value of the rsCompe property.
+     * Obtiene el valor de la propiedad rsCompe.
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class ResultDto {
     }
 
     /**
-     * Sets the value of the rsCompe property.
+     * Define el valor de la propiedad rsCompe.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +70,7 @@ public class ResultDto {
     }
 
     /**
-     * Gets the value of the rsEvaluated property.
+     * Obtiene el valor de la propiedad rsEvaluated.
      * 
      * @return
      *     possible object is
@@ -82,7 +82,7 @@ public class ResultDto {
     }
 
     /**
-     * Sets the value of the rsEvaluated property.
+     * Define el valor de la propiedad rsEvaluated.
      * 
      * @param value
      *     allowed object is
@@ -94,7 +94,7 @@ public class ResultDto {
     }
 
     /**
-     * Gets the value of the rsId property.
+     * Obtiene el valor de la propiedad rsId.
      * 
      * @return
      *     possible object is
@@ -106,7 +106,7 @@ public class ResultDto {
     }
 
     /**
-     * Sets the value of the rsId property.
+     * Define el valor de la propiedad rsId.
      * 
      * @param value
      *     allowed object is
@@ -118,7 +118,7 @@ public class ResultDto {
     }
 
     /**
-     * Gets the value of the rsNotajefatura property.
+     * Obtiene el valor de la propiedad rsNotajefatura.
      * 
      * @return
      *     possible object is
@@ -130,7 +130,7 @@ public class ResultDto {
     }
 
     /**
-     * Sets the value of the rsNotajefatura property.
+     * Define el valor de la propiedad rsNotajefatura.
      * 
      * @param value
      *     allowed object is
@@ -142,7 +142,7 @@ public class ResultDto {
     }
 
     /**
-     * Gets the value of the rsNotasis property.
+     * Obtiene el valor de la propiedad rsNotasis.
      * 
      * @return
      *     possible object is
@@ -154,7 +154,7 @@ public class ResultDto {
     }
 
     /**
-     * Sets the value of the rsNotasis property.
+     * Define el valor de la propiedad rsNotasis.
      * 
      * @param value
      *     allowed object is
