@@ -1023,21 +1023,18 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         }
     }
 
-    private void registerAsociCharact(MouseEvent event) {
-        CharacteristicService cs = new CharacteristicService();
-        CharacteristicsDto caract = new CharacteristicsDto();
-
-        //caract.setCcComid(ccComid);
-        cs.SaveCharacteristic(caract);
-
-    }
-
     @FXML
     private void UpdateCharacteristics(ActionEvent event) {
         CharacteristicService cs = new CharacteristicService();
         CharacteristicsDto caract = new CharacteristicsDto();
-        caract.setCcName(selectedCharacteristics.getCcName());
-        caract.setCcId(selectedCharacteristics.getCcId());
+        caract.setCcName(NameCharacteristicField.getText());
+
+        Competences competence = new Competences();
+        competence.setCsCharacteristics("N/A");
+        competence.setCsId(competenceDto.getId());
+        competence.setCsName(competenceDto.getName());
+        competence.setCsState(competenceDto.getState());
+        caract.setCcComid(competence);
         cs.SaveCharacteristic(caract);
     }
 

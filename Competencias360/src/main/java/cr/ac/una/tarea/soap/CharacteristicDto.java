@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para characteristicDto complex type.
+ * <p>Java class for characteristicDto complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="characteristicDto">
@@ -40,7 +40,7 @@ public class CharacteristicDto {
     protected String ccName;
 
     /**
-     * Obtiene el valor de la propiedad ccComid.
+     * Gets the value of the ccComid property.
      * 
      * @return
      *     possible object is
@@ -52,7 +52,7 @@ public class CharacteristicDto {
     }
 
     /**
-     * Define el valor de la propiedad ccComid.
+     * Sets the value of the ccComid property.
      * 
      * @param value
      *     allowed object is
@@ -64,7 +64,7 @@ public class CharacteristicDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad ccId.
+     * Gets the value of the ccId property.
      * 
      * @return
      *     possible object is
@@ -76,7 +76,7 @@ public class CharacteristicDto {
     }
 
     /**
-     * Define el valor de la propiedad ccId.
+     * Sets the value of the ccId property.
      * 
      * @param value
      *     allowed object is
@@ -88,7 +88,7 @@ public class CharacteristicDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad ccName.
+     * Gets the value of the ccName property.
      * 
      * @return
      *     possible object is
@@ -100,7 +100,7 @@ public class CharacteristicDto {
     }
 
     /**
-     * Define el valor de la propiedad ccName.
+     * Sets the value of the ccName property.
      * 
      * @param value
      *     allowed object is

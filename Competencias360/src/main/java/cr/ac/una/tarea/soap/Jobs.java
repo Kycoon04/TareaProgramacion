@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para jobs complex type.
+ * <p>Java class for jobs complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="jobs">
@@ -40,7 +40,7 @@ public class Jobs {
     protected String jsState;
 
     /**
-     * Obtiene el valor de la propiedad jsId.
+     * Gets the value of the jsId property.
      * 
      * @return
      *     possible object is
@@ -52,7 +52,7 @@ public class Jobs {
     }
 
     /**
-     * Define el valor de la propiedad jsId.
+     * Sets the value of the jsId property.
      * 
      * @param value
      *     allowed object is
@@ -64,7 +64,7 @@ public class Jobs {
     }
 
     /**
-     * Obtiene el valor de la propiedad jsName.
+     * Gets the value of the jsName property.
      * 
      * @return
      *     possible object is
@@ -76,7 +76,7 @@ public class Jobs {
     }
 
     /**
-     * Define el valor de la propiedad jsName.
+     * Sets the value of the jsName property.
      * 
      * @param value
      *     allowed object is
@@ -88,7 +88,7 @@ public class Jobs {
     }
 
     /**
-     * Obtiene el valor de la propiedad jsState.
+     * Gets the value of the jsState property.
      * 
      * @return
      *     possible object is
@@ -100,7 +100,7 @@ public class Jobs {
     }
 
     /**
-     * Define el valor de la propiedad jsState.
+     * Sets the value of the jsState property.
      * 
      * @param value
      *     allowed object is

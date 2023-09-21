@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para procesoeva complex type.
+ * <p>Java class for procesoeva complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="procesoeva">
@@ -49,7 +49,7 @@ public class Procesoeva {
     protected String enState;
 
     /**
-     * Obtiene el valor de la propiedad enApplication.
+     * Gets the value of the enApplication property.
      * 
      * @return
      *     possible object is
@@ -61,7 +61,7 @@ public class Procesoeva {
     }
 
     /**
-     * Define el valor de la propiedad enApplication.
+     * Sets the value of the enApplication property.
      * 
      * @param value
      *     allowed object is
@@ -73,7 +73,7 @@ public class Procesoeva {
     }
 
     /**
-     * Obtiene el valor de la propiedad enFinalperiod.
+     * Gets the value of the enFinalperiod property.
      * 
      * @return
      *     possible object is
@@ -85,7 +85,7 @@ public class Procesoeva {
     }
 
     /**
-     * Define el valor de la propiedad enFinalperiod.
+     * Sets the value of the enFinalperiod property.
      * 
      * @param value
      *     allowed object is
@@ -97,7 +97,7 @@ public class Procesoeva {
     }
 
     /**
-     * Obtiene el valor de la propiedad enId.
+     * Gets the value of the enId property.
      * 
      * @return
      *     possible object is
@@ -109,7 +109,7 @@ public class Procesoeva {
     }
 
     /**
-     * Define el valor de la propiedad enId.
+     * Sets the value of the enId property.
      * 
      * @param value
      *     allowed object is
@@ -121,7 +121,7 @@ public class Procesoeva {
     }
 
     /**
-     * Obtiene el valor de la propiedad enInicialperiod.
+     * Gets the value of the enInicialperiod property.
      * 
      * @return
      *     possible object is
@@ -133,7 +133,7 @@ public class Procesoeva {
     }
 
     /**
-     * Define el valor de la propiedad enInicialperiod.
+     * Sets the value of the enInicialperiod property.
      * 
      * @param value
      *     allowed object is
@@ -145,7 +145,7 @@ public class Procesoeva {
     }
 
     /**
-     * Obtiene el valor de la propiedad enName.
+     * Gets the value of the enName property.
      * 
      * @return
      *     possible object is
@@ -157,7 +157,7 @@ public class Procesoeva {
     }
 
     /**
-     * Define el valor de la propiedad enName.
+     * Sets the value of the enName property.
      * 
      * @param value
      *     allowed object is
@@ -169,7 +169,7 @@ public class Procesoeva {
     }
 
     /**
-     * Obtiene el valor de la propiedad enState.
+     * Gets the value of the enState property.
      * 
      * @return
      *     possible object is
@@ -181,7 +181,7 @@ public class Procesoeva {
     }
 
     /**
-     * Define el valor de la propiedad enState.
+     * Sets the value of the enState property.
      * 
      * @param value
      *     allowed object is
