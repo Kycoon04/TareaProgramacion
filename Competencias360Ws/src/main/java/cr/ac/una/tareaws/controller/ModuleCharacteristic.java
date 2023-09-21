@@ -22,43 +22,49 @@ import java.util.List;
  */
 @WebService(serviceName = "ModuleCharacteristic")
 public class ModuleCharacteristic {
-   
+
     @EJB
     CharacteristicService characteristicService;
-    
+
     @WebMethod(operationName = "getByCcId")
     public CharacteristicDto getByCcId(@WebParam(name = "id") Integer id) throws IOException {
         Respuesta respuesta = characteristicService.getCharById(id);
         CharacteristicDto characteristicDto = new CharacteristicDto((Characteristic) respuesta.getResultado("Characteristic"));
         return characteristicDto;
-    }   
-        @WebMethod(operationName = "findByCcName")
+    }
+
+    @WebMethod(operationName = "findByCcName")
     public CharacteristicDto findByCcName(@WebParam(name = "name") String name) throws IOException {
         Respuesta respuesta = characteristicService.getCharByName(name);
         CharacteristicDto characteristicDto = new CharacteristicDto((Characteristic) respuesta.getResultado("Characteristic"));
         return characteristicDto;
-    }   
-    
-        @WebMethod(operationName = "RegisterCharacteristic")
+    }
+
+    @WebMethod(operationName = "RegisterCharacteristic")
     public Boolean RegisterCharacteristic(CharacteristicDto characteristicDto) {
         Respuesta respuesta = characteristicService.SaveCharacteristic(characteristicDto);
         return respuesta.getEstado();
     }
-    
-         @WebMethod(operationName = "Delete")
+
+    @WebMethod(operationName = "Delete")
     public Boolean Delete(@WebParam(name = "Id") Integer id) {
         Respuesta respuesta = characteristicService.Delete(id);
         return respuesta.getEstado();
     }
-        @WebMethod(operationName = "GetCharacteristics")
+
+    @WebMethod(operationName = "GetCharacteristics")
     public List<CharacteristicDto> GetCharacteristics() throws IOException {
         Respuesta respuesta = characteristicService.getCharacteristics();
-        List<Characteristic> characteristics = (List<Characteristic>) respuesta.getResultado("Characteristic");
-        List<CharacteristicDto> CharacteristicDto = new ArrayList<>();
-        for (Characteristic j : characteristics) {
-            CharacteristicDto characteristicDto = new CharacteristicDto(j);
-            CharacteristicDto.add(characteristicDto);
+        if (respuesta.getEstado()) {
+            List<Characteristic> characteristics = (List<Characteristic>) respuesta.getResultado("Characteristic");
+            List<CharacteristicDto> CharacteristicDto = new ArrayList<>();
+            for (Characteristic j : characteristics) {
+                CharacteristicDto characteristicDto = new CharacteristicDto(j);
+                CharacteristicDto.add(characteristicDto);
+            }
+            return CharacteristicDto;
+        }else{
+            return null;
         }
-        return CharacteristicDto;
     }
 }

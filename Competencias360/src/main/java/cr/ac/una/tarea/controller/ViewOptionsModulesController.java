@@ -232,20 +232,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private Label txtEliminarPuesto;
     @FXML
-    private BorderPane OptionsAssociateCharactView;
-    @FXML
-    private TableView<CharacteristicsDto> tableViewAsCharact;
-    @FXML
-    private TableColumn<CharacteristicsDto, String> tableColAsCharactId;
-    @FXML
-    private TableColumn<CharacteristicsDto, String> tableColAsCharactName;
-    @FXML
-    private TableView<CharacteristicsDto> tableViewCharacteristicsAss;
-    @FXML
-    private TableColumn<CharacteristicsDto, String> tableColCharactNameAss;
-    @FXML
-    private Text textAsCompetence;
-    @FXML
     private BorderPane OptionsCharacteristicsView;
     @FXML
     private TextField NameCharacteristicField;
@@ -257,10 +243,27 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TableColumn<CharacteristicsDto, String> tableColCharactName;
     @FXML
     private TextField textFieldMCharact_Name;
-    @FXML
-    private TableColumn<?, ?> tableColCharacIdAss;
 
-    CharacteristicsDto selectedCharacteristics; 
+    CharacteristicsDto selectedCharacteristics;
+    @FXML
+    private TextField CompetenceCharacteristicField;
+    @FXML
+    private BorderPane viewChooseCompetence;
+    @FXML
+    private Pane viewChooseJobs1;
+    @FXML
+    private TextField textFieldSJob_NameW1;
+    @FXML
+    private TextField textFieldSJob_StateW1;
+    @FXML
+    private BorderPane viewSettingsCharacteristics;
+    @FXML
+    private TableView<CompetenceDto> tableViewCCompetencesAss;
+    @FXML
+    private TableColumn<CompetenceDto, String> tableColCCompNameAss;
+    @FXML
+    private TableColumn<CompetenceDto, String> tableColCCompStaAss;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         OptionsMenuView.toFront();
@@ -286,12 +289,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         this.tableColCharactId.setCellValueFactory(new PropertyValueFactory("CcId"));
         this.tableColCharactName.setCellValueFactory(new PropertyValueFactory("CcName"));
 
-        this.tableColAsCharactId.setCellValueFactory(new PropertyValueFactory("CcId"));
-        this.tableColAsCharactName.setCellValueFactory(new PropertyValueFactory("CcName"));
-        
-        this.tableColCharacIdAss.setCellValueFactory(new PropertyValueFactory("CcId"));
-        this.tableColCharactNameAss.setCellValueFactory(new PropertyValueFactory("CcName"));
-        
         this.tableColCompCharacAss.setCellValueFactory(new PropertyValueFactory("Characteristics"));
         this.tableColCompStaAss.setCellValueFactory(new PropertyValueFactory("States"));
         this.tableColCompNameAss.setCellValueFactory(new PropertyValueFactory("Name"));
@@ -303,6 +300,9 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         this.tableColJobIdW.setCellValueFactory(new PropertyValueFactory("Id"));
         this.tableColJobNamW.setCellValueFactory(new PropertyValueFactory("Name"));
         this.tableColJobStaW.setCellValueFactory(new PropertyValueFactory("States"));
+
+        this.tableColCCompNameAss.setCellValueFactory(new PropertyValueFactory("Name"));
+        this.tableColCCompStaAss.setCellValueFactory(new PropertyValueFactory("States"));
 
         workerDto = new WorkerDto();
         informationDto = new InformationDto();
@@ -708,6 +708,8 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         competencesList = FXCollections.observableArrayList(list);
         this.tableViewCompetences.refresh();
         this.tableViewCompetences.setItems(competencesList);
+        this.tableViewCCompetencesAss.refresh();
+        this.tableViewCCompetencesAss.setItems(competencesList);
     }
 
     @FXML
@@ -1021,26 +1023,19 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         }
     }
 
-    @FXML
     private void registerAsociCharact(MouseEvent event) {
-         CharacteristicService cs = new CharacteristicService();
-         CharacteristicsDto caract= new  CharacteristicsDto(); 
-         
-         //caract.setCcComid(ccComid);
-         cs.SaveCharacteristic(caract);
-         
-    }
+        CharacteristicService cs = new CharacteristicService();
+        CharacteristicsDto caract = new CharacteristicsDto();
 
-    @FXML
-    private void associateCharacteristics(ActionEvent event) {
-        ImportListCharacteristics();
-        OptionsAssociateCharactView.toFront();
+        //caract.setCcComid(ccComid);
+        cs.SaveCharacteristic(caract);
+
     }
 
     @FXML
     private void UpdateCharacteristics(ActionEvent event) {
         CharacteristicService cs = new CharacteristicService();
-        CharacteristicsDto caract= new  CharacteristicsDto();
+        CharacteristicsDto caract = new CharacteristicsDto();
         caract.setCcName(selectedCharacteristics.getCcName());
         caract.setCcId(selectedCharacteristics.getCcId());
         cs.SaveCharacteristic(caract);
@@ -1058,28 +1053,36 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         CharacteristicService characteristicsService = new CharacteristicService();
         Respuesta respuesta = characteristicsService.getCharacteristic();
         List<CharacteristicsDto> list = (List<CharacteristicsDto>) respuesta.getResultado("Characteristic");
-        characteristicList = FXCollections.observableArrayList(list);
-        this.tableViewCharacteristics.refresh();
-        this.tableViewCharacteristics.setItems(characteristicList); 
-        this.tableViewAsCharact.refresh();
-        this.tableViewAsCharact.setItems(characteristicList); 
+        if (respuesta.getEstado() && list.get(0) != null) {
+            characteristicList = FXCollections.observableArrayList(list);
+            this.tableViewCharacteristics.refresh();
+            this.tableViewCharacteristics.setItems(characteristicList);
+        }
     }
 
     @FXML
     private void CharacteristicsModi(ActionEvent event) {
         ImportListCharacteristics();
+        viewSettingsCharacteristics.toFront();
         OptionsCharacteristicsView.toFront();
     }
 
     @FXML
-    private void characteristicSelectClick(MouseEvent event) {
+    private void associateCharacteristics(MouseEvent event) {
+        ImportListCompetences();
+        viewChooseCompetence.toFront();
+    }
+
+    @FXML
+    private void competenceAssClicked(MouseEvent event) {
         if (event.getClickCount() == 2) {
-            CharacteristicsDto selectedCharacteristics = tableViewAsCharact.getSelectionModel().getSelectedItem();
-            List<CharacteristicsDto> list= new ArrayList<>();
-            list.add(selectedCharacteristics);
-            selectedCharacteristicList = FXCollections.observableArrayList(list);
-            tableViewCharacteristicsAss.refresh();
-            tableViewCharacteristicsAss.setItems(selectedCharacteristicList);
+            try {
+                competenceDto = tableViewCCompetencesAss.getSelectionModel().getSelectedItem();
+                CompetenceCharacteristicField.setText(competenceDto.getName());
+                viewSettingsCharacteristics.toFront();
+            } catch (Exception ex) {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un proceso en este campo.");
+            }
         }
     }
 }

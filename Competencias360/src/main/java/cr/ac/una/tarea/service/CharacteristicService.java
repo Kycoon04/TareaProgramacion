@@ -6,24 +6,20 @@ package cr.ac.una.tarea.service;
 
 import cr.ac.una.tarea.model.CharacteristicsDto;
 import cr.ac.una.tarea.soap.CharacteristicDto;
-import cr.ac.una.tarea.soap.JobsDto;
 import cr.ac.una.tarea.soap.ModuleCharacteristic;
 import cr.ac.una.tarea.soap.ModuleCharacteristic_Service;
-import cr.ac.una.tarea.soap.ModuleJobs_Service;
 import cr.ac.una.tarea.util.Respuesta;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collector.Characteristics;
 
 /**
  *
- * @author dilan
+ * @author Anderson
  */
 public class CharacteristicService {
-   
-    
+
     public Respuesta SaveCharacteristic(CharacteristicsDto characteristicsDto) {
         try {
             ModuleCharacteristic_Service servicio = new ModuleCharacteristic_Service();
@@ -41,10 +37,10 @@ public class CharacteristicService {
             return new Respuesta(false, "Error guardando el empleado.", "guardarEmpleado " + ex.getMessage());
         }
     }
-    
-      public Respuesta deleteCharacteristic(int id) {
+
+    public Respuesta deleteCharacteristic(int id) {
         try {
-           ModuleCharacteristic_Service servicio = new ModuleCharacteristic_Service();
+            ModuleCharacteristic_Service servicio = new ModuleCharacteristic_Service();
             ModuleCharacteristic cliente = servicio.getModuleCharacteristicPort();
             cliente.delete(id);
             return new Respuesta(true, "", "");
@@ -53,29 +49,33 @@ public class CharacteristicService {
             return new Respuesta(false, "Error eliminando caracteristica.", "eliminarCaracteristica " + ex.getMessage());
         }
     }
-      
-      
-     public Respuesta getCharacteristic() {
+
+    public Respuesta getCharacteristic() {
         try {
-        ModuleCharacteristic_Service servicio = new ModuleCharacteristic_Service();
+            ModuleCharacteristic_Service servicio = new ModuleCharacteristic_Service();
             ModuleCharacteristic cliente = servicio.getModuleCharacteristicPort();
 
             List<CharacteristicDto> jobsWs = cliente.getCharacteristics();
-            List<CharacteristicsDto> characteristics = new ArrayList<>();
-            
-              System.out.println(jobsWs.get(0).getCcComid());
-            
-            for (CharacteristicDto job : jobsWs) {
-                CharacteristicsDto characteristicDto = new CharacteristicsDto();
-                characteristicDto.setCcComid(job.getCcComid());
-                characteristicDto.setCcId(job.getCcId());
-                characteristicDto.setCcName(job.getCcName());
-                characteristics.add(characteristicDto);
+            if (!jobsWs.isEmpty()) {
+                List<CharacteristicsDto> characteristics = new ArrayList<>();
+
+                System.out.println(jobsWs.get(0).getCcComid());
+
+                for (CharacteristicDto job : jobsWs) {
+                    CharacteristicsDto characteristicDto = new CharacteristicsDto();
+                    characteristicDto.setCcComid(job.getCcComid());
+                    characteristicDto.setCcId(job.getCcId());
+                    characteristicDto.setCcName(job.getCcName());
+                    characteristics.add(characteristicDto);
+                }
+
+                System.out.println(characteristics.get(0).getCcComid());
+
+                return new Respuesta(true, "Error obteniendo las caracteristicas.", "getCharacteristic", "Characteristic", characteristics);
+            } else {
+              
+                return new Respuesta(false, "Error obteniendo las caracteristicas.", "getCharacteristic" );
             }
-            
-               System.out.println(characteristics.get(0).getCcComid());
-               
-            return new Respuesta(true, "Error obteniendo las caracteristicas.", "getCharacteristic", "Characteristic", characteristics);
         } catch (Exception ex) {
             Logger.getLogger(CharacteristicService.class.getName()).log(Level.SEVERE, "Error obteniendo los caracteristicas.", ex);
             return new Respuesta(false, "Error obteniendo las caracteristicas.", "getCharacteristic" + ex.getMessage());
