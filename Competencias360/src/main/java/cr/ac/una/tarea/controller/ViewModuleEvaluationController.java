@@ -229,20 +229,20 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private TableColumn<WorkerDto, String> tableColAdmiPE;
 
+     @FXML
+    private TableView<EvaluatorDto> tableViewSelWorkersPE;
     @FXML
-    private TableView<WorkerDto> tableViewSelWorkers1;
+    private TableColumn<EvaluatorDto, String> tableColSelIdentifPE;
     @FXML
-    private TableColumn<WorkerDto, String> tableColSelIdentifPE;
+    private TableColumn<EvaluatorDto, String> tableColSelNamePE;
     @FXML
-    private TableColumn<WorkerDto, String> tableColSelNamePE;
+    private TableColumn<EvaluatorDto, String> tableColSelPsurnamePE;
     @FXML
-    private TableColumn<WorkerDto, String> tableColSelPsurnamePE;
+    private TableColumn<EvaluatorDto, String> tableColSelUserNamePE;
     @FXML
-    private TableColumn<WorkerDto, String> tableColSelUserNamePE;
+    private TableColumn<EvaluatorDto, String> tableColSelEmailPE;
     @FXML
-    private TableColumn<WorkerDto, String> tableColSelEmailPE;
-    @FXML
-    private TableColumn<WorkerDto, String> tableColSelConPE;
+    private TableColumn<EvaluatorDto, String> tableColSelConPE;
     @FXML
     private TextField textFieldSearchPE_Name;
     @FXML
@@ -252,12 +252,19 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private Text textNameWorker;
     EvaluatedsDto evaluatedDto = new EvaluatedsDto();
+    WorkerDto selectedWorker= new WorkerDto();
     List<WorkerDto> listWorkers = new ArrayList<>();
     List<WorkerDto> listWorkersEvaluated = new ArrayList<>();
+    List<EvaluatorDto> listEvaluators = new ArrayList<>();
     @FXML
     private TableView<ProcesosevaDto> tableViewProEva;
     @FXML
     private Text textProcesoEva_title;
+    @FXML
+    private Text textEvaluator;
+    @FXML
+    private ChoiceBox<String> choiceBoxConEvaluator;
+    String connection[] = {"Jefatura", "Compañero", "Cliente"};
 
     /**
      * Initializes the controller class.
@@ -266,6 +273,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         choiceBoxStateEva.getItems().addAll(states);
+        choiceBoxConEvaluator.getItems().addAll(connection);
         ImportListProcesoEva();
         OptionsEvaConfigView.toFront();
 
@@ -282,7 +290,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         this.tableColSelPsurnamePE.setCellValueFactory(new PropertyValueFactory("psurname"));
         this.tableColSelUserNamePE.setCellValueFactory(new PropertyValueFactory("username"));
         this.tableColSelEmailPE.setCellValueFactory(new PropertyValueFactory("email"));
-        this.tableColSelConPE.setCellValueFactory(new PropertyValueFactory("administrator"));
+        this.tableColSelConPE.setCellValueFactory(new PropertyValueFactory("EvsConnection"));
 
         this.tableColAct.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColIdentif.setCellValueFactory(new PropertyValueFactory("iden"));
@@ -497,9 +505,9 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         listWorkers = (List<WorkerDto>) respuesta.getResultado("Usuarios");
         changeTextAdmi(listWorkers);
         workerList = FXCollections.observableArrayList(listWorkers);
-        workerListCRE = FXCollections.observableArrayList(listWorkersEvaluated);
-        this.tableViewWorkersCRE.refresh();
-        this.tableViewWorkersCRE.setItems(workerListCRE);
+        
+        this.tableViewWorkersPE.refresh();
+        this.tableViewWorkersPE.setItems( workerList);
         this.tableViewWorkers.refresh();
         this.tableViewWorkers.setItems(workerList);
     }
@@ -531,12 +539,10 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             workerDto.setUsername(evaluated.getEsWorker().getWrUsername());
             listWorkersEvaluated.add(workerDto);
         }
-        this.tableViewWorkersPE.refresh();
-        this.tableViewWorkersPE.setItems(workerList);
-    }
-
-    public void importWorkersEv() {
-
+        workerListCRE = FXCollections.observableArrayList(listWorkersEvaluated);
+        this.tableViewWorkersCRE.refresh();
+        this.tableViewWorkersCRE.setItems(workerListCRE);
+        
     }
 
     public void changeTextAdmi(List<WorkerDto> list) {
@@ -591,6 +597,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void backSettings(ActionEvent event) {
+        listEvaluators.clear();
         workersListSel.clear();
         workersAss.clear();
         this.tableViewSelWorkers.refresh();
@@ -816,8 +823,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void openSettingRelational(ActionEvent event) {
-       
-        ImportListWorker();
+        importEvaluators();
         viewSelectedJob.toFront();
         OptionsSettingRelationalView.toFront();
     }
@@ -885,12 +891,12 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void addEvaluators(ActionEvent event) {
-
+        
+        WorkerDto workerSel = tableViewWorkersPE.getSelectionModel().getSelectedItem();
         EvaluatorService cliente = new EvaluatorService();
         EvaluatorDto evaluator = new EvaluatorDto();
 
-        for (WorkerDto workerSel : workersListSel) {
-            evaluator.setEvsConnection("Jefatura");
+            evaluator.setEvsConnection(choiceBoxConEvaluator.getValue());
             evaluator.setEvsFeedback("N/A");
             evaluator.setEvsState("N");
 
@@ -928,13 +934,17 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             evaluated.setEsWorker(lista.get(0).getEsWorker());
 
             evaluator.setEvsEvaluated(evaluated);
-
+            listEvaluators.add(evaluator);
+            ObservableList<EvaluatorDto> evaluatorsList=FXCollections.observableArrayList(listEvaluators);
             cliente.SaveEvaluator(evaluator, procesoDto);
-        }
+            this.tableViewSelWorkersPE.refresh();
+            this.tableViewSelWorkersPE.setItems( evaluatorsList);
+            
     }
 
     @FXML
     private void openSelectEvaluators(ActionEvent event) {
+        ImportListWorker();
         OptionsSettingEvaluatorsView.toFront();
 
     }
@@ -966,12 +976,16 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private void workerClickedPE(MouseEvent event) {
         if (event.getClickCount() == 2) {
 
-            WorkerDto selectedWorker = tableViewWorkersPE.getSelectionModel().getSelectedItem();
-            workersListSel.add(selectedWorker);
+            selectedWorker = tableViewWorkersPE.getSelectionModel().getSelectedItem();
+            textEvaluator.setText(selectedWorker.getName()+" "+selectedWorker.getPsurname()+" "+selectedWorker.getSsurname());
+            
+            /*workersListSel.add(selectedWorker);
+            
+            
             workersAss = FXCollections.observableArrayList(workersListSel);
 
-            this.tableViewSelWorkers1.refresh();
-            this.tableViewSelWorkers1.setItems(workersAss);
+            //this.tableViewSelWorkers1.refresh();
+            //this.tableViewSelWorkers1.setItems(workersAss);*/
 
         }
     }

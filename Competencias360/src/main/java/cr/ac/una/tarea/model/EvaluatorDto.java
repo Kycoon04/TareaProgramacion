@@ -88,4 +88,21 @@ public class EvaluatorDto {
     public void setEvsWorker(Workers evsWorker) {
         this.evsWorker = evsWorker;
     }
+    
+     public String getIden() {
+        return evsWorker.getWrIdentification();
+    }
+     public String getName() {
+        return evsWorker.getWrName();
+    }
+      public String getPsurname() {
+        return evsWorker.getWrPsurname();
+    }
+      public String getEmail() {
+        return evsWorker.getWrEmail();
+    }
+       public String getUsername() {
+        return evsWorker.getWrUsername();
+    }
+
 }
