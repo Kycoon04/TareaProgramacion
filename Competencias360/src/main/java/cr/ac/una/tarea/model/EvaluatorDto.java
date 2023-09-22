@@ -54,7 +54,11 @@ public class EvaluatorDto {
     }
 
     public String getEvsState() {
-        return evsState.get();
+        String state = "Sin realizar";
+        if(evsState.equals("N")){
+            state ="Realizado";
+        }
+        return state;
     }
 
     public Evaluated getEvsEvaluated() {

@@ -194,8 +194,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private Circle InformationMainPhoto;
     @FXML
-    private TextField textFieldSearchInformation;
-    @FXML
     private BorderPane OptionsAssociateCompView;
     @FXML
     private Text textFieldAsJob;
@@ -984,9 +982,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         InformationMainPhoto.setFill(new ImagePattern(image));
     }
 
-    @FXML
-    private void searchWorker(ActionEvent event) {
-    }
 
     @FXML
     private void openEvaluations(MouseEvent event) {
