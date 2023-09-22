@@ -543,7 +543,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private void UpdateCompetences(ActionEvent event) {
         CompetencesService competencesService = new CompetencesService();
         competenceDto.setName(NameCompetencesField.getText());
-        competenceDto.setCharacteristics(CharacteristicsCompetencesField.getText());
+        competenceDto.setCharacteristics("N/A");
 
         if (StateCompetencesCheck.isSelected()) {
             competenceDto.setState("S");
