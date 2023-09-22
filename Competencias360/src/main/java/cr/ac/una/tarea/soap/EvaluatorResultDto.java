@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para evaluatorResultDto complex type.
+ * <p>Java class for evaluatorResultDto complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="evaluatorResultDto">
@@ -43,7 +43,7 @@ public class EvaluatorResultDto {
     protected Integer erNota;
 
     /**
-     * Obtiene el valor de la propiedad erCompe.
+     * Gets the value of the erCompe property.
      * 
      * @return
      *     possible object is
@@ -55,7 +55,7 @@ public class EvaluatorResultDto {
     }
 
     /**
-     * Define el valor de la propiedad erCompe.
+     * Sets the value of the erCompe property.
      * 
      * @param value
      *     allowed object is
@@ -67,7 +67,7 @@ public class EvaluatorResultDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad erEvaluator.
+     * Gets the value of the erEvaluator property.
      * 
      * @return
      *     possible object is
@@ -79,7 +79,7 @@ public class EvaluatorResultDto {
     }
 
     /**
-     * Define el valor de la propiedad erEvaluator.
+     * Sets the value of the erEvaluator property.
      * 
      * @param value
      *     allowed object is
@@ -91,7 +91,7 @@ public class EvaluatorResultDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad erId.
+     * Gets the value of the erId property.
      * 
      * @return
      *     possible object is
@@ -103,7 +103,7 @@ public class EvaluatorResultDto {
     }
 
     /**
-     * Define el valor de la propiedad erId.
+     * Sets the value of the erId property.
      * 
      * @param value
      *     allowed object is
@@ -115,7 +115,7 @@ public class EvaluatorResultDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad erNota.
+     * Gets the value of the erNota property.
      * 
      * @return
      *     possible object is
@@ -127,7 +127,7 @@ public class EvaluatorResultDto {
     }
 
     /**
-     * Define el valor de la propiedad erNota.
+     * Sets the value of the erNota property.
      * 
      * @param value
      *     allowed object is

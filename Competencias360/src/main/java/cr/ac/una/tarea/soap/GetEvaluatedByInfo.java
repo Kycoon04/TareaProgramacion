@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para GetEvaluatedByInfo complex type.
+ * <p>Java class for GetEvaluatedByInfo complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="GetEvaluatedByInfo">
@@ -37,7 +37,7 @@ public class GetEvaluatedByInfo {
     protected Integer proceso;
 
     /**
-     * Obtiene el valor de la propiedad worker.
+     * Gets the value of the worker property.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class GetEvaluatedByInfo {
     }
 
     /**
-     * Define el valor de la propiedad worker.
+     * Sets the value of the worker property.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class GetEvaluatedByInfo {
     }
 
     /**
-     * Obtiene el valor de la propiedad proceso.
+     * Gets the value of the proceso property.
      * 
      * @return
      *     possible object is
@@ -73,7 +73,7 @@ public class GetEvaluatedByInfo {
     }
 
     /**
-     * Define el valor de la propiedad proceso.
+     * Sets the value of the proceso property.
      * 
      * @param value
      *     allowed object is

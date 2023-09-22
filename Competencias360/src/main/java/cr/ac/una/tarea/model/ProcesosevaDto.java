@@ -35,28 +35,38 @@ public class ProcesosevaDto {
        
     }
 
-    public LocalDate getInicialperiod() {
-        return Inicialperiod;
-    }
-
     public void setInicialperiod(LocalDate Inicialperiod) {
         this.Inicialperiod = Inicialperiod;
-    }
-
-    public LocalDate getFinalperiod() {
-        return Finalperiod;
     }
 
     public void setFinalperiod(LocalDate Finalperiod) {
         this.Finalperiod = Finalperiod;
     }
 
+    public void setApplication(LocalDate Application) {
+        this.Application = Application;
+    }
+
+    public LocalDate getInicialperiod() {
+        return Inicialperiod;
+    }
+
+    public void setsetInicialperiod(String Inicialperiod) {
+        this.Inicialperiod = LocalDate.parse(Inicialperiod);
+    }
+
+    public LocalDate getFinalperiod() {
+        return Finalperiod;
+    }
+    public void setsetFinalperiod(String Finalperiod) {
+        this.Finalperiod = LocalDate.parse(Finalperiod);
+    }
     public LocalDate getApplication() {
         return Application;
     }
 
-    public void setApplication(LocalDate Application) {
-        this.Application = Application;
+    public void setsetApplication(String Application) {
+        this.Application = LocalDate.parse(Application);
     }
 
     public Integer getId() {

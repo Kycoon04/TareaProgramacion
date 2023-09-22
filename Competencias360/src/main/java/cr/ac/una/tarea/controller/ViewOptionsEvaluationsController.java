@@ -145,34 +145,37 @@ public class ViewOptionsEvaluationsController implements Initializable {
 
     @FXML
     private void openProcessEva(MouseEvent event) {
+        ImportListProcesoEva();
         OptionsProcessEva.toFront();
     }
-    public List<EvaluatedsDto> getEvaluateds= listEvaluateds.stream().
-            filter(x->x.getEsWorker().getWrId().equals(workerDto.getId())).collect(Collectors.toList());
-    
+
     public void ImportListEvaluated(){
         EvaluatedService service = new EvaluatedService();
         Respuesta respuesta = service.getEvaluateds();
         listEvaluateds = (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
-        listEvaluateds=getEvaluateds;
+        listEvaluateds = listEvaluateds.stream().filter(x->x.getEsWorker().getWrId().equals(workerDto.getId())).toList();
+        ProcesoevaService serviceProceso = new ProcesoevaService();
+        
         for(EvaluatedsDto evaluated :listEvaluateds ){
             ProcesosevaDto proceso = new ProcesosevaDto();
             proceso.setName(evaluated.getEsProcesoeva().getEnName());
             proceso.setState(evaluated.getEsProcesoeva().getEnState());
             proceso.setId(evaluated.getEsProcesoeva().getEnId());
-            //proceso.setApplication(evaluated.getEsProcesoeva().get);
-            //listProcesos.add();
+            respuesta = serviceProceso.getProcesos();
+            List<ProcesosevaDto> listProcesosDto = (List<ProcesosevaDto>) respuesta.getResultado("ProcesosevaDto");
+            ProcesosevaDto dates = listProcesosDto.stream().filter(x->x.getId().equals(evaluated.getEsProcesoeva().getEnId())).findAny().get();
+
+            proceso.setsetApplication(dates.getApplication().toString());
+            proceso.setsetFinalperiod(dates.getFinalperiod().toString());
+            proceso.setsetInicialperiod(dates.getInicialperiod().toString());
+            
+            listProcesos.add(proceso);
         }
-        
-       
     }
     
     public void ImportListProcesoEva() {
-        ProcesoevaService service = new ProcesoevaService();
-        Respuesta respuesta = service.getProcesos();
-        listProcesos = (List<ProcesosevaDto>) respuesta.getResultado("ProcesosevaDto");
+        ImportListEvaluated();
         procesosList = FXCollections.observableArrayList(listProcesos);
-
         this.tableViewProEva.refresh();
         this.tableViewProEva.setItems(procesosList);
     }
