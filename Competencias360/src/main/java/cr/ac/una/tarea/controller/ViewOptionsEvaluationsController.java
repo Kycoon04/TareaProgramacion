@@ -9,6 +9,7 @@ import cr.ac.una.tarea.model.EvaluatorDto;
 import cr.ac.una.tarea.model.ProcesosevaDto;
 import cr.ac.una.tarea.model.WorkerDto;
 import cr.ac.una.tarea.service.EvaluatedService;
+import cr.ac.una.tarea.service.EvaluatorService;
 import cr.ac.una.tarea.service.ProcesoevaService;
 import cr.ac.una.tarea.soap.ProcesoevaDto;
 import cr.ac.una.tarea.util.FlowController;
@@ -85,6 +86,8 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     List<ProcesosevaDto> listProcesos = new ArrayList<>();
     ObservableList<ProcesosevaDto> procesosList;
     List<EvaluatedsDto> listEvaluateds = new ArrayList<>();
+    List<EvaluatorDto> evaluateds= new ArrayList<>();
+    ObservableList<EvaluatorDto> evaluatedList;
     @FXML
     private BorderPane OptionsInformationWorker;
     @FXML
@@ -104,21 +107,21 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     @FXML
     private Text textNameProcess;
     @FXML
-    private TableView<EvaluatedsDto> tableViewEvaluated;
+    private TableView<EvaluatorDto> tableViewEvaluated;
     @FXML
-    private TableColumn<EvaluatedsDto, String> tableColEvaluated_Ident;
+    private TableColumn<EvaluatorDto, String> tableColEvaluated_Ident;
     @FXML
-    private TableColumn<EvaluatedsDto, String> tableColEvaluated_Name;
+    private TableColumn<EvaluatorDto, String> tableColEvaluated_Name;
     @FXML
-    private TableColumn<EvaluatedsDto, String> tableColEvaluated_Psurname;
+    private TableColumn<EvaluatorDto, String> tableColEvaluated_Psurname;
     @FXML
-    private TableColumn<EvaluatedsDto, String> tableColEvaluated_Ssurname;
+    private TableColumn<EvaluatorDto, String> tableColEvaluated_Ssurname;
     @FXML
-    private TableColumn<EvaluatedsDto, String> tableColEvaluated_User;
+    private TableColumn<EvaluatorDto, String> tableColEvaluated_User;
     @FXML
-    private TableColumn<?, ?> tableColEvaluated_Email;
+    private TableColumn<EvaluatorDto, String> tableColEvaluated_Email;
     @FXML
-    private TableColumn<?, ?> tableColEvaluated_State;
+    private TableColumn<EvaluatorDto, String> tableColEvaluated_State;
 
     /**
      * Initializes the controller class.
@@ -133,17 +136,25 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         }
         workerDto = FlowController.worker;
         workerDto.getName();
-        tableColProEva_State.setCellValueFactory(new PropertyValueFactory("State"));
-        tableColProEva_Name.setCellValueFactory(new PropertyValueFactory("Name"));
-        tableColProEva_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));
-        tableColProEva_FinalPer.setCellValueFactory(new PropertyValueFactory("Finalperiod"));
-        tableColProEva_Apli.setCellValueFactory(new PropertyValueFactory("Application"));
+        this.tableColProEva_State.setCellValueFactory(new PropertyValueFactory("State"));
+        this.tableColProEva_Name.setCellValueFactory(new PropertyValueFactory("Name"));
+        this.tableColProEva_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));
+        this.tableColProEva_FinalPer.setCellValueFactory(new PropertyValueFactory("Finalperiod"));
+        this.tableColProEva_Apli.setCellValueFactory(new PropertyValueFactory("Application"));
 
-        tableColProEvaluated_State.setCellValueFactory(new PropertyValueFactory("State"));
-        tableColProEvaluated_Name.setCellValueFactory(new PropertyValueFactory("Name"));
-        tableColProEvaluated_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));
-        tableColProEvaluated_FinalPer.setCellValueFactory(new PropertyValueFactory("Finalperiod"));
-        tableColProEvaluated_Apli.setCellValueFactory(new PropertyValueFactory("Application"));
+       this.tableColProEvaluated_State.setCellValueFactory(new PropertyValueFactory("State"));
+        this.tableColProEvaluated_Name.setCellValueFactory(new PropertyValueFactory("Name"));
+        this.tableColProEvaluated_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));
+        this.tableColProEvaluated_FinalPer.setCellValueFactory(new PropertyValueFactory("Finalperiod"));
+        this.tableColProEvaluated_Apli.setCellValueFactory(new PropertyValueFactory("Application"));
+        
+        this.tableColEvaluated_Ident.setCellValueFactory(new PropertyValueFactory("EvIden"));
+        this.tableColEvaluated_Name.setCellValueFactory(new PropertyValueFactory("EvName"));
+        this.tableColEvaluated_Psurname.setCellValueFactory(new PropertyValueFactory("EvPsurname"));
+        this.tableColEvaluated_Ssurname.setCellValueFactory(new PropertyValueFactory("Ssurname"));
+        this.tableColEvaluated_User.setCellValueFactory(new PropertyValueFactory("EvUsernam"));
+        this.tableColEvaluated_Email.setCellValueFactory(new PropertyValueFactory("EvEmail"));
+        this.tableColEvaluated_State.setCellValueFactory(new PropertyValueFactory("EvsState"));
 
         // TODO
     }
@@ -207,6 +218,17 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         this.tableViewProEva.refresh();
         this.tableViewProEva.setItems(procesosList);
     }
+    Predicate<EvaluatorDto> getEvaluator=x->x.getEvsEvaluated().getEsProcesoeva().getEnId().equals(procesoDto.getId());
+    public void ImportEvaluated(){
+        EvaluatorService service = new EvaluatorService();
+        Respuesta respuesta = service.getEvaluators();
+        evaluateds = (List<EvaluatorDto>) respuesta.getResultado("Evaluators");
+        evaluateds=evaluateds.stream().filter(getEvaluator.and(x->x.getEvsWorker().getWrId().equals(workerDto.getId()))).toList();
+        evaluatedList= FXCollections.observableArrayList(evaluateds);
+        this.tableViewEvaluated.refresh();
+        this.tableViewEvaluated.setItems(evaluatedList);
+        
+    }
 
     @FXML
     private void procesoevaClicked(MouseEvent event) {
@@ -215,6 +237,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                 procesoDto = tableViewProEva.getSelectionModel().getSelectedItem();
                 textNameProcess.setText(procesoDto.getName());
                 OptionsSelectEvaluateView.toFront();
+                ImportEvaluated();
             } catch (Exception ex) {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un proceso en este campo.");
             }

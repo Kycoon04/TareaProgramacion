@@ -108,5 +108,25 @@ public class EvaluatorDto {
        public String getUsername() {
         return evsWorker.getWrUsername();
     }
+       
+    public String getEvIden() {
+        return evsEvaluated.getEsWorker().getWrIdentification();
+    }
+    public String getEvName(){
+        return evsEvaluated.getEsWorker().getWrName();
+    }
+      public String getEvPsurname() {
+        return evsEvaluated.getEsWorker().getWrPsurname();
+    }
+       public String getEvSsurname() {
+        return evsEvaluated.getEsWorker().getWrSsurname();
+    }
+      public String getEvEmail() {
+        return evsEvaluated.getEsWorker().getWrEmail();
+    }
+       public String getEvUsername() {
+        return evsEvaluated.getEsWorker().getWrUsername();
+    }
+    
 
 }
