@@ -399,7 +399,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         this.tableColEvaluator_Psurname.setCellValueFactory(new PropertyValueFactory("psurname"));
         this.tableColEvaluator_Email.setCellValueFactory(new PropertyValueFactory("email"));
         this.tableColEvaluator_Conecction.setCellValueFactory(new PropertyValueFactory("EvsConnection"));
-        this.tableColEvaluator_State.setCellValueFactory(new PropertyValueFactory("EvsState"));
+        this.tableColEvaluator_State.setCellValueFactory(new PropertyValueFactory("EvsStateList"));
     }
 
     @FXML
