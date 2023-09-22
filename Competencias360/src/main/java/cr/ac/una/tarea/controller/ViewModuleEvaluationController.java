@@ -115,6 +115,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private TableColumn<WorkerDto, String> tableColSelAdmi;
 
     private ObservableList<WorkerDto> workerList;
+    private ObservableList<WorkerDto> workerListCopy;
     private ObservableList<WorkerDto> workerListCRE;
     private ObservableList<JobDto> jobsList;
     private ObservableList<ProcesosevaDto> procesosList;
@@ -245,10 +246,12 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     EvaluatedsDto evaluatedDto = new EvaluatedsDto();
     WorkerDto selectedWorker = new WorkerDto();
     List<WorkerDto> listWorkers = new ArrayList<>();
+    List<WorkerDto> listWorkersCopy = new ArrayList<>();
+
     List<WorkerDto> listWorkersEvaluated = new ArrayList<>();
     List<EvaluatorDto> listEvaluators = new ArrayList<>();
     List<EvaluatedsDto> listEvaluatedDto = new ArrayList<>();
-    List<EvaluatorDto> listEvaluatorAss =new ArrayList<>();
+    List<EvaluatorDto> listEvaluatorAss = new ArrayList<>();
     @FXML
     private TableView<ProcesosevaDto> tableViewProEva;
     @FXML
@@ -384,7 +387,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         this.tableColProEva_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));
         this.tableColProEva_FinalPer.setCellValueFactory(new PropertyValueFactory("Finalperiod"));
         this.tableColProEva_Apli.setCellValueFactory(new PropertyValueFactory("Application"));
-        
+
         this.tableColFUAct.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColFUIdentif.setCellValueFactory(new PropertyValueFactory("iden"));
         this.tableColFUName.setCellValueFactory(new PropertyValueFactory("name"));
@@ -393,7 +396,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         this.tableColFUEmail.setCellValueFactory(new PropertyValueFactory("email"));
         this.tableColFUTelephone.setCellValueFactory(new PropertyValueFactory("telephone"));
         this.tableColFUAdmi.setCellValueFactory(new PropertyValueFactory("administrator"));
-        
+
         this.tableColEvaluator_Ident.setCellValueFactory(new PropertyValueFactory("iden"));
         this.tableColEvaluator_Name.setCellValueFactory(new PropertyValueFactory("name"));
         this.tableColEvaluator_Psurname.setCellValueFactory(new PropertyValueFactory("psurname"));
@@ -562,18 +565,36 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         tableViewWorkers.setItems(sorted);
     }
 
+    public void ImportListWorkerDiferent() {
+        EvaluatorService serviceEvaluator = new EvaluatorService();
+        Respuesta respuesta = serviceEvaluator.getEvaluators();
+        listEvaluators = (List<EvaluatorDto>) respuesta.getResultado("Evaluators");
+        for (int i = 0; i < listEvaluators.size(); i++) {
+            for (int j = 0; j < listWorkers.size(); j++) {
+                if (listWorkers.get(j).getName().equals(listEvaluators.get(i).getEvsWorker().getWrName())) {
+                    listWorkers.remove(j);
+                }
+            }
+        }
+        ObservableList<EvaluatorDto> evaluatorsList = FXCollections.observableArrayList(listEvaluators);
+        this.tableViewSelWorkersPE.refresh();
+        this.tableViewSelWorkersPE.setItems(evaluatorsList);
+    }
+
     public void ImportListWorker() {
 
         WorkersService service = new WorkersService();
         Respuesta respuesta = service.getUsuarios();
         listWorkers = (List<WorkerDto>) respuesta.getResultado("Usuarios");
+        listWorkersCopy = listWorkers;
         changeTextAdmi(listWorkers);
+        ImportListWorkerDiferent();
         workerList = FXCollections.observableArrayList(listWorkers);
-
+        workerListCopy = FXCollections.observableArrayList(listWorkersCopy);
         this.tableViewWorkersPE.refresh();
         this.tableViewWorkersPE.setItems(workerList);
         this.tableViewWorkers.refresh();
-        this.tableViewWorkers.setItems(workerList);
+        this.tableViewWorkers.setItems(workerListCopy);
     }
 
     public List<EvaluatedsDto> getEvaluatorProcess(int IdProcess) {
@@ -616,22 +637,23 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         this.tableViewWorkersFU.setItems(workerListCRE);
 
     }
-    Predicate<EvaluatorDto> getProEvaluators=x->x.getEvsEvaluated().getEsProcesoeva().getEnId().equals(procesoDto.getId());
+    Predicate<EvaluatorDto> getProEvaluators = x -> x.getEvsEvaluated().getEsProcesoeva().getEnId().equals(procesoDto.getId());
 
-    public List<EvaluatorDto> getEvaluators(int idEvaluated){
+    public List<EvaluatorDto> getEvaluators(int idEvaluated) {
         return listEvaluatorAss.stream().
-                filter(getProEvaluators.and(x->x.getEvsEvaluated().getEsWorker().getWrId().equals(idEvaluated))).collect(Collectors.toList());
+                filter(getProEvaluators.and(x -> x.getEvsEvaluated().getEsWorker().getWrId().equals(idEvaluated))).collect(Collectors.toList());
     }
-    public void ImportListEvaluators(){
-        EvaluatorService service= new EvaluatorService();
-        Respuesta respuesta=service.getEvaluators();
-                
-        listEvaluatorAss= (List<EvaluatorDto>) respuesta.getResultado("Evaluators");
-        listEvaluatorAss=getEvaluators(selectedWorker.getId());
-        ObservableList<EvaluatorDto> listEvaluator =FXCollections.observableArrayList( listEvaluatorAss);
-         this.tableViewEvaluatorsFU.refresh();
-         this.tableViewEvaluatorsFU.setItems(listEvaluator);
-         
+
+    public void ImportListEvaluators() {
+        EvaluatorService service = new EvaluatorService();
+        Respuesta respuesta = service.getEvaluators();
+
+        listEvaluatorAss = (List<EvaluatorDto>) respuesta.getResultado("Evaluators");
+        listEvaluatorAss = getEvaluators(selectedWorker.getId());
+        ObservableList<EvaluatorDto> listEvaluator = FXCollections.observableArrayList(listEvaluatorAss);
+        this.tableViewEvaluatorsFU.refresh();
+        this.tableViewEvaluatorsFU.setItems(listEvaluator);
+
     }
 
     public void changeTextAdmi(List<WorkerDto> list) {
@@ -931,14 +953,14 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         procesosevaDto.setState(choiceBoxStateEva.getValue());
         procesosevaDto.setName(TitleEvaField.getText());
 
-        if(DateProEva_Inicial.getValue().isBefore(DateProEva_Final.getValue())){
-        procesosevaDto.setApplication(DateProEva_Application.getValue());
-        procesosevaDto.setInicialperiod(DateProEva_Inicial.getValue());
-        procesosevaDto.setFinalperiod(DateProEva_Final.getValue());
-        service.SaveProceso(procesosevaDto);
-        ImportListProcesoEva();
-        }else{
-              new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Seleccione una fecha de inicio menor a la fecha de finalizacion");
+        if (DateProEva_Inicial.getValue().isBefore(DateProEva_Final.getValue())) {
+            procesosevaDto.setApplication(DateProEva_Application.getValue());
+            procesosevaDto.setInicialperiod(DateProEva_Inicial.getValue());
+            procesosevaDto.setFinalperiod(DateProEva_Final.getValue());
+            service.SaveProceso(procesosevaDto);
+            ImportListProcesoEva();
+        } else {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Seleccione una fecha de inicio menor a la fecha de finalizacion");
         }
     }
 
@@ -1078,13 +1100,12 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private void openFollowUpView(ActionEvent event) {
         importEvaluators();
         textInfoPro_Name.setText(procesoDto.getName());
-        textInfoPro_State.setText("Estado: "+procesoDto.getState());
-        textInfoPro_DAppli.setText("Fecha de Aplicación: "+procesoDto.getApplication().toString());
-        textInfoPro_DInicial.setText("Fecha de Inicio de Periodo: "+procesoDto.getInicialperiod().toString());
-        textInfoPro_DFinal.setText("Fecha de Final de Periodo: "+procesoDto.getFinalperiod().toString());
+        textInfoPro_State.setText("Estado: " + procesoDto.getState());
+        textInfoPro_DAppli.setText("Fecha de Aplicación: " + procesoDto.getApplication().toString());
+        textInfoPro_DInicial.setText("Fecha de Inicio de Periodo: " + procesoDto.getInicialperiod().toString());
+        textInfoPro_DFinal.setText("Fecha de Final de Periodo: " + procesoDto.getFinalperiod().toString());
         OptionsFollowUpView.toFront();
     }
-
 
     @FXML
     private void searchCompetence_Name(KeyEvent event) {
@@ -1097,10 +1118,10 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void evaluatorClickedFU(MouseEvent event) {
-         if (event.getClickCount() == 2) {
+        if (event.getClickCount() == 2) {
 
             selectedWorker = tableViewWorkersFU.getSelectionModel().getSelectedItem();
-            textInfoE_Name.setText(selectedWorker.getName()+""+selectedWorker.getPsurname()+""+selectedWorker.getSsurname());
+            textInfoE_Name.setText(selectedWorker.getName() + "" + selectedWorker.getPsurname() + "" + selectedWorker.getSsurname());
             textInfoE_Identificacion.setText(selectedWorker.getIden());
             textInfoE_Email.setText(selectedWorker.getEmail());
             ImportListEvaluators();
