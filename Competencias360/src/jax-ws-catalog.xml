@@ -14,8 +14,6 @@
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleJobs?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleJobs.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleWorkers?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleWorkers.wsdl"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleWorkers?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleWorkers.xsd_1.xsd"/>
-    <system systemId="http://localhost:8080/Competencias360Ws/ModuleProcesoeva?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleProcesoeva.wsdl"/>
-    <system systemId="http://localhost:8080/Competencias360Ws/ModuleProcesoeva?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleProcesoeva.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleEvaluated?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleEvaluated.wsdl"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleEvaluated?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleEvaluated.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleCharacteristic?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleCharacteristic.wsdl"/>
@@ -24,4 +22,6 @@
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleComInformation?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleComInformation.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleEvaluators?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleEvaluators.wsdl"/>
     <system systemId="http://localhost:8080/Competencias360Ws/ModuleEvaluators?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleEvaluators.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/Competencias360Ws/ModuleProcesoeva?wsdl" uri="wsdl/localhost_8080/Competencias360Ws/ModuleProcesoeva.wsdl"/>
+    <system systemId="http://localhost:8080/Competencias360Ws/ModuleProcesoeva?xsd=1" uri="wsdl/localhost_8080/Competencias360Ws/ModuleProcesoeva.xsd_1.xsd"/>
 </catalog>

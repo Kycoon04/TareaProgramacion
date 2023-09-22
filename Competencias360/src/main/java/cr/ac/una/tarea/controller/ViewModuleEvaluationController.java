@@ -929,13 +929,15 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         procesosevaDto.setState(choiceBoxStateEva.getValue());
         procesosevaDto.setName(TitleEvaField.getText());
 
+        if(DateProEva_Inicial.getValue().isBefore(DateProEva_Final.getValue())){
         procesosevaDto.setApplication(DateProEva_Application.getValue());
         procesosevaDto.setInicialperiod(DateProEva_Inicial.getValue());
         procesosevaDto.setFinalperiod(DateProEva_Final.getValue());
-
         service.SaveProceso(procesosevaDto);
         ImportListProcesoEva();
-
+        }else{
+              new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Seleccione una fecha de inicio menor a la fecha de finalizacion");
+        }
     }
 
     @FXML

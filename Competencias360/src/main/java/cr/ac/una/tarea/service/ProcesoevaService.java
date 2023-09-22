@@ -60,36 +60,38 @@ public class ProcesoevaService {
             return new Respuesta(false, "Error guardando el empleado.", "guardarEmpleado " + ex.getMessage());
         }
     }
-    /*
-    public Respuesta getJob(String jobName) {
+    
+    public Respuesta getProcesoByName(String jobName) {
         try {
-            ModuleJobs_Service servicio = new ModuleJobs_Service();
-            ModuleJobs cliente = servicio.getModuleJobsPort();
-
-            JobDto jobDto = new JobDto();
-            jobDto.setId(cliente.getJob(jobName).getId());
-            jobDto.setName(cliente.getJob(jobName).getName());
-            jobDto.setState(cliente.getJob(jobName).getState());
-
-            return new Respuesta(true, "", "", "Job", jobDto);
+            ModuleProcesoeva_Service servicio = new ModuleProcesoeva_Service();
+            ModuleProcesoeva cliente = servicio.getModuleProcesoevaPort();
+            
+            ProcesosevaDto procesosev = new ProcesosevaDto();
+              procesosev.setApplication(LocalDate.parse(cliente.getProcesova(jobName).getGetAplicationPeriodo()));
+              procesosev.setId(cliente.getProcesova(jobName).getId());
+              procesosev.setInicialperiod(LocalDate.parse(cliente.getProcesova(jobName).getGetInicialPeriodo()));
+              procesosev.setFinalperiod(LocalDate.parse(cliente.getProcesova(jobName).getGetFinalPeriodo()));
+              procesosev.setState(cliente.getProcesova(jobName).getState());
+              procesosev.setName(cliente.getProcesova(jobName).getName());
+              
+            return new Respuesta(true, "", "", "Procesoeva", procesosev);
         } catch (Exception ex) {
-            Logger.getLogger(JobsService.class.getName()).log(Level.SEVERE, "Error obteniendo el puesto [" + jobName + "]", ex);
-            return new Respuesta(false, "Error obteniendo el puesto.", "getJob " + ex.getMessage());
+            Logger.getLogger(JobsService.class.getName()).log(Level.SEVERE, "Error obteniendo el proceso [" + jobName + "]", ex);
+            return new Respuesta(false, "Error obteniendo el proceso.", "getProceso " + ex.getMessage());
         }
     }
-
-    public Respuesta deleteJob(int id) {
+    
+    
+    public Respuesta deleteProceso(int id) {
         try {
-            ModuleJobs_Service servicio = new ModuleJobs_Service();
-            ModuleJobs cliente = servicio.getModuleJobsPort();
+            ModuleProcesoeva_Service servicio = new ModuleProcesoeva_Service();
+            ModuleProcesoeva cliente = servicio.getModuleProcesoevaPort();
             cliente.delete(id);
             return new Respuesta(true, "", "");
         } catch (Exception ex) {
-            Logger.getLogger(JobsService.class.getName()).log(Level.SEVERE, "Error eliminando el empleado.", ex);
-            return new Respuesta(false, "Error eliminando el empleado.", "eliminarEmpleado " + ex.getMessage());
+            Logger.getLogger(JobsService.class.getName()).log(Level.SEVERE, "Error eliminando el Proceso.", ex);
+            return new Respuesta(false, "Error eliminando el Proceso .", "eliminarProceso " + ex.getMessage());
         }
     }
-
-
-     */
+ 
 }

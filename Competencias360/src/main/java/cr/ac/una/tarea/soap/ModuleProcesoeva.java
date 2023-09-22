@@ -43,24 +43,18 @@ public interface ModuleProcesoeva {
 
     /**
      * 
-     * @param aplicacion
-     * @param dto
-     * @param finalizado
-     * @param inicio
+     * @param name
+     * @return
+     *     returns cr.ac.una.tarea.soap.ProcesoevaDto
      */
     @WebMethod
-    @RequestWrapper(localName = "setDates", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.SetDates")
-    @ResponseWrapper(localName = "setDatesResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.SetDatesResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/setDatesRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/setDatesResponse")
-    public void setDates(
-        @WebParam(name = "dto", targetNamespace = "")
-        ProcesoevaDto dto,
-        @WebParam(name = "Aplicacion", targetNamespace = "")
-        String aplicacion,
-        @WebParam(name = "finalizado", targetNamespace = "")
-        String finalizado,
-        @WebParam(name = "inicio", targetNamespace = "")
-        String inicio);
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getProcesova", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetProcesova")
+    @ResponseWrapper(localName = "getProcesovaResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetProcesovaResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/getProcesovaRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/getProcesovaResponse")
+    public ProcesoevaDto getProcesova(
+        @WebParam(name = "Name", targetNamespace = "")
+        String name);
 
     /**
      * 
@@ -79,21 +73,6 @@ public interface ModuleProcesoeva {
 
     /**
      * 
-     * @param name
-     * @return
-     *     returns cr.ac.una.tarea.soap.ProcesoevaDto
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getProcesova", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetProcesova")
-    @ResponseWrapper(localName = "getProcesovaResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetProcesovaResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/getProcesovaRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/getProcesovaResponse")
-    public ProcesoevaDto getProcesova(
-        @WebParam(name = "Name", targetNamespace = "")
-        String name);
-
-    /**
-     * 
      * @return
      *     returns java.util.List<cr.ac.una.tarea.soap.ProcesoevaDto>
      * @throws IOException_Exception
@@ -108,5 +87,26 @@ public interface ModuleProcesoeva {
     public List<ProcesoevaDto> getProcesos()
         throws IOException_Exception
     ;
+
+    /**
+     * 
+     * @param aplicacion
+     * @param dto
+     * @param finalizado
+     * @param inicio
+     */
+    @WebMethod
+    @RequestWrapper(localName = "setDates", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.SetDates")
+    @ResponseWrapper(localName = "setDatesResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.SetDatesResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/setDatesRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/setDatesResponse")
+    public void setDates(
+        @WebParam(name = "dto", targetNamespace = "")
+        ProcesoevaDto dto,
+        @WebParam(name = "Aplicacion", targetNamespace = "")
+        String aplicacion,
+        @WebParam(name = "finalizado", targetNamespace = "")
+        String finalizado,
+        @WebParam(name = "inicio", targetNamespace = "")
+        String inicio);
 
 }
