@@ -116,7 +116,7 @@ public class EvaluatorService {
             return new Respuesta(false, "Ocurrio un error al eliminar el evaluador.", "eliminarEvaluador " + ex.getMessage());
         }
     }
-     public Respuesta getEvaluators() {
+    public Respuesta getEvaluators() {
         try {
             Query qryJob = em.createNamedQuery("Evaluators.findAll", Evaluators.class);
             List<Evaluators> ev = qryJob.getResultList();
@@ -128,7 +128,4 @@ public class EvaluatorService {
             return new Respuesta(false, "Error al obtener Evaluadores", "getEvaluators" + ex.getMessage());
         }
     }
-     
-    
-    
 }

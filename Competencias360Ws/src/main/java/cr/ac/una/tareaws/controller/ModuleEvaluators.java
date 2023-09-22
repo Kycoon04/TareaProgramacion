@@ -66,8 +66,7 @@ public class ModuleEvaluators {
         proceso.setEnApplication(LocalDate.parse(Aplicacion));
         proceso.setEnFinalperiod(LocalDate.parse(finalizado));
         proceso.setEnInicialperiod(LocalDate.parse(inicio));
-    }  
-    
+    } 
     @WebMethod(operationName = "GetEvaluators")
     public List<EvaluatorsDto> GetEvaluators() throws IOException {
         Respuesta respuesta = evaluatorsService.getEvaluators();

@@ -16,6 +16,10 @@
 
 <xs:element name="GetEvaluatorByStateResponse" type="tns:GetEvaluatorByStateResponse"/>
 
+<xs:element name="GetEvaluators" type="tns:GetEvaluators"/>
+
+<xs:element name="GetEvaluatorsResponse" type="tns:GetEvaluatorsResponse"/>
+
 <xs:element name="IOException" type="tns:IOException"/>
 
 <xs:element name="RegisterEvaluators" type="tns:RegisterEvaluators"/>
@@ -26,21 +30,13 @@
 
 <xs:element name="setAllDatesResponse" type="tns:setAllDatesResponse"/>
 
-<xs:complexType name="Delete">
-<xs:sequence>
-<xs:element name="Id" type="xs:int" minOccurs="0"/>
-</xs:sequence>
+<xs:complexType name="GetEvaluators">
+<xs:sequence/>
 </xs:complexType>
 
-<xs:complexType name="DeleteResponse">
+<xs:complexType name="GetEvaluatorsResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="RegisterEvaluators">
-<xs:sequence>
-<xs:element name="arg0" type="tns:evaluatorsDto" minOccurs="0"/>
+<xs:element name="return" type="tns:evaluatorsDto" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -107,6 +103,30 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="IOException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Delete">
+<xs:sequence>
+<xs:element name="Id" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="DeleteResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="RegisterEvaluators">
+<xs:sequence>
+<xs:element name="arg0" type="tns:evaluatorsDto" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="RegisterEvaluatorsResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" minOccurs="0"/>
@@ -125,15 +145,9 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="IOException">
-<xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="setAllDates">
 <xs:sequence>
-<xs:element name="dto" type="tns:evaluated" minOccurs="0"/>
+<xs:element name="dto" type="tns:procesoeva" minOccurs="0"/>
 <xs:element name="Aplicacion" type="xs:string" minOccurs="0"/>
 <xs:element name="finalizado" type="xs:string" minOccurs="0"/>
 <xs:element name="inicio" type="xs:string" minOccurs="0"/>

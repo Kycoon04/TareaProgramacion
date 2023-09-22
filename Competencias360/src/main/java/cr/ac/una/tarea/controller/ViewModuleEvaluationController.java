@@ -229,7 +229,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private TableColumn<WorkerDto, String> tableColAdmiPE;
 
-     @FXML
+    @FXML
     private TableView<EvaluatorDto> tableViewSelWorkersPE;
     @FXML
     private TableColumn<EvaluatorDto, String> tableColSelIdentifPE;
@@ -252,10 +252,12 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private Text textNameWorker;
     EvaluatedsDto evaluatedDto = new EvaluatedsDto();
-    WorkerDto selectedWorker= new WorkerDto();
+    WorkerDto selectedWorker = new WorkerDto();
     List<WorkerDto> listWorkers = new ArrayList<>();
     List<WorkerDto> listWorkersEvaluated = new ArrayList<>();
     List<EvaluatorDto> listEvaluators = new ArrayList<>();
+    List<EvaluatedsDto> listEvaluatedDto = new ArrayList<>();
+    List<EvaluatorDto> listEvaluatorAss =new ArrayList<>();
     @FXML
     private TableView<ProcesosevaDto> tableViewProEva;
     @FXML
@@ -265,6 +267,62 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private ChoiceBox<String> choiceBoxConEvaluator;
     String connection[] = {"Jefatura", "Compañero", "Cliente"};
+    @FXML
+    private BorderPane OptionsFollowUpView;
+    @FXML
+    private Text textProcesoEva_title1;
+    @FXML
+    private Pane viewChooseJobs1;
+    @FXML
+    private TextField textFieldSJob_NameW1;
+    @FXML
+    private TextField textFieldSJob_StateW1;
+    @FXML
+    private TextField CompetenceCharacteristicField;
+    @FXML
+    private TableView<WorkerDto> tableViewWorkersFU;
+    @FXML
+    private TableColumn<WorkerDto, String> tableColFUAct;
+    @FXML
+    private TableColumn<WorkerDto, String> tableColFUIdentif;
+    @FXML
+    private TableColumn<WorkerDto, String> tableColFUName;
+    @FXML
+    private TableColumn<WorkerDto, String> tableColFUPsurname;
+    @FXML
+    private TableColumn<WorkerDto, String> tableColFUUserName;
+    @FXML
+    private TableColumn<WorkerDto, String> tableColFUEmail;
+    @FXML
+    private TableColumn<WorkerDto, String> tableColFUTelephone;
+    @FXML
+    private TableColumn<WorkerDto, String> tableColFUAdmi;
+    @FXML
+    private TextField textFieldFollowUp_Name;
+    @FXML
+    private BorderPane viewFollowUpEvaluated;
+    @FXML
+    private BorderPane viewFollowUpInfoEvd;
+    @FXML
+    private Text textInfoE_Name;
+    @FXML
+    private Text textInfoE_Identificacion;
+    @FXML
+    private Text textInfoE_Email;
+    @FXML
+    private TableView<EvaluatorDto> tableViewEvaluatorsFU;
+    @FXML
+    private TableColumn<EvaluatorDto, String> tableColEvaluator_Ident;
+    @FXML
+    private TableColumn<EvaluatorDto, String> tableColEvaluator_Name;
+    @FXML
+    private TableColumn<EvaluatorDto, String> tableColEvaluator_Psurname;
+    @FXML
+    private TableColumn<EvaluatorDto, String> tableColEvaluator_Email;
+    @FXML
+    private TableColumn<EvaluatorDto, String> tableColEvaluator_Conecction;
+    @FXML
+    private TableColumn<EvaluatorDto, String> tableColEvaluator_State;
 
     /**
      * Initializes the controller class.
@@ -331,14 +389,25 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         this.tableColProEva_FinalPer.setCellValueFactory(new PropertyValueFactory("Finalperiod"));
 
         this.tableColProEva_Apli.setCellValueFactory(new PropertyValueFactory("Application"));
+        this.tableColFUAct.setCellValueFactory(new PropertyValueFactory("Actives"));
+        this.tableColFUIdentif.setCellValueFactory(new PropertyValueFactory("iden"));
+        this.tableColFUName.setCellValueFactory(new PropertyValueFactory("name"));
+        this.tableColFUPsurname.setCellValueFactory(new PropertyValueFactory("psurname"));
+        this.tableColFUUserName.setCellValueFactory(new PropertyValueFactory("username"));
+        this.tableColFUEmail.setCellValueFactory(new PropertyValueFactory("email"));
+        this.tableColFUTelephone.setCellValueFactory(new PropertyValueFactory("telephone"));
+        this.tableColFUAdmi.setCellValueFactory(new PropertyValueFactory("administrator"));
+        
+        this.tableColEvaluator_Ident.setCellValueFactory(new PropertyValueFactory("iden"));
+        this.tableColEvaluator_Name.setCellValueFactory(new PropertyValueFactory("name"));
+        this.tableColEvaluator_Psurname.setCellValueFactory(new PropertyValueFactory("psurname"));
+        this.tableColEvaluator_Email.setCellValueFactory(new PropertyValueFactory("email"));
+        this.tableColEvaluator_Conecction.setCellValueFactory(new PropertyValueFactory("EvsConnection"));
+        this.tableColEvaluator_State.setCellValueFactory(new PropertyValueFactory("EvsState"));
     }
 
     @FXML
     private void openEvaluations(MouseEvent event) {
-    }
-
-    @FXML
-    private void CompetencesModi(ActionEvent event) {
     }
 
     @FXML
@@ -505,11 +574,16 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         listWorkers = (List<WorkerDto>) respuesta.getResultado("Usuarios");
         changeTextAdmi(listWorkers);
         workerList = FXCollections.observableArrayList(listWorkers);
-        
+
         this.tableViewWorkersPE.refresh();
-        this.tableViewWorkersPE.setItems( workerList);
+        this.tableViewWorkersPE.setItems(workerList);
         this.tableViewWorkers.refresh();
         this.tableViewWorkers.setItems(workerList);
+    }
+
+    public List<EvaluatedsDto> getEvaluatorProcess(int IdProcess) {
+        return listEvaluatedDto.stream().
+                filter(x -> x.getEsProcesoeva().getEnId().equals(IdProcess)).collect(Collectors.toList());
     }
 
     public void importEvaluators() {
@@ -518,9 +592,10 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         EvaluatedService evaluatedservice = new EvaluatedService();
 
         Respuesta respuesta = evaluatedservice.getEvaluateds();
-        List<EvaluatedsDto> EvaluatedDto = (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
-         this.listWorkersEvaluated.clear();
-        for (EvaluatedsDto evaluated : EvaluatedDto) {
+        listEvaluatedDto = (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
+        listEvaluatedDto = getEvaluatorProcess(procesoDto.getId());
+        this.listWorkersEvaluated.clear();
+        for (EvaluatedsDto evaluated : listEvaluatedDto) {
             WorkerDto workerDto = new WorkerDto();
             workerDto.setPhoto(evaluated.getEsWorker().getWrPhoto());
             workerDto.setId(evaluated.getEsWorker().getWrId());
@@ -542,7 +617,19 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         workerListCRE = FXCollections.observableArrayList(listWorkersEvaluated);
         this.tableViewWorkersCRE.refresh();
         this.tableViewWorkersCRE.setItems(workerListCRE);
-        
+        this.tableViewWorkersFU.refresh();
+        this.tableViewWorkersFU.setItems(workerListCRE);
+
+    }
+    public void ImportListEvaluators(){
+        EvaluatorService service= new EvaluatorService();
+        Respuesta respuesta=service.getEvaluators();
+                
+        listEvaluatorAss= (List<EvaluatorDto>) respuesta.getResultado("Evaluators");
+        ObservableList<EvaluatorDto> listEvaluator =FXCollections.observableArrayList( listEvaluatorAss);
+         this.tableViewEvaluatorsFU.refresh();
+         this.tableViewEvaluatorsFU.setItems(listEvaluator);
+         
     }
 
     public void changeTextAdmi(List<WorkerDto> list) {
@@ -602,7 +689,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         workersAss.clear();
         this.tableViewSelWorkers.refresh();
         //this.tableViewSelWorkers.setItems(workersAss);
-        OptionsSettingView.toFront();
+        OptionsMenuView.toFront();
     }
     Predicate<WorkerDto> WorkerNull = worker -> worker.getJob() != null;
 
@@ -650,6 +737,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                 WorkerCREMainField.setText(workerDto.getName() + " " + workerDto.getPsurname() + " " + workerDto.getSsurname());
                 textCREJob.setText("Puesto: " + workerDto.getJob().getJsName());
                 textCREIdent.setText("Numero de Identificacion: " + workerDto.getIden());
+                textNameWorker.setText(workerDto.getName() + " " + workerDto.getPsurname() + " " + workerDto.getSsurname());
                 viewSelectedWorker.toFront();
 
                 Procesoeva proceso = new Procesoeva();
@@ -857,15 +945,15 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private void searchJob_State(KeyEvent event) {
     }
-    
-    public boolean existsProcess(String name){
+
+    public boolean existsProcess(String name) {
         return procesosList.stream().
-                anyMatch(x->x.getName().equals(name));
+                anyMatch(x -> x.getName().equals(name));
     }
 
     @FXML
     private void openSettingEva(MouseEvent event) {
-        
+
         if (!(TitleEvaField.getText().isEmpty() && (choiceBoxStateEva == null))) {
             if (existsProcess(TitleEvaField.getText())) {
                 textProcesoEva_title.setText(TitleEvaField.getText());
@@ -891,55 +979,55 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void addEvaluators(ActionEvent event) {
-        
+
         WorkerDto workerSel = tableViewWorkersPE.getSelectionModel().getSelectedItem();
         EvaluatorService cliente = new EvaluatorService();
         EvaluatorDto evaluator = new EvaluatorDto();
 
-            evaluator.setEvsConnection(choiceBoxConEvaluator.getValue());
-            evaluator.setEvsFeedback("N/A");
-            evaluator.setEvsState("N");
+        evaluator.setEvsConnection(choiceBoxConEvaluator.getValue());
+        evaluator.setEvsFeedback("N/A");
+        evaluator.setEvsState("N");
 
-            Workers worker = new Workers();
-            worker.setWrCodeactive(workerSel.getCode());
-            worker.setWrId(workerSel.getId());
-            worker.setWrJob(workerSel.getJob());
-            worker.setWrRecover(workerSel.getRecover());
-            worker.setWrActive(workerSel.getActive());
-            worker.setWrAdmin(workerSel.getAdministrator());
-            worker.setWrEmail(workerSel.getEmail());
-            worker.setWrPhoto(workerSel.getPhoto());
-            worker.setWrIdentification(workerSel.getIden());
-            worker.setWrLandline(workerSel.getLandline());
-            worker.setWrName(workerSel.getName());
-            worker.setWrPassword(workerSel.getPassword());
-            worker.setWrPsurname(workerSel.getPsurname());
-            worker.setWrSsurname(workerSel.getSsurname());
-            worker.setWrTelephone(workerSel.getTelephone());
-            worker.setWrUsername(workerSel.getUsername());
-            evaluator.setEvsWorker(worker);
+        Workers worker = new Workers();
+        worker.setWrCodeactive(workerSel.getCode());
+        worker.setWrId(workerSel.getId());
+        worker.setWrJob(workerSel.getJob());
+        worker.setWrRecover(workerSel.getRecover());
+        worker.setWrActive(workerSel.getActive());
+        worker.setWrAdmin(workerSel.getAdministrator());
+        worker.setWrEmail(workerSel.getEmail());
+        worker.setWrPhoto(workerSel.getPhoto());
+        worker.setWrIdentification(workerSel.getIden());
+        worker.setWrLandline(workerSel.getLandline());
+        worker.setWrName(workerSel.getName());
+        worker.setWrPassword(workerSel.getPassword());
+        worker.setWrPsurname(workerSel.getPsurname());
+        worker.setWrSsurname(workerSel.getSsurname());
+        worker.setWrTelephone(workerSel.getTelephone());
+        worker.setWrUsername(workerSel.getUsername());
+        evaluator.setEvsWorker(worker);
 
-            Evaluated evaluated = new Evaluated();
-            EvaluatedService evaluatedservice = new EvaluatedService();
+        Evaluated evaluated = new Evaluated();
+        EvaluatedService evaluatedservice = new EvaluatedService();
 
-            Respuesta respuesta = evaluatedservice.getEvaluateds();
-            List<EvaluatedsDto> posible = (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
+        Respuesta respuesta = evaluatedservice.getEvaluateds();
+        List<EvaluatedsDto> posible = (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
 
-            List<EvaluatedsDto> lista = posible.stream().filter(
-                    pName(evaluatedDto.getEsWorker().getWrName())
-                            .and(pProceso(evaluatedDto.getEsProcesoeva().getEnName()))).toList();
+        List<EvaluatedsDto> lista = posible.stream().filter(
+                pName(evaluatedDto.getEsWorker().getWrName())
+                        .and(pProceso(evaluatedDto.getEsProcesoeva().getEnName()))).toList();
 
-            evaluated.setEsId(lista.get(0).getId());
-            evaluated.setEsProcesoeva(lista.get(0).getEsProcesoeva());
-            evaluated.setEsWorker(lista.get(0).getEsWorker());
+        evaluated.setEsId(lista.get(0).getId());
+        evaluated.setEsProcesoeva(lista.get(0).getEsProcesoeva());
+        evaluated.setEsWorker(lista.get(0).getEsWorker());
 
-            evaluator.setEvsEvaluated(evaluated);
-            listEvaluators.add(evaluator);
-            ObservableList<EvaluatorDto> evaluatorsList=FXCollections.observableArrayList(listEvaluators);
-            cliente.SaveEvaluator(evaluator, procesoDto);
-            this.tableViewSelWorkersPE.refresh();
-            this.tableViewSelWorkersPE.setItems( evaluatorsList);
-            
+        evaluator.setEvsEvaluated(evaluated);
+        listEvaluators.add(evaluator);
+        ObservableList<EvaluatorDto> evaluatorsList = FXCollections.observableArrayList(listEvaluators);
+        cliente.SaveEvaluator(evaluator, procesoDto);
+        this.tableViewSelWorkersPE.refresh();
+        this.tableViewSelWorkersPE.setItems(evaluatorsList);
+
     }
 
     @FXML
@@ -977,8 +1065,8 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         if (event.getClickCount() == 2) {
 
             selectedWorker = tableViewWorkersPE.getSelectionModel().getSelectedItem();
-            textEvaluator.setText(selectedWorker.getName()+" "+selectedWorker.getPsurname()+" "+selectedWorker.getSsurname());
-            
+            textEvaluator.setText(selectedWorker.getName() + " " + selectedWorker.getPsurname() + " " + selectedWorker.getSsurname());
+
             /*workersListSel.add(selectedWorker);
             
             
@@ -986,7 +1074,47 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
             //this.tableViewSelWorkers1.refresh();
             //this.tableViewSelWorkers1.setItems(workersAss);*/
+        }
+    }
 
+    @FXML
+    private void openFollowUpView(ActionEvent event) {
+        importEvaluators();
+        OptionsFollowUpView.toFront();
+    }
+
+    @FXML
+    private void associateCharacteristics(MouseEvent event) {
+    }
+
+    @FXML
+    private void UpdateCharacteristics(ActionEvent event) {
+    }
+
+    @FXML
+    private void searchCompetence_Name(KeyEvent event) {
+    }
+
+    @FXML
+    private void backFUEvaluated(ActionEvent event) {
+    }
+
+    @FXML
+    private void evaluatorClickedFU(MouseEvent event) {
+         if (event.getClickCount() == 2) {
+
+            selectedWorker = tableViewWorkersFU.getSelectionModel().getSelectedItem();
+            ImportListEvaluators();
+            viewFollowUpInfoEvd.toFront();
+            //textEvaluator.setText(selectedWorker.getName() + " " + selectedWorker.getPsurname() + " " + selectedWorker.getSsurname());
+
+            /*workersListSel.add(selectedWorker);
+            
+            
+            workersAss = FXCollections.observableArrayList(workersListSel);
+
+            //this.tableViewSelWorkers1.refresh();
+            //this.tableViewSelWorkers1.setItems(workersAss);*/
         }
     }
 
