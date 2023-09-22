@@ -389,14 +389,11 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         this.tableColJobStaW.setCellValueFactory(new PropertyValueFactory("States"));
 
         this.tableColProEva_State.setCellValueFactory(new PropertyValueFactory("State"));
-
         this.tableColProEva_Name.setCellValueFactory(new PropertyValueFactory("Name"));
-
         this.tableColProEva_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));
-
         this.tableColProEva_FinalPer.setCellValueFactory(new PropertyValueFactory("Finalperiod"));
-
         this.tableColProEva_Apli.setCellValueFactory(new PropertyValueFactory("Application"));
+        
         this.tableColFUAct.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColFUIdentif.setCellValueFactory(new PropertyValueFactory("iden"));
         this.tableColFUName.setCellValueFactory(new PropertyValueFactory("name"));

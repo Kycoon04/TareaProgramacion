@@ -123,7 +123,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private BorderPane OptionsCompetencesView;
     @FXML
     private TextField NameCompetencesField;
-    private TextField CharacteristicsCompetencesField;
+   
     @FXML
     private BorderPane OptionsPuestosView;
     @FXML
@@ -859,7 +859,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
             try {
                 competenceDto = tableViewCompetences.getSelectionModel().getSelectedItem();
                 NameCompetencesField.setText(String.valueOf(competenceDto.getName()));
-                CharacteristicsCompetencesField.setText(String.valueOf(competenceDto.getCharacteristics()));
                 if ("S".equals(competenceDto.getState())) {
                     StateCompetencesCheck.setSelected(true);
                 } else {

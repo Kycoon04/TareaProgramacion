@@ -7,6 +7,7 @@ package cr.ac.una.tarea.util;
 
 import cr.ac.una.tarea.App;
 import cr.ac.una.tarea.controller.Controller;
+import cr.ac.una.tarea.model.WorkerDto;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -27,6 +28,7 @@ public class FlowController {
     private static Stage mainStage;
     private static ResourceBundle idioma;
     private static HashMap<String, FXMLLoader> loaders = new HashMap<>();
+    public static WorkerDto worker=new WorkerDto();
 
     private FlowController() {
     }

@@ -154,6 +154,9 @@ public class ViewModuleWorkersController extends Controller implements Initializ
                         FlowController.getInstance().goMain("ViewOptionsModules");
                         admi = true;
                     } else {
+                        FlowController.worker=workerDto;
+                        workerDto.getName();
+                        FlowController.worker.getName();
                         FlowController.getInstance().goMain("ViewOptionsEvaluations");
                         admi = false;
                     }
