@@ -575,9 +575,10 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         Respuesta respuesta = serviceEvaluator.getEvaluators();
         listEvaluators = (List<EvaluatorDto>) respuesta.getResultado("Evaluators");
         for (int i = 0; i < listEvaluators.size(); i++) {
-            for (int j = 0; j < listWorkersCopy.size(); j++) {
-                if (listWorkersCopy.get(j).getName().equals(listEvaluators.get(i).getEvsWorker().getWrName())) {
-                    listWorkersCopy.remove(j);
+            for (int j = 0; j < listWorkers.size(); j++) {
+                if (listWorkers.get(j).getName().equals(listEvaluators.get(i).getEvsWorker().getWrName()) && 
+                    workerDto.getName().equals(listEvaluators.get(i).getEvsEvaluated().getEsWorker().getWrName())) {
+                    listWorkers.remove(j);
                 }
             }
         }
@@ -590,11 +591,9 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         WorkersService service = new WorkersService();
         Respuesta respuesta = service.getUsuarios();
         listWorkers = (List<WorkerDto>) respuesta.getResultado("Usuarios");
-        listWorkersCopy = listWorkers;
         changeTextAdmi(listWorkers);
         ImportListWorkerEvaluators();
         workerList = FXCollections.observableArrayList(listWorkers);
-        workerListCopy = FXCollections.observableArrayList(listWorkersCopy);
         this.tableViewWorkersPE.refresh();
         this.tableViewWorkersPE.setItems(workerList);
     }
@@ -973,7 +972,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
         procesosevaDto.setState(choiceBoxStateEva.getValue());
         procesosevaDto.setName(TitleEvaField.getText());
-
+        procesosevaDto.setId(procesoDto.getId());
         if (DateProEva_Inicial.getValue().isBefore(DateProEva_Final.getValue())) {
             procesosevaDto.setApplication(DateProEva_Application.getValue());
             procesosevaDto.setInicialperiod(DateProEva_Inicial.getValue());
@@ -1077,7 +1076,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
         for (int i = 0; i < listEvaluators.size(); i++) {
             for (int j = 0; j < listWorkers.size(); j++) {
-                if (listWorkers.get(j).getName() == listEvaluators.get(i).getName()) {
+                if (listWorkers.get(j).getName().equals(listEvaluators.get(i).getName())) {
                     listWorkers.remove(j);
                 }
             }
@@ -1116,7 +1115,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         if (event.getClickCount() == 2) {
             try {
                 procesoDto = tableViewProEva.getSelectionModel().getSelectedItem();
-                System.out.println("" + procesoDto.getName());
+                System.out.println(procesoDto.getId());
 
                 TitleEvaField.setText(procesoDto.getName());
                 choiceBoxStateEva.setValue(procesoDto.getState());
