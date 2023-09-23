@@ -1146,136 +1146,6 @@
             </VBox>
          </left>
       </BorderPane>
-      <BorderPane fx:id="OptionsSettingWorkerView" layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" onMouseClicked="#openEvaluations" prefHeight="600.0" prefWidth="1000.0">
-         <center>
-            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1054.0">
-               <children>
-                  <ImageView fitHeight="758.0" fitWidth="1650.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-351.0" AnchorPane.topAnchor="-7.0">
-                     <image>
-                        <Image url="@../resources/BackgroundLogin.jpg" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-         </center>
-         <right>
-            <FlowPane prefHeight="720.0" prefWidth="1274.0" style="-fx-background-radius: 15px; -fx-background-color: #212121; -fx-border-color: #76ff03; -fx-border-width: 15px;" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </BorderPane.margin>
-               <children>
-                  <AnchorPane prefHeight="690.0" prefWidth="1242.0">
-                     <children>
-                        <Text fill="WHITE" layoutX="883.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Configuración de evaluación" textAlignment="RIGHT" wrappingWidth="351.73666363954544">
-                           <font>
-                              <Font name="Tw Cen MT" size="39.0" />
-                           </font>
-                        </Text>
-                        <TableView fx:id="tableViewWorkers" layoutX="22.0" layoutY="60.0" onMouseClicked="#workerClicked" prefHeight="279.0" prefWidth="660.0">
-                           <columns>
-                              <TableColumn fx:id="tableColAct" prefWidth="48.800015449523926" text="Estado" />
-                              <TableColumn fx:id="tableColIdentif" prefWidth="102.39999008178711" text="Cedula" />
-                              <TableColumn fx:id="tableColName" prefWidth="90.40000915527344" text="Nombre" />
-                              <TableColumn fx:id="tableColPsurname" prefWidth="115.20002746582031" text="Primer Apellido" />
-                              <TableColumn fx:id="tableColUserName" prefWidth="94.39996337890625" text="Usuario" />
-                              <TableColumn fx:id="tableColEmail" prefWidth="112.79998779296875" text="Email" />
-                              <TableColumn fx:id="tableColAdmi" prefWidth="113.60009765625" text="Rol" />
-                           </columns>
-                        </TableView>
-                        <TableView fx:id="tableViewSelWorkers" layoutX="22.0" layoutY="381.0" onMouseClicked="#workerClicked" prefHeight="286.0" prefWidth="660.0">
-                           <columns>
-                              <TableColumn fx:id="tableColSelAct" prefWidth="48.800015449523926" text="Estado" />
-                              <TableColumn fx:id="tableColSelIdentif" prefWidth="102.39999008178711" text="Cedula" />
-                              <TableColumn fx:id="tableColSelName" prefWidth="90.40000915527344" text="Nombre" />
-                              <TableColumn fx:id="tableColSelPsurname" prefWidth="115.20002746582031" text="Primer Apellido" />
-                              <TableColumn fx:id="tableColSelUserName" prefWidth="94.39996337890625" text="Usuario" />
-                              <TableColumn fx:id="tableColSelEmail" prefWidth="112.79998779296875" text="Email" />
-                              <TableColumn fx:id="tableColSelAdmi" prefWidth="113.60009765625" text="Rol" />
-                           </columns>
-                        </TableView>
-                        <Text fill="WHITE" layoutX="30.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona para agregar como trabajador a evaluar" wrappingWidth="555.7369079589844">
-                           <font>
-                              <Font name="Tw Cen MT" size="24.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="30.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seleccionados" wrappingWidth="225.33688354492188">
-                           <font>
-                              <Font name="Tw Cen MT" size="24.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="730.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="108.33666801452637">
-                           <font>
-                              <Font name="Tw Cen MT" size="28.0" />
-                           </font>
-                        </Text>
-                        <TextField fx:id="textFieldSearch_Name" layoutX="730.0" layoutY="146.0" onKeyPressed="#searchWorker_Name" prefHeight="27.0" prefWidth="194.0" style="-fx-text-fill: black;">
-                           <font>
-                              <Font name="Tw Cen MT" size="23.0" />
-                           </font>
-                        </TextField>
-                        <Text fill="WHITE" layoutX="730.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primer Apellido:" wrappingWidth="251.5366725921631">
-                           <font>
-                              <Font name="Tw Cen MT" size="25.0" />
-                           </font>
-                        </Text>
-                        <TextField fx:id="textFieldSearch_Pusername" layoutX="730.0" layoutY="225.0" onKeyPressed="#searchWorker_Pusername" prefHeight="27.0" prefWidth="284.0" style="-fx-text-fill: black;">
-                           <font>
-                              <Font name="Tw Cen MT" size="23.0" />
-                           </font>
-                        </TextField>
-                        <Text fill="WHITE" layoutX="730.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cedula:" wrappingWidth="251.5366725921631">
-                           <font>
-                              <Font name="Tw Cen MT" size="25.0" />
-                           </font>
-                        </Text>
-                        <TextField fx:id="textFieldSearch_Ident" layoutX="730.0" layoutY="293.0" onKeyPressed="#searchWorker_Ident" prefHeight="27.0" prefWidth="284.0" style="-fx-text-fill: black;">
-                           <font>
-                              <Font name="Tw Cen MT" size="23.0" />
-                           </font>
-                        </TextField>
-                        <Button layoutX="730.0" layoutY="341.0" mnemonicParsing="false" onAction="#addAllWorkers" prefHeight="35.0" prefWidth="193.0" style="-fx-background-color: gold;" text="Seleccionar todos">
-                           <font>
-                              <Font name="Arial Bold" size="17.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button layoutX="811.0" layoutY="524.0" mnemonicParsing="false" onAction="#addEvaluateWorkers" prefHeight="35.0" prefWidth="226.0" text="Agregar">
-                           <font>
-                              <Font name="Arial Bold" size="17.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button layoutX="811.0" layoutY="595.0" mnemonicParsing="false" onAction="#backSettings" prefHeight="35.0" prefWidth="226.0" text="Volver">
-                           <font>
-                              <Font name="Arial Bold" size="17.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button layoutX="730.0" layoutY="404.0" mnemonicParsing="false" onAction="#deleteWorkers" prefHeight="35.0" prefWidth="193.0" style="-fx-background-color: gold;" text="Borrar todos">
-                           <font>
-                              <Font name="Arial Bold" size="17.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Text fx:id="textEvaJob" fill="#ffbb00" layoutX="964.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="254.93682861328125">
-                           <font>
-                              <Font size="22.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </AnchorPane>
-               </children>
-            </FlowPane>
-         </right>
-      </BorderPane>
       <BorderPane fx:id="OptionsSettingEvaluatorsView" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" onMouseClicked="#openEvaluations" prefHeight="600.0" prefWidth="1000.0">
          <center>
             <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1054.0">
@@ -1395,6 +1265,137 @@
                            </font>
                         </Text>
                         <Button layoutX="1083.0" layoutY="186.0" mnemonicParsing="false" onMouseClicked="#eliminarConEva" text="Eliminar" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </FlowPane>
+         </right>
+      </BorderPane>
+      <BorderPane fx:id="OptionsSettingWorkerView" layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" onMouseClicked="#openEvaluations" prefHeight="600.0" prefWidth="1000.0">
+         <center>
+            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1054.0">
+               <children>
+                  <ImageView fitHeight="758.0" fitWidth="1650.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-351.0" AnchorPane.topAnchor="-7.0">
+                     <image>
+                        <Image url="@../resources/BackgroundLogin.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </center>
+         <right>
+            <FlowPane prefHeight="720.0" prefWidth="1274.0" style="-fx-background-radius: 15px; -fx-background-color: #212121; -fx-border-color: #76ff03; -fx-border-width: 15px;" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </BorderPane.margin>
+               <children>
+                  <AnchorPane prefHeight="690.0" prefWidth="1242.0">
+                     <children>
+                        <Text fill="WHITE" layoutX="883.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Configuración de evaluación" textAlignment="RIGHT" wrappingWidth="351.73666363954544">
+                           <font>
+                              <Font name="Tw Cen MT" size="39.0" />
+                           </font>
+                        </Text>
+                        <TableView fx:id="tableViewWorkers" layoutX="22.0" layoutY="60.0" onMouseClicked="#workerClicked" prefHeight="279.0" prefWidth="660.0">
+                           <columns>
+                              <TableColumn fx:id="tableColAct" prefWidth="48.800015449523926" text="Estado" />
+                              <TableColumn fx:id="tableColIdentif" prefWidth="102.39999008178711" text="Cedula" />
+                              <TableColumn fx:id="tableColName" prefWidth="90.40000915527344" text="Nombre" />
+                              <TableColumn fx:id="tableColPsurname" prefWidth="115.20002746582031" text="Primer Apellido" />
+                              <TableColumn fx:id="tableColUserName" prefWidth="94.39996337890625" text="Usuario" />
+                              <TableColumn fx:id="tableColEmail" prefWidth="112.79998779296875" text="Email" />
+                              <TableColumn fx:id="tableColAdmi" prefWidth="113.60009765625" text="Rol" />
+                           </columns>
+                        </TableView>
+                        <TableView fx:id="tableViewSelWorkers" layoutX="22.0" layoutY="381.0" onMouseClicked="#workerClickedSelected" prefHeight="286.0" prefWidth="660.0">
+                           <columns>
+                              <TableColumn fx:id="tableColSelAct" prefWidth="48.800015449523926" text="Estado" />
+                              <TableColumn fx:id="tableColSelIdentif" prefWidth="102.39999008178711" text="Cedula" />
+                              <TableColumn fx:id="tableColSelName" prefWidth="90.40000915527344" text="Nombre" />
+                              <TableColumn fx:id="tableColSelPsurname" prefWidth="115.20002746582031" text="Primer Apellido" />
+                              <TableColumn fx:id="tableColSelUserName" prefWidth="94.39996337890625" text="Usuario" />
+                              <TableColumn fx:id="tableColSelEmail" prefWidth="112.79998779296875" text="Email" />
+                              <TableColumn fx:id="tableColSelAdmi" prefWidth="113.60009765625" text="Rol" />
+                           </columns>
+                        </TableView>
+                        <Text fill="WHITE" layoutX="30.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona para agregar como trabajador a evaluar" wrappingWidth="555.7369079589844">
+                           <font>
+                              <Font name="Tw Cen MT" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="30.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seleccionados" wrappingWidth="225.33688354492188">
+                           <font>
+                              <Font name="Tw Cen MT" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="730.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="108.33666801452637">
+                           <font>
+                              <Font name="Tw Cen MT" size="28.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="textFieldSearch_Name" layoutX="730.0" layoutY="146.0" onKeyPressed="#searchWorker_Name" prefHeight="27.0" prefWidth="194.0" style="-fx-text-fill: black;">
+                           <font>
+                              <Font name="Tw Cen MT" size="23.0" />
+                           </font>
+                        </TextField>
+                        <Text fill="WHITE" layoutX="730.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primer Apellido:" wrappingWidth="251.5366725921631">
+                           <font>
+                              <Font name="Tw Cen MT" size="25.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="textFieldSearch_Pusername" layoutX="730.0" layoutY="225.0" onKeyPressed="#searchWorker_Pusername" prefHeight="27.0" prefWidth="284.0" style="-fx-text-fill: black;">
+                           <font>
+                              <Font name="Tw Cen MT" size="23.0" />
+                           </font>
+                        </TextField>
+                        <Text fill="WHITE" layoutX="730.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cedula:" wrappingWidth="251.5366725921631">
+                           <font>
+                              <Font name="Tw Cen MT" size="25.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="textFieldSearch_Ident" layoutX="730.0" layoutY="293.0" onKeyPressed="#searchWorker_Ident" prefHeight="27.0" prefWidth="284.0" style="-fx-text-fill: black;">
+                           <font>
+                              <Font name="Tw Cen MT" size="23.0" />
+                           </font>
+                        </TextField>
+                        <Button layoutX="730.0" layoutY="341.0" mnemonicParsing="false" onAction="#addAllWorkers" prefHeight="35.0" prefWidth="193.0" style="-fx-background-color: gold;" text="Seleccionar todos">
+                           <font>
+                              <Font name="Arial Bold" size="17.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button layoutX="811.0" layoutY="524.0" mnemonicParsing="false" onAction="#addEvaluateWorkers" prefHeight="35.0" prefWidth="226.0" text="Agregar">
+                           <font>
+                              <Font name="Arial Bold" size="17.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button layoutX="811.0" layoutY="595.0" mnemonicParsing="false" onAction="#backSettings" prefHeight="35.0" prefWidth="226.0" text="Volver">
+                           <font>
+                              <Font name="Arial Bold" size="17.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button layoutX="730.0" layoutY="404.0" mnemonicParsing="false" onAction="#deleteWorkers" prefHeight="35.0" prefWidth="193.0" style="-fx-background-color: gold;" text="Borrar todos">
+                           <font>
+                              <Font name="Arial Bold" size="17.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Text fx:id="textEvaJob" fill="#ffbb00" layoutX="964.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="254.93682861328125">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Text>
+                        <Button layoutX="1107.0" layoutY="259.0" mnemonicParsing="false" onMouseClicked="#eliminarConEva" text="Eliminar" />
                      </children>
                   </AnchorPane>
                </children>
