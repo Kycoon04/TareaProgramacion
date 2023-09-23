@@ -13,7 +13,6 @@ import cr.ac.una.tarea.soap.ModuleEvaluated;
 import cr.ac.una.tarea.soap.ModuleEvaluated_Service;
 import cr.ac.una.tarea.soap.ModuleJobsCompetences;
 import cr.ac.una.tarea.soap.ModuleJobsCompetences_Service;
-import cr.ac.una.tarea.soap.Procesoeva;
 import cr.ac.una.tarea.util.Respuesta;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,47 +67,6 @@ public class EvaluatedService {
         } catch (Exception ex) {
             Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error obteniendo los puestos.", ex);
             return new Respuesta(false, "Error obteniendo los puestos.", "getJobs" + ex.getMessage());
-        }
-    }
-
-    //hacer
-    public Respuesta getJobCompetence(int id) {
-        try {
-            ModuleJobsCompetences_Service servicio = new ModuleJobsCompetences_Service();
-            ModuleJobsCompetences cliente = servicio.getModuleJobsCompetencesPort();
-
-            JobsCompetencesDto jobCompetencesDto = new JobsCompetencesDto();
-            jobCompetencesDto.setJxcIdcojob(cliente.getJobCompetenceId(id).getJxcIdcojob());
-            jobCompetencesDto.setJxcJob(cliente.getJobCompetenceId(id).getJxcJob());
-            jobCompetencesDto.setJxcCompetence(cliente.getJobCompetenceId(id).getJxcCompetence());
-
-            return new Respuesta(true, "", "", "Job", jobCompetencesDto);
-        } catch (Exception ex) {
-            Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error obteniendo las competencias por trabajo [" + id + "]", ex);
-            return new Respuesta(false, "Error obteniendo las competencias del trabajo.", "getJobCompetence " + ex.getMessage());
-        }
-    }
-
-    public Respuesta getJobsCompetences() {
-        try {
-            ModuleJobsCompetences_Service servicio = new ModuleJobsCompetences_Service();
-            ModuleJobsCompetences cliente = servicio.getModuleJobsCompetencesPort();
-
-            List<JobsCompetencesDto> listCom = cliente.getJobCompetences();
-            List<EvaJobCompetenceDto> jcs = new ArrayList<>();
-            for (JobsCompetencesDto cj : listCom) {
-                EvaJobCompetenceDto competencesJob = new EvaJobCompetenceDto();
-                competencesJob.setEvaJobs(cj.getJobs());
-                competencesJob.setJxcCompetence(cj.getJxcCompetence());
-                competencesJob.setJxcJob(cj.getJxcJob());
-                competencesJob.setJxcIdcojob(cj.getJxcIdcojob());
-
-                jcs.add(competencesJob);
-            }
-            return new Respuesta(true, "Error obteniendo las competencias de los trabajos.", "getJobCompetences", "JobCompetences", jcs);
-        } catch (Exception ex) {
-            Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error obteniendo las competencias de los trabajos .", ex);
-            return new Respuesta(false, "Error obteniendo las competencias.", "getJobCompetences" + ex.getMessage());
         }
     }
 }

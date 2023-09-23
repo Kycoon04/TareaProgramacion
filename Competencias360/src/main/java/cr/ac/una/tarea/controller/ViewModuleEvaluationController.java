@@ -179,7 +179,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     String states[] = {"En construcción", "En aplicación", "En revisión", "Finalizada"};
     @FXML
     private BorderPane OptionsEvaConfigView;
-    //private TableView<ProcesoevaDto> tableViewProEva;
     @FXML
     private TableColumn<ProcesosevaDto, String> tableColProEva_State;
     @FXML
@@ -487,14 +486,11 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private void workerClicked(MouseEvent event) {
         if (event.getClickCount() == 2) {
-
             WorkerDto selectedWorker = tableViewWorkers.getSelectionModel().getSelectedItem();
-            workersListSel.add(selectedWorker);
-            workersAss = FXCollections.observableArrayList(workersListSel);
-
+            listWorkersEvaluated.add(selectedWorker);
+            workersAss = FXCollections.observableArrayList(listWorkersEvaluated);
             this.tableViewSelWorkers.refresh();
             this.tableViewSelWorkers.setItems(workersAss);
-
         }
     }
 
@@ -565,14 +561,14 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         tableViewWorkers.setItems(sorted);
     }
 
-    public void ImportListWorkerDiferent() {
+    public void ImportListWorkerEvaluators() {
         EvaluatorService serviceEvaluator = new EvaluatorService();
         Respuesta respuesta = serviceEvaluator.getEvaluators();
         listEvaluators = (List<EvaluatorDto>) respuesta.getResultado("Evaluators");
         for (int i = 0; i < listEvaluators.size(); i++) {
-            for (int j = 0; j < listWorkers.size(); j++) {
-                if (listWorkers.get(j).getName().equals(listEvaluators.get(i).getEvsWorker().getWrName())) {
-                    listWorkers.remove(j);
+            for (int j = 0; j < listWorkersCopy.size(); j++) {
+                if (listWorkersCopy.get(j).getName().equals(listEvaluators.get(i).getEvsWorker().getWrName())) {
+                    listWorkersCopy.remove(j);
                 }
             }
         }
@@ -588,7 +584,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         listWorkers = (List<WorkerDto>) respuesta.getResultado("Usuarios");
         listWorkersCopy = listWorkers;
         changeTextAdmi(listWorkers);
-        ImportListWorkerDiferent();
+        ImportListWorkerEvaluators();
         workerList = FXCollections.observableArrayList(listWorkers);
         workerListCopy = FXCollections.observableArrayList(listWorkersCopy);
         this.tableViewWorkersPE.refresh();
@@ -717,19 +713,38 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     }
     Predicate<WorkerDto> WorkerNull = worker -> worker.getJob() != null;
 
-    public List<WorkerDto> getWorkersJobs(String name) {
-        return listWorkers.stream().
+    public List<WorkerDto> getWorkersJobs(List<WorkerDto> list, String name) {
+        return list.stream().
                 filter(WorkerNull.and(x -> x.getJob().getJsName().equals(name))).collect(Collectors.toList());
     }
-
+    
+    public void ImportListWorkerEvaluated() {
+        for (int i = 0; i < listWorkersEvaluated.size(); i++) {
+            for (int j = 0; j < listWorkers.size(); j++) {
+                if (listWorkers.get(j).getName().equals(listWorkersEvaluated.get(i).getName())) {
+                    listWorkers.remove(j);
+                }
+            }
+        }
+    }
     @FXML
     private void OpenSelectWorkers(ActionEvent event) {
         ImportListWorker();
-        listWorkers = getWorkersJobs(jobDto.getName());
+        listWorkers = getWorkersJobs(listWorkers,jobDto.getName());
+        importEvaluators();
+        ImportListWorkerEvaluated();
+   
         workerList = FXCollections.observableArrayList(listWorkers);
         this.tableViewWorkers.refresh();
         this.tableViewWorkers.setItems(workerList);
         textEvaJob.setText(jobDto.getName());
+        
+        
+        
+        listWorkersEvaluated = getWorkersJobs(listWorkersEvaluated,jobDto.getName());
+        ObservableList<WorkerDto> WorkerEvaluated = FXCollections.observableArrayList(listWorkersEvaluated);
+        this.tableViewSelWorkers.refresh();
+        this.tableViewSelWorkers.setItems(WorkerEvaluated);
         OptionsSettingWorkerView.toFront();
     }
 
