@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para evaluators complex type.
+ * <p>Java class for evaluators complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="evaluators">
@@ -49,7 +49,7 @@ public class Evaluators {
     protected Workers evsWorker;
 
     /**
-     * Obtiene el valor de la propiedad evsConnection.
+     * Gets the value of the evsConnection property.
      * 
      * @return
      *     possible object is
@@ -61,7 +61,7 @@ public class Evaluators {
     }
 
     /**
-     * Define el valor de la propiedad evsConnection.
+     * Sets the value of the evsConnection property.
      * 
      * @param value
      *     allowed object is
@@ -73,7 +73,7 @@ public class Evaluators {
     }
 
     /**
-     * Obtiene el valor de la propiedad evsEvaluated.
+     * Gets the value of the evsEvaluated property.
      * 
      * @return
      *     possible object is
@@ -85,7 +85,7 @@ public class Evaluators {
     }
 
     /**
-     * Define el valor de la propiedad evsEvaluated.
+     * Sets the value of the evsEvaluated property.
      * 
      * @param value
      *     allowed object is
@@ -97,7 +97,7 @@ public class Evaluators {
     }
 
     /**
-     * Obtiene el valor de la propiedad evsFeedback.
+     * Gets the value of the evsFeedback property.
      * 
      * @return
      *     possible object is
@@ -109,7 +109,7 @@ public class Evaluators {
     }
 
     /**
-     * Define el valor de la propiedad evsFeedback.
+     * Sets the value of the evsFeedback property.
      * 
      * @param value
      *     allowed object is
@@ -121,7 +121,7 @@ public class Evaluators {
     }
 
     /**
-     * Obtiene el valor de la propiedad evsId.
+     * Gets the value of the evsId property.
      * 
      * @return
      *     possible object is
@@ -133,7 +133,7 @@ public class Evaluators {
     }
 
     /**
-     * Define el valor de la propiedad evsId.
+     * Sets the value of the evsId property.
      * 
      * @param value
      *     allowed object is
@@ -145,7 +145,7 @@ public class Evaluators {
     }
 
     /**
-     * Obtiene el valor de la propiedad evsState.
+     * Gets the value of the evsState property.
      * 
      * @return
      *     possible object is
@@ -157,7 +157,7 @@ public class Evaluators {
     }
 
     /**
-     * Define el valor de la propiedad evsState.
+     * Sets the value of the evsState property.
      * 
      * @param value
      *     allowed object is
@@ -169,7 +169,7 @@ public class Evaluators {
     }
 
     /**
-     * Obtiene el valor de la propiedad evsWorker.
+     * Gets the value of the evsWorker property.
      * 
      * @return
      *     possible object is
@@ -181,7 +181,7 @@ public class Evaluators {
     }
 
     /**
-     * Define el valor de la propiedad evsWorker.
+     * Sets the value of the evsWorker property.
      * 
      * @param value
      *     allowed object is

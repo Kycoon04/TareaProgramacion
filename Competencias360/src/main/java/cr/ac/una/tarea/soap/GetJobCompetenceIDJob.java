@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para getJobCompetenceIDJob complex type.
+ * <p>Java class for getJobCompetenceIDJob complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="getJobCompetenceIDJob">
@@ -34,7 +34,7 @@ public class GetJobCompetenceIDJob {
     protected Integer idJobC;
 
     /**
-     * Obtiene el valor de la propiedad idJobC.
+     * Gets the value of the idJobC property.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class GetJobCompetenceIDJob {
     }
 
     /**
-     * Define el valor de la propiedad idJobC.
+     * Sets the value of the idJobC property.
      * 
      * @param value
      *     allowed object is
