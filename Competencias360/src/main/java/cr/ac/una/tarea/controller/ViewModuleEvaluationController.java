@@ -1271,4 +1271,8 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             }
         }
     }
+
+    @FXML
+    private void workerClickedSelected(MouseEvent event) {
+    }
 }
