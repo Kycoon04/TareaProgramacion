@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para procesoevaDto complex type.
+ * <p>Java class for procesoevaDto complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="procesoevaDto">
@@ -49,7 +49,7 @@ public class ProcesoevaDto {
     protected String state;
 
     /**
-     * Obtiene el valor de la propiedad getAplicationPeriodo.
+     * Gets the value of the getAplicationPeriodo property.
      * 
      * @return
      *     possible object is
@@ -61,7 +61,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Define el valor de la propiedad getAplicationPeriodo.
+     * Sets the value of the getAplicationPeriodo property.
      * 
      * @param value
      *     allowed object is
@@ -73,7 +73,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad getFinalPeriodo.
+     * Gets the value of the getFinalPeriodo property.
      * 
      * @return
      *     possible object is
@@ -85,7 +85,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Define el valor de la propiedad getFinalPeriodo.
+     * Sets the value of the getFinalPeriodo property.
      * 
      * @param value
      *     allowed object is
@@ -97,7 +97,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad getInicialPeriodo.
+     * Gets the value of the getInicialPeriodo property.
      * 
      * @return
      *     possible object is
@@ -109,7 +109,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Define el valor de la propiedad getInicialPeriodo.
+     * Sets the value of the getInicialPeriodo property.
      * 
      * @param value
      *     allowed object is
@@ -121,7 +121,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad id.
+     * Gets the value of the id property.
      * 
      * @return
      *     possible object is
@@ -133,7 +133,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Define el valor de la propiedad id.
+     * Sets the value of the id property.
      * 
      * @param value
      *     allowed object is
@@ -145,7 +145,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad name.
+     * Gets the value of the name property.
      * 
      * @return
      *     possible object is
@@ -157,7 +157,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Define el valor de la propiedad name.
+     * Sets the value of the name property.
      * 
      * @param value
      *     allowed object is
@@ -169,7 +169,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad state.
+     * Gets the value of the state property.
      * 
      * @return
      *     possible object is
@@ -181,7 +181,7 @@ public class ProcesoevaDto {
     }
 
     /**
-     * Define el valor de la propiedad state.
+     * Sets the value of the state property.
      * 
      * @param value
      *     allowed object is
