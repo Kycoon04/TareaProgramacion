@@ -32,8 +32,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.ImagePattern;
@@ -87,6 +89,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
     WorkerDto workerDto;
     ProcesosevaDto procesoDto;
+    EvaluatorDto evaluatorDto;
     List<ProcesosevaDto> listProcesos = new ArrayList<>();
     ObservableList<ProcesosevaDto> procesosList;
     List<EvaluatedsDto> listEvaluateds = new ArrayList<>();
@@ -128,6 +131,24 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     private TableColumn<EvaluatorDto, String> tableColEvaluated_State;
     @FXML
     private Circle UserMainPhoto;
+    @FXML
+    private BorderPane OptionsEvaluationView;
+    @FXML
+    private Text textEvaluation_Process;
+    @FXML
+    private Text textEvaluation_Name;
+    @FXML
+    private Text textEvaluation_Job;
+    @FXML
+    private Text textEvaluation_Period;
+    @FXML
+    private Text textEvaluation_Apli;
+    @FXML
+    private Button btnDragEva;
+    @FXML
+    private TextArea textEvaluation_Feedback;
+    @FXML
+    private ImageView check;
 
     /**
      * Initializes the controller class.
@@ -160,7 +181,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         this.tableColEvaluated_Ssurname.setCellValueFactory(new PropertyValueFactory("Ssurname"));
         this.tableColEvaluated_User.setCellValueFactory(new PropertyValueFactory("EvUsernam"));
         this.tableColEvaluated_Email.setCellValueFactory(new PropertyValueFactory("EvEmail"));
-        this.tableColEvaluated_State.setCellValueFactory(new PropertyValueFactory("EvsState"));
+        this.tableColEvaluated_State.setCellValueFactory(new PropertyValueFactory("EvsStateList"));
 
         // TODO
     }
@@ -182,11 +203,10 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         textWorker_Ident.setText("Identificación: " + workerDto.getIden());
         textWorker_Email.setText("Correo: " + workerDto.getEmail());
         textWorker_Job.setText("Puesto: " + workerDto.getJob().getJsName());
-        
+
         /*ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(workerDto.getPhoto());
         Image image = new Image(byteArrayInputStream);
         UserMainPhoto.setFill(new ImagePattern(image));*/
-
         OptionsInformationWorker.toFront();
     }
 
@@ -273,11 +293,34 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
     @FXML
     private void evaluateClicked(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            try {
+                evaluatorDto = tableViewEvaluated.getSelectionModel().getSelectedItem();
+                textEvaluation_Process.setText(procesoDto.getName());
+                textEvaluation_Name.setText(evaluatorDto.getEvsEvaluated().getEsWorker().getWrName()+""+evaluatorDto.getEvsEvaluated().getEsWorker().getWrPsurname()+""+evaluatorDto.getEvsEvaluated().getEsWorker().getWrSsurname());
+                textEvaluation_Job.setText(evaluatorDto.getEvsEvaluated().getEsWorker().getWrJob().getJsName());
+                textEvaluation_Period.setText(procesoDto.getInicialperiod().getYear()+" - "+ procesoDto.getFinalperiod().getYear());
+                textEvaluation_Apli.setText(procesoDto.getApplication().toString());
+
+                OptionsEvaluationView.toFront();
+            } catch (Exception ex) {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un evaluado en este campo.");
+            }
+        }
     }
 
     @Override
     public void initialize() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @FXML
+    private void mouse(MouseEvent event) {
+    }
+
+    @FXML
+    private void backEvaluation(ActionEvent event) {
+        OptionsSelectEvaluateView.toFront();
     }
 
 }
