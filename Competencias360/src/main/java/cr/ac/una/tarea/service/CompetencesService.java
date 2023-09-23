@@ -60,5 +60,18 @@ public class CompetencesService {
             return new Respuesta(false, "Error obteniendo las competencias.", "getCompetences" + ex.getMessage());
         }
     }
+    
+        public Respuesta eliminarCompe(int id) {
+        try {
+            ModuleCompetences_Service servicio = new ModuleCompetences_Service();
+            ModuleCompetences cliente = servicio.getModuleCompetencesPort();
+
+            cliente.delete(id);
+            return new Respuesta(true, "", "");
+        } catch (Exception ex) {
+            Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error eliminando la competencia.", ex);
+            return new Respuesta(false, "Error eliminando la competencia.", "eliminarCompetence " + ex.getMessage());
+        }
+    }
 
 }

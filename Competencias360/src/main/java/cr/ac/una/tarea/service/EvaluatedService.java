@@ -69,4 +69,17 @@ public class EvaluatedService {
             return new Respuesta(false, "Error obteniendo los puestos.", "getJobs" + ex.getMessage());
         }
     }
+    
+        public Respuesta eliminarEvaluated(int id) {
+        try {
+              ModuleEvaluated_Service servicio = new ModuleEvaluated_Service();
+            ModuleEvaluated cliente = servicio.getModuleEvaluatedPort();
+
+            cliente.delete(id);
+            return new Respuesta(true, "", "");
+        } catch (Exception ex) {
+            Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error eliminando el evaluador.", ex);
+            return new Respuesta(false, "Error eliminando el Evaluador.", "eliminarEvaluador " + ex.getMessage());
+        }
+    }
 }

@@ -77,5 +77,20 @@ public class JobsCompetencesService {
             return new Respuesta(false, "Error obteniendo las competencias de los trabajos.", "getJobsCompetences" + ex.getMessage());
         }
     }
+    
+        public Respuesta eliminjCompetences(int id) {
+        try {
+           ModuleJobsCompetences_Service servicio = new ModuleJobsCompetences_Service();
+            ModuleJobsCompetences cliente = servicio.getModuleJobsCompetencesPort();
+
+            cliente.delete(id);
+            return new Respuesta(true, "", "");
+        } catch (Exception ex) {
+            Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error eliminando las competencias del trabajo.", ex);
+            return new Respuesta(false, "\"Error eliminando las competencias del trabajo.", "eliminarJcompetence " + ex.getMessage());
+        }
+    }
+    
+    
      
 }
