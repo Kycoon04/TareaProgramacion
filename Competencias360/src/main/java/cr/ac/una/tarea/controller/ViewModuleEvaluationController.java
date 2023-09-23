@@ -487,8 +487,12 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private void workerClicked(MouseEvent event) {
         if (event.getClickCount() == 2) {
             WorkerDto selectedWorker = tableViewWorkers.getSelectionModel().getSelectedItem();
+            int index= tableViewWorkers.getSelectionModel().getSelectedIndex();
             listWorkersEvaluated.add(selectedWorker);
             workersAss = FXCollections.observableArrayList(listWorkersEvaluated);
+            workerListCopy.remove(index);
+            tableViewWorkers.refresh();
+            tableViewWorkers.setItems(workerListCopy);
             this.tableViewSelWorkers.refresh();
             this.tableViewSelWorkers.setItems(workersAss);
         }
