@@ -324,8 +324,8 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private TextField textFieldSearchPE_Ident;
     @FXML
     private TextField textFieldSearch_Ident;
-    private boolean eliminar =false;
-    
+    private boolean eliminar = false;
+
     /**
      * Initializes the controller class.
      */
@@ -540,9 +540,10 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         });
         filteredWorkers(filteredWorker);
     }
-        @FXML
+
+    @FXML
     private void searchWorker_Ident(KeyEvent event) {
-         FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
 
         textFieldSearch_Ident.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
@@ -1068,11 +1069,12 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         evaluated.setEsWorker(lista.get(0).getEsWorker());
 
         evaluator.setEvsEvaluated(evaluated);
-        listEvaluators.add(evaluator);
-        ObservableList<EvaluatorDto> evaluatorsList = FXCollections.observableArrayList(listEvaluators);
+        //listEvaluators.add(evaluator);
+
+        //ObservableList<EvaluatorDto> evaluatorsList = FXCollections.observableArrayList(listEvaluators);
         cliente.SaveEvaluator(evaluator, procesoDto);
-        this.tableViewSelWorkersPE.refresh();
-        this.tableViewSelWorkersPE.setItems(evaluatorsList);
+       /* this.tableViewSelWorkersPE.refresh();
+        this.tableViewSelWorkersPE.setItems(evaluatorsList);*/
 
         for (int i = 0; i < listEvaluators.size(); i++) {
             for (int j = 0; j < listWorkers.size(); j++) {
@@ -1092,8 +1094,15 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private void openSelectEvaluators(ActionEvent event) {
         if (!WorkerCREMainField.getText().isEmpty()) {
             ImportListWorker();
+            
+            listEvaluators = listEvaluators.stream().
+                    filter(x -> x.getEvsEvaluated().getEsWorker().getWrName().
+                            equals(evaluatedDto.getEsWorker().getWrName())).toList();
+            ObservableList<EvaluatorDto> evaluatorsList = FXCollections.observableArrayList(listEvaluators);
+            this.tableViewSelWorkersPE.refresh();
+            this.tableViewSelWorkersPE.setItems(evaluatorsList);
             OptionsSettingEvaluatorsView.toFront();
-        }else{
+        } else {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Debes agregar un trabajador.");
         }
 
@@ -1124,7 +1133,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void workerClickedPE(MouseEvent event) {
-        
+
         if (event.getClickCount() == 2) {
 
             selectedWorker = tableViewWorkersPE.getSelectionModel().getSelectedItem();
@@ -1243,14 +1252,14 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void eliminarConEva(MouseEvent event) {
-        eliminar=true;
+        eliminar = true;
         System.out.println("elimina");
     }
 
     @FXML
-    private void workerClickedSel(MouseEvent event) {    
-      EvaluatorDto ev= new EvaluatorDto();
-     if (event.getClickCount() == 1) {
+    private void workerClickedSel(MouseEvent event) {
+        EvaluatorDto ev = new EvaluatorDto();
+        if (event.getClickCount() == 1) {
             if (eliminar == true) {
                 System.out.println("sdfsf");
                 ev = tableViewSelWorkersPE.getSelectionModel().getSelectedItem();
