@@ -28,16 +28,23 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -149,6 +156,13 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     private TextArea textEvaluation_Feedback;
     @FXML
     private ImageView check;
+    @FXML
+    private AnchorPane anchorDrag;
+    GridPane gridPane = new GridPane();
+    @FXML
+    private GridPane grid;
+    @FXML
+    private GridPane gridHeader;
 
     /**
      * Initializes the controller class.
@@ -182,9 +196,66 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         this.tableColEvaluated_User.setCellValueFactory(new PropertyValueFactory("EvUsernam"));
         this.tableColEvaluated_Email.setCellValueFactory(new PropertyValueFactory("EvEmail"));
         this.tableColEvaluated_State.setCellValueFactory(new PropertyValueFactory("EvsStateList"));
-
-        // TODO
+        
+        
     }
+    double startX, startY;
+    double xTab, yTab;
+
+    @FXML
+    private void mouse(MouseEvent event) {
+        System.out.println(event.getSceneX());
+        System.out.println(event.getSceneY());
+        btnDragEva.setOnMousePressed((t) -> {
+            startX = t.getSceneX();
+            startY = t.getSceneY();
+        });
+        btnDragEva.setOnMouseDragged((t) -> {
+            ImageView asiento = (ImageView) btnDragEva.getGraphic();
+            asiento.setTranslateX(t.getSceneX() - startX);
+            asiento.setTranslateY(t.getSceneY() - startY);
+            xTab = t.getSceneX()-200;
+            yTab = t.getSceneY()-400;
+        });
+        btnDragEva.setOnMouseReleased((t) -> {
+            int posX = (int) (xTab / grid.getCellBounds(0, 0).getMaxX());
+            int posY = (int) (yTab / grid.getCellBounds(0, 0).getMaxY());
+           if (posX >= 0 && posX < grid.getColumnCount() && posY >= 0 && posY < 4) {
+
+                grid.add(crearAsiento(posX + "", posY + ""), posX, posY);
+            }
+            check.setTranslateX(0);
+            check.setTranslateY(0);
+        });
+    }
+
+    @FXML
+    private void getxy(MouseEvent event) {
+
+        System.out.println(event.getSceneX());
+        System.out.println(event.getSceneY());
+    }
+
+    private Button crearAsiento(String letra, String numero) {
+        Button asiento = new Button();
+     
+        ImageView imagen = new ImageView();
+        asiento.setMaxSize(40, 40);
+        asiento.setTooltip(new Tooltip("Fila: " + letra + " Numero: " + numero));
+        ajustarImagen(imagen);
+        imagen.setImage(imagen.getImage());
+        asiento.setGraphic(imagen);
+        return asiento;
+    }
+
+    private void ajustarImagen(ImageView imagen) {
+        imagen.setImage(check.getImage());
+        imagen.setFitHeight(25);
+        imagen.setFitWidth(25);
+        imagen.setScaleX(3);
+        imagen.setScaleY(1.5);
+    }
+
 
     @FXML
     private void SignOff(ActionEvent event) {
@@ -194,6 +265,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
     @FXML
     private void Back(ActionEvent event) {
+        grid.getChildren().clear();
         FlowController.getInstance().goMain("ViewOptionsModules");
     }
 
@@ -297,9 +369,9 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
             try {
                 evaluatorDto = tableViewEvaluated.getSelectionModel().getSelectedItem();
                 textEvaluation_Process.setText(procesoDto.getName());
-                textEvaluation_Name.setText(evaluatorDto.getEvsEvaluated().getEsWorker().getWrName()+""+evaluatorDto.getEvsEvaluated().getEsWorker().getWrPsurname()+""+evaluatorDto.getEvsEvaluated().getEsWorker().getWrSsurname());
+                textEvaluation_Name.setText(evaluatorDto.getEvsEvaluated().getEsWorker().getWrName() + "" + evaluatorDto.getEvsEvaluated().getEsWorker().getWrPsurname() + "" + evaluatorDto.getEvsEvaluated().getEsWorker().getWrSsurname());
                 textEvaluation_Job.setText(evaluatorDto.getEvsEvaluated().getEsWorker().getWrJob().getJsName());
-                textEvaluation_Period.setText(procesoDto.getInicialperiod().getYear()+" - "+ procesoDto.getFinalperiod().getYear());
+                textEvaluation_Period.setText(procesoDto.getInicialperiod().getYear() + " - " + procesoDto.getFinalperiod().getYear());
                 textEvaluation_Apli.setText(procesoDto.getApplication().toString());
 
                 OptionsEvaluationView.toFront();
@@ -312,10 +384,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     @Override
     public void initialize() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @FXML
-    private void mouse(MouseEvent event) {
     }
 
     @FXML
