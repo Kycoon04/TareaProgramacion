@@ -695,7 +695,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (WorkerDto.getActives().toLowerCase().contains(search)) {
+                if (WorkerDto.getActives().toLowerCase().indexOf(search) == 0) {
                     return true;
                 } else {
                     return false;
@@ -1097,6 +1097,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         if (event.getClickCount() == 2) {
             selectedCharacteristics = tableViewCharacteristics.getSelectionModel().getSelectedItem();
             NameCharacteristicField.setText(selectedCharacteristics.getCcName());
+            CompetenceCharacteristicField.setText( selectedCharacteristics.getCcComid().getCsName());
         }
     }
 

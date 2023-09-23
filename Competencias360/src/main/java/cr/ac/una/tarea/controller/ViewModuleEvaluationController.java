@@ -117,6 +117,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private ObservableList<WorkerDto> workerListCRE;
     private ObservableList<JobDto> jobsList;
     private ObservableList<ProcesosevaDto> procesosList;
+    private ObservableList<EvaluatorDto> listEvaluator;
     private ObservableList<WorkerDto> workersAss = FXCollections.observableArrayList();
     List<WorkerDto> workersListSel = new ArrayList<>();
     @FXML
@@ -261,10 +262,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private Pane viewChooseJobs1;
     @FXML
-    private TextField textFieldSJob_NameW1;
-    @FXML
-    private TextField textFieldSJob_StateW1;
-    @FXML
     private TableView<WorkerDto> tableViewWorkersFU;
     @FXML
     private TableColumn<WorkerDto, String> tableColFUAct;
@@ -325,6 +322,12 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private TextField textFieldSearch_Ident;
     private boolean eliminar = false;
+    @FXML
+    private TextField textFieldEvaFU_Name;
+    @FXML
+    private TextField textFieldEvaFU_Ident;
+    @FXML
+    private TextField textFieldEvaFU_State;
 
     /**
      * Initializes the controller class.
@@ -578,6 +581,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                 }
             }
         }
+        //listEvaluators = listEvaluators.stream().filter(x -> x.getEvsWorker().getWrName().equals(selectedWorker.getName())).toList();
         ObservableList<EvaluatorDto> evaluatorsList = FXCollections.observableArrayList(listEvaluators);
         this.tableViewSelWorkersPE.refresh();
         this.tableViewSelWorkersPE.setItems(evaluatorsList);
@@ -649,7 +653,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
         listEvaluatorAss = (List<EvaluatorDto>) respuesta.getResultado("Evaluators");
         listEvaluatorAss = getEvaluators(selectedWorker.getId());
-        ObservableList<EvaluatorDto> listEvaluator = FXCollections.observableArrayList(listEvaluatorAss);
+        listEvaluator = FXCollections.observableArrayList(listEvaluatorAss);
         this.tableViewEvaluatorsFU.refresh();
         this.tableViewEvaluatorsFU.setItems(listEvaluator);
 
@@ -707,7 +711,9 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void backSettings(ActionEvent event) {
-        listEvaluators.clear();
+        if (!listEvaluators.isEmpty()) {
+            listEvaluators.clear();
+        }
         workersListSel.clear();
         workersAss.clear();
         this.tableViewSelWorkers.refresh();
@@ -1069,12 +1075,12 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         evaluated.setEsWorker(lista.get(0).getEsWorker());
 
         evaluator.setEvsEvaluated(evaluated);
-        //listEvaluators.add(evaluator);
+        listEvaluators.add(evaluator);
 
-        //ObservableList<EvaluatorDto> evaluatorsList = FXCollections.observableArrayList(listEvaluators);
+        ObservableList<EvaluatorDto> evaluatorsList = FXCollections.observableArrayList(listEvaluators);
         cliente.SaveEvaluator(evaluator, procesoDto);
-       /* this.tableViewSelWorkersPE.refresh();
-        this.tableViewSelWorkersPE.setItems(evaluatorsList);*/
+        this.tableViewSelWorkersPE.refresh();
+        this.tableViewSelWorkersPE.setItems(evaluatorsList);
 
         for (int i = 0; i < listEvaluators.size(); i++) {
             for (int j = 0; j < listWorkers.size(); j++) {
@@ -1090,14 +1096,15 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     }
 
+    /*public List<EvaluatorDto> getlistEvaluators() {
+        return listEvaluators.stream().
+                filter(x -> x.getEvsWorker().getWrName().equals(workerDto.getName())).toList();
+    }*/
     @FXML
     private void openSelectEvaluators(ActionEvent event) {
         if (!WorkerCREMainField.getText().isEmpty()) {
             ImportListWorker();
-            
-            listEvaluators = listEvaluators.stream().
-                    filter(x -> x.getEvsEvaluated().getEsWorker().getWrName().
-                            equals(evaluatedDto.getEsWorker().getWrName())).toList();
+            //listEvaluators = getlistEvaluators();
             ObservableList<EvaluatorDto> evaluatorsList = FXCollections.observableArrayList(listEvaluators);
             this.tableViewSelWorkersPE.refresh();
             this.tableViewSelWorkersPE.setItems(evaluatorsList);
@@ -1150,6 +1157,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         textInfoPro_DAppli.setText("Fecha de Aplicación: " + procesoDto.getApplication().toString());
         textInfoPro_DInicial.setText("Fecha de Inicio de Periodo: " + procesoDto.getInicialperiod().toString());
         textInfoPro_DFinal.setText("Fecha de Final de Periodo: " + procesoDto.getFinalperiod().toString());
+        viewFollowUpEvaluated.toFront();
         OptionsFollowUpView.toFront();
     }
 
@@ -1273,6 +1281,71 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     }
 
     @FXML
-    private void workerClickedSelected(MouseEvent event) {
+    private void searchEvaFU_Name(KeyEvent event) {
+        FilteredList<EvaluatorDto> filteredEvaluator = new FilteredList<>(listEvaluator, f -> true);
+
+        textFieldEvaFU_Name.textProperty().addListener((observable, value, newValue) -> {
+            filteredEvaluator.setPredicate(EvaluatorDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (EvaluatorDto.getEvsWorker().getWrName().toLowerCase().contains(search)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredEvaluatedFU(filteredEvaluator);
     }
+
+    @FXML
+    private void searchEvaFU_Ident(KeyEvent event) {
+        FilteredList<EvaluatorDto> filteredEvaluator = new FilteredList<>(listEvaluator, f -> true);
+
+       textFieldEvaFU_Ident.textProperty().addListener((observable, value, newValue) -> {
+            filteredEvaluator.setPredicate(EvaluatorDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (EvaluatorDto.getEvsWorker().getWrIdentification().toLowerCase().contains(search)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredEvaluatedFU(filteredEvaluator);
+
+    }
+
+    @FXML
+    private void searchEvaFU_State(KeyEvent event) {
+        FilteredList<EvaluatorDto> filteredEvaluator = new FilteredList<>(listEvaluator, f -> true);
+
+        textFieldEvaFU_State.textProperty().addListener((observable, value, newValue) -> {
+            filteredEvaluator.setPredicate(EvaluatorDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (EvaluatorDto.getEvsState().toLowerCase().contains(search)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredEvaluatedFU(filteredEvaluator);
+
+    }
+
+    private void filteredEvaluatedFU(FilteredList<EvaluatorDto> list) {
+        SortedList<EvaluatorDto> sorted = new SortedList<>(list);
+        sorted.comparatorProperty().bind(tableViewEvaluatorsFU.comparatorProperty());
+        tableViewEvaluatorsFU.setItems(sorted);
+    }
+
 }

@@ -15,6 +15,7 @@ import cr.ac.una.tarea.soap.ProcesoevaDto;
 import cr.ac.una.tarea.util.FlowController;
 import cr.ac.una.tarea.util.Mensaje;
 import cr.ac.una.tarea.util.Respuesta;
+import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +33,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 /**
@@ -86,7 +90,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     List<ProcesosevaDto> listProcesos = new ArrayList<>();
     ObservableList<ProcesosevaDto> procesosList;
     List<EvaluatedsDto> listEvaluateds = new ArrayList<>();
-    List<EvaluatorDto> evaluateds= new ArrayList<>();
+    List<EvaluatorDto> evaluateds = new ArrayList<>();
     ObservableList<EvaluatorDto> evaluatedList;
     @FXML
     private BorderPane OptionsInformationWorker;
@@ -122,6 +126,8 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     private TableColumn<EvaluatorDto, String> tableColEvaluated_Email;
     @FXML
     private TableColumn<EvaluatorDto, String> tableColEvaluated_State;
+    @FXML
+    private Circle UserMainPhoto;
 
     /**
      * Initializes the controller class.
@@ -142,12 +148,12 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         this.tableColProEva_FinalPer.setCellValueFactory(new PropertyValueFactory("Finalperiod"));
         this.tableColProEva_Apli.setCellValueFactory(new PropertyValueFactory("Application"));
 
-       this.tableColProEvaluated_State.setCellValueFactory(new PropertyValueFactory("State"));
+        this.tableColProEvaluated_State.setCellValueFactory(new PropertyValueFactory("State"));
         this.tableColProEvaluated_Name.setCellValueFactory(new PropertyValueFactory("Name"));
         this.tableColProEvaluated_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));
         this.tableColProEvaluated_FinalPer.setCellValueFactory(new PropertyValueFactory("Finalperiod"));
         this.tableColProEvaluated_Apli.setCellValueFactory(new PropertyValueFactory("Application"));
-        
+
         this.tableColEvaluated_Ident.setCellValueFactory(new PropertyValueFactory("EvIden"));
         this.tableColEvaluated_Name.setCellValueFactory(new PropertyValueFactory("EvName"));
         this.tableColEvaluated_Psurname.setCellValueFactory(new PropertyValueFactory("EvPsurname"));
@@ -173,9 +179,14 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     @FXML
     private void openInformation(MouseEvent event) {
         textWorker_Name.setText(workerDto.getName() + " " + workerDto.getPsurname() + " " + workerDto.getSsurname());
-        textWorker_Ident.setText(workerDto.getIden());
-        textWorker_Email.setText(workerDto.getEmail());
-        textWorker_Job.setText(workerDto.getJob().getJsName());
+        textWorker_Ident.setText("Identificación: " + workerDto.getIden());
+        textWorker_Email.setText("Correo: " + workerDto.getEmail());
+        textWorker_Job.setText("Puesto: " + workerDto.getJob().getJsName());
+        
+        /*ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(workerDto.getPhoto());
+        Image image = new Image(byteArrayInputStream);
+        UserMainPhoto.setFill(new ImagePattern(image));*/
+
         OptionsInformationWorker.toFront();
     }
 
@@ -218,16 +229,17 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         this.tableViewProEva.refresh();
         this.tableViewProEva.setItems(procesosList);
     }
-    Predicate<EvaluatorDto> getEvaluator=x->x.getEvsEvaluated().getEsProcesoeva().getEnId().equals(procesoDto.getId());
-    public void ImportEvaluated(){
+    Predicate<EvaluatorDto> getEvaluator = x -> x.getEvsEvaluated().getEsProcesoeva().getEnId().equals(procesoDto.getId());
+
+    public void ImportEvaluated() {
         EvaluatorService service = new EvaluatorService();
         Respuesta respuesta = service.getEvaluators();
         evaluateds = (List<EvaluatorDto>) respuesta.getResultado("Evaluators");
-        evaluateds=evaluateds.stream().filter(getEvaluator.and(x->x.getEvsWorker().getWrId().equals(workerDto.getId()))).toList();
-        evaluatedList= FXCollections.observableArrayList(evaluateds);
+        evaluateds = evaluateds.stream().filter(getEvaluator.and(x -> x.getEvsWorker().getWrId().equals(workerDto.getId()))).toList();
+        evaluatedList = FXCollections.observableArrayList(evaluateds);
         this.tableViewEvaluated.refresh();
         this.tableViewEvaluated.setItems(evaluatedList);
-        
+
     }
 
     @FXML
