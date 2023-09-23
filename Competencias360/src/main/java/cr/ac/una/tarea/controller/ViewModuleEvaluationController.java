@@ -324,7 +324,8 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private TextField textFieldSearchPE_Ident;
     @FXML
     private TextField textFieldSearch_Ident;
-
+    private boolean eliminar =false;
+    
     /**
      * Initializes the controller class.
      */
@@ -1123,6 +1124,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void workerClickedPE(MouseEvent event) {
+        
         if (event.getClickCount() == 2) {
 
             selectedWorker = tableViewWorkersPE.getSelectionModel().getSelectedItem();
@@ -1239,5 +1241,25 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         tableViewWorkersPE.setItems(sorted);
     }
 
+    @FXML
+    private void eliminarConEva(MouseEvent event) {
+        eliminar=true;
+        System.out.println("elimina");
+    }
 
+    @FXML
+    private void workerClickedSel(MouseEvent event) {    
+      EvaluatorDto ev= new EvaluatorDto();
+     if (event.getClickCount() == 1) {
+            if (eliminar == true) {
+                System.out.println("sdfsf");
+                ev = tableViewSelWorkersPE.getSelectionModel().getSelectedItem();
+                EvaluatorService valor = new EvaluatorService();
+                valor.eliminarEvaluator(ev.getEvsId());
+                ImportListWorker();
+                ImportListWorkerEvaluators();
+                eliminar = false;
+            }
+        }
+    }
 }

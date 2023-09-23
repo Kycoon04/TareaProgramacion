@@ -855,6 +855,15 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void competenceClicked(MouseEvent event) {
+         if (event.getClickCount() == 1) {  
+            if (delete == true) {
+                competenceDto = tableViewCompetences.getSelectionModel().getSelectedItem();
+                CompetencesService competenceService = new CompetencesService();
+                competenceService.eliminarCompe(competenceDto.getId());
+                ImportListCompetences();
+                delete = false;
+            }
+         }
         if (event.getClickCount() == 2) {
             try {
                 competenceDto = tableViewCompetences.getSelectionModel().getSelectedItem();
@@ -881,7 +890,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                 ImportListJobs();
                 delete = false;
             }
-        } else {
+        }else{
             if (event.getClickCount() == 2) {
                 try {
                     jobDto = tableViewJobs.getSelectionModel().getSelectedItem();
@@ -1076,6 +1085,15 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void characteristicClicked(MouseEvent event) {
+         if (event.getClickCount() == 1) {
+            if (delete == true) {
+                selectedCharacteristics = tableViewCharacteristics.getSelectionModel().getSelectedItem();
+                CharacteristicService characteristicService = new CharacteristicService();
+                characteristicService.deleteCharacteristic(selectedCharacteristics.getCcId());
+                ImportListCharacteristics();
+                delete = false;
+            }
+         }
         if (event.getClickCount() == 2) {
             selectedCharacteristics = tableViewCharacteristics.getSelectionModel().getSelectedItem();
             NameCharacteristicField.setText(selectedCharacteristics.getCcName());
