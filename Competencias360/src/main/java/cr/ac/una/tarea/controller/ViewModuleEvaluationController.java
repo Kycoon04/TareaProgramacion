@@ -486,13 +486,15 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private void workerClicked(MouseEvent event) {
         if (event.getClickCount() == 2) {
+
             WorkerDto selectedWorker = tableViewWorkers.getSelectionModel().getSelectedItem();
-            int index= tableViewWorkers.getSelectionModel().getSelectedIndex();
             listWorkersEvaluated.add(selectedWorker);
+            workersListSel.add(selectedWorker);
+            listWorkers.remove(selectedWorker);
+            workerList = FXCollections.observableArrayList(listWorkers);
+            this.tableViewWorkers.refresh();
+            this.tableViewWorkers.setItems(workerList);
             workersAss = FXCollections.observableArrayList(listWorkersEvaluated);
-            workerListCopy.remove(index);
-            tableViewWorkers.refresh();
-            tableViewWorkers.setItems(workerListCopy);
             this.tableViewSelWorkers.refresh();
             this.tableViewSelWorkers.setItems(workersAss);
         }
@@ -582,7 +584,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     }
 
     public void ImportListWorker() {
-
         WorkersService service = new WorkersService();
         Respuesta respuesta = service.getUsuarios();
         listWorkers = (List<WorkerDto>) respuesta.getResultado("Usuarios");
@@ -593,8 +594,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         workerListCopy = FXCollections.observableArrayList(listWorkersCopy);
         this.tableViewWorkersPE.refresh();
         this.tableViewWorkersPE.setItems(workerList);
-        this.tableViewWorkers.refresh();
-        this.tableViewWorkers.setItems(workerListCopy);
     }
 
     public List<EvaluatedsDto> getEvaluatorProcess(int IdProcess) {
@@ -721,7 +720,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         return list.stream().
                 filter(WorkerNull.and(x -> x.getJob().getJsName().equals(name))).collect(Collectors.toList());
     }
-    
+
     public void ImportListWorkerEvaluated() {
         for (int i = 0; i < listWorkersEvaluated.size(); i++) {
             for (int j = 0; j < listWorkers.size(); j++) {
@@ -731,21 +730,20 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             }
         }
     }
+
     @FXML
     private void OpenSelectWorkers(ActionEvent event) {
         ImportListWorker();
-        listWorkers = getWorkersJobs(listWorkers,jobDto.getName());
+        listWorkers = getWorkersJobs(listWorkers, jobDto.getName());
         importEvaluators();
         ImportListWorkerEvaluated();
-   
+
         workerList = FXCollections.observableArrayList(listWorkers);
         this.tableViewWorkers.refresh();
         this.tableViewWorkers.setItems(workerList);
         textEvaJob.setText(jobDto.getName());
-        
-        
-        
-        listWorkersEvaluated = getWorkersJobs(listWorkersEvaluated,jobDto.getName());
+
+        listWorkersEvaluated = getWorkersJobs(listWorkersEvaluated, jobDto.getName());
         ObservableList<WorkerDto> WorkerEvaluated = FXCollections.observableArrayList(listWorkersEvaluated);
         this.tableViewSelWorkers.refresh();
         this.tableViewSelWorkers.setItems(WorkerEvaluated);
@@ -1072,6 +1070,18 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         cliente.SaveEvaluator(evaluator, procesoDto);
         this.tableViewSelWorkersPE.refresh();
         this.tableViewSelWorkersPE.setItems(evaluatorsList);
+
+        for (int i = 0; i < listEvaluators.size(); i++) {
+            for (int j = 0; j < listWorkers.size(); j++) {
+                if(listWorkers.get(j).getName()==listEvaluators.get(i).getName()){
+                listWorkers.remove(j);
+                }
+            }
+            
+        }
+        workerList = FXCollections.observableArrayList(listWorkers);
+        this.tableViewWorkersPE.refresh();
+        this.tableViewWorkersPE.setItems(workerList);
 
     }
 
