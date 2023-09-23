@@ -30,122 +30,6 @@
 
 <StackPane stylesheets="@StyleView.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.tarea.controller.ViewModuleEvaluationController">
    <children>
-      <BorderPane fx:id="OptionsMenuView" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" onMouseClicked="#openEvaluations" prefHeight="600.0" prefWidth="1000.0">
-         <center>
-            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1590.0">
-               <children>
-                  <ImageView fitHeight="758.0" fitWidth="1650.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-351.0" AnchorPane.topAnchor="-7.0">
-                     <image>
-                        <Image url="@../resources/BackgroundLogin.jpg" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-         </center>
-         <right>
-            <HBox alignment="CENTER" prefHeight="743.0" prefWidth="971.0" style="-fx-background-radius: 5px; -fx-background-color: #212121;" BorderPane.alignment="CENTER">
-               <effect>
-                  <DropShadow height="166.05" radius="90.1275" width="196.46" />
-               </effect>
-               <BorderPane.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </BorderPane.margin>
-            </HBox>
-         </right>
-         <left>
-            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="566.0" prefWidth="271.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;" BorderPane.alignment="CENTER">
-               <children>
-                  <Separator prefHeight="10.0" prefWidth="214.0" visible="false" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Mantenimiento">
-                     <font>
-                        <Font name="Tw Cen MT" size="29.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" layoutX="53.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evaluaciones" textAlignment="CENTER" wrappingWidth="160.375">
-                     <font>
-                        <Font name="Tw Cen MT" size="27.0" />
-                     </font>
-                  </Text>
-                  <Separator prefHeight="6.0" prefWidth="214.0" visible="false" />
-                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: #76ff03; -fx-background-radius: 3px;" />
-                  <Separator layoutX="38.0" layoutY="60.0" prefHeight="29.0" prefWidth="214.0" visible="false" />
-                  <Text fx:id="textProcesoEva_title" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="270.93670654296875">
-                     <font>
-                        <Font name="Tw Cen MT" size="25.0" />
-                     </font>
-                  </Text>
-                  <HBox alignment="BOTTOM_LEFT" prefHeight="45.0" prefWidth="271.0">
-                     <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Opciones:" textAlignment="CENTER" wrappingWidth="270.93670654296875">
-                           <font>
-                              <Font name="Tw Cen MT" size="25.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </HBox>
-                  <Separator prefHeight="23.0" prefWidth="200.0" visible="false" />
-                  <HBox alignment="CENTER_LEFT" prefHeight="16.0" prefWidth="178.0" />
-                  <Separator layoutX="82.0" layoutY="191.0" prefHeight="25.0" prefWidth="214.0" visible="false" />
-                  <Pane layoutX="141.0" layoutY="67.0" prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
-                  <Separator prefHeight="27.0" prefWidth="214.0" visible="false" />
-                  <Button mnemonicParsing="false" onAction="#assignEvaluations" prefHeight="35.0" prefWidth="226.0" text="Configuración por trabajadores">
-                     <font>
-                        <Font name="Arial Bold" size="17.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Separator prefHeight="29.0" prefWidth="216.0" visible="false" />
-                  <Pane layoutX="141.0" layoutY="220.0" prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
-                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
-                  <Button mnemonicParsing="false" onAction="#openSettingRelational" prefHeight="35.0" prefWidth="208.0" text="Asignar evaluaciones">
-                     <font>
-                        <Font name="Arial Bold" size="17.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
-                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
-                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
-                  <Button mnemonicParsing="false" onAction="#openFollowUpView" prefHeight="35.0" prefWidth="218.0" text="Seguimiento de evaluaciones">
-                     <font>
-                        <Font name="Arial Bold" size="17.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
-                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
-                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
-                  <Separator prefHeight="82.0" prefWidth="216.0" visible="false" />
-                  <Button mnemonicParsing="false" onMouseClicked="#back" prefHeight="35.0" prefWidth="135.0" text="Volver">
-                     <font>
-                        <Font name="Arial Bold" size="17.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-               </children>
-               <effect>
-                  <DropShadow height="255.0" radius="127.0" spread="0.18" width="255.0" />
-               </effect>
-               <padding>
-                  <Insets top="5.0" />
-               </padding>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <BorderPane.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </BorderPane.margin>
-            </VBox>
-         </left>
-      </BorderPane>
       <BorderPane fx:id="OptionsSettingRelationalView" layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" onMouseClicked="#openEvaluations" prefHeight="600.0" prefWidth="1000.0">
          <center>
             <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1590.0">
@@ -432,351 +316,6 @@
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </BorderPane.margin>
             </HBox>
-         </right>
-      </BorderPane>
-      <BorderPane fx:id="OptionsSettingView" layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" onMouseClicked="#openEvaluations" prefHeight="600.0" prefWidth="1000.0">
-         <center>
-            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1590.0">
-               <children>
-                  <ImageView fitHeight="758.0" fitWidth="1650.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-351.0" AnchorPane.topAnchor="-7.0">
-                     <image>
-                        <Image url="@../resources/BackgroundLogin.jpg" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-         </center>
-         <right>
-            <HBox alignment="CENTER" prefHeight="743.0" prefWidth="971.0" style="-fx-background-radius: 5px; -fx-background-color: #212121;" BorderPane.alignment="CENTER">
-               <effect>
-                  <DropShadow height="166.05" radius="90.1275" width="196.46" />
-               </effect>
-               <BorderPane.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </BorderPane.margin>
-               <children>
-                  <StackPane prefHeight="150.0" prefWidth="200.0">
-                     <children>
-                        <BorderPane fx:id="viewChooseJob" layoutX="10.0" layoutY="10.0">
-                           <center>
-                              <AnchorPane prefHeight="674.0" prefWidth="722.0" style="-fx-background-color: #212121;" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <Pane id="Pane" fx:id="viewChooseJobs" focusTraversable="true" layoutY="100.0" prefHeight="524.0" prefWidth="790.0" style="-fx-background-color: #212121; -fx-border-width: 5; -fx-border-color: #76ff03;">
-                                       <children>
-                                          <TableView fx:id="tableViewJobsW" layoutX="18.0" layoutY="17.0" onMouseClicked="#jobClickedWorker" prefHeight="430.0" prefWidth="515.0">
-                                             <columns>
-                                                <TableColumn fx:id="tableColJobIdW" prefWidth="184.7999792098999" text="Id" />
-                                                <TableColumn fx:id="tableColJobNamW" prefWidth="172.80001831054688" text="Nombre" />
-                                                <TableColumn fx:id="tableColJobStaW" prefWidth="192.80001831054688" text="Estado" />
-                                             </columns>
-                                          </TableView>
-                                          <VBox layoutX="533.0" layoutY="2.0" prefHeight="527.0" prefWidth="177.0">
-                                             <children>
-                                                <Separator prefHeight="162.0" prefWidth="410.0" visible="false" />
-                                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="178.93671035766602">
-                                                   <font>
-                                                      <Font name="Tw Cen MT" size="22.0" />
-                                                   </font>
-                                                </Text>
-                                                <TextField fx:id="textFieldSJob_NameW" onKeyPressed="#searchJob_NameW" prefHeight="27.0" prefWidth="364.0" style="-fx-text-fill: black;" />
-                                                <Separator prefHeight="36.0" prefWidth="410.0" visible="false" />
-                                                <Text fill="WHITE" layoutX="10.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado:" wrappingWidth="178.93671035766602">
-                                                   <font>
-                                                      <Font name="Tw Cen MT" size="22.0" />
-                                                   </font>
-                                                </Text>
-                                                <TextField fx:id="textFieldSJob_StateW" layoutX="10.0" layoutY="288.0" onKeyPressed="#searchJob_StateW" style="-fx-text-fill: black;" />
-                                                <Separator prefHeight="46.0" prefWidth="410.0" visible="false" />
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </AnchorPane>
-                           </center>
-                        </BorderPane>
-                        <BorderPane fx:id="viewSelectedJob">
-                           <center>
-                              <AnchorPane prefHeight="720.0" prefWidth="819.0" style="-fx-background-color: #212121;">
-                                 <children>
-                                    <VBox layoutX="203.0" prefHeight="720.0" prefWidth="230.0">
-                                       <children>
-                                          <Separator prefHeight="71.0" prefWidth="433.0" visible="false" />
-                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Configuración de evaluación" textAlignment="CENTER" wrappingWidth="432.53668212890625">
-                                             <font>
-                                                <Font name="Tw Cen MT" size="42.0" />
-                                             </font>
-                                          </Text>
-                                          <Separator prefHeight="160.0" prefWidth="433.0" visible="false" />
-                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona el puesto que van a evaluar" wrappingWidth="429.38116455078125">
-                                             <font>
-                                                <Font name="Tw Cen MT" size="27.0" />
-                                             </font>
-                                          </Text>
-                                          <Separator prefHeight="26.0" prefWidth="430.0" visible="false" />
-                                          <TextField fx:id="JobMainField" editable="false" onMouseClicked="#viewChooseJob" prefHeight="62.0" prefWidth="430.0" promptText="Presiona" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-radius: 4px; -fx-border-color: white;">
-                                             <font>
-                                                <Font size="30.0" />
-                                             </font>
-                                          </TextField>
-                                          <Separator prefHeight="103.0" prefWidth="433.0" visible="false" />
-                                          <HBox prefHeight="100.0" prefWidth="414.0">
-                                             <children>
-                                                <Separator orientation="VERTICAL" prefHeight="100.0" prefWidth="82.0" visible="false" />
-                                                <Button mnemonicParsing="false" onAction="#OpenSelectWorkers" prefHeight="35.0" prefWidth="263.0" text="Seleccionar trabajadores">
-                                                   <font>
-                                                      <Font name="Arial Bold" size="17.0" />
-                                                   </font>
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </Button>
-                                             </children>
-                                          </HBox>
-                                          <Separator prefWidth="200.0" visible="false" />
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
-                           </center>
-                        </BorderPane>
-                     </children>
-                  </StackPane>
-               </children>
-            </HBox>
-         </right>
-         <left>
-            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="566.0" prefWidth="271.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;" BorderPane.alignment="CENTER">
-               <children>
-                  <Separator prefHeight="10.0" prefWidth="214.0" visible="false" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Mantenimiento">
-                     <font>
-                        <Font name="Tw Cen MT" size="29.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" layoutX="53.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evaluaciones" textAlignment="CENTER" wrappingWidth="160.375">
-                     <font>
-                        <Font name="Tw Cen MT" size="27.0" />
-                     </font>
-                  </Text>
-                  <Separator prefHeight="6.0" prefWidth="214.0" visible="false" />
-                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: #76ff03; -fx-background-radius: 3px;" />
-                  <Separator layoutX="38.0" layoutY="60.0" prefHeight="29.0" prefWidth="214.0" visible="false" />
-                  <Text fx:id="textProcesoEva_title" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="270.93670654296875">
-                     <font>
-                        <Font name="Tw Cen MT" size="25.0" />
-                     </font>
-                  </Text>
-                  <HBox alignment="BOTTOM_LEFT" prefHeight="45.0" prefWidth="271.0">
-                     <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Opciones:" textAlignment="CENTER" wrappingWidth="270.93670654296875">
-                           <font>
-                              <Font name="Tw Cen MT" size="25.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </HBox>
-                  <Separator prefHeight="23.0" prefWidth="200.0" visible="false" />
-                  <HBox alignment="CENTER_LEFT" prefHeight="16.0" prefWidth="178.0" />
-                  <Separator layoutX="82.0" layoutY="191.0" prefHeight="25.0" prefWidth="214.0" visible="false" />
-                  <Pane layoutX="141.0" layoutY="67.0" prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
-                  <Separator prefHeight="27.0" prefWidth="214.0" visible="false" />
-                  <Button mnemonicParsing="false" onAction="#assignEvaluations" prefHeight="35.0" prefWidth="226.0" text="Configuración por trabajadores">
-                     <font>
-                        <Font name="Arial Bold" size="17.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Separator prefHeight="29.0" prefWidth="216.0" visible="false" />
-                  <Pane layoutX="141.0" layoutY="220.0" prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
-                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
-                  <Button mnemonicParsing="false" onAction="#openSettingRelational" prefHeight="35.0" prefWidth="208.0" text="Asignar evaluaciones">
-                     <font>
-                        <Font name="Arial Bold" size="17.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
-                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
-                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
-                  <Button mnemonicParsing="false" onAction="#openFollowUpView" prefHeight="35.0" prefWidth="218.0" text="Seguimiento de evaluaciones">
-                     <font>
-                        <Font name="Arial Bold" size="17.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
-                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
-                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
-                  <Separator prefHeight="82.0" prefWidth="216.0" visible="false" />
-                  <Button mnemonicParsing="false" onMouseClicked="#back" prefHeight="35.0" prefWidth="135.0" text="Volver">
-                     <font>
-                        <Font name="Arial Bold" size="17.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-               </children>
-               <effect>
-                  <DropShadow height="255.0" radius="127.0" spread="0.18" width="255.0" />
-               </effect>
-               <padding>
-                  <Insets top="5.0" />
-               </padding>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <BorderPane.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </BorderPane.margin>
-            </VBox>
-         </left>
-      </BorderPane>
-      <BorderPane fx:id="OptionsSettingEvaluatorsView" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" onMouseClicked="#openEvaluations" prefHeight="600.0" prefWidth="1000.0">
-         <center>
-            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1054.0">
-               <children>
-                  <ImageView fitHeight="758.0" fitWidth="1650.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-351.0" AnchorPane.topAnchor="-7.0">
-                     <image>
-                        <Image url="@../resources/BackgroundLogin.jpg" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-         </center>
-         <right>
-            <FlowPane prefHeight="720.0" prefWidth="1274.0" style="-fx-background-radius: 15px; -fx-background-color: #212121; -fx-border-color: #76ff03; -fx-border-width: 15px;" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </BorderPane.margin>
-               <children>
-                  <AnchorPane prefHeight="690.0" prefWidth="1242.0">
-                     <children>
-                        <Text fill="WHITE" layoutX="883.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Configuración de evaluación" textAlignment="RIGHT" wrappingWidth="351.73666363954544">
-                           <font>
-                              <Font name="Tw Cen MT" size="39.0" />
-                           </font>
-                        </Text>
-                        <TableView fx:id="tableViewWorkersPE" layoutX="22.0" layoutY="60.0" onMouseClicked="#workerClickedPE" prefHeight="279.0" prefWidth="660.0">
-                           <columns>
-                              <TableColumn fx:id="tableColActPE" prefWidth="48.800015449523926" text="Estado" />
-                              <TableColumn fx:id="tableColIdentifPE" prefWidth="102.39999008178711" text="Cedula" />
-                              <TableColumn fx:id="tableColNamePE" prefWidth="90.40000915527344" text="Nombre" />
-                              <TableColumn fx:id="tableColPsurnamePE" prefWidth="115.20002746582031" text="Primer Apellido" />
-                              <TableColumn fx:id="tableColUserNamePE" prefWidth="94.39996337890625" text="Usuario" />
-                              <TableColumn fx:id="tableColEmailPE" prefWidth="112.79998779296875" text="Email" />
-                              <TableColumn fx:id="tableColAdmiPE" prefWidth="113.60009765625" text="Rol" />
-                           </columns>
-                        </TableView>
-                        <TableView fx:id="tableViewSelWorkersPE" layoutX="22.0" layoutY="381.0" onMouseClicked="#workerClicked" prefHeight="286.0" prefWidth="660.0">
-                           <columns>
-                              <TableColumn fx:id="tableColSelIdentifPE" prefWidth="102.39999008178711" text="Cedula" />
-                              <TableColumn fx:id="tableColSelNamePE" prefWidth="90.40000915527344" text="Nombre" />
-                              <TableColumn fx:id="tableColSelPsurnamePE" prefWidth="115.20002746582031" text="Primer Apellido" />
-                              <TableColumn fx:id="tableColSelUserNamePE" prefWidth="94.39996337890625" text="Usuario" />
-                              <TableColumn fx:id="tableColSelEmailPE" prefWidth="112.79998779296875" text="Email" />
-                              <TableColumn fx:id="tableColSelConPE" prefWidth="113.60009765625" text="Relacion" />
-                           </columns>
-                        </TableView>
-                        <Text fill="WHITE" layoutX="30.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona los trabajores que van a evaluar a " wrappingWidth="555.7369079589844">
-                           <font>
-                              <Font name="Tw Cen MT" size="24.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="30.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evaluadores" wrappingWidth="225.33688354492188">
-                           <font>
-                              <Font name="Tw Cen MT" size="24.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="730.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="108.33666801452637">
-                           <font>
-                              <Font name="Tw Cen MT" size="28.0" />
-                           </font>
-                        </Text>
-                        <TextField fx:id="textFieldSearchPE_Name" layoutX="729.0" layoutY="116.0" onKeyPressed="#searchWorker_Name" prefHeight="27.0" prefWidth="159.0" style="-fx-text-fill: black;">
-                           <font>
-                              <Font name="Tw Cen MT" size="23.0" />
-                           </font>
-                        </TextField>
-                        <Text fill="WHITE" layoutX="730.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primer Apellido:" wrappingWidth="251.5366725921631">
-                           <font>
-                              <Font name="Tw Cen MT" size="25.0" />
-                           </font>
-                        </Text>
-                        <TextField fx:id="textFieldSearchPE_Pusername" layoutX="730.0" layoutY="186.0" onKeyPressed="#searchWorker_Pusername" prefHeight="27.0" prefWidth="182.0" style="-fx-text-fill: black;">
-                           <font>
-                              <Font name="Tw Cen MT" size="23.0" />
-                           </font>
-                        </TextField>
-                        <Text fill="WHITE" layoutX="730.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado:" wrappingWidth="251.5366725921631">
-                           <font>
-                              <Font name="Tw Cen MT" size="25.0" />
-                           </font>
-                        </Text>
-                        <TextField fx:id="textFieldSearchPE_State" layoutX="730.0" layoutY="258.0" onKeyPressed="#searchWorker_State" prefHeight="27.0" prefWidth="186.0" style="-fx-text-fill: black;">
-                           <font>
-                              <Font name="Tw Cen MT" size="23.0" />
-                           </font>
-                        </TextField>
-                        <Button layoutX="962.0" layoutY="154.0" mnemonicParsing="false" onAction="#addAllWorkers" prefHeight="35.0" prefWidth="193.0" style="-fx-background-color: gold;" text="Seleccionar todos">
-                           <font>
-                              <Font name="Arial Bold" size="17.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button layoutX="848.0" layoutY="472.0" mnemonicParsing="false" onAction="#addEvaluators" prefHeight="35.0" prefWidth="226.0" text="Agregar">
-                           <font>
-                              <Font name="Arial Bold" size="17.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button layoutX="970.0" layoutY="631.0" mnemonicParsing="false" onAction="#backSettings" prefHeight="35.0" prefWidth="226.0" text="Volver">
-                           <font>
-                              <Font name="Arial Bold" size="17.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button layoutX="962.0" layoutY="213.0" mnemonicParsing="false" onAction="#deleteWorkers" prefHeight="35.0" prefWidth="193.0" style="-fx-background-color: gold;" text="Borrar todos">
-                           <font>
-                              <Font name="Arial Bold" size="17.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Text fx:id="textNameWorker" fill="#ffbb00" layoutX="483.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="372.53680419921875">
-                           <font>
-                              <Font name="Tw Cen MT" size="20.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="textEvaluator" fill="WHITE" layoutX="714.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="481.93663597106934">
-                           <font>
-                              <Font name="Tw Cen MT" size="25.0" />
-                           </font>
-                        </Text>
-                        <ChoiceBox fx:id="choiceBoxConEvaluator" layoutX="900.0" layoutY="410.0" prefHeight="43.0" prefWidth="222.0" />
-                        <Text fill="WHITE" layoutX="761.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Relación:" textAlignment="RIGHT" wrappingWidth="123.53667259216309">
-                           <font>
-                              <Font name="Tw Cen MT" size="25.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </AnchorPane>
-               </children>
-            </FlowPane>
          </right>
       </BorderPane>
       <BorderPane fx:id="OptionsFollowUpView" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" prefHeight="600.0" prefWidth="1000.0">
@@ -1114,6 +653,335 @@
             </VBox>
          </left>
       </BorderPane>
+      <BorderPane fx:id="OptionsSettingEvaluatorsView" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" onMouseClicked="#openEvaluations" prefHeight="600.0" prefWidth="1000.0">
+         <center>
+            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1054.0">
+               <children>
+                  <ImageView fitHeight="758.0" fitWidth="1650.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-351.0" AnchorPane.topAnchor="-7.0">
+                     <image>
+                        <Image url="@../resources/BackgroundLogin.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </center>
+         <right>
+            <FlowPane prefHeight="720.0" prefWidth="1274.0" style="-fx-background-radius: 15px; -fx-background-color: #212121; -fx-border-color: #76ff03; -fx-border-width: 15px;" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </BorderPane.margin>
+               <children>
+                  <AnchorPane prefHeight="690.0" prefWidth="1242.0">
+                     <children>
+                        <Text fill="WHITE" layoutX="883.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Configuración de evaluación" textAlignment="RIGHT" wrappingWidth="351.73666363954544">
+                           <font>
+                              <Font name="Tw Cen MT" size="39.0" />
+                           </font>
+                        </Text>
+                        <TableView fx:id="tableViewWorkersPE" layoutX="22.0" layoutY="60.0" onMouseClicked="#workerClickedPE" prefHeight="279.0" prefWidth="660.0">
+                           <columns>
+                              <TableColumn fx:id="tableColActPE" prefWidth="48.800015449523926" text="Estado" />
+                              <TableColumn fx:id="tableColIdentifPE" prefWidth="102.39999008178711" text="Cedula" />
+                              <TableColumn fx:id="tableColNamePE" prefWidth="90.40000915527344" text="Nombre" />
+                              <TableColumn fx:id="tableColPsurnamePE" prefWidth="115.20002746582031" text="Primer Apellido" />
+                              <TableColumn fx:id="tableColUserNamePE" prefWidth="94.39996337890625" text="Usuario" />
+                              <TableColumn fx:id="tableColEmailPE" prefWidth="112.79998779296875" text="Email" />
+                              <TableColumn fx:id="tableColAdmiPE" prefWidth="113.60009765625" text="Rol" />
+                           </columns>
+                        </TableView>
+                        <TableView fx:id="tableViewSelWorkersPE" layoutX="22.0" layoutY="381.0" onMouseClicked="#workerClicked" prefHeight="286.0" prefWidth="660.0">
+                           <columns>
+                              <TableColumn fx:id="tableColSelIdentifPE" prefWidth="102.39999008178711" text="Cedula" />
+                              <TableColumn fx:id="tableColSelNamePE" prefWidth="90.40000915527344" text="Nombre" />
+                              <TableColumn fx:id="tableColSelPsurnamePE" prefWidth="115.20002746582031" text="Primer Apellido" />
+                              <TableColumn fx:id="tableColSelUserNamePE" prefWidth="94.39996337890625" text="Usuario" />
+                              <TableColumn fx:id="tableColSelEmailPE" prefWidth="112.79998779296875" text="Email" />
+                              <TableColumn fx:id="tableColSelConPE" prefWidth="113.60009765625" text="Relacion" />
+                           </columns>
+                        </TableView>
+                        <Text fill="WHITE" layoutX="30.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona los trabajores que van a evaluar a " wrappingWidth="555.7369079589844">
+                           <font>
+                              <Font name="Tw Cen MT" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="30.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evaluadores" wrappingWidth="225.33688354492188">
+                           <font>
+                              <Font name="Tw Cen MT" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="730.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="108.33666801452637">
+                           <font>
+                              <Font name="Tw Cen MT" size="28.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="textFieldSearchPE_Name" layoutX="729.0" layoutY="116.0" onKeyPressed="#searchWorkerPE_Name" prefHeight="27.0" prefWidth="159.0" style="-fx-text-fill: black;">
+                           <font>
+                              <Font name="Tw Cen MT" size="23.0" />
+                           </font>
+                        </TextField>
+                        <Text fill="WHITE" layoutX="730.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primer Apellido:" wrappingWidth="251.5366725921631">
+                           <font>
+                              <Font name="Tw Cen MT" size="25.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="textFieldSearchPE_Psurname" layoutX="730.0" layoutY="186.0" onKeyPressed="#searchWorkerPE_Pusername" prefHeight="27.0" prefWidth="182.0" style="-fx-text-fill: black;">
+                           <font>
+                              <Font name="Tw Cen MT" size="23.0" />
+                           </font>
+                        </TextField>
+                        <Text fill="WHITE" layoutX="730.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cedula:" wrappingWidth="251.5366725921631">
+                           <font>
+                              <Font name="Tw Cen MT" size="25.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="textFieldSearchPE_Ident" layoutX="730.0" layoutY="258.0" onKeyPressed="#searchWorkerPE_Ident" prefHeight="27.0" prefWidth="186.0" style="-fx-text-fill: black;">
+                           <font>
+                              <Font name="Tw Cen MT" size="23.0" />
+                           </font>
+                        </TextField>
+                        <Button layoutX="848.0" layoutY="472.0" mnemonicParsing="false" onAction="#addEvaluators" prefHeight="35.0" prefWidth="226.0" text="Agregar">
+                           <font>
+                              <Font name="Arial Bold" size="17.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button layoutX="970.0" layoutY="631.0" mnemonicParsing="false" onAction="#backSettings" prefHeight="35.0" prefWidth="226.0" text="Volver">
+                           <font>
+                              <Font name="Arial Bold" size="17.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Text fx:id="textNameWorker" fill="#ffbb00" layoutX="483.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="372.53680419921875">
+                           <font>
+                              <Font name="Tw Cen MT" size="20.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="textEvaluator" fill="WHITE" layoutX="714.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="481.93663597106934">
+                           <font>
+                              <Font name="Tw Cen MT" size="25.0" />
+                           </font>
+                        </Text>
+                        <ChoiceBox fx:id="choiceBoxConEvaluator" layoutX="900.0" layoutY="410.0" prefHeight="43.0" prefWidth="222.0" />
+                        <Text fill="WHITE" layoutX="761.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Relación:" textAlignment="RIGHT" wrappingWidth="123.53667259216309">
+                           <font>
+                              <Font name="Tw Cen MT" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </FlowPane>
+         </right>
+      </BorderPane>
+      <BorderPane fx:id="OptionsSettingView" layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" onMouseClicked="#openEvaluations" prefHeight="600.0" prefWidth="1000.0">
+         <center>
+            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1590.0">
+               <children>
+                  <ImageView fitHeight="758.0" fitWidth="1650.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-351.0" AnchorPane.topAnchor="-7.0">
+                     <image>
+                        <Image url="@../resources/BackgroundLogin.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </center>
+         <right>
+            <HBox alignment="CENTER" prefHeight="743.0" prefWidth="971.0" style="-fx-background-radius: 5px; -fx-background-color: #212121;" BorderPane.alignment="CENTER">
+               <effect>
+                  <DropShadow height="166.05" radius="90.1275" width="196.46" />
+               </effect>
+               <BorderPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </BorderPane.margin>
+               <children>
+                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane fx:id="viewChooseJob" layoutX="10.0" layoutY="10.0">
+                           <center>
+                              <AnchorPane prefHeight="674.0" prefWidth="722.0" style="-fx-background-color: #212121;" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Pane id="Pane" fx:id="viewChooseJobs" focusTraversable="true" layoutY="100.0" prefHeight="524.0" prefWidth="790.0" style="-fx-background-color: #212121; -fx-border-width: 5; -fx-border-color: #76ff03;">
+                                       <children>
+                                          <TableView fx:id="tableViewJobsW" layoutX="18.0" layoutY="17.0" onMouseClicked="#jobClickedWorker" prefHeight="430.0" prefWidth="515.0">
+                                             <columns>
+                                                <TableColumn fx:id="tableColJobIdW" prefWidth="184.7999792098999" text="Id" />
+                                                <TableColumn fx:id="tableColJobNamW" prefWidth="172.80001831054688" text="Nombre" />
+                                                <TableColumn fx:id="tableColJobStaW" prefWidth="192.80001831054688" text="Estado" />
+                                             </columns>
+                                          </TableView>
+                                          <VBox layoutX="533.0" layoutY="2.0" prefHeight="527.0" prefWidth="177.0">
+                                             <children>
+                                                <Separator prefHeight="162.0" prefWidth="410.0" visible="false" />
+                                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="178.93671035766602">
+                                                   <font>
+                                                      <Font name="Tw Cen MT" size="22.0" />
+                                                   </font>
+                                                </Text>
+                                                <TextField fx:id="textFieldSJob_NameW" onKeyPressed="#searchJob_NameW" prefHeight="27.0" prefWidth="364.0" style="-fx-text-fill: black;" />
+                                                <Separator prefHeight="36.0" prefWidth="410.0" visible="false" />
+                                                <Text fill="WHITE" layoutX="10.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado:" wrappingWidth="178.93671035766602">
+                                                   <font>
+                                                      <Font name="Tw Cen MT" size="22.0" />
+                                                   </font>
+                                                </Text>
+                                                <TextField fx:id="textFieldSJob_StateW" layoutX="10.0" layoutY="288.0" onKeyPressed="#searchJob_StateW" style="-fx-text-fill: black;" />
+                                                <Separator prefHeight="46.0" prefWidth="410.0" visible="false" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </AnchorPane>
+                           </center>
+                        </BorderPane>
+                        <BorderPane fx:id="viewSelectedJob">
+                           <center>
+                              <AnchorPane prefHeight="720.0" prefWidth="819.0" style="-fx-background-color: #212121;">
+                                 <children>
+                                    <VBox layoutX="203.0" prefHeight="720.0" prefWidth="230.0">
+                                       <children>
+                                          <Separator prefHeight="71.0" prefWidth="433.0" visible="false" />
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Configuración de evaluación" textAlignment="CENTER" wrappingWidth="432.53668212890625">
+                                             <font>
+                                                <Font name="Tw Cen MT" size="42.0" />
+                                             </font>
+                                          </Text>
+                                          <Separator prefHeight="160.0" prefWidth="433.0" visible="false" />
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona el puesto que van a evaluar" wrappingWidth="429.38116455078125">
+                                             <font>
+                                                <Font name="Tw Cen MT" size="27.0" />
+                                             </font>
+                                          </Text>
+                                          <Separator prefHeight="26.0" prefWidth="430.0" visible="false" />
+                                          <TextField fx:id="JobMainField" editable="false" onMouseClicked="#viewChooseJob" prefHeight="62.0" prefWidth="430.0" promptText="Presiona" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-radius: 4px; -fx-border-color: white;">
+                                             <font>
+                                                <Font size="30.0" />
+                                             </font>
+                                          </TextField>
+                                          <Separator prefHeight="103.0" prefWidth="433.0" visible="false" />
+                                          <HBox prefHeight="100.0" prefWidth="414.0">
+                                             <children>
+                                                <Separator orientation="VERTICAL" prefHeight="100.0" prefWidth="82.0" visible="false" />
+                                                <Button mnemonicParsing="false" onAction="#OpenSelectWorkers" prefHeight="35.0" prefWidth="263.0" text="Seleccionar trabajadores">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="17.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                          <Separator prefWidth="200.0" visible="false" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+         </right>
+         <left>
+            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="566.0" prefWidth="271.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;" BorderPane.alignment="CENTER">
+               <children>
+                  <Separator prefHeight="10.0" prefWidth="214.0" visible="false" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Mantenimiento">
+                     <font>
+                        <Font name="Tw Cen MT" size="29.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="53.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evaluaciones" textAlignment="CENTER" wrappingWidth="160.375">
+                     <font>
+                        <Font name="Tw Cen MT" size="27.0" />
+                     </font>
+                  </Text>
+                  <Separator prefHeight="6.0" prefWidth="214.0" visible="false" />
+                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: #76ff03; -fx-background-radius: 3px;" />
+                  <Separator layoutX="38.0" layoutY="60.0" prefHeight="29.0" prefWidth="214.0" visible="false" />
+                  <Text fx:id="textProcesoEva_title" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="270.93670654296875">
+                     <font>
+                        <Font name="Tw Cen MT" size="25.0" />
+                     </font>
+                  </Text>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="45.0" prefWidth="271.0">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Opciones:" textAlignment="CENTER" wrappingWidth="270.93670654296875">
+                           <font>
+                              <Font name="Tw Cen MT" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <Separator prefHeight="23.0" prefWidth="200.0" visible="false" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="16.0" prefWidth="178.0" />
+                  <Separator layoutX="82.0" layoutY="191.0" prefHeight="25.0" prefWidth="214.0" visible="false" />
+                  <Pane layoutX="141.0" layoutY="67.0" prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
+                  <Separator prefHeight="27.0" prefWidth="214.0" visible="false" />
+                  <Button mnemonicParsing="false" onAction="#assignEvaluations" prefHeight="35.0" prefWidth="226.0" text="Configuración por trabajadores">
+                     <font>
+                        <Font name="Arial Bold" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Separator prefHeight="29.0" prefWidth="216.0" visible="false" />
+                  <Pane layoutX="141.0" layoutY="220.0" prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
+                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
+                  <Button mnemonicParsing="false" onAction="#openSettingRelational" prefHeight="35.0" prefWidth="208.0" text="Asignar evaluaciones">
+                     <font>
+                        <Font name="Arial Bold" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
+                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
+                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
+                  <Button mnemonicParsing="false" onAction="#openFollowUpView" prefHeight="35.0" prefWidth="218.0" text="Seguimiento de evaluaciones">
+                     <font>
+                        <Font name="Arial Bold" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
+                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
+                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
+                  <Separator prefHeight="82.0" prefWidth="216.0" visible="false" />
+                  <Button mnemonicParsing="false" onMouseClicked="#back" prefHeight="35.0" prefWidth="135.0" text="Volver">
+                     <font>
+                        <Font name="Arial Bold" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+               <effect>
+                  <DropShadow height="255.0" radius="127.0" spread="0.18" width="255.0" />
+               </effect>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <BorderPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </BorderPane.margin>
+            </VBox>
+         </left>
+      </BorderPane>
       <BorderPane fx:id="OptionsEvaConfigView" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" onMouseClicked="#openEvaluations" prefHeight="600.0" prefWidth="1000.0">
          <center>
             <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1590.0">
@@ -1286,6 +1154,122 @@
             </AnchorPane>
          </center>
       </BorderPane>
+      <BorderPane fx:id="OptionsMenuView" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" onMouseClicked="#openEvaluations" prefHeight="600.0" prefWidth="1000.0">
+         <center>
+            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1590.0">
+               <children>
+                  <ImageView fitHeight="758.0" fitWidth="1650.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-351.0" AnchorPane.topAnchor="-7.0">
+                     <image>
+                        <Image url="@../resources/BackgroundLogin.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </center>
+         <right>
+            <HBox alignment="CENTER" prefHeight="743.0" prefWidth="971.0" style="-fx-background-radius: 5px; -fx-background-color: #212121;" BorderPane.alignment="CENTER">
+               <effect>
+                  <DropShadow height="166.05" radius="90.1275" width="196.46" />
+               </effect>
+               <BorderPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </BorderPane.margin>
+            </HBox>
+         </right>
+         <left>
+            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="566.0" prefWidth="271.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;" BorderPane.alignment="CENTER">
+               <children>
+                  <Separator prefHeight="10.0" prefWidth="214.0" visible="false" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Mantenimiento">
+                     <font>
+                        <Font name="Tw Cen MT" size="29.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="53.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evaluaciones" textAlignment="CENTER" wrappingWidth="160.375">
+                     <font>
+                        <Font name="Tw Cen MT" size="27.0" />
+                     </font>
+                  </Text>
+                  <Separator prefHeight="6.0" prefWidth="214.0" visible="false" />
+                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: #76ff03; -fx-background-radius: 3px;" />
+                  <Separator layoutX="38.0" layoutY="60.0" prefHeight="29.0" prefWidth="214.0" visible="false" />
+                  <Text fx:id="textProcesoEva_title" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="270.93670654296875">
+                     <font>
+                        <Font name="Tw Cen MT" size="25.0" />
+                     </font>
+                  </Text>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="45.0" prefWidth="271.0">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Opciones:" textAlignment="CENTER" wrappingWidth="270.93670654296875">
+                           <font>
+                              <Font name="Tw Cen MT" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <Separator prefHeight="23.0" prefWidth="200.0" visible="false" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="16.0" prefWidth="178.0" />
+                  <Separator layoutX="82.0" layoutY="191.0" prefHeight="25.0" prefWidth="214.0" visible="false" />
+                  <Pane layoutX="141.0" layoutY="67.0" prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
+                  <Separator prefHeight="27.0" prefWidth="214.0" visible="false" />
+                  <Button mnemonicParsing="false" onAction="#assignEvaluations" prefHeight="35.0" prefWidth="226.0" text="Configuración por trabajadores">
+                     <font>
+                        <Font name="Arial Bold" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Separator prefHeight="29.0" prefWidth="216.0" visible="false" />
+                  <Pane layoutX="141.0" layoutY="220.0" prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
+                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
+                  <Button mnemonicParsing="false" onAction="#openSettingRelational" prefHeight="35.0" prefWidth="208.0" text="Asignar evaluaciones">
+                     <font>
+                        <Font name="Arial Bold" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
+                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
+                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
+                  <Button mnemonicParsing="false" onAction="#openFollowUpView" prefHeight="35.0" prefWidth="218.0" text="Seguimiento de evaluaciones">
+                     <font>
+                        <Font name="Arial Bold" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
+                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: white; -fx-background-radius: 3px;" />
+                  <Separator prefHeight="15.0" prefWidth="216.0" visible="false" />
+                  <Separator prefHeight="82.0" prefWidth="216.0" visible="false" />
+                  <Button mnemonicParsing="false" onMouseClicked="#back" prefHeight="35.0" prefWidth="135.0" text="Volver">
+                     <font>
+                        <Font name="Arial Bold" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+               <effect>
+                  <DropShadow height="255.0" radius="127.0" spread="0.18" width="255.0" />
+               </effect>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <BorderPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </BorderPane.margin>
+            </VBox>
+         </left>
+      </BorderPane>
       <BorderPane fx:id="OptionsSettingWorkerView" layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" onMouseClicked="#openEvaluations" prefHeight="600.0" prefWidth="1000.0">
          <center>
             <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1054.0">
@@ -1363,12 +1347,12 @@
                               <Font name="Tw Cen MT" size="23.0" />
                            </font>
                         </TextField>
-                        <Text fill="WHITE" layoutX="730.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado:" wrappingWidth="251.5366725921631">
+                        <Text fill="WHITE" layoutX="730.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cedula:" wrappingWidth="251.5366725921631">
                            <font>
                               <Font name="Tw Cen MT" size="25.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="textFieldSearch_State" layoutX="730.0" layoutY="293.0" onKeyPressed="#searchWorker_State" prefHeight="27.0" prefWidth="284.0" style="-fx-text-fill: black;">
+                        <TextField fx:id="textFieldSearch_Ident" layoutX="730.0" layoutY="293.0" onKeyPressed="#searchWorker_Ident" prefHeight="27.0" prefWidth="284.0" style="-fx-text-fill: black;">
                            <font>
                               <Font name="Tw Cen MT" size="23.0" />
                            </font>

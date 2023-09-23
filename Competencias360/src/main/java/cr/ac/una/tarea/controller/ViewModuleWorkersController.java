@@ -151,12 +151,11 @@ public class ViewModuleWorkersController extends Controller implements Initializ
             if (workerDto.getActive().equals("S")) {
                 if (!temporal.getEstado()) {
                     if (isAdmi.getEstado()) {
+                         FlowController.worker=workerDto;
                         FlowController.getInstance().goMain("ViewOptionsModules");
                         admi = true;
                     } else {
                         FlowController.worker=workerDto;
-                        workerDto.getName();
-                        FlowController.worker.getName();
                         FlowController.getInstance().goMain("ViewOptionsEvaluations");
                         admi = false;
                     }

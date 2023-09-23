@@ -96,8 +96,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private TextField textFieldSearch_Pusername;
     @FXML
-    private TextField textFieldSearch_State;
-    @FXML
     private TableView<WorkerDto> tableViewSelWorkers;
     @FXML
     private TableColumn<WorkerDto, String> tableColSelAct;
@@ -237,10 +235,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private TextField textFieldSearchPE_Name;
     @FXML
-    private TextField textFieldSearchPE_Pusername;
-    @FXML
-    private TextField textFieldSearchPE_State;
-    @FXML
     private Text textNameWorker;
     EvaluatedsDto evaluatedDto = new EvaluatedsDto();
     WorkerDto selectedWorker = new WorkerDto();
@@ -324,6 +318,12 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private Text textInfoPro_DInicial;
     @FXML
     private Text textInfoPro_DFinal;
+    @FXML
+    private TextField textFieldSearchPE_Psurname;
+    @FXML
+    private TextField textFieldSearchPE_Ident;
+    @FXML
+    private TextField textFieldSearch_Ident;
 
     /**
      * Initializes the controller class.
@@ -539,18 +539,17 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         });
         filteredWorkers(filteredWorker);
     }
+        @FXML
+    private void searchWorker_Ident(KeyEvent event) {
+         FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
 
-    @FXML
-    private void searchWorker_State(KeyEvent event) {
-        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
-
-        textFieldSearch_State.textProperty().addListener((observable, value, newValue) -> {
+        textFieldSearch_Ident.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
                 if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (WorkerDto.getActives().toLowerCase().contains(search)) {
+                if (WorkerDto.getIden().toLowerCase().contains(search)) {
                     return true;
                 } else {
                     return false;
@@ -558,7 +557,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             });
         });
         filteredWorkers(filteredWorker);
-
     }
 
     private void filteredWorkers(FilteredList<WorkerDto> list) {
@@ -733,21 +731,25 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void OpenSelectWorkers(ActionEvent event) {
-        ImportListWorker();
-        listWorkers = getWorkersJobs(listWorkers, jobDto.getName());
-        importEvaluators();
-        ImportListWorkerEvaluated();
+        if (!JobMainField.getText().isEmpty()) {
+            ImportListWorker();
+            listWorkers = getWorkersJobs(listWorkers, jobDto.getName());
+            importEvaluators();
+            ImportListWorkerEvaluated();
 
-        workerList = FXCollections.observableArrayList(listWorkers);
-        this.tableViewWorkers.refresh();
-        this.tableViewWorkers.setItems(workerList);
-        textEvaJob.setText(jobDto.getName());
+            workerList = FXCollections.observableArrayList(listWorkers);
+            this.tableViewWorkers.refresh();
+            this.tableViewWorkers.setItems(workerList);
+            textEvaJob.setText(jobDto.getName());
 
-        listWorkersEvaluated = getWorkersJobs(listWorkersEvaluated, jobDto.getName());
-        ObservableList<WorkerDto> WorkerEvaluated = FXCollections.observableArrayList(listWorkersEvaluated);
-        this.tableViewSelWorkers.refresh();
-        this.tableViewSelWorkers.setItems(WorkerEvaluated);
-        OptionsSettingWorkerView.toFront();
+            listWorkersEvaluated = getWorkersJobs(listWorkersEvaluated, jobDto.getName());
+            ObservableList<WorkerDto> WorkerEvaluated = FXCollections.observableArrayList(listWorkersEvaluated);
+            this.tableViewSelWorkers.refresh();
+            this.tableViewSelWorkers.setItems(WorkerEvaluated);
+            OptionsSettingWorkerView.toFront();
+        } else {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Debes agregar un puesto.");
+        }
     }
 
     @FXML
@@ -807,7 +809,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                 evaluatedDto.setEsWorker(worker);
 
             } catch (Exception ex) {
-                //new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un trabajo en este campo.");
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un trabajo en este campo.");
             }
         }
 
@@ -1073,11 +1075,11 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
         for (int i = 0; i < listEvaluators.size(); i++) {
             for (int j = 0; j < listWorkers.size(); j++) {
-                if(listWorkers.get(j).getName()==listEvaluators.get(i).getName()){
-                listWorkers.remove(j);
+                if (listWorkers.get(j).getName() == listEvaluators.get(i).getName()) {
+                    listWorkers.remove(j);
                 }
             }
-            
+
         }
         workerList = FXCollections.observableArrayList(listWorkers);
         this.tableViewWorkersPE.refresh();
@@ -1087,8 +1089,12 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void openSelectEvaluators(ActionEvent event) {
-        ImportListWorker();
-        OptionsSettingEvaluatorsView.toFront();
+        if (!WorkerCREMainField.getText().isEmpty()) {
+            ImportListWorker();
+            OptionsSettingEvaluatorsView.toFront();
+        }else{
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Debes agregar un trabajador.");
+        }
 
     }
 
@@ -1166,5 +1172,72 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             //this.tableViewSelWorkers1.setItems(workersAss);*/
         }
     }
+
+    @FXML
+    private void searchWorkerPE_Name(KeyEvent event) {
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
+
+        textFieldSearchPE_Name.textProperty().addListener((observable, value, newValue) -> {
+            filteredWorker.setPredicate(WorkerDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (WorkerDto.getName().toLowerCase().contains(search)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredWorkerPE(filteredWorker);
+    }
+
+    @FXML
+    private void searchWorkerPE_Pusername(KeyEvent event) {
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
+
+        textFieldSearchPE_Psurname.textProperty().addListener((observable, value, newValue) -> {
+            filteredWorker.setPredicate(WorkerDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (WorkerDto.getPsurname().toLowerCase().contains(search)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredWorkerPE(filteredWorker);
+    }
+
+    @FXML
+    private void searchWorkerPE_Ident(KeyEvent event) {
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
+
+        textFieldSearchPE_Ident.textProperty().addListener((observable, value, newValue) -> {
+            filteredWorker.setPredicate(WorkerDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (WorkerDto.getIden().toLowerCase().contains(search)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredWorkerPE(filteredWorker);
+    }
+
+    private void filteredWorkerPE(FilteredList<WorkerDto> list) {
+        SortedList<WorkerDto> sorted = new SortedList<>(list);
+        sorted.comparatorProperty().bind(tableViewWorkersPE.comparatorProperty());
+        tableViewWorkersPE.setItems(sorted);
+    }
+
 
 }
