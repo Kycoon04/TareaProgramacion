@@ -8,13 +8,16 @@ import cr.ac.una.tarea.model.CompetenceDto;
 import cr.ac.una.tarea.model.EvaJobCompetenceDto;
 import cr.ac.una.tarea.model.EvaluatedsDto;
 import cr.ac.una.tarea.model.EvaluatorDto;
+import cr.ac.una.tarea.model.EvaluatorResultsDto;
 import cr.ac.una.tarea.model.ProcesosevaDto;
 import cr.ac.una.tarea.model.WorkerDto;
 import cr.ac.una.tarea.service.CompetencesService;
 import cr.ac.una.tarea.service.EvaluatedService;
+import cr.ac.una.tarea.service.EvaluatorResultsService;
 import cr.ac.una.tarea.service.EvaluatorService;
 import cr.ac.una.tarea.service.JobsCompetencesService;
 import cr.ac.una.tarea.service.ProcesoevaService;
+import cr.ac.una.tarea.soap.Evaluators;
 import cr.ac.una.tarea.soap.ProcesoevaDto;
 import cr.ac.una.tarea.util.FlowController;
 import cr.ac.una.tarea.util.Mensaje;
@@ -173,6 +176,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     private GridPane gridHeader;
     double startX, startY;
     double xTab, yTab;
+    EvaluatorResultsDto evaluatorResultsDto = new EvaluatorResultsDto();
 
     /**
      * Initializes the controller class.
@@ -487,7 +491,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                 Respuesta respuesta = service.getjCompetences();
                 listCompetences = (List<EvaJobCompetenceDto>) respuesta.getResultado("JobsCompetences");
                 listCompetences = listCompetences.stream().filter(x -> x.getJobs().getJsName().equals(evaluatorDto.getEvsEvaluated().getEsWorker().getWrJob().getJsName())).toList();
-                
+
                 if (listCompetences.size() == 0) {
                     OptionsSelectEvaluateView.toFront();
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No hay competencias para esta evaluacion.");
@@ -538,20 +542,29 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
     @FXML
     private void Summit(ActionEvent event) {
+        EvaluatorResultsService service = new EvaluatorResultsService();
         for (Node node : grid.getChildren()) {
             if (node instanceof Button) {
                 Integer colIndex = GridPane.getColumnIndex(node);
                 Integer rowIndex = GridPane.getRowIndex(node);
 
-                // Si los índices son null, asignarles 0
                 colIndex = colIndex == null ? 0 : colIndex;
                 rowIndex = rowIndex == null ? 0 : rowIndex;
 
-                // Si el nodo es null, ignorarlo
                 if (node == null) {
                     continue;
                 } else {
-                    System.out.println("La celda en la columna osea la competencia: " + listCompetences.get(colIndex).getJxcCompetence().getCsName() + ", Nota: " + Math.abs((rowIndex - 4)) + ".");
+                    evaluatorResultsDto.setErCompe(listCompetences.get(colIndex).getJxcCompetence());
+                    evaluatorResultsDto.setNota(Math.abs((rowIndex - 4)));
+                    Evaluators evaluator = new Evaluators(); 
+                    evaluator.setEvsId(evaluatorDto.getEvsId());
+                    evaluator.setEvsState(evaluatorDto.getEvsState());
+                    evaluator.setEvsWorker(evaluatorDto.getEvsWorker());
+                    evaluator.setEvsFeedback(evaluator.getEvsFeedback());
+                    evaluator.setEvsEvaluated(evaluator.getEvsEvaluated());
+                    evaluator.setEvsConnection(evaluator.getEvsConnection());
+                    evaluatorResultsDto.setErEvaluator(evaluator);
+                    service.SaveEvaluatorResult(evaluatorResultsDto);
                 }
             }
         }
