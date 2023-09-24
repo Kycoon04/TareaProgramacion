@@ -508,7 +508,24 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                         newConstraints.setPrefWidth(originalConstraints.getPrefWidth());
                         grid.getColumnConstraints().add(newConstraints);
                     }
+                    originalConstraints = grid.getColumnConstraints().get(0);
 
+                    for (int i = 1; i < listCompetences.size(); i++) {
+
+                        ColumnConstraints newConstraints = new ColumnConstraints();
+                        newConstraints.setFillWidth(originalConstraints.isFillWidth());
+                        newConstraints.setHalignment(originalConstraints.getHalignment());
+                        newConstraints.setHgrow(originalConstraints.getHgrow());
+                        newConstraints.setMaxWidth(originalConstraints.getMaxWidth());
+                        newConstraints.setMinWidth(originalConstraints.getMinWidth());
+                        newConstraints.setPercentWidth(originalConstraints.getPercentWidth());
+                        newConstraints.setPrefWidth(originalConstraints.getPrefWidth());
+                        gridHeader.getColumnConstraints().add(newConstraints);
+                    }
+                    for (int i = 0; i < listCompetences.size(); i++) {
+                        Label label = new Label(listCompetences.get(i).getJxcCompetence().getCsName());
+                        gridHeader.add(label, i, 0);
+                    }
                     OptionsEvaluationView.toFront();
                 }
             } catch (Exception ex) {
@@ -532,8 +549,17 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                 botonesParaEliminar.add((Button) node);
             }
         }
-
-        // Elimina los botones después de completar la iteración principal
+        ColumnConstraints originalConstraints = grid.getColumnConstraints().get(0);
+        
+        grid.getColumnConstraints().clear();
+        grid.getColumnConstraints().add( originalConstraints);
+        grid.setGridLinesVisible(true);
+        
+        gridHeader.getColumnConstraints().clear();
+        gridHeader.getColumnConstraints().add( originalConstraints);
+        gridHeader.setGridLinesVisible(true);
+        textEvaluation_Feedback.setText(" ");
+        
         for (Button boton : botonesParaEliminar) {
             grid.getChildren().remove(boton);
         }
@@ -556,13 +582,13 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                     continue;
                 } else {
                     evaluatorResultsDto.setErCompe(listCompetences.get(colIndex).getJxcCompetence());
-                    evaluatorResultsDto.setNota(Math.abs((rowIndex - 4)));  
-                    
+                    evaluatorResultsDto.setNota(Math.abs((rowIndex - 4)));
+
                     evaluatorDto.setEvsFeedback(textEvaluation_Feedback.getText());
                     evaluatorDto.setEvsState("S");
                     serviceEvaluator.SaveEvaluator(evaluatorDto, procesoDto);
-                    
-                    Evaluators evaluator = new Evaluators(); 
+
+                    Evaluators evaluator = new Evaluators();
                     evaluator.setEvsId(evaluatorDto.getEvsId());
                     evaluator.setEvsState(evaluatorDto.getEvsState());
                     evaluator.setEvsWorker(evaluatorDto.getEvsWorker());
