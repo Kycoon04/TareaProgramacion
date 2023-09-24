@@ -571,37 +571,64 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         OptionsSelectEvaluateView.toFront();
     }
 
-    @FXML
+     @FXML
     private void Summit(ActionEvent event) {
         EvaluatorResultsService service = new EvaluatorResultsService();
         EvaluatorService serviceEvaluator = new EvaluatorService();
+        boolean isAnyColumnEmpty = false;
+        int Aux[] = new int[listCompetences.size()];
+        int k=0;
+        
         for (Node node : grid.getChildren()) {
+            
             if (node instanceof Button) {
                 Integer colIndex = GridPane.getColumnIndex(node);
                 Integer rowIndex = GridPane.getRowIndex(node);
-
-                colIndex = colIndex == null ? 0 : colIndex;
-                rowIndex = rowIndex == null ? 0 : rowIndex;
-
+                
                 if (node == null) {
                     continue;
-                } else {
-                    evaluatorResultsDto.setErCompe(listCompetences.get(colIndex).getJxcCompetence());
-                    evaluatorResultsDto.setNota(Math.abs((rowIndex - 4)));
+                }else{
+                Aux[k-1]=1;
+                }
+            }
+            k++;
+        }
+        for (int i = 0; i < listCompetences.size(); i++) {
+            if(Aux[i]==0){
+            isAnyColumnEmpty=true;
+            }
+        }
+        if (isAnyColumnEmpty) {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Hay una competencia vacia");
+        } else {
+            for (Node node : grid.getChildren()) {
+                if (node instanceof Button) {
+                    Integer colIndex = GridPane.getColumnIndex(node);
+                    Integer rowIndex = GridPane.getRowIndex(node);
 
-                    evaluatorDto.setEvsFeedback(textEvaluation_Feedback.getText());
-                    evaluatorDto.setEvsState("S");
-                    serviceEvaluator.SaveEvaluator(evaluatorDto, procesoDto);
+                    colIndex = colIndex == null ? 0 : colIndex;
+                    rowIndex = rowIndex == null ? 0 : rowIndex;
 
-                    Evaluators evaluator = new Evaluators();
-                    evaluator.setEvsId(evaluatorDto.getEvsId());
-                    evaluator.setEvsState(evaluatorDto.getEvsState());
-                    evaluator.setEvsWorker(evaluatorDto.getEvsWorker());
-                    evaluator.setEvsFeedback(evaluator.getEvsFeedback());
-                    evaluator.setEvsEvaluated(evaluator.getEvsEvaluated());
-                    evaluator.setEvsConnection(evaluator.getEvsConnection());
-                    evaluatorResultsDto.setErEvaluator(evaluator);
-                    service.SaveEvaluatorResult(evaluatorResultsDto);
+                    if (node == null) {
+                        continue;
+                    } else {
+                        evaluatorResultsDto.setErCompe(listCompetences.get(colIndex).getJxcCompetence());
+                        evaluatorResultsDto.setNota(Math.abs((rowIndex - 4)));
+
+                        evaluatorDto.setEvsFeedback(textEvaluation_Feedback.getText());
+                        evaluatorDto.setEvsState("S");
+                        serviceEvaluator.SaveEvaluator(evaluatorDto, procesoDto);
+
+                        Evaluators evaluator = new Evaluators();
+                        evaluator.setEvsId(evaluatorDto.getEvsId());
+                        evaluator.setEvsState(evaluatorDto.getEvsState());
+                        evaluator.setEvsWorker(evaluatorDto.getEvsWorker());
+                        evaluator.setEvsFeedback(evaluator.getEvsFeedback());
+                        evaluator.setEvsEvaluated(evaluator.getEvsEvaluated());
+                        evaluator.setEvsConnection(evaluator.getEvsConnection());
+                        evaluatorResultsDto.setErEvaluator(evaluator);
+                        service.SaveEvaluatorResult(evaluatorResultsDto);
+                    }
                 }
             }
         }
