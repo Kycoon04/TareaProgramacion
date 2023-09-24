@@ -34,15 +34,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -241,6 +246,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     WorkerDto selectedWorker = new WorkerDto();
     List<WorkerDto> listWorkers = new ArrayList<>();
     List<WorkerDto> listWorkersCopy = new ArrayList<>();
+    EvaluatorDto evaluatorDto;
 
     List<WorkerDto> listWorkersEvaluated = new ArrayList<>();
     List<EvaluatorDto> listEvaluators = new ArrayList<>();
@@ -328,6 +334,32 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private TextField textFieldEvaFU_Ident;
     @FXML
     private TextField textFieldEvaFU_State;
+    @FXML
+    private BorderPane OptionsEvaluationResView;
+    @FXML
+    private Text textEvaluation_Process;
+    @FXML
+    private Text textEvaluation_Name;
+    @FXML
+    private Text textEvaluation_Job;
+    @FXML
+    private Text textEvaluation_Period;
+    @FXML
+    private Text textEvaluation_Apli;
+    @FXML
+    private TextArea textEvaluation_Feedback;
+    @FXML
+    private Text textEvaluation_Evaluator;
+    @FXML
+    private AnchorPane anchorDrag;
+    @FXML
+    private GridPane grid;
+    @FXML
+    private GridPane gridHeader;
+    @FXML
+    private Button btnDragEva;
+    @FXML
+    private ImageView check;
 
     /**
      * Initializes the controller class.
@@ -577,8 +609,8 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         listEvaluators = (List<EvaluatorDto>) respuesta.getResultado("Evaluators");
         for (int i = 0; i < listEvaluators.size(); i++) {
             for (int j = 0; j < listWorkers.size(); j++) {
-                if (listWorkers.get(j).getName().equals(listEvaluators.get(i).getEvsWorker().getWrName()) && 
-                    listWorkers.get(j).getName().equals(listEvaluators.get(i).getEvsEvaluated().getEsWorker().getWrName())) {
+                if (listWorkers.get(j).getName().equals(listEvaluators.get(i).getEvsWorker().getWrName())
+                        && listWorkers.get(j).getName().equals(listEvaluators.get(i).getEvsEvaluated().getEsWorker().getWrName())) {
                     listWorkers.remove(j);
                 }
             }
@@ -1342,6 +1374,42 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         SortedList<EvaluatorDto> sorted = new SortedList<>(list);
         sorted.comparatorProperty().bind(tableViewEvaluatorsFU.comparatorProperty());
         tableViewEvaluatorsFU.setItems(sorted);
+    }
+
+    @FXML
+    private void evaluatorResClicked(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            evaluatorDto=tableViewEvaluatorsFU.getSelectionModel().getSelectedItem();
+            textEvaluation_Process.setText(procesoDto.getName());
+            textEvaluation_Name.setText(selectedWorker.getName()+" "+selectedWorker.getPsurname()+" "+selectedWorker.getSsurname());
+            textEvaluation_Job.setText(selectedWorker.getJob().getJsName());
+            textEvaluation_Period.setText(procesoDto.getInicialperiod().getYear() + " - " + procesoDto.getFinalperiod().getYear());
+            textEvaluation_Apli.setText(procesoDto.getApplication().toString());
+            textEvaluation_Evaluator.setText("Evaluador: "+ evaluatorDto.getName()+" "+evaluatorDto.getPsurname()+" "+evaluatorDto.getSsurname());
+            OptionsEvaluationResView.toFront();
+        }
+
+    }
+
+    @FXML
+    private void backEvaluation(ActionEvent event) {
+        viewFollowUpInfoEvd.toFront();
+    }
+
+    @FXML
+    private void Summit(ActionEvent event) {
+    }
+
+    @FXML
+    private void delete(MouseEvent event) {
+    }
+
+    @FXML
+    private void getxy(MouseEvent event) {
+    }
+
+    @FXML
+    private void mouse(MouseEvent event) {
     }
 
 }

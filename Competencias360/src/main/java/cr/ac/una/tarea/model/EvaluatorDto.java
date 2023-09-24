@@ -105,6 +105,9 @@ public class EvaluatorDto {
       public String getPsurname() {
         return evsWorker.getWrPsurname();
     }
+       public String getSsurname() {
+        return evsWorker.getWrSsurname();
+    }
       public String getEmail() {
         return evsWorker.getWrEmail();
     }
