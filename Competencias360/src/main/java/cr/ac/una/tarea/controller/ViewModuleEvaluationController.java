@@ -372,6 +372,26 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private Button btnDragEva;
     @FXML
     private ImageView check;
+    @FXML
+    private BorderPane OptionsEvaluationGeneralView;
+    @FXML
+    private Text textEvaluationGen_Process;
+    @FXML
+    private Text textEvaluationGen_Name;
+    @FXML
+    private Text textEvaluationGen_Job;
+    @FXML
+    private Text textEvaluationGen_Period;
+    @FXML
+    private Text textEvaluationGen_Apli;
+    @FXML
+    private TextArea textEvaluationGen_Feedback;
+    @FXML
+    private AnchorPane anchorDrag1;
+    @FXML
+    private GridPane gridResGeneral;
+    @FXML
+    private GridPane gridHeaderResGeneral;
 
     /**
      * Initializes the controller class.
@@ -1506,5 +1526,21 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void mouse(MouseEvent event) {
+    }
+
+    @FXML
+    private void openEvaluationGeneral(MouseEvent event) {
+
+        textEvaluationGen_Process.setText(procesoDto.getName());
+        textEvaluationGen_Name.setText(selectedWorker.getName() + " " + selectedWorker.getPsurname() + " " + selectedWorker.getSsurname());
+        textEvaluationGen_Job.setText(selectedWorker.getJob().getJsName());
+        textEvaluationGen_Period.setText(procesoDto.getInicialperiod().getYear() + " - " + procesoDto.getFinalperiod().getYear());
+        textEvaluationGen_Apli.setText(procesoDto.getApplication().toString());
+        OptionsEvaluationGeneralView.toFront();
+    }
+
+    @FXML
+    private void backEvaluationGen(ActionEvent event) {
+        OptionsFollowUpView.toFront();
     }
 }
