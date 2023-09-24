@@ -8,9 +8,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for GetEvaluatorByFeedBack complex type.
+ * <p>Clase Java para GetEvaluatorByFeedBack complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="GetEvaluatorByFeedBack">
@@ -36,7 +36,7 @@ public class GetEvaluatorByFeedBack {
     protected String feedBack;
 
     /**
-     * Gets the value of the feedBack property.
+     * Obtiene el valor de la propiedad feedBack.
      * 
      * @return
      *     possible object is
@@ -48,7 +48,7 @@ public class GetEvaluatorByFeedBack {
     }
 
     /**
-     * Sets the value of the feedBack property.
+     * Define el valor de la propiedad feedBack.
      * 
      * @param value
      *     allowed object is

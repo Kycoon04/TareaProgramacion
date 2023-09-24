@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for jobsCompetencesDto complex type.
+ * <p>Clase Java para jobsCompetencesDto complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="jobsCompetencesDto">
@@ -43,7 +43,7 @@ public class JobsCompetencesDto {
     protected Integer jxcJob;
 
     /**
-     * Gets the value of the jobs property.
+     * Obtiene el valor de la propiedad jobs.
      * 
      * @return
      *     possible object is
@@ -55,7 +55,7 @@ public class JobsCompetencesDto {
     }
 
     /**
-     * Sets the value of the jobs property.
+     * Define el valor de la propiedad jobs.
      * 
      * @param value
      *     allowed object is
@@ -67,7 +67,7 @@ public class JobsCompetencesDto {
     }
 
     /**
-     * Gets the value of the jxcCompetence property.
+     * Obtiene el valor de la propiedad jxcCompetence.
      * 
      * @return
      *     possible object is
@@ -79,7 +79,7 @@ public class JobsCompetencesDto {
     }
 
     /**
-     * Sets the value of the jxcCompetence property.
+     * Define el valor de la propiedad jxcCompetence.
      * 
      * @param value
      *     allowed object is
@@ -91,7 +91,7 @@ public class JobsCompetencesDto {
     }
 
     /**
-     * Gets the value of the jxcIdcojob property.
+     * Obtiene el valor de la propiedad jxcIdcojob.
      * 
      * @return
      *     possible object is
@@ -103,7 +103,7 @@ public class JobsCompetencesDto {
     }
 
     /**
-     * Sets the value of the jxcIdcojob property.
+     * Define el valor de la propiedad jxcIdcojob.
      * 
      * @param value
      *     allowed object is
@@ -115,7 +115,7 @@ public class JobsCompetencesDto {
     }
 
     /**
-     * Gets the value of the jxcJob property.
+     * Obtiene el valor de la propiedad jxcJob.
      * 
      * @return
      *     possible object is
@@ -127,7 +127,7 @@ public class JobsCompetencesDto {
     }
 
     /**
-     * Sets the value of the jxcJob property.
+     * Define el valor de la propiedad jxcJob.
      * 
      * @param value
      *     allowed object is

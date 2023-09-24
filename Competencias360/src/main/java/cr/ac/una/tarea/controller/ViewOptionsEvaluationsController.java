@@ -181,31 +181,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     double xTab, yTab;
     EvaluatorResultsDto evaluatorResultsDto = new EvaluatorResultsDto();
     boolean delet = false;
-
-    @FXML
-    private void mouse(MouseEvent event) {
-    }
-
-    @FXML
-    private void delete(MouseEvent event) {
-       List<Button> botonesParaEliminar = new ArrayList<>();
-        ObservableList<Node> children = grid.getChildren();
-
-        for (Node node : children) {
-            if (node instanceof Button) {
-                botonesParaEliminar.add((Button) node);
-            }
-        }
-
-        for (Button boton : botonesParaEliminar) {
-            grid.getChildren().remove(boton);
-        }
-         
-    }
-
-    /**
-     * Initializes the controller class.
-     */
     class cordenadas {
 
         double x, y;
@@ -242,6 +217,28 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         this.tableColEvaluated_State.setCellValueFactory(new PropertyValueFactory("EvsStateList"));
         mouseBton();
     }
+    
+      @FXML
+    private void mouse(MouseEvent event) {
+    }
+
+    @FXML
+    private void delete(MouseEvent event) {
+       List<Button> botonesParaEliminar = new ArrayList<>();
+        ObservableList<Node> children = grid.getChildren();
+
+        for (Node node : children) {
+            if (node instanceof Button) {
+                botonesParaEliminar.add((Button) node);
+            }
+        }
+
+        for (Button boton : botonesParaEliminar) {
+            grid.getChildren().remove(boton);
+        }
+         
+    }
+
 
     private void mouseBton() {
         btnDragEva.setOnMousePressed((t) -> {
