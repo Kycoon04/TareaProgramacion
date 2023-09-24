@@ -339,6 +339,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         choiceBoxConEvaluator.getItems().addAll(connection);
         ImportListProcesoEva();
         OptionsEvaConfigView.toFront();
+        procesoDto = new ProcesosevaDto();
 
         this.tableColActPE.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColIdentifPE.setCellValueFactory(new PropertyValueFactory("iden"));

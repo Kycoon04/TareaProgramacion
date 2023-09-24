@@ -58,9 +58,6 @@ public class CharacteristicService {
             List<CharacteristicDto> jobsWs = cliente.getCharacteristics();
             if (!jobsWs.isEmpty()) {
                 List<CharacteristicsDto> characteristics = new ArrayList<>();
-
-                System.out.println(jobsWs.get(0).getCcComid());
-
                 for (CharacteristicDto job : jobsWs) {
                     CharacteristicsDto characteristicDto = new CharacteristicsDto();
                     characteristicDto.setCcComid(job.getCcComid());
