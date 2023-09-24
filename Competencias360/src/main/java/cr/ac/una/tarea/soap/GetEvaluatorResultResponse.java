@@ -10,16 +10,16 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for GetCompetencesResponse complex type.
+ * <p>Java class for getEvaluatorResultResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
- * <complexType name="GetCompetencesResponse">
+ * <complexType name="getEvaluatorResultResponse">
  *   <complexContent>
  *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       <sequence>
- *         <element name="return" type="{http://controller.tareaws.una.ac.cr/}competencesDto" maxOccurs="unbounded" minOccurs="0"/>
+ *         <element name="return" type="{http://controller.tareaws.una.ac.cr/}evaluatorResultDto" maxOccurs="unbounded" minOccurs="0"/>
  *       </sequence>
  *     </restriction>
  *   </complexContent>
@@ -29,13 +29,13 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetCompetencesResponse", propOrder = {
+@XmlType(name = "getEvaluatorResultResponse", propOrder = {
     "_return"
 })
-public class GetCompetencesResponse {
+public class GetEvaluatorResultResponse {
 
     @XmlElement(name = "return")
-    protected List<CompetencesDto> _return;
+    protected List<EvaluatorResultDto> _return;
 
     /**
      * Gets the value of the return property.
@@ -55,13 +55,13 @@ public class GetCompetencesResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link CompetencesDto }
+     * {@link EvaluatorResultDto }
      * 
      * 
      * @return
      *     The value of the return property.
      */
-    public List<CompetencesDto> getReturn() {
+    public List<EvaluatorResultDto> getReturn() {
         if (_return == null) {
             _return = new ArrayList<>();
         }

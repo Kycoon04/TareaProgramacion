@@ -2,6 +2,7 @@ package cr.ac.una.tareaws.service;
 
 import cr.ac.una.tareaws.model.EvaluatorResult;
 import cr.ac.una.tareaws.model.EvaluatorResultDto;
+import cr.ac.una.tareaws.model.Jobs;
 import cr.ac.una.tareaws.util.Respuesta;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
@@ -11,19 +12,19 @@ import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
 @LocalBean
 public class EvaluatorResultService {
-    
+
     private static final Logger LOG = Logger.getLogger(EvaluatorResultService.class.getName());
     @PersistenceContext(unitName = "cr.ac.una.tareaws_Competencias360Ws_war_1.0-SNAPSHOTPU")
     private EntityManager em;
-    
-    
-     public Respuesta getEvaluatorResultById(Integer id) {
+
+    public Respuesta getEvaluatorResultById(Integer id) {
         try {
             Query qryEvaluator = em.createNamedQuery("EvaluatorResult.findByErId", EvaluatorResult.class);
             qryEvaluator.setParameter("erId", id);
@@ -38,7 +39,7 @@ public class EvaluatorResultService {
             return new Respuesta(false, "Error obteniendo el EvaluatorResult.", "getEvaluator " + ex.getMessage());
         }
     }
-    
+
     public Respuesta getEvaluatorResultByGrade(Integer nota) {
         try {
             Query qryEvaluator = em.createNamedQuery("EvaluatorResult.findByErNota", EvaluatorResult.class);
@@ -54,7 +55,7 @@ public class EvaluatorResultService {
             return new Respuesta(false, "Error obteniendo el EvaluatorResult.", "getEvaluator " + ex.getMessage());
         }
     }
-           
+
     public Respuesta saveEvaluatorResult(EvaluatorResultDto evaluatorResultDto) {
         EvaluatorResult evaluatorResult;
         try {
@@ -76,8 +77,8 @@ public class EvaluatorResultService {
             return new Respuesta(false, "Ocurrio un error al guardar el EvaluatorResult.", "guardarEvaluatorResult " + ex.getMessage());
         }
     }
-    
-        public Respuesta DeleteEvaluatorResult(Integer id) {
+
+    public Respuesta DeleteEvaluatorResult(Integer id) {
         try {
             EvaluatorResult evaluatorResult;
             if (id != null && id > 0) {
@@ -99,5 +100,16 @@ public class EvaluatorResultService {
             return new Respuesta(false, "Ocurrio un error al eliminar el resultado del EvaluatorResult,", "eliminarEvaluatorResult " + ex.getMessage());
         }
     }
-    
+    public Respuesta getEvaluators() {
+        try {
+            Query qryEvaluator = em.createNamedQuery("EvaluatorResult.findAll", EvaluatorResult.class);
+            List<EvaluatorResult> evaluator = qryEvaluator.getResultList();
+            return new Respuesta(true, "", "", "EvaluatorResult", evaluator);
+        } catch (NoResultException ex) {
+            return new Respuesta(false, "No hay Evaluato en la base", "getEvaluators NoResultException");
+        } catch (Exception ex) {
+            Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error obteniendo Evaluators", ex);
+            return new Respuesta(false, "Error al obtener Evaluators", "getEvaluators" + ex.getMessage());
+        }
+    }
 }

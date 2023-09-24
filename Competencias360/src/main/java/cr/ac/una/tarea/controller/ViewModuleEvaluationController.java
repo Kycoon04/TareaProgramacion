@@ -4,13 +4,19 @@
  */
 package cr.ac.una.tarea.controller;
 
+import cr.ac.una.tarea.model.CharacteristicsDto;
+import cr.ac.una.tarea.model.EvaJobCompetenceDto;
 import cr.ac.una.tarea.model.EvaluatedsDto;
 import cr.ac.una.tarea.model.EvaluatorDto;
+import cr.ac.una.tarea.model.EvaluatorResultsDto;
 import cr.ac.una.tarea.model.JobDto;
 import cr.ac.una.tarea.model.ProcesosevaDto;
 import cr.ac.una.tarea.model.WorkerDto;
+import cr.ac.una.tarea.service.CharacteristicService;
 import cr.ac.una.tarea.service.EvaluatedService;
+import cr.ac.una.tarea.service.EvaluatorResultsService;
 import cr.ac.una.tarea.service.EvaluatorService;
+import cr.ac.una.tarea.service.JobsCompetencesService;
 import cr.ac.una.tarea.service.JobsService;
 import cr.ac.una.tarea.service.ProcesoevaService;
 import cr.ac.una.tarea.service.WorkersService;
@@ -33,20 +39,25 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -116,9 +127,10 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private TableColumn<WorkerDto, String> tableColSelEmail;
     @FXML
     private TableColumn<WorkerDto, String> tableColSelAdmi;
-
+    private List<EvaluatorResultsDto> evaluatorsDto;
     private ObservableList<WorkerDto> workerList;
     private ObservableList<WorkerDto> workerListCopy;
+    private List<EvaJobCompetenceDto> listCompetences = new ArrayList<>();
     private ObservableList<WorkerDto> workerListCRE;
     private ObservableList<JobDto> jobsList;
     private ObservableList<ProcesosevaDto> procesosList;
@@ -1148,7 +1160,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         if (event.getClickCount() == 2) {
             try {
                 procesoDto = tableViewProEva.getSelectionModel().getSelectedItem();
-                System.out.println(procesoDto.getId());
 
                 TitleEvaField.setText(procesoDto.getName());
                 choiceBoxStateEva.setValue(procesoDto.getState());
@@ -1289,7 +1300,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private void eliminarConEva(MouseEvent event) {
         eliminar = true;
-        System.out.println("elimina");
     }
 
     @FXML
@@ -1297,7 +1307,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         EvaluatorDto ev = new EvaluatorDto();
         if (event.getClickCount() == 1) {
             if (eliminar == true) {
-                System.out.println("sdfsf");
                 ev = tableViewSelWorkersPE.getSelectionModel().getSelectedItem();
                 EvaluatorService valor = new EvaluatorService();
                 valor.eliminarEvaluator(ev.getEvsId());
@@ -1378,14 +1387,80 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void evaluatorResClicked(MouseEvent event) {
+        CharacteristicService serviceChara = new CharacteristicService();
+        Respuesta respuestaChara = serviceChara.getCharacteristic();
+        String concatenatedNames = "";
+        List<CharacteristicsDto> characteristics = (List<CharacteristicsDto>) respuestaChara.getResultado("Characteristic");
+        List<CharacteristicsDto> aux;
+
         if (event.getClickCount() == 2) {
-            evaluatorDto=tableViewEvaluatorsFU.getSelectionModel().getSelectedItem();
+            JobsCompetencesService service = new JobsCompetencesService();
+            evaluatorDto = tableViewEvaluatorsFU.getSelectionModel().getSelectedItem();
             textEvaluation_Process.setText(procesoDto.getName());
-            textEvaluation_Name.setText(selectedWorker.getName()+" "+selectedWorker.getPsurname()+" "+selectedWorker.getSsurname());
+            textEvaluation_Name.setText(selectedWorker.getName() + " " + selectedWorker.getPsurname() + " " + selectedWorker.getSsurname());
             textEvaluation_Job.setText(selectedWorker.getJob().getJsName());
             textEvaluation_Period.setText(procesoDto.getInicialperiod().getYear() + " - " + procesoDto.getFinalperiod().getYear());
             textEvaluation_Apli.setText(procesoDto.getApplication().toString());
-            textEvaluation_Evaluator.setText("Evaluador: "+ evaluatorDto.getName()+" "+evaluatorDto.getPsurname()+" "+evaluatorDto.getSsurname());
+            textEvaluation_Evaluator.setText("Evaluador: " + evaluatorDto.getName() + " " + evaluatorDto.getPsurname() + " " + evaluatorDto.getSsurname());
+            Respuesta respuesta = service.getjCompetences();
+            listCompetences = (List<EvaJobCompetenceDto>) respuesta.getResultado("JobsCompetences");
+            listCompetences = listCompetences.stream().filter(x -> x.getJobs().getJsName().equals(evaluatorDto.getEvsEvaluated().getEsWorker().getWrJob().getJsName())).toList();
+            ColumnConstraints originalConstraints = grid.getColumnConstraints().get(0);
+            for (int i = 1; i < listCompetences.size(); i++) {
+                ColumnConstraints newConstraints = new ColumnConstraints();
+                newConstraints.setFillWidth(originalConstraints.isFillWidth());
+                newConstraints.setHalignment(originalConstraints.getHalignment());
+                newConstraints.setHgrow(originalConstraints.getHgrow());
+                newConstraints.setMaxWidth(originalConstraints.getMaxWidth());
+                newConstraints.setMinWidth(originalConstraints.getMinWidth());
+                newConstraints.setPercentWidth(originalConstraints.getPercentWidth());
+                newConstraints.setPrefWidth(originalConstraints.getPrefWidth());
+                grid.getColumnConstraints().add(newConstraints);
+            }
+            originalConstraints = grid.getColumnConstraints().get(0);
+
+            for (int i = 1; i < listCompetences.size(); i++) {
+
+                ColumnConstraints newConstraints = new ColumnConstraints();
+                newConstraints.setFillWidth(originalConstraints.isFillWidth());
+                newConstraints.setHalignment(originalConstraints.getHalignment());
+                newConstraints.setHgrow(originalConstraints.getHgrow());
+                newConstraints.setMaxWidth(originalConstraints.getMaxWidth());
+                newConstraints.setMinWidth(originalConstraints.getMinWidth());
+                newConstraints.setPercentWidth(originalConstraints.getPercentWidth());
+                newConstraints.setPrefWidth(originalConstraints.getPrefWidth());
+                gridHeader.getColumnConstraints().add(newConstraints);
+            }
+            for (int i = 0; i < listCompetences.size(); i++) {
+                final int Cant = i;
+                aux = characteristics.stream().filter(x -> x.getCcComid().getCsName().equals(listCompetences.get(Cant).getJxcCompetence().getCsName())).toList();
+
+                for (int j = 0; j < aux.size(); j++) {
+                    concatenatedNames += (aux.get(j).getCcName() + " ");
+                }
+
+                Label label = new Label(listCompetences.get(i).getJxcCompetence().getCsName());
+                String fontFamily = "Tw Cen MT";
+                double fontSize = 23.0;
+                String textColor = "white";
+                label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;" + "-fx-text-fill: " + textColor + ";");
+                label.setTooltip(new Tooltip(concatenatedNames));
+                gridHeader.add(label, i, 0);
+                concatenatedNames = "";
+            }
+            EvaluatorResultsService evaluatorResultService = new EvaluatorResultsService();
+            respuesta = evaluatorResultService.getEvaluatorResults();
+            evaluatorsDto = (List<EvaluatorResultsDto>) respuesta.getResultado("EvaluatorsDto");
+            evaluatorsDto = evaluatorsDto.stream().filter(x -> x.getErEvaluator().getEvsId().equals(evaluatorDto.getEvsId())).toList();
+
+            for (int i = 0; i < evaluatorsDto.size(); i++) {
+                ImageView checkInstance = new ImageView(check.getImage());
+                checkInstance.setFitHeight(50);
+                checkInstance.setFitWidth(50);
+                grid.add(checkInstance, i, Math.abs(evaluatorsDto.get(i).getNota() - 4));
+                textEvaluation_Feedback.setText(evaluatorsDto.get(i).getErEvaluator().getEvsFeedback());
+            }
+
             OptionsEvaluationResView.toFront();
         }
 
@@ -1393,7 +1468,28 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void backEvaluation(ActionEvent event) {
-        viewFollowUpInfoEvd.toFront();
+        List<ImageView> botonesParaEliminar = new ArrayList<>();
+        ObservableList<Node> children = grid.getChildren();
+
+        for (Node node : children) {
+            if (node instanceof ImageView) {
+                botonesParaEliminar.add((ImageView) node);
+            }
+        }
+        ColumnConstraints originalConstraints = grid.getColumnConstraints().get(0);
+        grid.getColumnConstraints().clear();
+        grid.getColumnConstraints().add(originalConstraints);
+
+        gridHeader.getColumnConstraints().clear();
+        gridHeader.getColumnConstraints().add(originalConstraints);
+        grid.setGridLinesVisible(true);
+        gridHeader.setGridLinesVisible(true);
+
+        textEvaluation_Feedback.setText(" ");
+        for (ImageView boton : botonesParaEliminar) {
+            grid.getChildren().remove(boton);
+        }
+        OptionsFollowUpView.toFront();
     }
 
     @FXML
@@ -1411,5 +1507,4 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private void mouse(MouseEvent event) {
     }
-
 }

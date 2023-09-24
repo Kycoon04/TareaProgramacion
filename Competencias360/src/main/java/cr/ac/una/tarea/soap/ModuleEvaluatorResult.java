@@ -1,6 +1,7 @@
 
 package cr.ac.una.tarea.soap;
 
+import java.util.List;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
@@ -27,21 +28,6 @@ public interface ModuleEvaluatorResult {
 
     /**
      * 
-     * @param id
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "Delete")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
-    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/DeleteResponse")
-    public Boolean delete(
-        @WebParam(name = "Id", targetNamespace = "")
-        Integer id);
-
-    /**
-     * 
      * @param nota
      * @return
      *     returns cr.ac.una.tarea.soap.EvaluatorResultDto
@@ -59,6 +45,21 @@ public interface ModuleEvaluatorResult {
         Integer nota)
         throws IOException_Exception
     ;
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "RegisterEvaluatorResult")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "RegisterEvaluatorResult", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterEvaluatorResult")
+    @ResponseWrapper(localName = "RegisterEvaluatorResultResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterEvaluatorResultResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/RegisterEvaluatorResultRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/RegisterEvaluatorResultResponse")
+    public Boolean registerEvaluatorResult(
+        @WebParam(name = "arg0", targetNamespace = "")
+        EvaluatorResultDto arg0);
 
     /**
      * 
@@ -82,17 +83,34 @@ public interface ModuleEvaluatorResult {
 
     /**
      * 
-     * @param arg0
+     * @param id
      * @return
      *     returns java.lang.Boolean
      */
-    @WebMethod(operationName = "RegisterEvaluatorResult")
+    @WebMethod(operationName = "Delete")
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "RegisterEvaluatorResult", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterEvaluatorResult")
-    @ResponseWrapper(localName = "RegisterEvaluatorResultResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterEvaluatorResultResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/RegisterEvaluatorResultRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/RegisterEvaluatorResultResponse")
-    public Boolean registerEvaluatorResult(
-        @WebParam(name = "arg0", targetNamespace = "")
-        EvaluatorResultDto arg0);
+    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
+    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/DeleteResponse")
+    public Boolean delete(
+        @WebParam(name = "Id", targetNamespace = "")
+        Integer id);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<cr.ac.una.tarea.soap.EvaluatorResultDto>
+     * @throws IOException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getEvaluatorResult", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetEvaluatorResult")
+    @ResponseWrapper(localName = "getEvaluatorResultResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetEvaluatorResultResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/getEvaluatorResultRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/getEvaluatorResultResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleEvaluatorResult/getEvaluatorResult/Fault/IOException")
+    })
+    public List<EvaluatorResultDto> getEvaluatorResult()
+        throws IOException_Exception
+    ;
 
 }

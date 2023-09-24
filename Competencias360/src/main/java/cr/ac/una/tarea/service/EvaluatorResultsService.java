@@ -13,6 +13,8 @@ import cr.ac.una.tarea.soap.ModuleCompetences_Service;
 import cr.ac.una.tarea.soap.ModuleEvaluatorResult;
 import cr.ac.una.tarea.soap.ModuleEvaluatorResult_Service;
 import cr.ac.una.tarea.util.Respuesta;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,7 +42,29 @@ public class EvaluatorResultsService {
             return new Respuesta(false, "Error guardando el empleado.", "guardarEmpleado " + ex.getMessage());
         }
     }
-    
+        public Respuesta getEvaluatorResults() {
+        try {
+            ModuleEvaluatorResult_Service servicio = new ModuleEvaluatorResult_Service();
+            ModuleEvaluatorResult cliente = servicio.getModuleEvaluatorResultPort();
+
+            List<EvaluatorResultDto> evaluatorResultDto = cliente.getEvaluatorResult();
+            List<EvaluatorResultsDto> evaluatorsDto = new ArrayList<>();
+            
+            for (EvaluatorResultDto evaluator : evaluatorResultDto) {
+                EvaluatorResultsDto aux = new EvaluatorResultsDto();
+                aux.setErCompe(evaluator.getErCompe());
+                aux.setErEvaluator(evaluator.getErEvaluator());
+                aux.setId(evaluator.getErId());
+                aux.setNota(evaluator.getErNota());
+                evaluatorsDto.add(aux);
+            }
+
+            return new Respuesta(true, "Error obteniendo los puestos.", "getJobs", "EvaluatorsDto", evaluatorsDto);
+        } catch (Exception ex) {
+            Logger.getLogger(JobsService.class.getName()).log(Level.SEVERE, "Error obteniendo los puestos.", ex);
+            return new Respuesta(false, "Error obteniendo los puestos.", "getJobs" + ex.getMessage());
+        }
+    }
     
     
 }

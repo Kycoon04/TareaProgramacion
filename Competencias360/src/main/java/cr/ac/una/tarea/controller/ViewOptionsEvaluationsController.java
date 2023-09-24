@@ -227,7 +227,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     @FXML
     private void delete(MouseEvent event) {
        List<Button> botonesParaEliminar = new ArrayList<>();
-        ObservableList<Node> children = grid.getChildren();
+       ObservableList<Node> children = grid.getChildren();
 
         for (Node node : children) {
             if (node instanceof Button) {

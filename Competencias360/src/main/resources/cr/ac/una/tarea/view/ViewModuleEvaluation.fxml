@@ -1433,6 +1433,9 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                         <Separator orientation="VERTICAL" prefHeight="66.0" prefWidth="83.0" visible="false" />
                         <Text fx:id="textEvaluation_Process" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="404.53660011291504">
