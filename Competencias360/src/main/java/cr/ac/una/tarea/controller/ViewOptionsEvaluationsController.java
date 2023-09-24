@@ -30,6 +30,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -48,6 +49,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import org.apache.poi.ss.formula.functions.Delta;
 
 /**
  * FXML Controller class
@@ -163,10 +165,17 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     private GridPane grid;
     @FXML
     private GridPane gridHeader;
+    double startX, startY;
+    double xTab, yTab;
 
     /**
      * Initializes the controller class.
      */
+    class cordenadas {
+
+        double x, y;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         OptionsMenuView.toFront();
@@ -196,49 +205,145 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         this.tableColEvaluated_User.setCellValueFactory(new PropertyValueFactory("EvUsernam"));
         this.tableColEvaluated_Email.setCellValueFactory(new PropertyValueFactory("EvEmail"));
         this.tableColEvaluated_State.setCellValueFactory(new PropertyValueFactory("EvsStateList"));
-        
-        
+
     }
-    double startX, startY;
-    double xTab, yTab;
 
     @FXML
     private void mouse(MouseEvent event) {
         System.out.println(event.getSceneX());
         System.out.println(event.getSceneY());
+
         btnDragEva.setOnMousePressed((t) -> {
             startX = t.getSceneX();
             startY = t.getSceneY();
         });
+
         btnDragEva.setOnMouseDragged((t) -> {
             ImageView asiento = (ImageView) btnDragEva.getGraphic();
             asiento.setTranslateX(t.getSceneX() - startX);
             asiento.setTranslateY(t.getSceneY() - startY);
-            xTab = t.getSceneX()-200;
-            yTab = t.getSceneY()-400;
+            xTab = t.getSceneX() - 300;
+            yTab = t.getSceneY() - 400;
         });
+
         btnDragEva.setOnMouseReleased((t) -> {
             int posX = (int) (xTab / grid.getCellBounds(0, 0).getMaxX());
             int posY = (int) (yTab / grid.getCellBounds(0, 0).getMaxY());
-           if (posX >= 0 && posX < grid.getColumnCount() && posY >= 0 && posY < 4) {
 
-                grid.add(crearAsiento(posX + "", posY + ""), posX, posY);
+            if (posX >= 0 && posX < grid.getColumnCount() && posY >= 0 && posY < 4) {
+                if (!isColumnOccupied(grid, posX)) {
+                    Button asientoButton = crearAsiento(posX + "", posY + "");
+                    grid.add(asientoButton, posX, posY);
+                    agregarEventoArrastrar(asientoButton, posX, posY);
+                } else {
+                    mostrarAlerta("La columna " + posX + " ya está ocupada.");
+                }
             }
+
             check.setTranslateX(0);
             check.setTranslateY(0);
         });
     }
 
+    private void agregarEventoArrastrar(Button boton, int initialColumn, int initialRow) {
+        final cordenadas dragDelta = new cordenadas();
+
+        boton.setOnMousePressed((mouseEvent) -> {
+            dragDelta.x = boton.getLayoutX() - mouseEvent.getSceneX();
+            dragDelta.y = boton.getLayoutY() - mouseEvent.getSceneY();
+        });
+
+        boton.setOnMouseDragged((mouseEvent) -> {
+            boton.setLayoutX(mouseEvent.getSceneX() + dragDelta.x);
+            boton.setLayoutY(mouseEvent.getSceneY() + dragDelta.y);
+        });
+
+        boton.setOnMouseReleased((mouseEvent) -> {
+            double sceneX = mouseEvent.getSceneX();
+            double sceneY = mouseEvent.getSceneY();
+
+            int columnIndex = -1;
+            int rowIndex = -1;
+
+            // Calcular columnIndex basado en la posición del mouse en la escena
+            for (int i = 0; i < grid.getColumnCount(); i++) {
+                double minX = grid.localToScene(grid.getBoundsInLocal()).getMinX() + i * 120;
+                double maxX = grid.localToScene(grid.getBoundsInLocal()).getMinX() + (i + 1) * 120;
+                if (sceneX >= minX && sceneX < maxX) {
+                    columnIndex = i;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < grid.getColumnCount(); i++) {
+                double minY = grid.localToScene(grid.getBoundsInLocal()).getMinY() + i * 100;
+                double maxY = grid.localToScene(grid.getBoundsInLocal()).getMinY() + (i + 1) * 100;
+                if (sceneY >= minY && sceneY < maxY) {
+                    rowIndex = i;
+                    break;
+                }
+            }
+
+            System.out.println("columnIndex: " + columnIndex);
+            System.out.println("rowIndex: " + rowIndex);
+
+            if (columnIndex >= 0 && columnIndex < grid.getColumnCount() && rowIndex >= 0 && rowIndex < 4) {
+                if (!isColumnOccupied(grid, columnIndex)) {
+                    if (!isCellOccupied(grid, columnIndex, rowIndex)) {
+                        GridPane.setConstraints(boton, columnIndex, rowIndex);
+                    } else {
+                        mostrarAlerta("La celda en la columna " + columnIndex + " y fila " + rowIndex + " ya está ocupada.");
+                        grid.setConstraints(boton, initialColumn, initialRow);
+                    }
+                } else {
+                    mostrarAlerta("La columna " + columnIndex + " ya está ocupada.");
+                    grid.setConstraints(boton, initialColumn, initialRow);
+                }
+            } else {
+                grid.setConstraints(boton, initialColumn, initialRow);
+            }
+        });
+    }
+
+    private boolean isCellOccupied(GridPane grid, int column, int row) {
+        for (Node node : grid.getChildren()) {
+            Integer columnIndex = GridPane.getColumnIndex(node);
+            Integer rowIndex = GridPane.getRowIndex(node);
+
+            if (columnIndex != null && rowIndex != null && columnIndex == column && rowIndex == row) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isColumnOccupied(GridPane grid, int column) {
+        for (Node node : grid.getChildren()) {
+            Integer columnIndex = GridPane.getColumnIndex(node);
+            if (columnIndex != null && columnIndex.intValue() == column && node instanceof Button) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Columna ocupada");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
     @FXML
     private void getxy(MouseEvent event) {
-
         System.out.println(event.getSceneX());
         System.out.println(event.getSceneY());
     }
 
     private Button crearAsiento(String letra, String numero) {
         Button asiento = new Button();
-     
+
         ImageView imagen = new ImageView();
         asiento.setMaxSize(40, 40);
         asiento.setTooltip(new Tooltip("Fila: " + letra + " Numero: " + numero));
@@ -255,7 +360,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         imagen.setScaleX(3);
         imagen.setScaleY(1.5);
     }
-
 
     @FXML
     private void SignOff(ActionEvent event) {
@@ -355,6 +459,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
     @FXML
     private void backProEvaluator(MouseEvent event) {
+
         OptionsProcessEva.toFront();
 
     }
@@ -388,6 +493,19 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
     @FXML
     private void backEvaluation(ActionEvent event) {
+        List<Button> botonesParaEliminar = new ArrayList<>();
+        ObservableList<Node> children = grid.getChildren();
+
+        for (Node node : children) {
+            if (node instanceof Button) {
+                botonesParaEliminar.add((Button) node);
+            }
+        }
+
+        // Elimina los botones después de completar la iteración principal
+        for (Button boton : botonesParaEliminar) {
+            grid.getChildren().remove(boton);
+        }
         OptionsSelectEvaluateView.toFront();
     }
 
