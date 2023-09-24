@@ -543,6 +543,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     @FXML
     private void Summit(ActionEvent event) {
         EvaluatorResultsService service = new EvaluatorResultsService();
+        EvaluatorService serviceEvaluator = new EvaluatorService();
         for (Node node : grid.getChildren()) {
             if (node instanceof Button) {
                 Integer colIndex = GridPane.getColumnIndex(node);
@@ -555,7 +556,12 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                     continue;
                 } else {
                     evaluatorResultsDto.setErCompe(listCompetences.get(colIndex).getJxcCompetence());
-                    evaluatorResultsDto.setNota(Math.abs((rowIndex - 4)));
+                    evaluatorResultsDto.setNota(Math.abs((rowIndex - 4)));  
+                    
+                    evaluatorDto.setEvsFeedback(textEvaluation_Feedback.getText());
+                    evaluatorDto.setEvsState("S");
+                    serviceEvaluator.SaveEvaluator(evaluatorDto, procesoDto);
+                    
                     Evaluators evaluator = new Evaluators(); 
                     evaluator.setEvsId(evaluatorDto.getEvsId());
                     evaluator.setEvsState(evaluatorDto.getEvsState());
