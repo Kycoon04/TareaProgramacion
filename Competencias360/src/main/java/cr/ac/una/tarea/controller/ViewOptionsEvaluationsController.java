@@ -265,7 +265,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
             int columnIndex = -1;
             int rowIndex = -1;
 
-            // Calcular columnIndex basado en la posición del mouse en la escena
+            
             for (int i = 0; i < grid.getColumnCount(); i++) {
                 double minX = grid.localToScene(grid.getBoundsInLocal()).getMinX() + i * 120;
                 double maxX = grid.localToScene(grid.getBoundsInLocal()).getMinX() + (i + 1) * 120;
