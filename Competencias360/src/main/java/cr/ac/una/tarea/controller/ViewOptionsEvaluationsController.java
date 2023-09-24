@@ -110,6 +110,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     List<EvaJobCompetenceDto> listCompetences = new ArrayList<>();
     List<ProcesosevaDto> listProcesos = new ArrayList<>();
     ObservableList<ProcesosevaDto> procesosList;
+    List<EvaluatorDto> listEvaluators = new ArrayList<>();
     List<EvaluatedsDto> listEvaluateds = new ArrayList<>();
     List<EvaluatorDto> evaluateds = new ArrayList<>();
     ObservableList<EvaluatorDto> evaluatedList;
@@ -406,7 +407,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         OptionsProcessEva.toFront();
     }
 
-    public void ImportListEvaluated() {
+    /*public void ImportListEvaluated() {
         EvaluatedService service = new EvaluatedService();
         Respuesta respuesta = service.getEvaluateds();
         listEvaluateds = (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
@@ -420,7 +421,42 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
             proceso.setId(evaluated.getEsProcesoeva().getEnId());
             respuesta = serviceProceso.getProcesos();
             List<ProcesosevaDto> listProcesosDto = (List<ProcesosevaDto>) respuesta.getResultado("ProcesosevaDto");
-            ProcesosevaDto dates = listProcesosDto.stream().filter(x -> x.getId().equals(evaluated.getEsProcesoeva().getEnId())).findAny().get();
+            
+           ProcesosevaDto dates = listProcesosDto.stream().filter(x -> x.getId().equals(evaluated.getEsProcesoeva().getEnId())).findAny().get();
+
+            proceso.setsetApplication(dates.getApplication().toString());
+            proceso.setsetFinalperiod(dates.getFinalperiod().toString());
+            proceso.setsetInicialperiod(dates.getInicialperiod().toString());
+
+            listProcesos.add(proceso);
+        }
+        listProcesos = listProcesos.stream().filter(getState.negate()).toList();
+    }*/
+    public void ImportListEvaluated() {
+        EvaluatorService service = new EvaluatorService();
+        Respuesta respuesta = service.getEvaluators();
+        listEvaluators = (List<EvaluatorDto>) respuesta.getResultado("Evaluators");
+        listEvaluators = listEvaluators.stream()
+                .filter(x -> x.getEvsWorker().getWrId().equals(workerDto.getId()))
+                .collect(Collectors.toMap(
+                        evaluator -> evaluator.getEvsEvaluated().getEsProcesoeva().getEnName(),
+                        evaluator -> evaluator,
+                        (existing, replacement) -> existing)).values()
+                .stream()
+                .toList();
+
+        ProcesoevaService serviceProceso = new ProcesoevaService();
+
+        for (EvaluatorDto evaluated : listEvaluators) {
+
+            ProcesosevaDto proceso = new ProcesosevaDto();
+            proceso.setName(evaluated.getEvsEvaluated().getEsProcesoeva().getEnName());
+            proceso.setState(evaluated.getEvsEvaluated().getEsProcesoeva().getEnState());
+            proceso.setId(evaluated.getEvsEvaluated().getEsProcesoeva().getEnId());
+
+            respuesta = serviceProceso.getProcesos();
+            List<ProcesosevaDto> listProcesosDto = (List<ProcesosevaDto>) respuesta.getResultado("ProcesosevaDto");
+            ProcesosevaDto dates = listProcesosDto.stream().filter(x -> x.getId().equals(evaluated.getEvsEvaluated().getEsProcesoeva().getEnId())).findAny().get();
 
             proceso.setsetApplication(dates.getApplication().toString());
             proceso.setsetFinalperiod(dates.getFinalperiod().toString());
@@ -430,6 +466,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         }
         listProcesos = listProcesos.stream().filter(getState.negate()).toList();
     }
+
     Predicate<ProcesosevaDto> getState = x -> x.getState().equals("En construcción");
 
     public void ImportListProcesoEva() {
@@ -492,11 +529,9 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                 textEvaluation_Job.setText(evaluatorDto.getEvsEvaluated().getEsWorker().getWrJob().getJsName());
                 textEvaluation_Period.setText(procesoDto.getInicialperiod().getYear() + " - " + procesoDto.getFinalperiod().getYear());
                 textEvaluation_Apli.setText(procesoDto.getApplication().toString());
-
                 Respuesta respuesta = service.getjCompetences();
                 listCompetences = (List<EvaJobCompetenceDto>) respuesta.getResultado("JobsCompetences");
                 listCompetences = listCompetences.stream().filter(x -> x.getJobs().getJsName().equals(evaluatorDto.getEvsEvaluated().getEsWorker().getWrJob().getJsName())).toList();
-
                 if (listCompetences.size() == 0) {
                     OptionsSelectEvaluateView.toFront();
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No hay competencias para esta evaluacion.");
@@ -529,10 +564,10 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                     }
                     for (int i = 0; i < listCompetences.size(); i++) {
                         Label label = new Label(listCompetences.get(i).getJxcCompetence().getCsName());
-                        String fontFamily = "Tw Cen MT"; 
-                        double fontSize = 23.0; 
+                        String fontFamily = "Tw Cen MT";
+                        double fontSize = 23.0;
                         String textColor = "white";
-                        label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;"+ "-fx-text-fill: "+ textColor +";");
+                        label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;" + "-fx-text-fill: " + textColor + ";");
                         gridHeader.add(label, i, 0);
                     }
                     OptionsEvaluationView.toFront();
@@ -543,6 +578,12 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         }
     }
 
+    public void CargarCaracteristicas(){
+    
+    
+    }
+    
+    
     @Override
     public void initialize() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
