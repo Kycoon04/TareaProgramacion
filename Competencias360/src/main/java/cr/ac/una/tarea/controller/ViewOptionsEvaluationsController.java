@@ -215,8 +215,8 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         this.tableColEvaluated_Ident.setCellValueFactory(new PropertyValueFactory("EvIden"));
         this.tableColEvaluated_Name.setCellValueFactory(new PropertyValueFactory("EvName"));
         this.tableColEvaluated_Psurname.setCellValueFactory(new PropertyValueFactory("EvPsurname"));
-        this.tableColEvaluated_Ssurname.setCellValueFactory(new PropertyValueFactory("Ssurname"));
-        this.tableColEvaluated_User.setCellValueFactory(new PropertyValueFactory("EvUsernam"));
+        this.tableColEvaluated_Ssurname.setCellValueFactory(new PropertyValueFactory("EvSsurname"));
+        this.tableColEvaluated_User.setCellValueFactory(new PropertyValueFactory("EvUsername"));
         this.tableColEvaluated_Email.setCellValueFactory(new PropertyValueFactory("EvEmail"));
         this.tableColEvaluated_State.setCellValueFactory(new PropertyValueFactory("EvsStateList"));
         mouseBton();
@@ -529,6 +529,10 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                     }
                     for (int i = 0; i < listCompetences.size(); i++) {
                         Label label = new Label(listCompetences.get(i).getJxcCompetence().getCsName());
+                        String fontFamily = "Tw Cen MT"; 
+                        double fontSize = 23.0; 
+                        String textColor = "white";
+                        label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;"+ "-fx-text-fill: "+ textColor +";");
                         gridHeader.add(label, i, 0);
                     }
                     OptionsEvaluationView.toFront();
@@ -571,31 +575,31 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         OptionsSelectEvaluateView.toFront();
     }
 
-     @FXML
+    @FXML
     private void Summit(ActionEvent event) {
         EvaluatorResultsService service = new EvaluatorResultsService();
         EvaluatorService serviceEvaluator = new EvaluatorService();
         boolean isAnyColumnEmpty = false;
         int Aux[] = new int[listCompetences.size()];
-        int k=0;
-        
+        int k = 0;
+
         for (Node node : grid.getChildren()) {
-            
+
             if (node instanceof Button) {
                 Integer colIndex = GridPane.getColumnIndex(node);
                 Integer rowIndex = GridPane.getRowIndex(node);
-                
+
                 if (node == null) {
                     continue;
-                }else{
-                Aux[k-1]=1;
+                } else {
+                    Aux[k - 1] = 1;
                 }
             }
             k++;
         }
         for (int i = 0; i < listCompetences.size(); i++) {
-            if(Aux[i]==0){
-            isAnyColumnEmpty=true;
+            if (Aux[i] == 0) {
+                isAnyColumnEmpty = true;
             }
         }
         if (isAnyColumnEmpty) {

@@ -577,7 +577,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         for (int i = 0; i < listEvaluators.size(); i++) {
             for (int j = 0; j < listWorkers.size(); j++) {
                 if (listWorkers.get(j).getName().equals(listEvaluators.get(i).getEvsWorker().getWrName()) && 
-                    workerDto.getName().equals(listEvaluators.get(i).getEvsEvaluated().getEsWorker().getWrName())) {
+                    listWorkers.get(j).getName().equals(listEvaluators.get(i).getEvsEvaluated().getEsWorker().getWrName())) {
                     listWorkers.remove(j);
                 }
             }
