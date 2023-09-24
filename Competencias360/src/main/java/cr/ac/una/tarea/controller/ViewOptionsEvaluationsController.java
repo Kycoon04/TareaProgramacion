@@ -48,6 +48,8 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -177,9 +179,27 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     double startX, startY;
     double xTab, yTab;
     EvaluatorResultsDto evaluatorResultsDto = new EvaluatorResultsDto();
+    boolean delet = false;
 
     @FXML
     private void mouse(MouseEvent event) {
+    }
+
+    @FXML
+    private void delete(MouseEvent event) {
+       List<Button> botonesParaEliminar = new ArrayList<>();
+        ObservableList<Node> children = grid.getChildren();
+
+        for (Node node : children) {
+            if (node instanceof Button) {
+                botonesParaEliminar.add((Button) node);
+            }
+        }
+
+        for (Button boton : botonesParaEliminar) {
+            grid.getChildren().remove(boton);
+        }
+         
     }
 
     /**
@@ -234,7 +254,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
             xTab = t.getSceneX() - 300;
             yTab = t.getSceneY() - 400;
         });
-
         btnDragEva.setOnMouseReleased((t) -> {
             int posX = (int) (xTab / grid.getCellBounds(0, 0).getMaxX());
             int posY = (int) (yTab / grid.getCellBounds(0, 0).getMaxY());
@@ -260,6 +279,13 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
         final int[] newInitialColumn = {initialColumn};
         final int[] newInitialRow = {initialRow};
+
+        boton.setOnMousePressed(mouseEvent -> {
+            if (delet == true) {
+                grid.getChildren().remove(boton);
+                delet = false;
+            }
+        });
 
         boton.setOnMousePressed((mouseEvent) -> {
             dragDelta.x = boton.getLayoutX() - mouseEvent.getSceneX();
@@ -296,26 +322,39 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                 }
             }
 
-            System.out.println("columnIndex: " + columnIndex);
-            System.out.println("rowIndex: " + rowIndex);
-
             if (columnIndex >= 0 && columnIndex < grid.getColumnCount() && rowIndex >= 0 && rowIndex < 4) {
-                if (!isColumnOccupied(grid, columnIndex)) {
-                    if (!isCellOccupied(grid, columnIndex, rowIndex)) {
-                        GridPane.setConstraints(boton, columnIndex, rowIndex);
-                        newInitialColumn[0] = columnIndex;
-                        newInitialRow[0] = rowIndex;
+                if (columnIndex == newInitialColumn[0] && rowIndex != newInitialRow[0]) {
+                    GridPane.setConstraints(boton, columnIndex, rowIndex);
+                    newInitialColumn[0] = columnIndex;
+                    newInitialRow[0] = rowIndex;
+
+                    boton.setTooltip(new Tooltip("Numero: " + columnIndex + " Numero: " + rowIndex));
+                } else {
+                    if (!isColumnOccupied(grid, columnIndex)) {
+                        if (!isCellOccupied(grid, columnIndex, rowIndex)) {
+                            // Agrega una condición adicional para evitar imprimir el mensaje cuando se hace clic en un botón existente
+                            if (!grid.getChildren().contains(boton)) {
+                                GridPane.setConstraints(boton, columnIndex, rowIndex);
+                                newInitialColumn[0] = columnIndex;
+                                newInitialRow[0] = rowIndex;
+                                boton.setTooltip(new Tooltip("Fila: " + columnIndex + " Numero: " + rowIndex));
+                            }
+                        } else {
+                            mostrarAlerta("La celda en la columna " + columnIndex + " y fila " + rowIndex + " ya está ocupada.");
+                            grid.setConstraints(boton, newInitialColumn[0], newInitialRow[0]);
+                        }
                     } else {
-                        mostrarAlerta("La celda en la columna " + columnIndex + " y fila " + rowIndex + " ya está ocupada.");
+                        mostrarAlerta("La columna " + columnIndex + " ya está ocupada.");
                         grid.setConstraints(boton, newInitialColumn[0], newInitialRow[0]);
                     }
-                } else {
-                    mostrarAlerta("La columna " + columnIndex + " ya está ocupada.");
-                    grid.setConstraints(boton, newInitialColumn[0], newInitialRow[0]);
                 }
             } else {
                 grid.setConstraints(boton, newInitialColumn[0], newInitialRow[0]);
             }
+        });
+
+        boton.setOnContextMenuRequested(event -> {
+            grid.getChildren().remove(boton);
         });
     }
 
@@ -467,7 +506,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
     @FXML
     private void procesoEvaluatedClicked(MouseEvent event) {
-
     }
 
     @FXML
@@ -529,10 +567,10 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                     }
                     for (int i = 0; i < listCompetences.size(); i++) {
                         Label label = new Label(listCompetences.get(i).getJxcCompetence().getCsName());
-                        String fontFamily = "Tw Cen MT"; 
-                        double fontSize = 23.0; 
+                        String fontFamily = "Tw Cen MT";
+                        double fontSize = 23.0;
                         String textColor = "white";
-                        label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;"+ "-fx-text-fill: "+ textColor +";");
+                        label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;" + "-fx-text-fill: " + textColor + ";");
                         gridHeader.add(label, i, 0);
                     }
                     OptionsEvaluationView.toFront();

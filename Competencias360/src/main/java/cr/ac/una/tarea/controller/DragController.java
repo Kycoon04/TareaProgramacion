@@ -129,7 +129,7 @@ public class DragController implements Initializable {
         asiento.setGraphic(imagen);
         return asiento;
     }
-        private void ajustarImagen(ImageView imagen) {
+    private void ajustarImagen(ImageView imagen) {
         imagen.setFitHeight(25);
         imagen.setFitWidth(25);
         imagen.setScaleX(3);

@@ -679,7 +679,7 @@
                                  </font>
                               </Text>
                               <Button mnemonicParsing="false" onAction="#Summit" prefHeight="34.0" prefWidth="177.0" text="Guardar Evaluación" GridPane.columnIndex="4" />
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="178.0" text="Eliminar" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                              <Button mnemonicParsing="false" onMouseClicked="#delete" prefHeight="30.0" prefWidth="178.0" text="Vaciar Tabla" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                         <Separator prefHeight="26.0" prefWidth="1270.0" />
