@@ -178,6 +178,10 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     double xTab, yTab;
     EvaluatorResultsDto evaluatorResultsDto = new EvaluatorResultsDto();
 
+    @FXML
+    private void mouse(MouseEvent event) {
+    }
+
     /**
      * Initializes the controller class.
      */
@@ -215,19 +219,14 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         this.tableColEvaluated_User.setCellValueFactory(new PropertyValueFactory("EvUsernam"));
         this.tableColEvaluated_Email.setCellValueFactory(new PropertyValueFactory("EvEmail"));
         this.tableColEvaluated_State.setCellValueFactory(new PropertyValueFactory("EvsStateList"));
-
+        mouseBton();
     }
 
-    @FXML
-    private void mouse(MouseEvent event) {
-        System.out.println(event.getSceneX());
-        System.out.println(event.getSceneY());
-
+    private void mouseBton() {
         btnDragEva.setOnMousePressed((t) -> {
             startX = t.getSceneX();
             startY = t.getSceneY();
         });
-
         btnDragEva.setOnMouseDragged((t) -> {
             ImageView asiento = (ImageView) btnDragEva.getGraphic();
             asiento.setTranslateX(t.getSceneX() - startX);
@@ -249,7 +248,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                     mostrarAlerta("La columna " + posX + " ya está ocupada.");
                 }
             }
-
             check.setTranslateX(0);
             check.setTranslateY(0);
         });
@@ -257,6 +255,11 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
     private void agregarEventoArrastrar(Button boton, int initialColumn, int initialRow) {
         final cordenadas dragDelta = new cordenadas();
+        double cellWidth = grid.getWidth() / grid.getColumnCount();
+        double cellHeight = grid.getHeight() / grid.getRowCount();
+
+        final int[] newInitialColumn = {initialColumn};
+        final int[] newInitialRow = {initialRow};
 
         boton.setOnMousePressed((mouseEvent) -> {
             dragDelta.x = boton.getLayoutX() - mouseEvent.getSceneX();
@@ -276,17 +279,17 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
             int rowIndex = -1;
 
             for (int i = 0; i < grid.getColumnCount(); i++) {
-                double minX = grid.localToScene(grid.getBoundsInLocal()).getMinX() + i * 120;
-                double maxX = grid.localToScene(grid.getBoundsInLocal()).getMinX() + (i + 1) * 120;
+                double minX = grid.localToScene(grid.getBoundsInLocal()).getMinX() + i * cellWidth;
+                double maxX = grid.localToScene(grid.getBoundsInLocal()).getMinX() + (i + 1) * cellWidth;
                 if (sceneX >= minX && sceneX < maxX) {
                     columnIndex = i;
                     break;
                 }
             }
 
-            for (int i = 0; i < grid.getColumnCount(); i++) {
-                double minY = grid.localToScene(grid.getBoundsInLocal()).getMinY() + i * 100;
-                double maxY = grid.localToScene(grid.getBoundsInLocal()).getMinY() + (i + 1) * 100;
+            for (int i = 0; i < grid.getRowCount(); i++) {
+                double minY = grid.localToScene(grid.getBoundsInLocal()).getMinY() + i * cellHeight;
+                double maxY = grid.localToScene(grid.getBoundsInLocal()).getMinY() + (i + 1) * cellHeight;
                 if (sceneY >= minY && sceneY < maxY) {
                     rowIndex = i;
                     break;
@@ -300,16 +303,18 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                 if (!isColumnOccupied(grid, columnIndex)) {
                     if (!isCellOccupied(grid, columnIndex, rowIndex)) {
                         GridPane.setConstraints(boton, columnIndex, rowIndex);
+                        newInitialColumn[0] = columnIndex;
+                        newInitialRow[0] = rowIndex;
                     } else {
                         mostrarAlerta("La celda en la columna " + columnIndex + " y fila " + rowIndex + " ya está ocupada.");
-                        grid.setConstraints(boton, initialColumn, initialRow);
+                        grid.setConstraints(boton, newInitialColumn[0], newInitialRow[0]);
                     }
                 } else {
                     mostrarAlerta("La columna " + columnIndex + " ya está ocupada.");
-                    grid.setConstraints(boton, initialColumn, initialRow);
+                    grid.setConstraints(boton, newInitialColumn[0], newInitialRow[0]);
                 }
             } else {
-                grid.setConstraints(boton, initialColumn, initialRow);
+                grid.setConstraints(boton, newInitialColumn[0], newInitialRow[0]);
             }
         });
     }
@@ -550,16 +555,16 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
             }
         }
         ColumnConstraints originalConstraints = grid.getColumnConstraints().get(0);
-        
+
         grid.getColumnConstraints().clear();
-        grid.getColumnConstraints().add( originalConstraints);
+        grid.getColumnConstraints().add(originalConstraints);
         grid.setGridLinesVisible(true);
-        
+
         gridHeader.getColumnConstraints().clear();
-        gridHeader.getColumnConstraints().add( originalConstraints);
+        gridHeader.getColumnConstraints().add(originalConstraints);
         gridHeader.setGridLinesVisible(true);
         textEvaluation_Feedback.setText(" ");
-        
+
         for (Button boton : botonesParaEliminar) {
             grid.getChildren().remove(boton);
         }
