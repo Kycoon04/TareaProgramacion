@@ -81,7 +81,7 @@ public class JobsCompetencesService {
         try {
             Query qryJob = em.createNamedQuery("JobsCompetences.findAll", JobsCompetences.class);
             List<JobsCompetences> jobCompetences = qryJob.getResultList();
-            return new Respuesta(true, "", "", "Jobs", jobCompetences);
+            return new Respuesta(true, "", "", "JobsCompetences", jobCompetences);
         } catch (NoResultException ex) {
             return new Respuesta(false, "No hay competencias en el puesto", "getjobsCompetences NoResultException");
         } catch (Exception ex) {

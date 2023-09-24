@@ -119,7 +119,6 @@ public class DragController implements Initializable {
         
     }
     
-    
     private Button crearAsiento(String letra, String numero) {
         Button asiento = new Button();
         ImageView imagen = new ImageView();

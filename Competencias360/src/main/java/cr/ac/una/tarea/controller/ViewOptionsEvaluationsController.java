@@ -4,12 +4,16 @@
  */
 package cr.ac.una.tarea.controller;
 
+import cr.ac.una.tarea.model.CompetenceDto;
+import cr.ac.una.tarea.model.EvaJobCompetenceDto;
 import cr.ac.una.tarea.model.EvaluatedsDto;
 import cr.ac.una.tarea.model.EvaluatorDto;
 import cr.ac.una.tarea.model.ProcesosevaDto;
 import cr.ac.una.tarea.model.WorkerDto;
+import cr.ac.una.tarea.service.CompetencesService;
 import cr.ac.una.tarea.service.EvaluatedService;
 import cr.ac.una.tarea.service.EvaluatorService;
+import cr.ac.una.tarea.service.JobsCompetencesService;
 import cr.ac.una.tarea.service.ProcesoevaService;
 import cr.ac.una.tarea.soap.ProcesoevaDto;
 import cr.ac.una.tarea.util.FlowController;
@@ -45,6 +49,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -99,6 +104,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     WorkerDto workerDto;
     ProcesosevaDto procesoDto;
     EvaluatorDto evaluatorDto;
+    List<EvaJobCompetenceDto> listCompetences = new ArrayList<>();
     List<ProcesosevaDto> listProcesos = new ArrayList<>();
     ObservableList<ProcesosevaDto> procesosList;
     List<EvaluatedsDto> listEvaluateds = new ArrayList<>();
@@ -265,7 +271,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
             int columnIndex = -1;
             int rowIndex = -1;
 
-            
             for (int i = 0; i < grid.getColumnCount(); i++) {
                 double minX = grid.localToScene(grid.getBoundsInLocal()).getMinX() + i * 120;
                 double maxX = grid.localToScene(grid.getBoundsInLocal()).getMinX() + (i + 1) * 120;
@@ -414,7 +419,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
             listProcesos.add(proceso);
         }
-        System.out.println(listProcesos.get(0).getState());
         listProcesos = listProcesos.stream().filter(getState.negate()).toList();
     }
     Predicate<ProcesosevaDto> getState = x -> x.getState().equals("En construcción");
@@ -472,6 +476,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     private void evaluateClicked(MouseEvent event) {
         if (event.getClickCount() == 2) {
             try {
+                JobsCompetencesService service = new JobsCompetencesService();
                 evaluatorDto = tableViewEvaluated.getSelectionModel().getSelectedItem();
                 textEvaluation_Process.setText(procesoDto.getName());
                 textEvaluation_Name.setText(evaluatorDto.getEvsEvaluated().getEsWorker().getWrName() + "" + evaluatorDto.getEvsEvaluated().getEsWorker().getWrPsurname() + "" + evaluatorDto.getEvsEvaluated().getEsWorker().getWrSsurname());
@@ -479,7 +484,29 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                 textEvaluation_Period.setText(procesoDto.getInicialperiod().getYear() + " - " + procesoDto.getFinalperiod().getYear());
                 textEvaluation_Apli.setText(procesoDto.getApplication().toString());
 
-                OptionsEvaluationView.toFront();
+                Respuesta respuesta = service.getjCompetences();
+                listCompetences = (List<EvaJobCompetenceDto>) respuesta.getResultado("JobsCompetences");
+                listCompetences = listCompetences.stream().filter(x -> x.getJobs().getJsName().equals(evaluatorDto.getEvsEvaluated().getEsWorker().getWrJob().getJsName())).toList();
+                
+                if (listCompetences.size() == 0) {
+                    OptionsSelectEvaluateView.toFront();
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No hay competencias para esta evaluacion.");
+                } else {
+                    ColumnConstraints originalConstraints = grid.getColumnConstraints().get(0);
+                    for (int i = 1; i < listCompetences.size(); i++) {
+                        ColumnConstraints newConstraints = new ColumnConstraints();
+                        newConstraints.setFillWidth(originalConstraints.isFillWidth());
+                        newConstraints.setHalignment(originalConstraints.getHalignment());
+                        newConstraints.setHgrow(originalConstraints.getHgrow());
+                        newConstraints.setMaxWidth(originalConstraints.getMaxWidth());
+                        newConstraints.setMinWidth(originalConstraints.getMinWidth());
+                        newConstraints.setPercentWidth(originalConstraints.getPercentWidth());
+                        newConstraints.setPrefWidth(originalConstraints.getPrefWidth());
+                        grid.getColumnConstraints().add(newConstraints);
+                    }
+
+                    OptionsEvaluationView.toFront();
+                }
             } catch (Exception ex) {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un evaluado en este campo.");
             }
@@ -509,4 +536,24 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         OptionsSelectEvaluateView.toFront();
     }
 
+    @FXML
+    private void Summit(ActionEvent event) {
+        for (Node node : grid.getChildren()) {
+            if (node instanceof Button) {
+                Integer colIndex = GridPane.getColumnIndex(node);
+                Integer rowIndex = GridPane.getRowIndex(node);
+
+                // Si los índices son null, asignarles 0
+                colIndex = colIndex == null ? 0 : colIndex;
+                rowIndex = rowIndex == null ? 0 : rowIndex;
+
+                // Si el nodo es null, ignorarlo
+                if (node == null) {
+                    continue;
+                } else {
+                    System.out.println("La celda en la columna osea la competencia: " + listCompetences.get(colIndex).getJxcCompetence().getCsName() + ", Nota: " + Math.abs((rowIndex - 4)) + ".");
+                }
+            }
+        }
+    }
 }

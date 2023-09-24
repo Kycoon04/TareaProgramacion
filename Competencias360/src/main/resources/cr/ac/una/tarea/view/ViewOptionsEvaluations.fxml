@@ -598,7 +598,7 @@
                   </ImageView>
                   <FlowPane layoutX="22.0" layoutY="16.0" prefHeight="715.0" prefWidth="1263.0" style="-fx-background-color: #212121;">
                      <children>
-                        <Separator layoutX="10.0" layoutY="42.0" prefHeight="20.0" prefWidth="1268.0" visible="false" />
+                        <Button mnemonicParsing="false" onAction="#Summit" prefHeight="34.0" prefWidth="103.0" text="Confirmar" />
                         <Text fx:id="textEvaluation_Process" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1269.3366813659668">
                            <font>
                               <Font name="Tw Cen MT" size="35.0" />
@@ -710,11 +710,6 @@
                                              <children>
                                                 <GridPane fx:id="grid" alignment="CENTER" gridLinesVisible="true" layoutY="113.0" prefHeight="382.0" prefWidth="769.0">
                                                   <columnConstraints>
-                                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                   </columnConstraints>
                                                   <rowConstraints>

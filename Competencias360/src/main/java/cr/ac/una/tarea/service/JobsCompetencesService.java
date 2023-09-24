@@ -67,8 +67,6 @@ public class JobsCompetencesService {
                 evaComJo.setEvaJobs(comjob.getJobs());
                 evaComJo.setJxcCompetence(comjob.getJxcCompetence());
                 evaComJo.setJxcIdcojob(comjob.getJxcIdcojob());
-                evaComJo.setJxcJob(comjob.getJxcJob());
-                
                 csJ.add(evaComJo);
             }
             return new Respuesta(true, "Error obteniendo las competencias de los trabajos.", "getJobsCompetences", "JobsCompetences", csJ);
