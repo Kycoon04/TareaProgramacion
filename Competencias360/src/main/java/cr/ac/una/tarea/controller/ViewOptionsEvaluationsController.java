@@ -242,7 +242,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     }
 
 
-    private void mouseBton() {
+     private void mouseBton() {
         btnDragEva.setOnMousePressed((t) -> {
             startX = t.getSceneX();
             startY = t.getSceneY();
@@ -280,13 +280,13 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         final int[] newInitialColumn = {initialColumn};
         final int[] newInitialRow = {initialRow};
 
-        boton.setOnMousePressed(mouseEvent -> {
-            if (delet == true) {
+         boton.setOnMousePressed(mouseEvent -> {
+            if (delet==true ){
                 grid.getChildren().remove(boton);
-                delet = false;
+                delet=false;
             }
         });
-
+         
         boton.setOnMousePressed((mouseEvent) -> {
             dragDelta.x = boton.getLayoutX() - mouseEvent.getSceneX();
             dragDelta.y = boton.getLayoutY() - mouseEvent.getSceneY();
@@ -332,13 +332,10 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                 } else {
                     if (!isColumnOccupied(grid, columnIndex)) {
                         if (!isCellOccupied(grid, columnIndex, rowIndex)) {
-                            // Agrega una condición adicional para evitar imprimir el mensaje cuando se hace clic en un botón existente
-                            if (!grid.getChildren().contains(boton)) {
-                                GridPane.setConstraints(boton, columnIndex, rowIndex);
-                                newInitialColumn[0] = columnIndex;
-                                newInitialRow[0] = rowIndex;
-                                boton.setTooltip(new Tooltip("Fila: " + columnIndex + " Numero: " + rowIndex));
-                            }
+                            GridPane.setConstraints(boton, columnIndex, rowIndex);
+                            newInitialColumn[0] = columnIndex;
+                            newInitialRow[0] = rowIndex;
+                            boton.setTooltip(new Tooltip("Fila: " + columnIndex + " Numero: " + rowIndex));
                         } else {
                             mostrarAlerta("La celda en la columna " + columnIndex + " y fila " + rowIndex + " ya está ocupada.");
                             grid.setConstraints(boton, newInitialColumn[0], newInitialRow[0]);
