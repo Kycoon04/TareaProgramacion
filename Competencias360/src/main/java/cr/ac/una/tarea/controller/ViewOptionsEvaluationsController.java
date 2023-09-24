@@ -4,6 +4,7 @@
  */
 package cr.ac.una.tarea.controller;
 
+import cr.ac.una.tarea.model.CharacteristicsDto;
 import cr.ac.una.tarea.model.CompetenceDto;
 import cr.ac.una.tarea.model.EvaJobCompetenceDto;
 import cr.ac.una.tarea.model.EvaluatedsDto;
@@ -11,6 +12,7 @@ import cr.ac.una.tarea.model.EvaluatorDto;
 import cr.ac.una.tarea.model.EvaluatorResultsDto;
 import cr.ac.una.tarea.model.ProcesosevaDto;
 import cr.ac.una.tarea.model.WorkerDto;
+import cr.ac.una.tarea.service.CharacteristicService;
 import cr.ac.una.tarea.service.CompetencesService;
 import cr.ac.una.tarea.service.EvaluatedService;
 import cr.ac.una.tarea.service.EvaluatorResultsService;
@@ -466,7 +468,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         }
         listProcesos = listProcesos.stream().filter(getState.negate()).toList();
     }
-
     Predicate<ProcesosevaDto> getState = x -> x.getState().equals("En construcción");
 
     public void ImportListProcesoEva() {
@@ -485,7 +486,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         evaluatedList = FXCollections.observableArrayList(evaluateds);
         this.tableViewEvaluated.refresh();
         this.tableViewEvaluated.setItems(evaluatedList);
-
     }
 
     @FXML
@@ -520,6 +520,13 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
     @FXML
     private void evaluateClicked(MouseEvent event) {
+
+        CharacteristicService serviceChara = new CharacteristicService();
+        Respuesta respuestaChara = serviceChara.getCharacteristic();
+        String concatenatedNames = "";
+        List<CharacteristicsDto> characteristics = (List<CharacteristicsDto>) respuestaChara.getResultado("Characteristic");
+        List<CharacteristicsDto> aux;
+
         if (event.getClickCount() == 2) {
             try {
                 JobsCompetencesService service = new JobsCompetencesService();
@@ -563,12 +570,21 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                         gridHeader.getColumnConstraints().add(newConstraints);
                     }
                     for (int i = 0; i < listCompetences.size(); i++) {
+                        final int Cant = i;
+                        aux = characteristics.stream().filter(x -> x.getCcComid().getCsName().equals(listCompetences.get(Cant).getJxcCompetence().getCsName())).toList();
+                        
+                        for (int j = 0; j < aux.size(); j++) {
+                            concatenatedNames += (aux.get(j).getCcName()+" ");
+                        }
+                        
                         Label label = new Label(listCompetences.get(i).getJxcCompetence().getCsName());
                         String fontFamily = "Tw Cen MT";
                         double fontSize = 23.0;
                         String textColor = "white";
                         label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;" + "-fx-text-fill: " + textColor + ";");
+                        label.setTooltip(new Tooltip(concatenatedNames));
                         gridHeader.add(label, i, 0);
+                        concatenatedNames = "";
                     }
                     OptionsEvaluationView.toFront();
                 }
@@ -578,12 +594,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         }
     }
 
-    public void CargarCaracteristicas(){
-    
-    
-    }
-    
-    
     @Override
     public void initialize() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
