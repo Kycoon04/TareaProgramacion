@@ -28,6 +28,7 @@ import cr.ac.una.tarea.util.Mensaje;
 import cr.ac.una.tarea.util.Respuesta;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -1035,25 +1036,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     }
 
     @FXML
-    private void UpdateJob(ActionEvent event) {
-        ProcesoevaService service = new ProcesoevaService();
-        ProcesosevaDto procesosevaDto = new ProcesosevaDto();
-
-        procesosevaDto.setState(choiceBoxStateEva.getValue());
-        procesosevaDto.setName(TitleEvaField.getText());
-        procesosevaDto.setId(procesoDto.getId());
-        if (DateProEva_Inicial.getValue().isBefore(DateProEva_Final.getValue())) {
-            procesosevaDto.setApplication(DateProEva_Application.getValue());
-            procesosevaDto.setInicialperiod(DateProEva_Inicial.getValue());
-            procesosevaDto.setFinalperiod(DateProEva_Final.getValue());
-            service.SaveProceso(procesosevaDto);
-            ImportListProcesoEva();
-        } else {
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Seleccione una fecha de inicio menor a la fecha de finalizacion");
-        }
-    }
-
-    @FXML
     private void searchJob_Name(KeyEvent event) {
     }
 
@@ -1534,7 +1516,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void openEvaluationGeneral(MouseEvent event) {
-
+        ResultSis();
         textEvaluationGen_Process.setText(procesoDto.getName());
         textEvaluationGen_Name.setText(selectedWorker.getName() + " " + selectedWorker.getPsurname() + " " + selectedWorker.getSsurname());
         textEvaluationGen_Job.setText(selectedWorker.getJob().getJsName());
@@ -1545,6 +1527,171 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void backEvaluationGen(ActionEvent event) {
+        List<ImageView> botonesParaEliminar = new ArrayList<>();
+        List<ImageView> botonesParaEliminar2 = new ArrayList<>();
+        ObservableList<Node> children = gridEvaGeneral.getChildren();
+        ObservableList<Node> children2 = gridResGeneral.getChildren();
+        for (Node node : children) {
+            if (node instanceof ImageView) {
+                botonesParaEliminar.add((ImageView) node);
+            }
+        }
+        for (Node node : children2) {
+            if (node instanceof ImageView) {
+                botonesParaEliminar2.add((ImageView) node);
+            }
+        }
+        ColumnConstraints originalConstraints = gridEvaGeneral.getColumnConstraints().get(0);
+        gridEvaGeneral.getColumnConstraints().clear();
+        gridEvaGeneral.getColumnConstraints().add(originalConstraints);
+
+        gridHeaderResGeneral.getColumnConstraints().clear();
+        gridHeaderResGeneral.getColumnConstraints().add(originalConstraints);
+        gridEvaGeneral.setGridLinesVisible(true);
+
+        gridHeaderResGeneral.setGridLinesVisible(true);
+
+        textEvaluation_Feedback.setText(" ");
+        for (ImageView boton : botonesParaEliminar) {
+            gridEvaGeneral.getChildren().remove(boton);
+        }
+        for (ImageView boton : botonesParaEliminar2) {
+            gridResGeneral.getChildren().remove(boton);
+        }
         OptionsFollowUpView.toFront();
     }
+
+    @FXML
+    private void UpdateProceso(ActionEvent event) {
+        ProcesoevaService service = new ProcesoevaService();
+        ProcesosevaDto procesosevaDto = new ProcesosevaDto();
+
+        procesosevaDto.setState(choiceBoxStateEva.getValue());
+        procesosevaDto.setName(TitleEvaField.getText());
+        procesosevaDto.setId(procesoDto.getId());
+        if (DateProEva_Inicial.getValue().isBefore(DateProEva_Final.getValue())) {
+            procesosevaDto.setApplication(DateProEva_Application.getValue());
+            procesosevaDto.setInicialperiod(DateProEva_Inicial.getValue());
+            procesosevaDto.setFinalperiod(DateProEva_Final.getValue());
+            service.SaveProceso(procesosevaDto);
+            ImportListProcesoEva();
+        } else {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Seleccione una fecha de inicio menor a la fecha de finalizacion");
+        }
+
+        if (choiceBoxStateEva.getValue().equals("En revisión")) {
+
+        }
+    }
+
+    Predicate<EvaluatorResultsDto> pProcesos = x -> x.getErEvaluator().getEvsEvaluated().getEsProcesoeva().getEnName().equals(procesoDto.getName());
+
+    public void ResultSis() {
+
+        CharacteristicService serviceChara = new CharacteristicService();
+        Respuesta respuestaChara = serviceChara.getCharacteristic();
+        JobsCompetencesService service = new JobsCompetencesService();
+        HashMap<String, Float> resultado = new HashMap<>();
+        String concatenatedNames = "";
+        float cantidad = listEvaluatorAss.stream().filter(x -> x.getEvsState().equals("S")).count();
+        listEvaluatorAss = listEvaluatorAss.stream().filter(x -> x.getEvsState().equals("S")).toList();
+        List<CharacteristicsDto> characteristics = (List<CharacteristicsDto>) respuestaChara.getResultado("Characteristic");
+        List<CharacteristicsDto> aux;
+        EvaluatorResultsService evaluatorResultService = new EvaluatorResultsService();
+        Respuesta respuesta = evaluatorResultService.getEvaluatorResults();
+        evaluatorsDto = (List<EvaluatorResultsDto>) respuesta.getResultado("EvaluatorsDto");
+        evaluatorsDto = evaluatorsDto.stream().filter(pProcesos.and(x -> x.getErEvaluator().getEvsEvaluated().getEsWorker().getWrName().equals(selectedWorker.getName()))).toList();
+        respuesta = service.getjCompetences();
+        listCompetences = (List<EvaJobCompetenceDto>) respuesta.getResultado("JobsCompetences");
+        listCompetences = listCompetences.stream().filter(x -> x.getJobs().getJsName().equals(selectedWorker.getJob().getJsName())).toList();
+
+        ColumnConstraints originalConstraints = gridEvaGeneral.getColumnConstraints().get(0);
+        for (int i = 1; i < listCompetences.size(); i++) {
+            ColumnConstraints newConstraints = new ColumnConstraints();
+            newConstraints.setFillWidth(originalConstraints.isFillWidth());
+            newConstraints.setHalignment(originalConstraints.getHalignment());
+            newConstraints.setHgrow(originalConstraints.getHgrow());
+            newConstraints.setMaxWidth(originalConstraints.getMaxWidth());
+            newConstraints.setMinWidth(originalConstraints.getMinWidth());
+            newConstraints.setPercentWidth(originalConstraints.getPercentWidth());
+            newConstraints.setPrefWidth(originalConstraints.getPrefWidth());
+            gridEvaGeneral.getColumnConstraints().add(newConstraints);
+        }
+        originalConstraints = gridEvaGeneral.getColumnConstraints().get(0);
+
+        for (int i = 1; i < listCompetences.size(); i++) {
+
+            ColumnConstraints newConstraints = new ColumnConstraints();
+            newConstraints.setFillWidth(originalConstraints.isFillWidth());
+            newConstraints.setHalignment(originalConstraints.getHalignment());
+            newConstraints.setHgrow(originalConstraints.getHgrow());
+            newConstraints.setMaxWidth(originalConstraints.getMaxWidth());
+            newConstraints.setMinWidth(originalConstraints.getMinWidth());
+            newConstraints.setPercentWidth(originalConstraints.getPercentWidth());
+            newConstraints.setPrefWidth(originalConstraints.getPrefWidth());
+            gridHeaderResGeneral.getColumnConstraints().add(newConstraints);
+        }
+        for (int i = 0; i < listCompetences.size(); i++) {
+            final int Cant = i;
+            aux = characteristics.stream().filter(x -> x.getCcComid().getCsName().equals(listCompetences.get(Cant).getJxcCompetence().getCsName())).toList();
+
+            for (int j = 0; j < aux.size(); j++) {
+                concatenatedNames += (aux.get(j).getCcName() + " ");
+            }
+
+            Label label = new Label(listCompetences.get(i).getJxcCompetence().getCsName());
+            String fontFamily = "Tw Cen MT";
+            double fontSize = 23.0;
+            String textColor = "white";
+            label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;" + "-fx-text-fill: " + textColor + ";");
+            label.setTooltip(new Tooltip(concatenatedNames));
+            gridHeaderResGeneral.add(label, i, 0);
+            concatenatedNames = "";
+        }
+
+        for (int i = 0; i < listCompetences.size(); i++) {
+            final int Cont = i;
+            float sum = evaluatorsDto.stream().filter(x -> x.getErCompe().getCsId().equals(listCompetences.get(Cont).getJxcCompetence().getCsId())).mapToLong(x -> x.getNota()).sum();
+            resultado.put(listCompetences.get(Cont).getJxcCompetence().getCsName(), sum / cantidad);
+        }
+        String Texto = "";
+        float sumaTotal = 0;
+
+        for (int i = 0; i < listCompetences.size(); i++) {
+            ImageView checkInstance = new ImageView(check.getImage());
+            ImageView checkPositive = new ImageView(new Image("/cr/ac/una/tarea/view/CheckPositive.png"));
+            ImageView checkNegative = new ImageView(new Image("/cr/ac/una/tarea/view/CheckNegative.png"));
+
+            checkInstance.setFitHeight(50);
+            checkInstance.setFitWidth(50);
+            checkPositive.setFitHeight(50);
+            checkPositive.setFitWidth(50);
+            checkNegative.setFitHeight(50);
+            checkNegative.setFitWidth(50);
+
+            int Redondeo = (int) Math.round(resultado.get(listCompetences.get(i).getJxcCompetence().getCsName()));
+            float valor = resultado.get(listCompetences.get(i).getJxcCompetence().getCsName());
+            if (Redondeo > valor) {
+                gridEvaGeneral.add(checkPositive, i, Math.abs(Redondeo - 4));
+            } else {
+                if (Redondeo < valor) {
+                    gridEvaGeneral.add(checkNegative, i, Math.abs(Redondeo - 4));
+                } else {
+                    gridEvaGeneral.add(checkInstance, i, Math.abs(Redondeo - 4));
+                }
+            }
+            sumaTotal += resultado.get(listCompetences.get(i).getJxcCompetence().getCsName());
+
+        }
+
+        for (int i = 0; i < listEvaluatorAss.size(); i++) {
+            Texto += listEvaluatorAss.get(i).getName() + ": " + listEvaluatorAss.get(i).getEvsFeedback() + "\n";
+        }
+        ImageView checkInstance = new ImageView(check.getImage());
+        checkInstance.setFitHeight(50);
+        checkInstance.setFitWidth(50);
+        gridResGeneral.add(checkInstance, 0, Math.abs(((int) Math.floor(sumaTotal / listCompetences.size()) - 4)));
+        textEvaluationGen_Feedback.setText(Texto);
+    }
+
 }
