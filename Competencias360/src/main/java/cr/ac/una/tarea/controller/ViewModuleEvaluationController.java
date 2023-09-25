@@ -40,6 +40,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -60,7 +61,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
@@ -397,6 +400,11 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private GridPane gridHeaderResGeneral1;
     @FXML
     private GridPane gridEvaGeneral;
+
+    class cordenadas {
+
+        double x, y;
+    }
 
     /**
      * Initializes the controller class.
@@ -1658,6 +1666,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         float sumaTotal = 0;
 
         for (int i = 0; i < listCompetences.size(); i++) {
+
             ImageView checkInstance = new ImageView(check.getImage());
             ImageView checkPositive = new ImageView(new Image("/cr/ac/una/tarea/view/CheckPositive.png"));
             ImageView checkNegative = new ImageView(new Image("/cr/ac/una/tarea/view/CheckNegative.png"));
@@ -1668,22 +1677,57 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             checkPositive.setFitWidth(50);
             checkNegative.setFitHeight(50);
             checkNegative.setFitWidth(50);
+            Button btn = new Button();
+            VBox vbox = new VBox();
+            HBox hbox = new HBox();
+            vbox.setAlignment(Pos.CENTER);
+            hbox.setAlignment(Pos.CENTER);
 
+            double fontSize = 18.0;
+            String fondo = "-fx-background-color: transparent";
+            btn.setStyle(fondo);
+
+            for (int m = 0; m < 4; m++) {
+                Label label = new Label("Label " + m + "               ");
+                System.out.println("hola");
+                vbox.getChildren().add(label);
+            }
+
+            hbox.getChildren().add(vbox);
+
+            /*((Label) vbox.getChildren().get(0)).setText(String.valueOf(1 + 1));
+                ((Label) vbox.getChildren().get(1)).setText(String.valueOf(1 + 1));
+                ((Label) vbox.getChildren().get(2)).setText(String.valueOf(1 + 1));
+                ((Label) vbox.getChildren().get(3)).setText(String.valueOf(1 + 1));
+             */
             int Redondeo = (int) Math.round(resultado.get(listCompetences.get(i).getJxcCompetence().getCsName()));
             float valor = resultado.get(listCompetences.get(i).getJxcCompetence().getCsName());
             if (Redondeo > valor) {
-                gridEvaGeneral.add(checkPositive, i, Math.abs(Redondeo - 4));
+
+                btn.setGraphic(checkPositive);
+
+                gridEvaGeneral.add(hbox, i, Math.abs(Redondeo - 4));
+                gridEvaGeneral.add(btn, i, Math.abs(Redondeo - 4));
+                agregarEventoArrastrar(btn, i, Math.abs(Redondeo - 4));
+
             } else {
                 if (Redondeo < valor) {
-                    gridEvaGeneral.add(checkNegative, i, Math.abs(Redondeo - 4));
+                    btn.setGraphic(checkNegative);
+                    gridEvaGeneral.add(hbox, i, Math.abs(Redondeo - 4));
+                    gridEvaGeneral.add(btn, i, Math.abs(Redondeo - 4));
+                    agregarEventoArrastrar(btn, i, Math.abs(Redondeo - 4));
+
                 } else {
-                    gridEvaGeneral.add(checkInstance, i, Math.abs(Redondeo - 4));
+
+                    btn.setGraphic(checkInstance);
+                    gridEvaGeneral.add(hbox, i, Math.abs(Redondeo - 4));
+                    gridEvaGeneral.add(btn, i, Math.abs(Redondeo - 4));
+                    agregarEventoArrastrar(btn, i, Math.abs(Redondeo - 4));
                 }
             }
             sumaTotal += resultado.get(listCompetences.get(i).getJxcCompetence().getCsName());
 
         }
-
         for (int i = 0; i < listEvaluatorAss.size(); i++) {
             Texto += listEvaluatorAss.get(i).getName() + ": " + listEvaluatorAss.get(i).getEvsFeedback() + "\n";
         }
@@ -1692,6 +1736,111 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         checkInstance.setFitWidth(50);
         gridResGeneral.add(checkInstance, 0, Math.abs(((int) Math.floor(sumaTotal / listCompetences.size()) - 4)));
         textEvaluationGen_Feedback.setText(Texto);
+    }
+
+    private void agregarEventoArrastrar(Button boton, int initialColumn, int initialRow) {
+        final cordenadas dragDelta = new cordenadas();
+        double cellWidth = gridEvaGeneral.getWidth() / gridEvaGeneral.getColumnCount();
+        double cellHeight = gridEvaGeneral.getHeight() / gridEvaGeneral.getRowCount();
+
+        final int[] newInitialColumn = {initialColumn};
+        final int[] newInitialRow = {initialRow};
+
+        boton.setOnMousePressed((mouseEvent) -> {
+            dragDelta.x = boton.getLayoutX() - mouseEvent.getSceneX();
+            dragDelta.y = boton.getLayoutY() - mouseEvent.getSceneY();
+            System.out.println(dragDelta.x);
+            System.out.println(dragDelta.y);
+        });
+
+        boton.setOnMouseDragged((mouseEvent) -> {
+            boton.setLayoutX(mouseEvent.getSceneX() + dragDelta.x);
+            boton.setLayoutY(mouseEvent.getSceneY() + dragDelta.y);
+        });
+
+        boton.setOnMouseReleased((mouseEvent) -> {
+            double sceneX = mouseEvent.getSceneX();
+            double sceneY = mouseEvent.getSceneY();
+
+            int columnIndex = -1;
+            int rowIndex = -1;
+
+            for (int i = 0; i < gridEvaGeneral.getColumnCount(); i++) {
+                double minX = gridEvaGeneral.localToScene(gridEvaGeneral.getBoundsInLocal()).getMinX() + i * cellWidth;
+                double maxX = gridEvaGeneral.localToScene(gridEvaGeneral.getBoundsInLocal()).getMinX() + (i + 1) * cellWidth;
+                if (sceneX >= minX && sceneX < maxX) {
+                    columnIndex = i;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < gridEvaGeneral.getRowCount(); i++) {
+                double minY = gridEvaGeneral.localToScene(gridEvaGeneral.getBoundsInLocal()).getMinY() + i * cellHeight;
+                double maxY = gridEvaGeneral.localToScene(gridEvaGeneral.getBoundsInLocal()).getMinY() + (i + 1) * cellHeight;
+                if (sceneY >= minY && sceneY < maxY) {
+                    rowIndex = i;
+                    break;
+                }
+            }
+
+            if (columnIndex >= 0 && columnIndex < gridEvaGeneral.getColumnCount() && rowIndex >= 0 && rowIndex < 4) {
+                if (columnIndex == newInitialColumn[0] && rowIndex != newInitialRow[0]) {
+                    GridPane.setConstraints(boton, columnIndex, rowIndex);
+                    newInitialColumn[0] = columnIndex;
+                    newInitialRow[0] = rowIndex;
+
+                    //   boton.setTooltip(new Tooltip("Numero: " + columnIndex + " Numero: " + rowIndex));
+                } else {
+                    if (!isColumnOccupied(gridEvaGeneral, columnIndex)) {
+                        if (!isCellOccupied(gridEvaGeneral, columnIndex, rowIndex)) {
+                            GridPane.setConstraints(boton, columnIndex, rowIndex);
+                            newInitialColumn[0] = columnIndex;
+                            newInitialRow[0] = rowIndex;
+                            //     boton.setTooltip(new Tooltip("Fila: " + columnIndex + " Numero: " + rowIndex));
+                        } else {
+                            mostrarAlerta("La celda en la columna " + columnIndex + " y fila " + rowIndex + " ya está ocupada.");
+                            gridEvaGeneral.setConstraints(boton, newInitialColumn[0], newInitialRow[0]);
+                        }
+                    } else {
+                        mostrarAlerta("La columna " + columnIndex + " ya está ocupada.");
+                        gridEvaGeneral.setConstraints(boton, newInitialColumn[0], newInitialRow[0]);
+                    }
+                }
+            } else {
+                gridEvaGeneral.setConstraints(boton, newInitialColumn[0], newInitialRow[0]);
+            }
+        });
+
+    }
+
+    private boolean isCellOccupied(GridPane grid, int column, int row) {
+        for (Node node : grid.getChildren()) {
+            Integer columnIndex = GridPane.getColumnIndex(node);
+            Integer rowIndex = GridPane.getRowIndex(node);
+
+            if (columnIndex != null && rowIndex != null && columnIndex == column && rowIndex == row) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isColumnOccupied(GridPane grid, int column) {
+        for (Node node : grid.getChildren()) {
+            Integer columnIndex = GridPane.getColumnIndex(node);
+            if (columnIndex != null && columnIndex.intValue() == column && node instanceof Button) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Columna ocupada");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
 }

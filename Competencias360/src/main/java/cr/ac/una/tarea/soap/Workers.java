@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for workers complex type.
+ * <p>Clase Java para workers complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="workers">
@@ -79,7 +79,7 @@ public class Workers {
     protected String wrUsername;
 
     /**
-     * Gets the value of the wrActive property.
+     * Obtiene el valor de la propiedad wrActive.
      * 
      * @return
      *     possible object is
@@ -91,7 +91,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrActive property.
+     * Define el valor de la propiedad wrActive.
      * 
      * @param value
      *     allowed object is
@@ -103,7 +103,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrAdmin property.
+     * Obtiene el valor de la propiedad wrAdmin.
      * 
      * @return
      *     possible object is
@@ -115,7 +115,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrAdmin property.
+     * Define el valor de la propiedad wrAdmin.
      * 
      * @param value
      *     allowed object is
@@ -127,7 +127,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrCodeactive property.
+     * Obtiene el valor de la propiedad wrCodeactive.
      * 
      * @return
      *     possible object is
@@ -139,7 +139,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrCodeactive property.
+     * Define el valor de la propiedad wrCodeactive.
      * 
      * @param value
      *     allowed object is
@@ -151,7 +151,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrEmail property.
+     * Obtiene el valor de la propiedad wrEmail.
      * 
      * @return
      *     possible object is
@@ -163,7 +163,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrEmail property.
+     * Define el valor de la propiedad wrEmail.
      * 
      * @param value
      *     allowed object is
@@ -175,7 +175,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrId property.
+     * Obtiene el valor de la propiedad wrId.
      * 
      * @return
      *     possible object is
@@ -187,7 +187,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrId property.
+     * Define el valor de la propiedad wrId.
      * 
      * @param value
      *     allowed object is
@@ -199,7 +199,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrIdentification property.
+     * Obtiene el valor de la propiedad wrIdentification.
      * 
      * @return
      *     possible object is
@@ -211,7 +211,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrIdentification property.
+     * Define el valor de la propiedad wrIdentification.
      * 
      * @param value
      *     allowed object is
@@ -223,7 +223,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrJob property.
+     * Obtiene el valor de la propiedad wrJob.
      * 
      * @return
      *     possible object is
@@ -235,7 +235,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrJob property.
+     * Define el valor de la propiedad wrJob.
      * 
      * @param value
      *     allowed object is
@@ -247,7 +247,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrLandline property.
+     * Obtiene el valor de la propiedad wrLandline.
      * 
      * @return
      *     possible object is
@@ -259,7 +259,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrLandline property.
+     * Define el valor de la propiedad wrLandline.
      * 
      * @param value
      *     allowed object is
@@ -271,7 +271,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrName property.
+     * Obtiene el valor de la propiedad wrName.
      * 
      * @return
      *     possible object is
@@ -283,7 +283,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrName property.
+     * Define el valor de la propiedad wrName.
      * 
      * @param value
      *     allowed object is
@@ -295,7 +295,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrPassword property.
+     * Obtiene el valor de la propiedad wrPassword.
      * 
      * @return
      *     possible object is
@@ -307,7 +307,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrPassword property.
+     * Define el valor de la propiedad wrPassword.
      * 
      * @param value
      *     allowed object is
@@ -319,7 +319,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrPhoto property.
+     * Obtiene el valor de la propiedad wrPhoto.
      * 
      * @return
      *     possible object is
@@ -330,7 +330,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrPhoto property.
+     * Define el valor de la propiedad wrPhoto.
      * 
      * @param value
      *     allowed object is
@@ -341,7 +341,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrPsurname property.
+     * Obtiene el valor de la propiedad wrPsurname.
      * 
      * @return
      *     possible object is
@@ -353,7 +353,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrPsurname property.
+     * Define el valor de la propiedad wrPsurname.
      * 
      * @param value
      *     allowed object is
@@ -365,7 +365,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrRecover property.
+     * Obtiene el valor de la propiedad wrRecover.
      * 
      * @return
      *     possible object is
@@ -377,7 +377,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrRecover property.
+     * Define el valor de la propiedad wrRecover.
      * 
      * @param value
      *     allowed object is
@@ -389,7 +389,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrSsurname property.
+     * Obtiene el valor de la propiedad wrSsurname.
      * 
      * @return
      *     possible object is
@@ -401,7 +401,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrSsurname property.
+     * Define el valor de la propiedad wrSsurname.
      * 
      * @param value
      *     allowed object is
@@ -413,7 +413,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrTelephone property.
+     * Obtiene el valor de la propiedad wrTelephone.
      * 
      * @return
      *     possible object is
@@ -425,7 +425,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrTelephone property.
+     * Define el valor de la propiedad wrTelephone.
      * 
      * @param value
      *     allowed object is
@@ -437,7 +437,7 @@ public class Workers {
     }
 
     /**
-     * Gets the value of the wrUsername property.
+     * Obtiene el valor de la propiedad wrUsername.
      * 
      * @return
      *     possible object is
@@ -449,7 +449,7 @@ public class Workers {
     }
 
     /**
-     * Sets the value of the wrUsername property.
+     * Define el valor de la propiedad wrUsername.
      * 
      * @param value
      *     allowed object is
