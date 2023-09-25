@@ -236,7 +236,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private TableView<CharacteristicsDto> tableViewCharacteristics;
     @FXML
-    private TableColumn<CharacteristicsDto, String> tableColCharactId;
+    private TableColumn<CharacteristicsDto, String> tableColCharactComp;
     @FXML
     private TableColumn<CharacteristicsDto, String> tableColCharactName;
     @FXML
@@ -262,6 +262,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private TableColumn<CompetenceDto, String> tableColCCompStaAss;
      List<InformationDto> list;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         OptionsMenuView.toFront();
@@ -284,7 +285,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         this.tableColAsCompSta.setCellValueFactory(new PropertyValueFactory("States"));
         this.tableColAsCompName.setCellValueFactory(new PropertyValueFactory("Name"));
 
-        this.tableColCharactId.setCellValueFactory(new PropertyValueFactory("CcId"));
+        this.tableColCharactComp.setCellValueFactory(new PropertyValueFactory("CcComName"));
         this.tableColCharactName.setCellValueFactory(new PropertyValueFactory("CcName"));
 
         this.tableColCompCharacAss.setCellValueFactory(new PropertyValueFactory("Characteristics"));
@@ -1080,7 +1081,13 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         competence.setCsName(competenceDto.getName());
         competence.setCsState(competenceDto.getState());
         caract.setCcComid(competence);
-        cs.SaveCharacteristic(caract);
+        Respuesta respuesta=cs.SaveCharacteristic(caract);
+        if (!respuesta.getEstado()) {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar característica", getStage(), respuesta.getMensaje());
+        } else {
+            new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar característica", getStage(), "Característica actualizada correctamente.");
+        }
+        ImportListCharacteristics();
     }
 
     @FXML

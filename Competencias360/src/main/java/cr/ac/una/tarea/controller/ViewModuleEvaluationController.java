@@ -403,6 +403,26 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private GridPane gridEvaGeneral;
     HashMap<String, Float> resultado = new HashMap<>();
+    @FXML
+    private Button btnConfigEva;
+    @FXML
+    private Button btnConfigMenu;
+    @FXML
+    private Button btnAssignMenu;
+    @FXML
+    private Button btnConfigSetting;
+    @FXML
+    private Button btnAssignSetting;
+    @FXML
+    private Button btnConfigRelational;
+    @FXML
+    private Button btnAssignRelational;
+    @FXML
+    private Button btnConfigFollowUp;
+    @FXML
+    private Button btnAssignFollowUp;
+    @FXML
+    private Button btnResultGeneral;
 
     @FXML
     private void SummitFinal(ActionEvent event) {
@@ -410,7 +430,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         ResultsService resultService = new ResultsService();
         ResultsDto resultDto = new ResultsDto();
         EvaluatedService service = new EvaluatedService();
-        
+
         Respuesta respuesta = service.getEvaluateds();
         ProcesoevaService serviceProceso = new ProcesoevaService();
         for (int i = 0; i < resultado.size(); i++) {
@@ -428,20 +448,20 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                     if (node == null) {
                         continue;
                     } else {
-                        if(colIndex == i){
-                        resultDto.setRsNotajefatura((short)Math.abs((rowIndex - 4)));
+                        if (colIndex == i) {
+                            resultDto.setRsNotajefatura((short) Math.abs((rowIndex - 4)));
                         }
                     }
                 }
             }
-           respuesta = serviceProceso.getProcesos();
+            respuesta = serviceProceso.getProcesos();
             List<ProcesosevaDto> listProcesosDto = (List<ProcesosevaDto>) respuesta.getResultado("ProcesosevaDto");
             ProcesosevaDto dates = listProcesosDto.stream().filter(x -> x.getId().equals(resultDto.getRsEvaluated().getEsProcesoeva().getEnId())).findAny().get();
-                      
+
             procesoDto.setsetApplication(dates.getApplication().toString());
             procesoDto.setsetFinalperiod(dates.getFinalperiod().toString());
             procesoDto.setsetInicialperiod(dates.getInicialperiod().toString());
-            resultService.SaveResult(resultDto,procesoDto);
+            resultService.SaveResult(resultDto, procesoDto);
         }
 
     }
@@ -543,6 +563,32 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void openEvaluations(MouseEvent event) {
+    }
+
+    public void reviewStateProcess() {
+        if (choiceBoxStateEva.getValue() == "En revisión") {
+            btnConfigEva.setText("Revisar Nota");
+            btnConfigMenu.setVisible(false);
+            btnAssignMenu.setVisible(false);
+            btnConfigSetting.setVisible(false);
+            btnAssignSetting.setVisible(false);
+            btnConfigRelational.setVisible(false);
+            btnAssignRelational.setVisible(false);
+            btnConfigFollowUp.setVisible(false);
+            btnAssignFollowUp.setVisible(false);
+            btnResultGeneral.setVisible(true);
+        } else {
+            btnResultGeneral.setVisible(false);
+            btnConfigEva.setText("Configuración Evaluación");
+            btnConfigMenu.setVisible(true);
+            btnAssignMenu.setVisible(true);
+            btnConfigSetting.setVisible(true);
+            btnAssignSetting.setVisible(true);
+            btnConfigRelational.setVisible(true);
+            btnAssignRelational.setVisible(true);
+            btnConfigFollowUp.setVisible(true);
+            btnAssignFollowUp.setVisible(true);
+        }
     }
 
     @FXML
@@ -1090,6 +1136,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private void openSettingRelational(ActionEvent event) {
         importEvaluators();
         viewSelectedJob.toFront();
+        viewSelectedWorker.toFront();
         OptionsSettingRelationalView.toFront();
     }
 
@@ -1235,6 +1282,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                 DateProEva_Inicial.setValue(procesoDto.getInicialperiod());
                 DateProEva_Final.setValue(procesoDto.getFinalperiod());
                 DateProEva_Application.setValue(procesoDto.getApplication());
+                reviewStateProcess();
             } catch (Exception ex) {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un proceso en este campo.");
             }
@@ -1641,19 +1689,22 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         procesosevaDto.setState(choiceBoxStateEva.getValue());
         procesosevaDto.setName(TitleEvaField.getText());
         procesosevaDto.setId(procesoDto.getId());
+        reviewStateProcess();
         if (DateProEva_Inicial.getValue().isBefore(DateProEva_Final.getValue())) {
             procesosevaDto.setApplication(DateProEva_Application.getValue());
             procesosevaDto.setInicialperiod(DateProEva_Inicial.getValue());
             procesosevaDto.setFinalperiod(DateProEva_Final.getValue());
-            service.SaveProceso(procesosevaDto);
+            Respuesta respuesta = service.SaveProceso(procesosevaDto);
+            if (!respuesta.getEstado()) {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar proceso de evaluación", getStage(), respuesta.getMensaje());
+            } else {
+                new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar proceso de evaluación", getStage(), "Proceso de evaluación actualizado correctamente.");
+            }
             ImportListProcesoEva();
         } else {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Seleccione una fecha de inicio menor a la fecha de finalizacion");
         }
 
-        if (choiceBoxStateEva.getValue().equals("En revisión")) {
-
-        }
     }
 
     Predicate<EvaluatorResultsDto> pProcesos = x -> x.getErEvaluator().getEvsEvaluated().getEsProcesoeva().getEnName().equals(procesoDto.getName());
@@ -1739,15 +1790,17 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                 int Companero = (int) ResultAux.stream().filter(pConexion("Compañero").and(x -> x.getNota().equals(Math.abs(cont2 - 4)))).count();
 
                 if (!(jefatura == 0 && Cliente == 0 && Companero == 0)) {
-                    Label label = new Label("Jefatura " + jefatura);
+                    String fontFamily = "Tw Cen MT";
+                    double fontSize = 22.0;
+                    Label label = new Label("$  " + jefatura);
                     vbox.getChildren().add(label);
-
-                    label = new Label("Cliente " + Cliente);
+                    label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;");
+                    label = new Label("*  " + Cliente);
                     vbox.getChildren().add(label);
-
-                    label = new Label("Compañero " + Companero);
+                    label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;");
+                    label = new Label("#  " + Companero);
                     vbox.getChildren().add(label);
-
+                    label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;");
                     gridEvaGeneral.add(vbox, i, j);
                 }
             }
@@ -1782,17 +1835,17 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             float valor = resultado.get(listCompetences.get(i).getJxcCompetence().getCsName());
             if (Redondeo > valor) {
                 btn.setGraphic(checkPositive);
-                gridEvaGeneral.add(btn, i, Math.abs(Redondeo - 4));
-                agregarEventoArrastrar(btn, i, Math.abs(Redondeo - 4));
+                gridEvaGeneral.add(btn, i, Math.abs((int) valor - 4));
+                agregarEventoArrastrar(btn, i, Math.abs((int) valor - 4));
             } else {
                 if (Redondeo < valor) {
                     btn.setGraphic(checkNegative);
-                    gridEvaGeneral.add(btn, i, Math.abs(Redondeo - 4));
-                    agregarEventoArrastrar(btn, i, Math.abs(Redondeo - 4));
+                    gridEvaGeneral.add(btn, i, Math.abs((int) valor - 4));
+                    agregarEventoArrastrar(btn, i, Math.abs((int) valor - 4));
                 } else {
                     btn.setGraphic(checkInstance);
-                    gridEvaGeneral.add(btn, i, Math.abs(Redondeo - 4));
-                    agregarEventoArrastrar(btn, i, Math.abs(Redondeo - 4));
+                    gridEvaGeneral.add(btn, i, Math.abs((int) valor - 4));
+                    agregarEventoArrastrar(btn, i, Math.abs((int) valor - 4));
                 }
             }
             sumaTotal += resultado.get(listCompetences.get(i).getJxcCompetence().getCsName());

@@ -51,6 +51,9 @@ public class CharacteristicsDto {
     public Competences getCcComid() {
         return ccComid;
     }
+    public String getCcComName(){
+        return ccComid.getCsName();
+    }
 
     public void setCcId(Integer ccId) {
         this.ccId.set(ccId);

@@ -59,7 +59,7 @@ public class EvaluatorDto {
     
     public String getEvsStateList() {
         String state = "Sin realizar";
-        if(evsState.equals("N")){
+        if(evsState.getValue().equals("S")){
             state ="Realizado";
         }
         return state;
