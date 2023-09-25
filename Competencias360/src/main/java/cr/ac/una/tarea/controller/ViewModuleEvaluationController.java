@@ -392,6 +392,10 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private GridPane gridResGeneral;
     @FXML
     private GridPane gridHeaderResGeneral;
+    @FXML
+    private GridPane gridHeaderResGeneral1;
+    @FXML
+    private GridPane gridEvaGeneral;
 
     /**
      * Initializes the controller class.
