@@ -30,6 +30,7 @@ public class EvaluatorService {
             ModuleEvaluators_Service servicio = new ModuleEvaluators_Service();
             ModuleEvaluators cliente = servicio.getModuleEvaluatorsPort();
             Procesoeva aux = new Procesoeva();
+            
             cliente.setAllDates(aux,
                     proceso.getApplication().toString(),
                     proceso.getFinalperiod().toString(),

@@ -4,6 +4,7 @@
  */
 package cr.ac.una.tareaws.controller;
 
+import cr.ac.una.tareaws.model.Procesoeva;
 import cr.ac.una.tareaws.model.Result;
 import cr.ac.una.tareaws.model.ResultDto;
 import cr.ac.una.tareaws.service.ResultService;
@@ -13,6 +14,7 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import java.io.IOException;
+import java.time.LocalDate;
 
 /**
  *
@@ -43,8 +45,7 @@ public class ModuleResult {
         Respuesta respuesta = resultService.DeleteResult(id);
         return respuesta.getEstado();
     }
-    
-        @WebMethod(operationName = "RegisterResult")
+    @WebMethod(operationName = "RegisterResult")
     public Boolean RegisterResult(ResultDto job) {
         Respuesta respuesta = resultService.SaveResult(job);
         return respuesta.getEstado();

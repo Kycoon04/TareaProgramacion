@@ -61,7 +61,7 @@ public class ModuleEvaluators {
         Respuesta respuesta = evaluatorsService.DeleteEvaluator(id);
         return respuesta.getEstado();
     }
-        @WebMethod(operationName = "setAllDates")
+    @WebMethod(operationName = "setAllDates")
     public void setAllDates(@WebParam(name = "dto") Procesoeva proceso, @WebParam(name = "Aplicacion") String Aplicacion,@WebParam(name = "finalizado") String finalizado,@WebParam(name = "inicio") String inicio) {
         proceso.setEnApplication(LocalDate.parse(Aplicacion));
         proceso.setEnFinalperiod(LocalDate.parse(finalizado));

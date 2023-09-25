@@ -11,6 +11,7 @@ import cr.ac.una.tarea.model.EvaluatorDto;
 import cr.ac.una.tarea.model.EvaluatorResultsDto;
 import cr.ac.una.tarea.model.JobDto;
 import cr.ac.una.tarea.model.ProcesosevaDto;
+import cr.ac.una.tarea.model.ResultsDto;
 import cr.ac.una.tarea.model.WorkerDto;
 import cr.ac.una.tarea.service.CharacteristicService;
 import cr.ac.una.tarea.service.EvaluatedService;
@@ -19,8 +20,10 @@ import cr.ac.una.tarea.service.EvaluatorService;
 import cr.ac.una.tarea.service.JobsCompetencesService;
 import cr.ac.una.tarea.service.JobsService;
 import cr.ac.una.tarea.service.ProcesoevaService;
+import cr.ac.una.tarea.service.ResultsService;
 import cr.ac.una.tarea.service.WorkersService;
 import cr.ac.una.tarea.soap.Evaluated;
+import cr.ac.una.tarea.soap.Evaluators;
 import cr.ac.una.tarea.soap.Procesoeva;
 import cr.ac.una.tarea.soap.Workers;
 import cr.ac.una.tarea.util.FlowController;
@@ -378,8 +381,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private ImageView check;
     @FXML
     private BorderPane OptionsEvaluationGeneralView;
-    @FXML
-    private Text textEvaluationGen_Process;
+    //private Text textEvaluationGen_Process;
     @FXML
     private Text textEvaluationGen_Name;
     @FXML
@@ -400,6 +402,59 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private GridPane gridHeaderResGeneral1;
     @FXML
     private GridPane gridEvaGeneral;
+    HashMap<String, Float> resultado = new HashMap<>();
+
+    @FXML
+    private void SummitFinal(ActionEvent event) {
+        System.out.println("ho;las");
+        ResultsService resultService = new ResultsService();
+        ResultsDto resultDto = new ResultsDto();
+        EvaluatedService service = new EvaluatedService();
+        
+        Respuesta respuesta = service.getEvaluateds();
+        ProcesoevaService serviceProceso = new ProcesoevaService();
+        for (int i = 0; i < resultado.size(); i++) {
+            resultDto.setRsCompe(listCompetences.get(i).getJxcCompetence());
+            resultDto.setRsNotasis(floatToShort(resultado.get(listCompetences.get(i).getJxcCompetence().getCsName())));
+            resultDto.setRsEvaluated(evaluatorsDto.get(i).getErEvaluator().getEvsEvaluated());
+            for (Node node : gridEvaGeneral.getChildren()) {
+                if (node instanceof Button) {
+                    Integer colIndex = GridPane.getColumnIndex(node);
+                    Integer rowIndex = GridPane.getRowIndex(node);
+
+                    colIndex = colIndex == null ? 0 : colIndex;
+                    rowIndex = rowIndex == null ? 0 : rowIndex;
+
+                    if (node == null) {
+                        continue;
+                    } else {
+                        if(colIndex == i){
+                        resultDto.setRsNotajefatura((short)Math.abs((rowIndex - 4)));
+                        }
+                    }
+                }
+            }
+           respuesta = serviceProceso.getProcesos();
+            List<ProcesosevaDto> listProcesosDto = (List<ProcesosevaDto>) respuesta.getResultado("ProcesosevaDto");
+            ProcesosevaDto dates = listProcesosDto.stream().filter(x -> x.getId().equals(resultDto.getRsEvaluated().getEsProcesoeva().getEnId())).findAny().get();
+                      
+            procesoDto.setsetApplication(dates.getApplication().toString());
+            procesoDto.setsetFinalperiod(dates.getFinalperiod().toString());
+            procesoDto.setsetInicialperiod(dates.getInicialperiod().toString());
+            resultService.SaveResult(resultDto,procesoDto);
+        }
+
+    }
+
+    public static short floatToShort(float x) {
+        if (x < Short.MIN_VALUE) {
+            return Short.MIN_VALUE;
+        }
+        if (x > Short.MAX_VALUE) {
+            return Short.MAX_VALUE;
+        }
+        return (short) Math.round(x);
+    }
 
     class cordenadas {
 
@@ -1236,8 +1291,8 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             //textEvaluator.setText(selectedWorker.getName() + " " + selectedWorker.getPsurname() + " " + selectedWorker.getSsurname());
 
             /*workersListSel.add(selectedWorker);
-            
-            
+
+
             workersAss = FXCollections.observableArrayList(workersListSel);
 
             //this.tableViewSelWorkers1.refresh();
@@ -1482,25 +1537,24 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void backEvaluation(ActionEvent event) {
-        List<ImageView> botonesParaEliminar = new ArrayList<>();
+        List<Button> botonesParaEliminar = new ArrayList<>();
         ObservableList<Node> children = grid.getChildren();
 
         for (Node node : children) {
-            if (node instanceof ImageView) {
-                botonesParaEliminar.add((ImageView) node);
+            if (node instanceof Button) {
+                botonesParaEliminar.add((Button) node);
             }
         }
         ColumnConstraints originalConstraints = grid.getColumnConstraints().get(0);
         grid.getColumnConstraints().clear();
         grid.getColumnConstraints().add(originalConstraints);
-
         gridHeader.getColumnConstraints().clear();
         gridHeader.getColumnConstraints().add(originalConstraints);
         grid.setGridLinesVisible(true);
         gridHeader.setGridLinesVisible(true);
 
         textEvaluation_Feedback.setText(" ");
-        for (ImageView boton : botonesParaEliminar) {
+        for (Button boton : botonesParaEliminar) {
             grid.getChildren().remove(boton);
         }
         OptionsFollowUpView.toFront();
@@ -1525,7 +1579,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private void openEvaluationGeneral(MouseEvent event) {
         ResultSis();
-        textEvaluationGen_Process.setText(procesoDto.getName());
+        //textEvaluationGen_Process.setText(procesoDto.getName());
         textEvaluationGen_Name.setText(selectedWorker.getName() + " " + selectedWorker.getPsurname() + " " + selectedWorker.getSsurname());
         textEvaluationGen_Job.setText(selectedWorker.getJob().getJsName());
         textEvaluationGen_Period.setText(procesoDto.getInicialperiod().getYear() + " - " + procesoDto.getFinalperiod().getYear());
@@ -1535,18 +1589,25 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void backEvaluationGen(ActionEvent event) {
-        List<ImageView> botonesParaEliminar = new ArrayList<>();
-        List<ImageView> botonesParaEliminar2 = new ArrayList<>();
+        List<Button> botonesParaEliminar = new ArrayList<>();
+        List<Button> botonesParaEliminar2 = new ArrayList<>();
+        List<VBox> botonesParaEliminar3 = new ArrayList<>();
         ObservableList<Node> children = gridEvaGeneral.getChildren();
         ObservableList<Node> children2 = gridResGeneral.getChildren();
+        ObservableList<Node> children3 = gridResGeneral.getChildren();
         for (Node node : children) {
-            if (node instanceof ImageView) {
-                botonesParaEliminar.add((ImageView) node);
+            if (node instanceof Button) {
+                botonesParaEliminar.add((Button) node);
+            }
+        }
+        for (Node node : children3) {
+            if (node instanceof VBox) {
+                botonesParaEliminar3.add((VBox) node);
             }
         }
         for (Node node : children2) {
-            if (node instanceof ImageView) {
-                botonesParaEliminar2.add((ImageView) node);
+            if (node instanceof Button) {
+                botonesParaEliminar2.add((Button) node);
             }
         }
         ColumnConstraints originalConstraints = gridEvaGeneral.getColumnConstraints().get(0);
@@ -1560,10 +1621,13 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         gridHeaderResGeneral.setGridLinesVisible(true);
 
         textEvaluation_Feedback.setText(" ");
-        for (ImageView boton : botonesParaEliminar) {
+        for (Button boton : botonesParaEliminar) {
             gridEvaGeneral.getChildren().remove(boton);
         }
-        for (ImageView boton : botonesParaEliminar2) {
+        for (VBox vBox : botonesParaEliminar3) {
+            gridEvaGeneral.getChildren().remove(vBox);
+        }
+        for (Button boton : botonesParaEliminar2) {
             gridResGeneral.getChildren().remove(boton);
         }
         OptionsFollowUpView.toFront();
@@ -1594,12 +1658,15 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     Predicate<EvaluatorResultsDto> pProcesos = x -> x.getErEvaluator().getEvsEvaluated().getEsProcesoeva().getEnName().equals(procesoDto.getName());
 
+    Predicate<EvaluatorResultsDto> pConexion(String conexion) {
+        return x -> x.getErEvaluator().getEvsConnection().equals(conexion);
+    }
+
     public void ResultSis() {
 
         CharacteristicService serviceChara = new CharacteristicService();
         Respuesta respuestaChara = serviceChara.getCharacteristic();
         JobsCompetencesService service = new JobsCompetencesService();
-        HashMap<String, Float> resultado = new HashMap<>();
         String concatenatedNames = "";
         float cantidad = listEvaluatorAss.stream().filter(x -> x.getEvsState().equals("S")).count();
         listEvaluatorAss = listEvaluatorAss.stream().filter(x -> x.getEvsState().equals("S")).toList();
@@ -1658,13 +1725,41 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         }
 
         for (int i = 0; i < listCompetences.size(); i++) {
+            final int cont = i;
+            List<EvaluatorResultsDto> ResultAux = evaluatorsDto.stream().filter(x -> x.getErCompe().getCsId().equals(listCompetences.get(cont).getJxcCompetence().getCsId())).toList();
+
+            for (int j = 0; j < 4; j++) {
+                final int cont2 = j;
+                VBox vbox = new VBox();
+                HBox hbox = new HBox();
+                vbox.setAlignment(Pos.CENTER);
+                hbox.setAlignment(Pos.CENTER);
+                int jefatura = (int) ResultAux.stream().filter(pConexion("Jefatura").and(x -> x.getNota().equals(Math.abs(cont2 - 4)))).count();
+                int Cliente = (int) ResultAux.stream().filter(pConexion("Cliente").and(x -> x.getNota().equals(Math.abs(cont2 - 4)))).count();
+                int Companero = (int) ResultAux.stream().filter(pConexion("Compañero").and(x -> x.getNota().equals(Math.abs(cont2 - 4)))).count();
+
+                if (!(jefatura == 0 && Cliente == 0 && Companero == 0)) {
+                    Label label = new Label("Jefatura " + jefatura);
+                    vbox.getChildren().add(label);
+
+                    label = new Label("Cliente " + Cliente);
+                    vbox.getChildren().add(label);
+
+                    label = new Label("Compañero " + Companero);
+                    vbox.getChildren().add(label);
+
+                    gridEvaGeneral.add(vbox, i, j);
+                }
+            }
+        }
+
+        for (int i = 0; i < listCompetences.size(); i++) {
             final int Cont = i;
             float sum = evaluatorsDto.stream().filter(x -> x.getErCompe().getCsId().equals(listCompetences.get(Cont).getJxcCompetence().getCsId())).mapToLong(x -> x.getNota()).sum();
             resultado.put(listCompetences.get(Cont).getJxcCompetence().getCsName(), sum / cantidad);
         }
         String Texto = "";
         float sumaTotal = 0;
-
         for (int i = 0; i < listCompetences.size(); i++) {
 
             ImageView checkInstance = new ImageView(check.getImage());
@@ -1677,56 +1772,30 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             checkPositive.setFitWidth(50);
             checkNegative.setFitHeight(50);
             checkNegative.setFitWidth(50);
-            Button btn = new Button();
-            VBox vbox = new VBox();
-            HBox hbox = new HBox();
-            vbox.setAlignment(Pos.CENTER);
-            hbox.setAlignment(Pos.CENTER);
 
+            Button btn = new Button();
             double fontSize = 18.0;
             String fondo = "-fx-background-color: transparent";
             btn.setStyle(fondo);
 
-            for (int m = 0; m < 4; m++) {
-                Label label = new Label("Label " + m + "               ");
-                System.out.println("hola");
-                vbox.getChildren().add(label);
-            }
-
-            hbox.getChildren().add(vbox);
-
-            /*((Label) vbox.getChildren().get(0)).setText(String.valueOf(1 + 1));
-                ((Label) vbox.getChildren().get(1)).setText(String.valueOf(1 + 1));
-                ((Label) vbox.getChildren().get(2)).setText(String.valueOf(1 + 1));
-                ((Label) vbox.getChildren().get(3)).setText(String.valueOf(1 + 1));
-             */
             int Redondeo = (int) Math.round(resultado.get(listCompetences.get(i).getJxcCompetence().getCsName()));
             float valor = resultado.get(listCompetences.get(i).getJxcCompetence().getCsName());
             if (Redondeo > valor) {
-
                 btn.setGraphic(checkPositive);
-
-                gridEvaGeneral.add(hbox, i, Math.abs(Redondeo - 4));
                 gridEvaGeneral.add(btn, i, Math.abs(Redondeo - 4));
                 agregarEventoArrastrar(btn, i, Math.abs(Redondeo - 4));
-
             } else {
                 if (Redondeo < valor) {
                     btn.setGraphic(checkNegative);
-                    gridEvaGeneral.add(hbox, i, Math.abs(Redondeo - 4));
                     gridEvaGeneral.add(btn, i, Math.abs(Redondeo - 4));
                     agregarEventoArrastrar(btn, i, Math.abs(Redondeo - 4));
-
                 } else {
-
                     btn.setGraphic(checkInstance);
-                    gridEvaGeneral.add(hbox, i, Math.abs(Redondeo - 4));
                     gridEvaGeneral.add(btn, i, Math.abs(Redondeo - 4));
                     agregarEventoArrastrar(btn, i, Math.abs(Redondeo - 4));
                 }
             }
             sumaTotal += resultado.get(listCompetences.get(i).getJxcCompetence().getCsName());
-
         }
         for (int i = 0; i < listEvaluatorAss.size(); i++) {
             Texto += listEvaluatorAss.get(i).getName() + ": " + listEvaluatorAss.get(i).getEvsFeedback() + "\n";
