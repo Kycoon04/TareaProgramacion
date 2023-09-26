@@ -28,6 +28,21 @@ public interface ModuleComInformation {
 
     /**
      * 
+     * @param id
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "Delete")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
+    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleComInformation/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleComInformation/DeleteResponse")
+    public Boolean delete(
+        @WebParam(name = "Id", targetNamespace = "")
+        Integer id);
+
+    /**
+     * 
      * @param name
      * @return
      *     returns cr.ac.una.tarea.soap.ComInformationDto
@@ -48,21 +63,6 @@ public interface ModuleComInformation {
 
     /**
      * 
-     * @param arg0
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "GeneralParameters")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "GeneralParameters", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GeneralParameters")
-    @ResponseWrapper(localName = "GeneralParametersResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GeneralParametersResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersRequest", output = "http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersResponse")
-    public Boolean generalParameters(
-        @WebParam(name = "arg0", targetNamespace = "")
-        ComInformationDto arg0);
-
-    /**
-     * 
      * @return
      *     returns java.util.List<cr.ac.una.tarea.soap.ComInformationDto>
      * @throws IOException_Exception
@@ -80,17 +80,17 @@ public interface ModuleComInformation {
 
     /**
      * 
-     * @param id
+     * @param arg0
      * @return
      *     returns java.lang.Boolean
      */
-    @WebMethod(operationName = "Delete")
+    @WebMethod(operationName = "GeneralParameters")
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
-    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleComInformation/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleComInformation/DeleteResponse")
-    public Boolean delete(
-        @WebParam(name = "Id", targetNamespace = "")
-        Integer id);
+    @RequestWrapper(localName = "GeneralParameters", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GeneralParameters")
+    @ResponseWrapper(localName = "GeneralParametersResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GeneralParametersResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersRequest", output = "http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersResponse")
+    public Boolean generalParameters(
+        @WebParam(name = "arg0", targetNamespace = "")
+        ComInformationDto arg0);
 
 }

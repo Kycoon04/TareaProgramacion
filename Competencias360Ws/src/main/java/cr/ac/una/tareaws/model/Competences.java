@@ -1,12 +1,19 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package cr.ac.una.tareaws.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -19,8 +26,7 @@ import jakarta.persistence.Table;
     @NamedQuery(name = "Competences.findAll", query = "SELECT c FROM Competences c"),
     @NamedQuery(name = "Competences.findByCsId", query = "SELECT c FROM Competences c WHERE c.csId = :csId"),
     @NamedQuery(name = "Competences.findByCsName", query = "SELECT c FROM Competences c WHERE c.csName = :csName"),
-    @NamedQuery(name = "Competences.findByCsState", query = "SELECT c FROM Competences c WHERE c.csState = :csState"),
-    @NamedQuery(name = "Competences.findByCsCharacteristics", query = "SELECT c FROM Competences c WHERE c.csCharacteristics = :csCharacteristics")})
+    @NamedQuery(name = "Competences.findByCsState", query = "SELECT c FROM Competences c WHERE c.csState = :csState")})
 public class Competences implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,27 +38,23 @@ public class Competences implements Serializable {
     private String csName;
     @Column(name = "CS_STATE")
     private String csState;
-    @Column(name = "CS_CHARACTERISTICS")
-    private String csCharacteristics;
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "jxcCompetence")
-    //private List<JobsCompetences> jobsCompetencesList;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "rsCompe")
+    //private Collection<Result> resultCollection;
 
     public Competences() {
+    }
+
+    public Competences(Integer csId) {
+        this.csId = csId;
     }
     public Competences(CompetencesDto competencesDto) {
         this.csId = 1;
         Actualizar(competencesDto);
     }
-
     public void Actualizar(CompetencesDto competencesDto) {
         this.csName = competencesDto.getName();
         this.csState = competencesDto.getState();
-        this.csCharacteristics = competencesDto.getCharacteristics();
     }
-    public Competences(Integer csId) {
-        this.csId = csId;
-    }
-
     public Integer getCsId() {
         return csId;
     }
@@ -77,22 +79,6 @@ public class Competences implements Serializable {
         this.csState = csState;
     }
 
-    public String getCsCharacteristics() {
-        return csCharacteristics;
-    }
-
-    public void setCsCharacteristics(String csCharacteristics) {
-        this.csCharacteristics = csCharacteristics;
-    }
-/*
-    public List<JobsCompetences> getJobsCompetencesList() {
-        return jobsCompetencesList;
-    }
-
-    public void setJobsCompetencesList(List<JobsCompetences> jobsCompetencesList) {
-        this.jobsCompetencesList = jobsCompetencesList;
-    }*/
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -115,7 +101,7 @@ public class Competences implements Serializable {
 
     @Override
     public String toString() {
-        return "cr.ac.una.tareaws.model.Competences[ csId=" + csId + " ]";
+        return "cr.ac.una.tareaws.controller.Competences[ csId=" + csId + " ]";
     }
     
 }

@@ -43,18 +43,23 @@ public interface ModuleCompetences {
 
     /**
      * 
-     * @param arg0
+     * @param name
      * @return
-     *     returns java.lang.Boolean
+     *     returns cr.ac.una.tarea.soap.CompetencesDto
+     * @throws IOException_Exception
      */
-    @WebMethod(operationName = "RegisterCompetences")
+    @WebMethod(operationName = "GetCompetence")
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "RegisterCompetences", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterCompetences")
-    @ResponseWrapper(localName = "RegisterCompetencesResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterCompetencesResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCompetences/RegisterCompetencesRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCompetences/RegisterCompetencesResponse")
-    public Boolean registerCompetences(
-        @WebParam(name = "arg0", targetNamespace = "")
-        CompetencesDto arg0);
+    @RequestWrapper(localName = "GetCompetence", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetCompetence")
+    @ResponseWrapper(localName = "GetCompetenceResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetCompetenceResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCompetences/GetCompetenceRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCompetences/GetCompetenceResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleCompetences/GetCompetence/Fault/IOException")
+    })
+    public CompetencesDto getCompetence(
+        @WebParam(name = "Name", targetNamespace = "")
+        String name)
+        throws IOException_Exception
+    ;
 
     /**
      * 
@@ -75,22 +80,17 @@ public interface ModuleCompetences {
 
     /**
      * 
-     * @param name
+     * @param arg0
      * @return
-     *     returns cr.ac.una.tarea.soap.CompetencesDto
-     * @throws IOException_Exception
+     *     returns java.lang.Boolean
      */
-    @WebMethod(operationName = "GetCompetence")
+    @WebMethod(operationName = "RegisterCompetences")
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "GetCompetence", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetCompetence")
-    @ResponseWrapper(localName = "GetCompetenceResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetCompetenceResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCompetences/GetCompetenceRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCompetences/GetCompetenceResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleCompetences/GetCompetence/Fault/IOException")
-    })
-    public CompetencesDto getCompetence(
-        @WebParam(name = "Name", targetNamespace = "")
-        String name)
-        throws IOException_Exception
-    ;
+    @RequestWrapper(localName = "RegisterCompetences", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterCompetences")
+    @ResponseWrapper(localName = "RegisterCompetencesResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterCompetencesResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCompetences/RegisterCompetencesRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCompetences/RegisterCompetencesResponse")
+    public Boolean registerCompetences(
+        @WebParam(name = "arg0", targetNamespace = "")
+        CompetencesDto arg0);
 
 }

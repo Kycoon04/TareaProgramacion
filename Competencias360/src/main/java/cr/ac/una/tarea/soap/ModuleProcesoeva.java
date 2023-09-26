@@ -43,21 +43,6 @@ public interface ModuleProcesoeva {
 
     /**
      * 
-     * @param name
-     * @return
-     *     returns cr.ac.una.tarea.soap.ProcesoevaDto
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getProcesova", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetProcesova")
-    @ResponseWrapper(localName = "getProcesovaResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetProcesovaResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/getProcesovaRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/getProcesovaResponse")
-    public ProcesoevaDto getProcesova(
-        @WebParam(name = "Name", targetNamespace = "")
-        String name);
-
-    /**
-     * 
      * @param arg0
      * @return
      *     returns java.lang.Boolean
@@ -70,6 +55,21 @@ public interface ModuleProcesoeva {
     public Boolean registerProcesova(
         @WebParam(name = "arg0", targetNamespace = "")
         ProcesoevaDto arg0);
+
+    /**
+     * 
+     * @param name
+     * @return
+     *     returns cr.ac.una.tarea.soap.ProcesoevaDto
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getProcesova", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetProcesova")
+    @ResponseWrapper(localName = "getProcesovaResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetProcesovaResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/getProcesovaRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/getProcesovaResponse")
+    public ProcesoevaDto getProcesova(
+        @WebParam(name = "Name", targetNamespace = "")
+        String name);
 
     /**
      * 

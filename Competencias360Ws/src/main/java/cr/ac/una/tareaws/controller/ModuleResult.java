@@ -15,6 +15,8 @@ import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -79,6 +81,16 @@ public class ModuleResult {
         Respuesta respuesta = resultService.SaveResult(job);
         return respuesta.getEstado();
     }
-    
+        @WebMethod(operationName = "getResults")
+    public List<ResultDto> getResults() throws IOException {
+        Respuesta respuesta = resultService.getResult();
+        List<Result> Result = (List<Result>) respuesta.getResultado("Result");
+        List<ResultDto> ResultDto = new ArrayList<>();
+        for (Result evaluator : Result) {
+            ResultDto aux = new ResultDto(evaluator);
+            ResultDto.add(aux);
+        }
+        return ResultDto;
+    }
     
 }

@@ -1,5 +1,6 @@
 package cr.ac.una.tareaws.service;
 
+import cr.ac.una.tareaws.model.EvaluatorResult;
 import cr.ac.una.tareaws.model.Result;
 import cr.ac.una.tareaws.model.ResultDto;
 import cr.ac.una.tareaws.util.Respuesta;
@@ -11,6 +12,7 @@ import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -108,5 +110,16 @@ public class ResultService {
             return new Respuesta(false, "Ocurrio un error al guardar el resultado.", "SaveResult " + ex.getMessage());
         }
     }
-
+    public Respuesta getResult() {
+        try {
+            Query qryEvaluator = em.createNamedQuery("Result.findAll", Result.class);
+            List<Result> evaluator = qryEvaluator.getResultList();
+            return new Respuesta(true, "", "", "Result", evaluator);
+        } catch (NoResultException ex) {
+            return new Respuesta(false, "No hay Evaluato en la base", "getEvaluators NoResultException");
+        } catch (Exception ex) {
+            Logger.getLogger(WorkersService.class.getName()).log(Level.SEVERE, "Error obteniendo Evaluators", ex);
+            return new Respuesta(false, "Error al obtener Evaluators", "getEvaluators" + ex.getMessage());
+        }
+    }
 }

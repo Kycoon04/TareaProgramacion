@@ -4,6 +4,7 @@
  */
 package cr.ac.una.tareaws.model;
 
+import cr.ac.una.tareaws.model.Competences;
 import java.io.Serializable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -29,10 +30,11 @@ import jakarta.persistence.Table;
 public class Result implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "RS_NOTASIS")
-    private Short rsNotasis;
+    private Double rsNotasis;
     @Column(name = "RS_NOTAJEFATURA")
-    private Short rsNotajefatura;
+    private Double rsNotajefatura;
     @Id
     @Basic(optional = false)
     @Column(name = "RS_ID")
@@ -46,7 +48,7 @@ public class Result implements Serializable {
 
     public Result() {
     }
-       public Result(ResultDto resultDto) {
+    public Result(ResultDto resultDto) {
         this.rsId = 1;
         Actualizar(resultDto);
     }
@@ -61,19 +63,27 @@ public class Result implements Serializable {
         this.rsId = rsId;
     }
 
-    public Short getRsNotasis() {
+    public Evaluated getRsEvaluated() {
+        return rsEvaluated;
+    }
+
+    public void setRsEvaluated(Evaluated rsEvaluated) {
+        this.rsEvaluated = rsEvaluated;
+    }
+
+    public Double getRsNotasis() {
         return rsNotasis;
     }
 
-    public void setRsNotasis(Short rsNotasis) {
+    public void setRsNotasis(Double rsNotasis) {
         this.rsNotasis = rsNotasis;
     }
 
-    public Short getRsNotajefatura() {
+    public Double getRsNotajefatura() {
         return rsNotajefatura;
     }
 
-    public void setRsNotajefatura(Short rsNotajefatura) {
+    public void setRsNotajefatura(Double rsNotajefatura) {
         this.rsNotajefatura = rsNotajefatura;
     }
 
@@ -91,14 +101,6 @@ public class Result implements Serializable {
 
     public void setRsCompe(Competences rsCompe) {
         this.rsCompe = rsCompe;
-    }
-
-    public Evaluated getRsEvaluated() {
-        return rsEvaluated;
-    }
-
-    public void setRsEvaluated(Evaluated rsEvaluated) {
-        this.rsEvaluated = rsEvaluated;
     }
 
     @Override
@@ -123,7 +125,7 @@ public class Result implements Serializable {
 
     @Override
     public String toString() {
-        return "cr.ac.una.tareaws.model.Result[ rsId=" + rsId + " ]";
+        return "cr.ac.una.tareaws.controller.Result[ rsId=" + rsId + " ]";
     }
     
 }

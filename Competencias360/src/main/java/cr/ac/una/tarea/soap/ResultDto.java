@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para resultDto complex type.
+ * <p>Java class for resultDto complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="resultDto">
@@ -19,8 +19,8 @@ import jakarta.xml.bind.annotation.XmlType;
  *         <element name="rsCompe" type="{http://controller.tareaws.una.ac.cr/}competences" minOccurs="0"/>
  *         <element name="rsEvaluated" type="{http://controller.tareaws.una.ac.cr/}evaluated" minOccurs="0"/>
  *         <element name="rsId" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
- *         <element name="rsNotajefatura" type="{http://www.w3.org/2001/XMLSchema}short" minOccurs="0"/>
- *         <element name="rsNotasis" type="{http://www.w3.org/2001/XMLSchema}short" minOccurs="0"/>
+ *         <element name="rsNotajefatura" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
+ *         <element name="rsNotasis" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/>
  *       </sequence>
  *     </restriction>
  *   </complexContent>
@@ -42,11 +42,11 @@ public class ResultDto {
     protected Competences rsCompe;
     protected Evaluated rsEvaluated;
     protected Integer rsId;
-    protected Short rsNotajefatura;
-    protected Short rsNotasis;
+    protected Double rsNotajefatura;
+    protected Double rsNotasis;
 
     /**
-     * Obtiene el valor de la propiedad rsCompe.
+     * Gets the value of the rsCompe property.
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class ResultDto {
     }
 
     /**
-     * Define el valor de la propiedad rsCompe.
+     * Sets the value of the rsCompe property.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +70,7 @@ public class ResultDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad rsEvaluated.
+     * Gets the value of the rsEvaluated property.
      * 
      * @return
      *     possible object is
@@ -82,7 +82,7 @@ public class ResultDto {
     }
 
     /**
-     * Define el valor de la propiedad rsEvaluated.
+     * Sets the value of the rsEvaluated property.
      * 
      * @param value
      *     allowed object is
@@ -94,7 +94,7 @@ public class ResultDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad rsId.
+     * Gets the value of the rsId property.
      * 
      * @return
      *     possible object is
@@ -106,7 +106,7 @@ public class ResultDto {
     }
 
     /**
-     * Define el valor de la propiedad rsId.
+     * Sets the value of the rsId property.
      * 
      * @param value
      *     allowed object is
@@ -118,50 +118,50 @@ public class ResultDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad rsNotajefatura.
+     * Gets the value of the rsNotajefatura property.
      * 
      * @return
      *     possible object is
-     *     {@link Short }
+     *     {@link Double }
      *     
      */
-    public Short getRsNotajefatura() {
+    public Double getRsNotajefatura() {
         return rsNotajefatura;
     }
 
     /**
-     * Define el valor de la propiedad rsNotajefatura.
+     * Sets the value of the rsNotajefatura property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Short }
+     *     {@link Double }
      *     
      */
-    public void setRsNotajefatura(Short value) {
+    public void setRsNotajefatura(Double value) {
         this.rsNotajefatura = value;
     }
 
     /**
-     * Obtiene el valor de la propiedad rsNotasis.
+     * Gets the value of the rsNotasis property.
      * 
      * @return
      *     possible object is
-     *     {@link Short }
+     *     {@link Double }
      *     
      */
-    public Short getRsNotasis() {
+    public Double getRsNotasis() {
         return rsNotasis;
     }
 
     /**
-     * Define el valor de la propiedad rsNotasis.
+     * Sets the value of the rsNotasis property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Short }
+     *     {@link Double }
      *     
      */
-    public void setRsNotasis(Short value) {
+    public void setRsNotasis(Double value) {
         this.rsNotasis = value;
     }
 
