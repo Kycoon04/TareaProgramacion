@@ -15,15 +15,27 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * La clase `EvaluatorService` proporciona funciones para gestionar los
+ * evaluadores en la aplicación. Esto incluye la búsqueda por identificación,
+ * estado y retroalimentación, creación, modificación y eliminación de
+ * evaluadores. También ofrece métodos para obtener una lista de todos los
+ * evaluadores.
+ *
+ * Esta clase se utiliza para administrar los evaluadores que participan en el
+ * proceso de evaluación.
+ * 
+ * Autores: - Dilan Sancho - Jose Valverde - Anderson
+ * Fernandez
+ */
 @Stateless
 @LocalBean
 public class EvaluatorService {
-    
+
     private static final Logger LOG = Logger.getLogger(EvaluatorService.class.getName());
     @PersistenceContext(unitName = "cr.ac.una.tareaws_Competencias360Ws_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
-   
     public Respuesta getEvaluatorByID(Integer id) {
         try {
             Query qryEvaluador = em.createNamedQuery("Evaluators.findByEvsId", Evaluators.class);
@@ -38,9 +50,9 @@ public class EvaluatorService {
             Logger.getLogger(EvaluatorService.class.getName()).log(Level.SEVERE, "Error obteniendo el Evaluador [" + id + "]", ex);
             return new Respuesta(false, "Error obteniendo el evaluador.", "getEvaluators " + ex.getMessage());
         }
-    } 
-    
-     public Respuesta getEvaluatorByState(String state) {
+    }
+
+    public Respuesta getEvaluatorByState(String state) {
         try {
             Query qryEvaluador = em.createNamedQuery("Evaluators.findByEvsState", Evaluators.class);
             qryEvaluador.setParameter("evsState", state);
@@ -56,7 +68,7 @@ public class EvaluatorService {
         }
     }
 
-     public Respuesta getEvaluatorByFeedBack(String FeedBack) {
+    public Respuesta getEvaluatorByFeedBack(String FeedBack) {
         try {
             Query qryEvaluador = em.createNamedQuery("Evaluators.findByEvsFeedback", Evaluators.class);
             qryEvaluador.setParameter("evsFeedback", FeedBack);
@@ -71,9 +83,8 @@ public class EvaluatorService {
             return new Respuesta(false, "Error obteniendo el EvaluatorEvaluatorEvaluador.", "getEvaluators " + ex.getMessage());
         }
     }
-     
-  
- public Respuesta SaveEvaluator(EvaluatorsDto evaluatorsDto) {
+
+    public Respuesta SaveEvaluator(EvaluatorsDto evaluatorsDto) {
         Evaluators evaluators;
         try {
             if (evaluatorsDto.getEvsId() != null && evaluatorsDto.getEvsId() > 0) {
@@ -94,6 +105,7 @@ public class EvaluatorService {
             return new Respuesta(false, "Ocurrio un error al guardar el evaluador.", "guardarEvaluacion " + ex.getMessage());
         }
     }
+
     public Respuesta DeleteEvaluator(Integer id) {
         try {
             Evaluators evaluators;
@@ -116,6 +128,7 @@ public class EvaluatorService {
             return new Respuesta(false, "Ocurrio un error al eliminar el evaluador.", "eliminarEvaluador " + ex.getMessage());
         }
     }
+
     public Respuesta getEvaluators() {
         try {
             Query qryJob = em.createNamedQuery("Evaluators.findAll", Evaluators.class);

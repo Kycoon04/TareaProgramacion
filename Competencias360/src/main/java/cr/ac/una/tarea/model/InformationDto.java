@@ -5,8 +5,10 @@ import java.io.IOException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+
 /**
- * @author jomav
+ *
+ * @author dilan
  */
 public class InformationDto {
     

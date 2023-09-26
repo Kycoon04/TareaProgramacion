@@ -6,6 +6,7 @@ module cr.ac.una.tarea {
     requires javafx.graphics;
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.web;
     requires jakarta.xml.bind;
     requires jakarta.xml.ws;
     requires jakarta.mail;

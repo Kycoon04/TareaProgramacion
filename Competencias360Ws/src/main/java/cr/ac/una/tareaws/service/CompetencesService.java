@@ -15,6 +15,17 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * La clase `CompetencesService` proporciona funciones para gestionar las
+ * competencias en la aplicación, incluyendo búsqueda, creación, modificación y
+ * eliminación de competencias. También ofrece métodos para buscar competencias
+ * por su nombre y obtener una lista de todas las competencias.
+ *
+ * Esta clase se utiliza para administrar las competencias que pueden estar
+ * asociadas a empleados y trabajos u otros elementos dentro de la aplicación.
+ *
+ * Autores: - Dilan Sancho - Jose Valverde - Anderson Fernandez
+ */
 @Stateless
 @LocalBean
 public class CompetencesService {

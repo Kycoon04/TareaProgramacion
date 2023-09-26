@@ -16,6 +16,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * La clase `EvaluatorResultService` proporciona funciones para gestionar los
+ * resultados de los evaluadores en la aplicación. Esto incluye la búsqueda por
+ * identificador y nota, creación, modificación y eliminación de resultados de
+ * evaluadores. También ofrece un método para obtener una lista de todos los
+ * resultados de evaluadores.
+ *
+ * Esta clase se utiliza para administrar los resultados obtenidos por los
+ * evaluadores en el proceso de evaluación.
+ *
+ * Autores: - Dilan Sancho - Jose Valverde - Anderson Fernandez
+ */
 @Stateless
 @LocalBean
 public class EvaluatorResultService {
@@ -100,6 +112,7 @@ public class EvaluatorResultService {
             return new Respuesta(false, "Ocurrio un error al eliminar el resultado del EvaluatorResult,", "eliminarEvaluatorResult " + ex.getMessage());
         }
     }
+
     public Respuesta getEvaluators() {
         try {
             Query qryEvaluator = em.createNamedQuery("EvaluatorResult.findAll", EvaluatorResult.class);

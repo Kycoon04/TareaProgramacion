@@ -5,6 +5,10 @@ import cr.ac.una.tarea.soap.Jobs;
 import java.io.IOException;
 import javafx.beans.property.SimpleIntegerProperty;
 
+/**
+ *
+ * @author dilan
+ */
 public class EvaJobCompetenceDto {
 
     private SimpleIntegerProperty jxcJob;

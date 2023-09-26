@@ -15,15 +15,26 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * La clase `CharacteristicService` incluye funciones para manejar las
+ * características en la aplicación. Esto incluye buscar, crear, modificar y
+ * eliminar características. También proporciona métodos para encontrar
+ * características por su identificación o nombre.
+ *
+ * Esta clase se utiliza para administrar las características que pueden
+ * relacionarse con empleados u otros elementos dentro de la aplicación.
+ *
+ * Autores: - Dilan Sancho - Jose Valverde - Anderson Fernandez
+ */
 @Stateless
 @LocalBean
 public class CharacteristicService {
-    
+
     private static final Logger LOG = Logger.getLogger(CharacteristicService.class.getName());
-  
+
     @PersistenceContext(unitName = "cr.ac.una.tareaws_Competencias360Ws_war_1.0-SNAPSHOTPU")
     private EntityManager em;
-    
+
     public Respuesta getCharById(Integer id) {
         try {
             Query qryJob = em.createNamedQuery("Characteristic.findByCcId", Characteristic.class);
@@ -39,7 +50,7 @@ public class CharacteristicService {
             return new Respuesta(false, "Error obteniendo la caracteristica", "getCharacteristic " + ex.getMessage());
         }
     }
-    
+
     public Respuesta getCharByName(String name) {
         try {
             Query qryJob = em.createNamedQuery("Characteristic.findByCcName", Characteristic.class);
@@ -55,7 +66,7 @@ public class CharacteristicService {
             return new Respuesta(false, "Error obteniendo la caracteristica.", "getCharacteristic " + ex.getMessage());
         }
     }
-     
+
     public Respuesta SaveCharacteristic(CharacteristicDto characteristicDto) {
         Characteristic characteristic;
         try {
@@ -77,8 +88,8 @@ public class CharacteristicService {
             return new Respuesta(false, "Ocurrio un error al guardar el characteristic.", "guardarcharacteristic " + ex.getMessage());
         }
     }
-    
-      public Respuesta Delete(Integer id) {
+
+    public Respuesta Delete(Integer id) {
         try {
             Characteristic characteristic;
             if (id != null && id > 0) {
@@ -100,8 +111,8 @@ public class CharacteristicService {
             return new Respuesta(false, "Ocurrio un error al eliminar el characteristic.", "eliminarTrabajoxCompetencia " + ex.getMessage());
         }
     }
-      
-           public Respuesta getCharacteristics() {
+
+    public Respuesta getCharacteristics() {
         try {
             Query qryJob = em.createNamedQuery("Characteristic.findAll", Characteristic.class);
             List<Characteristic> characteristic = qryJob.getResultList();
@@ -113,5 +124,5 @@ public class CharacteristicService {
             return new Respuesta(false, "Error al obtener caracteristicas", "getCharacteristics" + ex.getMessage());
         }
     }
-      
+
 }

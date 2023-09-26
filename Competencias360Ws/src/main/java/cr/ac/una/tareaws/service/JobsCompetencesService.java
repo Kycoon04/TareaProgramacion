@@ -15,6 +15,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * La clase `JobsCompetencesService` proporciona funciones para gestionar las
+ * competencias de los puestos de trabajo en la aplicación. Esto incluye la
+ * búsqueda por identificador de competencia y puesto de trabajo, creación,
+ * modificación y eliminación de competencias de puestos de trabajo. También
+ * ofrece un método para obtener una lista de todas las competencias de puestos
+ * de trabajo.
+ *
+ * Esta clase se utiliza para administrar las competencias asociadas a los
+ * puestos de trabajo en la aplicación. Autores: - Dilan Sancho - Jose Valverde
+ * - Anderson Fernandez
+ */
 @Stateless
 @LocalBean
 public class JobsCompetencesService {

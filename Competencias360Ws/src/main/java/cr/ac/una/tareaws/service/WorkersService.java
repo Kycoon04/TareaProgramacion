@@ -15,6 +15,15 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+/**
+ * La clase `WorkersService` proporciona funciones para gestionar los trabajadores en la aplicación.
+ * Esto incluye la búsqueda de usuarios por nombre de usuario y contraseña, búsqueda de empleados por ID,
+ * creación, modificación y eliminación de empleados, así como comprobaciones relacionadas con la autenticación y los permisos.
+ * 
+ * Esta clase se utiliza para administrar los trabajadores y usuarios en la aplicación.
+ * 
+ * Autores: - Dilan Sancho - Jose Valverde - Anderson Fernandez
+ */
 
 @Stateless
 @LocalBean

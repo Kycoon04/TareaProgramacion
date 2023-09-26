@@ -15,6 +15,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * La clase `EvaluatedService` proporciona funciones para gestionar los
+ * evaluados en la aplicación, incluyendo búsqueda por identificación, creación,
+ * modificación y eliminación de evaluados. También ofrece métodos para obtener
+ * una lista de todos los evaluados y buscar evaluados por información
+ * relacionada.
+ *
+ * Esta clase se utiliza para administrar los evaluados, que pueden estar
+ * asociados a trabajadores.
+ *
+ * Autores: - Dilan Sancho - Jose Valverde - Anderson Fernandez
+ */
 @Stateless
 @LocalBean
 public class EvaluatedService {

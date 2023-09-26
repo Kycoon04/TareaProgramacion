@@ -13,22 +13,25 @@ import jakarta.persistence.Query;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
- * La clase `ResultService` proporciona funciones para gestionar los resultados en la aplicación.
- * Esto incluye la búsqueda de resultados por ID y nota, así como la creación, modificación y eliminación de resultados.
- * 
- * Esta clase se utiliza para administrar los resultados de evaluaciones u otras métricas en la aplicación.
- * 
+ * La clase `ResultService` proporciona funciones para gestionar los resultados
+ * en la aplicación. Esto incluye la búsqueda de resultados por ID y nota, así
+ * como la creación, modificación y eliminación de resultados.
+ *
+ * Esta clase se utiliza para administrar los resultados de evaluaciones u otras
+ * métricas en la aplicación.
+ *
  * Autores: - Dilan Sancho - Jose Valverde - Anderson Fernandez
  */
 @Stateless
 @LocalBean
 public class ResultService {
-    
+
     private static final Logger LOG = Logger.getLogger(ResultService.class.getName());
     @PersistenceContext(unitName = "cr.ac.una.tareaws_Competencias360Ws_war_1.0-SNAPSHOTPU")
     private EntityManager em;
-    
+
     public Respuesta getResultById(Integer id) {
         try {
             Query qryResult = em.createNamedQuery("Result.findByRsId", Result.class);
@@ -44,7 +47,7 @@ public class ResultService {
             return new Respuesta(false, "Error obteniendo el resultado.", "getResultById " + ex.getMessage());
         }
     }
-    
+
     public Respuesta getResultByName(Integer nota) {
         try {
             Query qryResult = em.createNamedQuery("Result.findByRsNota", Result.class);
@@ -60,8 +63,8 @@ public class ResultService {
             return new Respuesta(false, "Error obteniendo el resultado.", "getResultByName " + ex.getMessage());
         }
     }
-    
-        public Respuesta DeleteResult(Integer id) {
+
+    public Respuesta DeleteResult(Integer id) {
         try {
             Result result;
             if (id != null && id > 0) {
@@ -83,8 +86,7 @@ public class ResultService {
             return new Respuesta(false, "Ocurrio un error al eliminar el Resultado.", "eliminarResultado " + ex.getMessage());
         }
     }
-        
-          
+
     public Respuesta SaveResult(ResultDto resultDto) {
         Result result;
         try {
@@ -106,5 +108,5 @@ public class ResultService {
             return new Respuesta(false, "Ocurrio un error al guardar el resultado.", "SaveResult " + ex.getMessage());
         }
     }
-    
+
 }

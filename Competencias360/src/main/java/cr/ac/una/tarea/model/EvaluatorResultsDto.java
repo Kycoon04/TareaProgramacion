@@ -5,9 +5,10 @@ import cr.ac.una.tarea.soap.EvaluatorResultDto;
 import cr.ac.una.tarea.soap.Evaluators;
 import javafx.beans.property.SimpleIntegerProperty;
 
+
 /**
  *
- * @author jomav
+ * @author dilan
  */
 public class EvaluatorResultsDto {
 

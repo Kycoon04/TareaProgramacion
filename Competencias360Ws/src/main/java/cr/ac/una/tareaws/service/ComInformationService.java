@@ -15,6 +15,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * La clase `CharacteristicService` proporciona funciones para gestionar las características
+ * en la aplicación, incluyendo búsqueda, creación, modificación y eliminación de características.
+ * También ofrece métodos para buscar características por su identificación o nombre.
+ * 
+ * Esta clase se utiliza para administrar las características que pueden estar asociadas a empleados
+ * u otros elementos dentro de la aplicación.
+ * 
+ * Autores:
+ * - Dilan Sancho
+ * - Jose Valverde
+ * - Anderson Fernandez
+ */
 @Stateless
 @LocalBean
 public class ComInformationService {
@@ -24,7 +37,7 @@ public class ComInformationService {
     @PersistenceContext(unitName = "cr.ac.una.tareaws_Competencias360Ws_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
-        public Respuesta SaveInformation(ComInformationDto comInformationDto) {
+    public Respuesta SaveInformation(ComInformationDto comInformationDto) {
         Cominformation comInformation;
         try {
             if (comInformationDto.getId() != null && comInformationDto.getId() > 0) {
@@ -45,7 +58,7 @@ public class ComInformationService {
             return new Respuesta(false, "Ocurrio un error al guardar el Information.", "guardarInformation " + ex.getMessage());
         }
     }
-        
+
     public Respuesta getInformation(String Name) {
         try {
             Query qryInformation = em.createNamedQuery("Cominformation.findByCpName", Cominformation.class);
@@ -61,9 +74,7 @@ public class ComInformationService {
             return new Respuesta(false, "Error obteniendo el Information.", "getInformation " + ex.getMessage());
         }
     }
-    
-    
-    
+
     public Respuesta getAllInfo() {
         try {
             Query qryJob = em.createNamedQuery("Cominformation.findAll", Cominformation.class);
@@ -76,9 +87,8 @@ public class ComInformationService {
             return new Respuesta(false, "Error al obtener informacion", "getInformation" + ex.getMessage());
         }
     }
-    
-    
-        public Respuesta Delete(Integer id) {
+
+    public Respuesta Delete(Integer id) {
         try {
             Cominformation cominformation;
             if (id != null && id > 0) {

@@ -1,4 +1,5 @@
 package cr.ac.una.tareaws.service;
+
 import cr.ac.una.tareaws.model.Procesoeva;
 import cr.ac.una.tareaws.model.ProcesoevaDto;
 import cr.ac.una.tareaws.util.Respuesta;
@@ -14,15 +15,28 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * La clase `ProcesoevaService` proporciona funciones para gestionar los
+ * procesos evaluativos en la aplicación. Esto incluye la búsqueda por nombre de
+ * proceso evaluativo, creación, modificación y eliminación de procesos
+ * evaluativos. También ofrece un método para obtener una lista de todos los
+ * procesos evaluativos.
+ *
+ * Esta clase se utiliza para administrar los procesos evaluativos en la
+ * aplicación y asi mismo asignarse a los evaluadores y evaluados.
+ *
+ * Autores: - Dilan Sancho - Jose Valverde - Anderson Fernandez
+ */
 @Stateless
 @LocalBean
 public class ProcesoevaService {
-     private static final Logger LOG = Logger.getLogger(CompetencesService.class.getName());
+
+    private static final Logger LOG = Logger.getLogger(CompetencesService.class.getName());
 
     @PersistenceContext(unitName = "cr.ac.una.tareaws_Competencias360Ws_war_1.0-SNAPSHOTPU")
     private EntityManager em;
-    
-        public Respuesta getProceso(String Name) {
+
+    public Respuesta getProceso(String Name) {
         try {
             Query qryProceso = em.createNamedQuery("Procesoeva.findByEnName", Procesoeva.class);
             qryProceso.setParameter("enName", Name);
@@ -72,6 +86,7 @@ public class ProcesoevaService {
             return new Respuesta(false, "Ocurrio un error al guardar el Proceso.", "guardarProceso " + ex.getMessage());
         }
     }
+
     public Respuesta DeleteProceso(Integer id) {
         try {
             Procesoeva procesoeva;

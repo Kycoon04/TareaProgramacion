@@ -21,7 +21,18 @@ public class JobsService {
 
     private static final Logger LOG = Logger.getLogger(JobsService.class.getName());
 
-    //TODO
+    /**
+     * La clase `JobsService` proporciona funciones para gestionar los puestos
+     * de trabajo en la aplicación. Esto incluye la búsqueda por nombre de
+     * puesto de trabajo, creación, modificación y eliminación de puestos de
+     * trabajo. También ofrece un método para obtener una lista de todos los
+     * puestos de trabajo.
+     *
+     * Esta clase se utiliza para administrar los puestos de trabajo en la
+     * aplicación.
+     *
+     * Autores: - Dilan Sancho - Jose Valverde - Anderson Fernandez
+     */
     @PersistenceContext(unitName = "cr.ac.una.tareaws_Competencias360Ws_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 

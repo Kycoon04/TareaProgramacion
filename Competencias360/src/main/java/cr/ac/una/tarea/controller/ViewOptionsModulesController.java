@@ -56,6 +56,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 
 /**
@@ -113,17 +115,14 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TableView<WorkerDto> tableViewWorkers;
     @FXML
     private BorderPane OptionsInformationView;
-    @FXML
     private TextField NameInformationField;
-    @FXML
     private TextField InfoInformationField;
-    @FXML
     private TextField EmailInformationField;
     @FXML
     private BorderPane OptionsCompetencesView;
     @FXML
     private TextField NameCompetencesField;
-   
+
     @FXML
     private BorderPane OptionsPuestosView;
     @FXML
@@ -191,7 +190,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TextField textFieldSJob_StateW;
     @FXML
     private TextField textFieldSearch_State;
-    @FXML
     private Circle InformationMainPhoto;
     @FXML
     private BorderPane OptionsAssociateCompView;
@@ -261,7 +259,17 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TableColumn<CompetenceDto, String> tableColCCompNameAss;
     @FXML
     private TableColumn<CompetenceDto, String> tableColCCompStaAss;
-     List<InformationDto> list;
+    List<InformationDto> list;
+    @FXML
+    private TextField NameInformationField1;
+    @FXML
+    private TextField EmailInformationField1;
+    @FXML
+    private TextField InfoInformationField1;
+    @FXML
+    private Circle InformationMainPhoto1;
+    @FXML
+    private WebView htmlWeb;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -486,25 +494,25 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         int bytesRead = fis.read(buffer);
         informationDto.setPhoto(buffer);
     }
-    
+
     @FXML
     private void InformationGeneral(ActionEvent event) {
         ComInformationService comInformationService = new ComInformationService();
-        Respuesta respuesta = comInformationService.getComInformation();    
-       if(!respuesta.getEstado()){
-           System.out.println("Vacia");  
-           OptionsInformationView.toFront();
-       }else{
-           list = (List<InformationDto>) respuesta.getResultado("ComInformation");
-        NameInformationField.setText(list.get(0).getName());
-        EmailInformationField.setText(list.get(0).getEmail());
-        InfoInformationField.setText(list.get(0).getInformation());
-        System.out.println(list.get(0).getPhoto());
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(list.get(0).getPhoto());
-        Image image = new Image(byteArrayInputStream);
-        InformationMainPhoto.setFill(new ImagePattern(image));
-        OptionsInformationView.toFront();
-       }
+        Respuesta respuesta = comInformationService.getComInformation();
+        if (!respuesta.getEstado()) {
+            System.out.println("Vacia");
+            OptionsInformationView.toFront();
+        } else {
+            list = (List<InformationDto>) respuesta.getResultado("ComInformation");
+            NameInformationField1.setText(list.get(0).getName());
+            EmailInformationField1.setText(list.get(0).getEmail());
+            InfoInformationField1.setText(list.get(0).getInformation());
+            System.out.println(list.get(0).getPhoto());
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(list.get(0).getPhoto());
+            Image image = new Image(byteArrayInputStream);
+            InformationMainPhoto1.setFill(new ImagePattern(image));
+            OptionsInformationView.toFront();
+        }
     }
 
     @FXML
@@ -512,24 +520,23 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
         ComInformationService comInformationService = new ComInformationService();
         Respuesta respuesta1 = comInformationService.getComInformation();
-           
-        informationDto.setName(NameInformationField.getText());
-        informationDto.setInformation(InfoInformationField.getText());
-        informationDto.setEmail(EmailInformationField.getText());
-        
-        if(respuesta1.getEstado()){
-              informationDto.setId(list.get(0).getId());
-              Respuesta respuesta = comInformationService.SaveInformation(informationDto);
+
+        informationDto.setName(NameInformationField1.getText());
+        informationDto.setInformation(EmailInformationField1.getText());
+        informationDto.setEmail(InfoInformationField1.getText());
+
+        if (respuesta1.getEstado()) {
+            informationDto.setId(list.get(0).getId());
+            Respuesta respuesta = comInformationService.SaveInformation(informationDto);
         }
         Respuesta respuesta = comInformationService.SaveInformation(informationDto);
-        
+
         if (!respuesta.getEstado()) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar empleado", getStage(), respuesta.getMensaje());
         } else {
             new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar empleado", getStage(), "Empleado actualizado correctamente.");
         }
-        
-        
+
     }
 
     @FXML
@@ -856,7 +863,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void competenceClicked(MouseEvent event) {
-         if (event.getClickCount() == 1) {  
+        if (event.getClickCount() == 1) {
             if (delete == true) {
                 competenceDto = tableViewCompetences.getSelectionModel().getSelectedItem();
                 CompetencesService competenceService = new CompetencesService();
@@ -864,7 +871,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                 ImportListCompetences();
                 delete = false;
             }
-         }
+        }
         if (event.getClickCount() == 2) {
             try {
                 competenceDto = tableViewCompetences.getSelectionModel().getSelectedItem();
@@ -891,7 +898,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                 ImportListJobs();
                 delete = false;
             }
-        }else{
+        } else {
             if (event.getClickCount() == 2) {
                 try {
                     jobDto = tableViewJobs.getSelectionModel().getSelectedItem();
@@ -978,7 +985,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void SelectImageInformation(ActionEvent event) throws IOException {
-            FileChooser fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg"),
                 new FileChooser.ExtensionFilter("Todos los archivos", "*.*")
@@ -990,7 +997,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         Image image = new Image(selectedFile.toURI().toString());
         InformationMainPhoto.setFill(new ImagePattern(image));
     }
-
 
     @FXML
     private void openEvaluations(MouseEvent event) {
@@ -1081,7 +1087,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         competence.setCsName(competenceDto.getName());
         competence.setCsState(competenceDto.getState());
         caract.setCcComid(competence);
-        Respuesta respuesta=cs.SaveCharacteristic(caract);
+        Respuesta respuesta = cs.SaveCharacteristic(caract);
         if (!respuesta.getEstado()) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar característica", getStage(), respuesta.getMensaje());
         } else {
@@ -1092,7 +1098,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void characteristicClicked(MouseEvent event) {
-         if (event.getClickCount() == 1) {
+        if (event.getClickCount() == 1) {
             if (delete == true) {
                 selectedCharacteristics = tableViewCharacteristics.getSelectionModel().getSelectedItem();
                 CharacteristicService characteristicService = new CharacteristicService();
@@ -1100,11 +1106,11 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                 ImportListCharacteristics();
                 delete = false;
             }
-         }
+        }
         if (event.getClickCount() == 2) {
             selectedCharacteristics = tableViewCharacteristics.getSelectionModel().getSelectedItem();
             NameCharacteristicField.setText(selectedCharacteristics.getCcName());
-            CompetenceCharacteristicField.setText( selectedCharacteristics.getCcComid().getCsName());
+            CompetenceCharacteristicField.setText(selectedCharacteristics.getCcComid().getCsName());
         }
     }
 
@@ -1143,5 +1149,106 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un proceso en este campo.");
             }
         }
+    }
+
+    @FXML
+    private void preview(MouseEvent event) {
+        String sourceMail;
+        String name;
+        String info;
+
+        WebEngine webEngine = htmlWeb.getEngine();
+
+        ComInformationService comInformationService = new ComInformationService();
+        Respuesta respuesta = comInformationService.getComInformation();
+        List<InformationDto> list;
+        if (!respuesta.getEstado()) {
+            System.out.println("Vacia");
+            sourceMail = "competencias360develop@gmail.com";
+            name = "Competencias360";
+        } else {
+            list = (List<InformationDto>) respuesta.getResultado("ComInformation");
+            sourceMail = list.get(0).getEmail();
+            name = list.get(0).getName();
+            info = list.get(0).getInformation();
+        }
+
+        String mensajeHTML = "<!DOCTYPE html>\n"
+                + "<html>\n"
+                + "<head>\n"
+                + "<style>\n"
+                + "  body {\n"
+                + "    font-family: Arial, sans-serif;\n"
+                + "    background-color: #212121;\n"
+                + "    max-width: 600px;\n"
+                + "    margin: 0 auto;\n"
+                + "    padding: 20px;\n"
+                + "  }\n"
+                + "  header {\n"
+                + "    background-color: #333;\n"
+                + "    color: white;\n"
+                + "    text-align: center;\n"
+                + "    padding: 10px 0;\n"
+                + "  }\n"
+                + "  h1 {\n"
+                + "    font-size: 24px;\n"
+                + "    margin-bottom: 20px;\n"
+                + "    background-color: #333;\n"
+                + "  }\n"
+                + "  h2 {\n"
+                + "    font-size: 16px;\n"
+                + "    margin-bottom: 20px;\n"
+                + "    background-color: #333;\n"
+                + "    padding: 10px;\n"
+                + "  }\n"
+                + "  p {\n"
+                + "    font-size: 18px;\n"
+                + "    line-height: 1.6;\n"
+                + "  }\n"
+                + "  .center {\n"
+                + "    text-align: center;\n"
+                + "  }\n"
+                + "  #activeButton {\n"
+                + "    font-family: 'Tw Cen MT';\n"
+                + "    font-size: 18px;\n"
+                + "    display: inline-block;\n"
+                + "    padding: 10px 20px;\n"
+                + "    background-color: #76ff03;\n"
+                + "    color: black;\n"
+                + "    text-decoration: none;\n"
+                + "    border-radius: 5px;\n"
+                + "    transition: background-color 0.3s ease;\n"
+                + "    cursor: pointer;\n"
+                + "  }\n"
+                + "  #activeButton:hover {\n"
+                + "    background-color: #5ac500;\n"
+                + "  }\n"
+                + "  a {\n"
+                + "    color: #007bff;\n"
+                + "    text-decoration: none;\n"
+                + "  }\n"
+                + "  ul {\n"
+                + "    list-style: none;\n"
+                + "    padding: 0;\n"
+                + "  }\n"
+                + "  li {\n"
+                + "    margin-bottom: 10px;\n"
+                + "  }\n"
+                + "</style>\n"
+                + "</head>\n"
+                + "<body>\n"
+                + "<header>\n"
+                + "<h1>Activacion de Cuentas " + NameInformationField1.getText() + "</h1>\n"
+                + "<h2>Bienvenido al sistema de evaluaciones 360, para continuar con su proceso de activacion, da clic en el siguiente boton</h2>\n"
+                + "<h2>" + InfoInformationField1.getText() + "</h2>\n"
+                + "</header>\n"
+                + "<div class='container'>\n"
+                + "<p class='center'><a id='activeButton' href='....'>Continuar</a></p>\n"
+                + "</div>\n"
+                + "</body>\n"
+                + "</html>";
+
+        webEngine.loadContent(mensajeHTML);
+
     }
 }
