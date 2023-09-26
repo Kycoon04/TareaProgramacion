@@ -11,7 +11,6 @@ public class CompetencesDto {
     private Integer id;
     private String name;
     private String state;
-    private String characteristics;
     private CompetencesDto() {
     }
 
@@ -19,7 +18,6 @@ public class CompetencesDto {
         this.id = Competence.getCsId();
         this.name = Competence.getCsName();
         this.state = Competence.getCsState();
-        this.characteristics = Competence.getCsCharacteristics();
     }
 
     public Integer getId() {
@@ -34,10 +32,6 @@ public class CompetencesDto {
         return state;
     }
 
-    public String getCharacteristics() {
-        return characteristics;
-    }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -48,10 +42,6 @@ public class CompetencesDto {
 
     public void setState(String state) {
         this.state = state;
-    }
-
-    public void setCharacteristics(String characteristics) {
-        this.characteristics = characteristics;
     }
 
 }

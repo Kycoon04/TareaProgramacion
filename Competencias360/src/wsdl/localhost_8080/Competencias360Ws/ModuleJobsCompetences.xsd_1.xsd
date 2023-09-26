@@ -1,114 +1,113 @@
 <?xml version='1.0' encoding='UTF-8'?><!-- Published by XML-WS Runtime (https://github.com/eclipse-ee4j/metro-jax-ws). Runtime's version is Eclipse Metro/4.0.1 (RELEASE-4.0.1-18da659; 2022-07-02T08:47:18+0000) XMLWS-Impl/4.0.0 XMLWS-API/${jaxws-api.version} XMLB-Impl/4.0.0 XMLB-API/4.0.0 git-revision#18da659. --><xs:schema xmlns:tns="http://controller.tareaws.una.ac.cr/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://controller.tareaws.una.ac.cr/">
 
-    <xs:element name="Delete" type="tns:Delete"/>
+<xs:element name="Delete" type="tns:Delete"/>
 
-    <xs:element name="DeleteResponse" type="tns:DeleteResponse"/>
+<xs:element name="DeleteResponse" type="tns:DeleteResponse"/>
 
-    <xs:element name="GetJobCompetences" type="tns:GetJobCompetences"/>
+<xs:element name="GetJobCompetences" type="tns:GetJobCompetences"/>
 
-    <xs:element name="GetJobCompetencesResponse" type="tns:GetJobCompetencesResponse"/>
+<xs:element name="GetJobCompetencesResponse" type="tns:GetJobCompetencesResponse"/>
 
-    <xs:element name="IOException" type="tns:IOException"/>
+<xs:element name="IOException" type="tns:IOException"/>
 
-    <xs:element name="RegisterJobCompetences" type="tns:RegisterJobCompetences"/>
+<xs:element name="RegisterJobCompetences" type="tns:RegisterJobCompetences"/>
 
-    <xs:element name="RegisterJobCompetencesResponse" type="tns:RegisterJobCompetencesResponse"/>
+<xs:element name="RegisterJobCompetencesResponse" type="tns:RegisterJobCompetencesResponse"/>
 
-    <xs:element name="getJobCompetenceIDJob" type="tns:getJobCompetenceIDJob"/>
+<xs:element name="getJobCompetenceIDJob" type="tns:getJobCompetenceIDJob"/>
 
-    <xs:element name="getJobCompetenceIDJobResponse" type="tns:getJobCompetenceIDJobResponse"/>
+<xs:element name="getJobCompetenceIDJobResponse" type="tns:getJobCompetenceIDJobResponse"/>
 
-    <xs:element name="getJobCompetenceId" type="tns:getJobCompetenceId"/>
+<xs:element name="getJobCompetenceId" type="tns:getJobCompetenceId"/>
 
-    <xs:element name="getJobCompetenceIdResponse" type="tns:getJobCompetenceIdResponse"/>
+<xs:element name="getJobCompetenceIdResponse" type="tns:getJobCompetenceIdResponse"/>
 
-    <xs:complexType name="getJobCompetenceIDJob">
-        <xs:sequence>
-            <xs:element name="idJobC" type="xs:int" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="getJobCompetenceIDJob">
+<xs:sequence>
+<xs:element name="idJobC" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="getJobCompetenceIDJobResponse">
-        <xs:sequence>
-            <xs:element name="return" type="tns:jobsCompetencesDto" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="getJobCompetenceIDJobResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:jobsCompetencesDto" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="jobsCompetencesDto">
-        <xs:sequence>
-            <xs:element name="jobs" type="tns:jobs" minOccurs="0"/>
-            <xs:element name="jxcCompetence" type="tns:competences" minOccurs="0"/>
-            <xs:element name="jxcIdcojob" type="xs:int" minOccurs="0"/>
-            <xs:element name="jxcJob" type="xs:int" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="jobsCompetencesDto">
+<xs:sequence>
+<xs:element name="jobs" type="tns:jobs" minOccurs="0"/>
+<xs:element name="jxcCompetence" type="tns:competences" minOccurs="0"/>
+<xs:element name="jxcIdcojob" type="xs:int" minOccurs="0"/>
+<xs:element name="jxcJob" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="jobs">
-        <xs:sequence>
-            <xs:element name="jsId" type="xs:int" minOccurs="0"/>
-            <xs:element name="jsName" type="xs:string" minOccurs="0"/>
-            <xs:element name="jsState" type="xs:string" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="jobs">
+<xs:sequence>
+<xs:element name="jsId" type="xs:int" minOccurs="0"/>
+<xs:element name="jsName" type="xs:string" minOccurs="0"/>
+<xs:element name="jsState" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="competences">
-        <xs:sequence>
-            <xs:element name="csCharacteristics" type="xs:string" minOccurs="0"/>
-            <xs:element name="csId" type="xs:int" minOccurs="0"/>
-            <xs:element name="csName" type="xs:string" minOccurs="0"/>
-            <xs:element name="csState" type="xs:string" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="competences">
+<xs:sequence>
+<xs:element name="csId" type="xs:int" minOccurs="0"/>
+<xs:element name="csName" type="xs:string" minOccurs="0"/>
+<xs:element name="csState" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="IOException">
-        <xs:sequence>
-            <xs:element name="message" type="xs:string" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="IOException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="GetJobCompetences">
-        <xs:sequence/>
-    </xs:complexType>
+<xs:complexType name="GetJobCompetences">
+<xs:sequence/>
+</xs:complexType>
 
-    <xs:complexType name="GetJobCompetencesResponse">
-        <xs:sequence>
-            <xs:element name="return" type="tns:jobsCompetencesDto" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="GetJobCompetencesResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:jobsCompetencesDto" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="RegisterJobCompetences">
-        <xs:sequence>
-            <xs:element name="arg0" type="tns:jobsCompetencesDto" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="RegisterJobCompetences">
+<xs:sequence>
+<xs:element name="arg0" type="tns:jobsCompetencesDto" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="RegisterJobCompetencesResponse">
-        <xs:sequence>
-            <xs:element name="return" type="xs:boolean" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="RegisterJobCompetencesResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="Delete">
-        <xs:sequence>
-            <xs:element name="Id" type="xs:int" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="Delete">
+<xs:sequence>
+<xs:element name="Id" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="DeleteResponse">
-        <xs:sequence>
-            <xs:element name="return" type="xs:boolean" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="DeleteResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="getJobCompetenceId">
-        <xs:sequence>
-            <xs:element name="id" type="xs:int" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="getJobCompetenceId">
+<xs:sequence>
+<xs:element name="id" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="getJobCompetenceIdResponse">
-        <xs:sequence>
-            <xs:element name="return" type="tns:jobsCompetencesDto" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="getJobCompetenceIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:jobsCompetencesDto" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 </xs:schema>

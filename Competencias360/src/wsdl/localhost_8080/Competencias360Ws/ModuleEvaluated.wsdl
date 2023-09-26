@@ -31,6 +31,12 @@
 <message name="IOException">
 <part name="fault" element="tns:IOException"/>
 </message>
+<message name="GetEvaluatedByInfo">
+<part name="parameters" element="tns:GetEvaluatedByInfo"/>
+</message>
+<message name="GetEvaluatedByInfoResponse">
+<part name="parameters" element="tns:GetEvaluatedByInfoResponse"/>
+</message>
 <message name="GetEvaluateds">
 <part name="parameters" element="tns:GetEvaluateds"/>
 </message>
@@ -54,6 +60,11 @@
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedByIdRequest" message="tns:GetEvaluatedById"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedByIdResponse" message="tns:GetEvaluatedByIdResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedById/Fault/IOException"/>
+</operation>
+<operation name="GetEvaluatedByInfo">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedByInfoRequest" message="tns:GetEvaluatedByInfo"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedByInfoResponse" message="tns:GetEvaluatedByInfoResponse"/>
+<fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedByInfo/Fault/IOException"/>
 </operation>
 <operation name="GetEvaluateds">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedsRequest" message="tns:GetEvaluateds"/>
@@ -91,6 +102,18 @@
 </output>
 </operation>
 <operation name="GetEvaluatedById">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="IOException">
+<soap:fault name="IOException" use="literal"/>
+</fault>
+</operation>
+<operation name="GetEvaluatedByInfo">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

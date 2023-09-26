@@ -277,7 +277,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         this.tableColAdmi.setCellValueFactory(new PropertyValueFactory("administrator"));
         //this.tableColJob.setCellValueFactory(new PropertyValueFactory("job"));
 
-        this.tableColCompCharac.setCellValueFactory(new PropertyValueFactory("Characteristics"));
         this.tableColCompSta.setCellValueFactory(new PropertyValueFactory("States"));
         this.tableColCompName.setCellValueFactory(new PropertyValueFactory("Name"));
 
@@ -542,7 +541,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private void UpdateCompetences(ActionEvent event) {
         CompetencesService competencesService = new CompetencesService();
         competenceDto.setName(NameCompetencesField.getText());
-        competenceDto.setCharacteristics("N/A");
 
         if (StateCompetencesCheck.isSelected()) {
             competenceDto.setState("S");
@@ -838,7 +836,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (CompetenceDto.getCharacteristics().toLowerCase().contains(search)) {
+                if (true) {
                     return true;
                 } else {
                     return false;
@@ -1058,7 +1056,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
             job.setJsName(jobDto.getName());
             job.setJsState(jobDto.getState());
 
-            competence.setCsCharacteristics(selectedCompetence.getCharacteristics());
             competence.setCsId(selectedCompetence.getId());
             competence.setCsName(selectedCompetence.getName());
             competence.setCsState(selectedCompetence.getState());
@@ -1076,7 +1073,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         caract.setCcName(NameCharacteristicField.getText());
 
         Competences competence = new Competences();
-        competence.setCsCharacteristics("N/A");
         competence.setCsId(competenceDto.getId());
         competence.setCsName(competenceDto.getName());
         competence.setCsState(competenceDto.getState());

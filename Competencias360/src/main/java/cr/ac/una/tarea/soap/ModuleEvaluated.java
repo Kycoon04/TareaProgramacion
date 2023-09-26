@@ -99,6 +99,29 @@ public interface ModuleEvaluated {
 
     /**
      * 
+     * @param proceso
+     * @param worker
+     * @return
+     *     returns cr.ac.una.tarea.soap.EvaluatedDto
+     * @throws IOException_Exception
+     */
+    @WebMethod(operationName = "GetEvaluatedByInfo")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "GetEvaluatedByInfo", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetEvaluatedByInfo")
+    @ResponseWrapper(localName = "GetEvaluatedByInfoResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetEvaluatedByInfoResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedByInfoRequest", output = "http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedByInfoResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleEvaluated/GetEvaluatedByInfo/Fault/IOException")
+    })
+    public EvaluatedDto getEvaluatedByInfo(
+        @WebParam(name = "worker", targetNamespace = "")
+        Integer worker,
+        @WebParam(name = "proceso", targetNamespace = "")
+        Integer proceso)
+        throws IOException_Exception
+    ;
+
+    /**
+     * 
      * @return
      *     returns java.util.List<cr.ac.una.tarea.soap.EvaluatedDto>
      * @throws IOException_Exception

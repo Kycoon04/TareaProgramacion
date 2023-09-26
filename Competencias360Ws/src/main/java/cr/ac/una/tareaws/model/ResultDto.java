@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public class ResultDto {
 
-    private Short rsNotasis;
-    private Short rsNotajefatura;
+    private Double rsNotasis;
+    private Double rsNotajefatura;
     private Integer rsId;
     private Competences rsCompe;
     private Evaluated rsEvaluated;
@@ -21,19 +21,19 @@ public class ResultDto {
         this.rsId = result.getRsId();
     }
 
-    public Short getRsNotasis() {
+    public Double getRsNotasis() {
         return rsNotasis;
     }
 
-    public void setRsNotasis(Short rsNotasis) {
+    public void setRsNotasis(Double rsNotasis) {
         this.rsNotasis = rsNotasis;
     }
 
-    public Short getRsNotajefatura() {
+    public Double getRsNotajefatura() {
         return rsNotajefatura;
     }
 
-    public void setRsNotajefatura(Short rsNotajefatura) {
+    public void setRsNotajefatura(Double rsNotajefatura) {
         this.rsNotajefatura = rsNotajefatura;
     }
 

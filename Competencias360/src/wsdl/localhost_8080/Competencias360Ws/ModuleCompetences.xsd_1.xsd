@@ -1,81 +1,80 @@
 <?xml version='1.0' encoding='UTF-8'?><!-- Published by XML-WS Runtime (https://github.com/eclipse-ee4j/metro-jax-ws). Runtime's version is Eclipse Metro/4.0.1 (RELEASE-4.0.1-18da659; 2022-07-02T08:47:18+0000) XMLWS-Impl/4.0.0 XMLWS-API/${jaxws-api.version} XMLB-Impl/4.0.0 XMLB-API/4.0.0 git-revision#18da659. --><xs:schema xmlns:tns="http://controller.tareaws.una.ac.cr/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://controller.tareaws.una.ac.cr/">
 
-    <xs:element name="Delete" type="tns:Delete"/>
+<xs:element name="Delete" type="tns:Delete"/>
 
-    <xs:element name="DeleteResponse" type="tns:DeleteResponse"/>
+<xs:element name="DeleteResponse" type="tns:DeleteResponse"/>
 
-    <xs:element name="GetCompetence" type="tns:GetCompetence"/>
+<xs:element name="GetCompetence" type="tns:GetCompetence"/>
 
-    <xs:element name="GetCompetenceResponse" type="tns:GetCompetenceResponse"/>
+<xs:element name="GetCompetenceResponse" type="tns:GetCompetenceResponse"/>
 
-    <xs:element name="GetCompetences" type="tns:GetCompetences"/>
+<xs:element name="GetCompetences" type="tns:GetCompetences"/>
 
-    <xs:element name="GetCompetencesResponse" type="tns:GetCompetencesResponse"/>
+<xs:element name="GetCompetencesResponse" type="tns:GetCompetencesResponse"/>
 
-    <xs:element name="IOException" type="tns:IOException"/>
+<xs:element name="IOException" type="tns:IOException"/>
 
-    <xs:element name="RegisterCompetences" type="tns:RegisterCompetences"/>
+<xs:element name="RegisterCompetences" type="tns:RegisterCompetences"/>
 
-    <xs:element name="RegisterCompetencesResponse" type="tns:RegisterCompetencesResponse"/>
+<xs:element name="RegisterCompetencesResponse" type="tns:RegisterCompetencesResponse"/>
 
-    <xs:complexType name="GetCompetence">
-        <xs:sequence>
-            <xs:element name="Name" type="xs:string" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="GetCompetence">
+<xs:sequence>
+<xs:element name="Name" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="GetCompetenceResponse">
-        <xs:sequence>
-            <xs:element name="return" type="tns:competencesDto" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="GetCompetenceResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:competencesDto" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="competencesDto">
-        <xs:sequence>
-            <xs:element name="characteristics" type="xs:string" minOccurs="0"/>
-            <xs:element name="id" type="xs:int" minOccurs="0"/>
-            <xs:element name="name" type="xs:string" minOccurs="0"/>
-            <xs:element name="state" type="xs:string" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="competencesDto">
+<xs:sequence>
+<xs:element name="id" type="xs:int" minOccurs="0"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="state" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="IOException">
-        <xs:sequence>
-            <xs:element name="message" type="xs:string" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="IOException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="Delete">
-        <xs:sequence>
-            <xs:element name="Id" type="xs:int" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="Delete">
+<xs:sequence>
+<xs:element name="Id" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="DeleteResponse">
-        <xs:sequence>
-            <xs:element name="return" type="xs:boolean" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="DeleteResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="GetCompetences">
-        <xs:sequence/>
-    </xs:complexType>
+<xs:complexType name="GetCompetences">
+<xs:sequence/>
+</xs:complexType>
 
-    <xs:complexType name="GetCompetencesResponse">
-        <xs:sequence>
-            <xs:element name="return" type="tns:competencesDto" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="GetCompetencesResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:competencesDto" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="RegisterCompetences">
-        <xs:sequence>
-            <xs:element name="arg0" type="tns:competencesDto" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="RegisterCompetences">
+<xs:sequence>
+<xs:element name="arg0" type="tns:competencesDto" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
-    <xs:complexType name="RegisterCompetencesResponse">
-        <xs:sequence>
-            <xs:element name="return" type="xs:boolean" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
+<xs:complexType name="RegisterCompetencesResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 </xs:schema>

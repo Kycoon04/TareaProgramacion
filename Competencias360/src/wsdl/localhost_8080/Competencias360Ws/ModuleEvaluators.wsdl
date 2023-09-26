@@ -4,6 +4,18 @@
 <xsd:import namespace="http://controller.tareaws.una.ac.cr/" schemaLocation="http://localhost:8080/Competencias360Ws/ModuleEvaluators?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="Delete">
+<part name="parameters" element="tns:Delete"/>
+</message>
+<message name="DeleteResponse">
+<part name="parameters" element="tns:DeleteResponse"/>
+</message>
+<message name="RegisterEvaluators">
+<part name="parameters" element="tns:RegisterEvaluators"/>
+</message>
+<message name="RegisterEvaluatorsResponse">
+<part name="parameters" element="tns:RegisterEvaluatorsResponse"/>
+</message>
 <message name="GetEvaluators">
 <part name="parameters" element="tns:GetEvaluators"/>
 </message>
@@ -25,18 +37,6 @@
 <message name="GetEvaluatorByIdResponse">
 <part name="parameters" element="tns:GetEvaluatorByIdResponse"/>
 </message>
-<message name="RegisterEvaluators">
-<part name="parameters" element="tns:RegisterEvaluators"/>
-</message>
-<message name="RegisterEvaluatorsResponse">
-<part name="parameters" element="tns:RegisterEvaluatorsResponse"/>
-</message>
-<message name="Delete">
-<part name="parameters" element="tns:Delete"/>
-</message>
-<message name="DeleteResponse">
-<part name="parameters" element="tns:DeleteResponse"/>
-</message>
 <message name="GetEvaluatorByState">
 <part name="parameters" element="tns:GetEvaluatorByState"/>
 </message>
@@ -50,6 +50,14 @@
 <part name="parameters" element="tns:GetEvaluatorByFeedBackResponse"/>
 </message>
 <portType name="ModuleEvaluators">
+<operation name="Delete">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluators/DeleteRequest" message="tns:Delete"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluators/DeleteResponse" message="tns:DeleteResponse"/>
+</operation>
+<operation name="RegisterEvaluators">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluators/RegisterEvaluatorsRequest" message="tns:RegisterEvaluators"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluators/RegisterEvaluatorsResponse" message="tns:RegisterEvaluatorsResponse"/>
+</operation>
 <operation name="GetEvaluators">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorsRequest" message="tns:GetEvaluators"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorsResponse" message="tns:GetEvaluatorsResponse"/>
@@ -64,14 +72,6 @@
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByIdResponse" message="tns:GetEvaluatorByIdResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorById/Fault/IOException"/>
 </operation>
-<operation name="RegisterEvaluators">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluators/RegisterEvaluatorsRequest" message="tns:RegisterEvaluators"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluators/RegisterEvaluatorsResponse" message="tns:RegisterEvaluatorsResponse"/>
-</operation>
-<operation name="Delete">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluators/DeleteRequest" message="tns:Delete"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluators/DeleteResponse" message="tns:DeleteResponse"/>
-</operation>
 <operation name="GetEvaluatorByState">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByStateRequest" message="tns:GetEvaluatorByState"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleEvaluators/GetEvaluatorByStateResponse" message="tns:GetEvaluatorByStateResponse"/>
@@ -85,6 +85,24 @@
 </portType>
 <binding name="ModuleEvaluatorsPortBinding" type="tns:ModuleEvaluators">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="Delete">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="RegisterEvaluators">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="GetEvaluators">
 <soap:operation soapAction=""/>
 <input>
@@ -117,24 +135,6 @@
 <fault name="IOException">
 <soap:fault name="IOException" use="literal"/>
 </fault>
-</operation>
-<operation name="RegisterEvaluators">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Delete">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
 </operation>
 <operation name="GetEvaluatorByState">
 <soap:operation soapAction=""/>

@@ -8,6 +8,10 @@
 
 <xs:element name="GetEvaluatedByIdResponse" type="tns:GetEvaluatedByIdResponse"/>
 
+<xs:element name="GetEvaluatedByInfo" type="tns:GetEvaluatedByInfo"/>
+
+<xs:element name="GetEvaluatedByInfoResponse" type="tns:GetEvaluatedByInfoResponse"/>
+
 <xs:element name="GetEvaluateds" type="tns:GetEvaluateds"/>
 
 <xs:element name="GetEvaluatedsResponse" type="tns:GetEvaluatedsResponse"/>
@@ -131,6 +135,19 @@
 <xs:complexType name="DeleteResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetEvaluatedByInfo">
+<xs:sequence>
+<xs:element name="worker" type="xs:int" minOccurs="0"/>
+<xs:element name="proceso" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetEvaluatedByInfoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:evaluatedDto" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
