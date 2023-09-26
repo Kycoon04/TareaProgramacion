@@ -4,11 +4,11 @@
 <xsd:import namespace="http://controller.tareaws.una.ac.cr/" schemaLocation="http://localhost:8080/Competencias360Ws/ModuleComInformation?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="Delete">
-<part name="parameters" element="tns:Delete"/>
+<message name="GeneralParameters">
+<part name="parameters" element="tns:GeneralParameters"/>
 </message>
-<message name="DeleteResponse">
-<part name="parameters" element="tns:DeleteResponse"/>
+<message name="GeneralParametersResponse">
+<part name="parameters" element="tns:GeneralParametersResponse"/>
 </message>
 <message name="getInformation">
 <part name="parameters" element="tns:getInformation"/>
@@ -25,16 +25,16 @@
 <message name="GetComInfoResponse">
 <part name="parameters" element="tns:GetComInfoResponse"/>
 </message>
-<message name="GeneralParameters">
-<part name="parameters" element="tns:GeneralParameters"/>
+<message name="Delete">
+<part name="parameters" element="tns:Delete"/>
 </message>
-<message name="GeneralParametersResponse">
-<part name="parameters" element="tns:GeneralParametersResponse"/>
+<message name="DeleteResponse">
+<part name="parameters" element="tns:DeleteResponse"/>
 </message>
 <portType name="ModuleComInformation">
-<operation name="Delete">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/DeleteRequest" message="tns:Delete"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/DeleteResponse" message="tns:DeleteResponse"/>
+<operation name="GeneralParameters">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersRequest" message="tns:GeneralParameters"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersResponse" message="tns:GeneralParametersResponse"/>
 </operation>
 <operation name="getInformation">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformationRequest" message="tns:getInformation"/>
@@ -46,14 +46,14 @@
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/GetComInfoResponse" message="tns:GetComInfoResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/GetComInfo/Fault/IOException"/>
 </operation>
-<operation name="GeneralParameters">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersRequest" message="tns:GeneralParameters"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersResponse" message="tns:GeneralParametersResponse"/>
+<operation name="Delete">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/DeleteRequest" message="tns:Delete"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/DeleteResponse" message="tns:DeleteResponse"/>
 </operation>
 </portType>
 <binding name="ModuleComInformationPortBinding" type="tns:ModuleComInformation">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="Delete">
+<operation name="GeneralParameters">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -86,7 +86,7 @@
 <soap:fault name="IOException" use="literal"/>
 </fault>
 </operation>
-<operation name="GeneralParameters">
+<operation name="Delete">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

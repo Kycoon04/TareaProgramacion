@@ -12,7 +12,16 @@ public class ComInformationDto {
     private String email;
     private byte[] photo;
     private String information;
+    private String cpKey;
 
+    public String getCpKey() {
+        return cpKey;
+    }
+
+    public void setCpKey(String cpKey) {
+        this.cpKey = cpKey;
+    }
+    
     public ComInformationDto() {
     }
 
@@ -22,6 +31,7 @@ public class ComInformationDto {
         this.email = information.getCpEmail();
         this.photo = information.getCpPhoto();
         this.information= information.getCpInformation();
+        this.cpKey= information.getCpKey();
     }
     
     public void setId(Integer id) {

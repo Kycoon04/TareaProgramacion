@@ -7,15 +7,16 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for competences complex type.
+ * <p>Clase Java para competences complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="competences">
  *   <complexContent>
  *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       <sequence>
+ *         <element name="csCharacteristics" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="csId" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         <element name="csName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="csState" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -29,18 +30,44 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "competences", propOrder = {
+    "csCharacteristics",
     "csId",
     "csName",
     "csState"
 })
 public class Competences {
 
+    protected String csCharacteristics;
     protected Integer csId;
     protected String csName;
     protected String csState;
 
     /**
-     * Gets the value of the csId property.
+     * Obtiene el valor de la propiedad csCharacteristics.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCsCharacteristics() {
+        return csCharacteristics;
+    }
+
+    /**
+     * Define el valor de la propiedad csCharacteristics.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCsCharacteristics(String value) {
+        this.csCharacteristics = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad csId.
      * 
      * @return
      *     possible object is
@@ -52,7 +79,7 @@ public class Competences {
     }
 
     /**
-     * Sets the value of the csId property.
+     * Define el valor de la propiedad csId.
      * 
      * @param value
      *     allowed object is
@@ -64,7 +91,7 @@ public class Competences {
     }
 
     /**
-     * Gets the value of the csName property.
+     * Obtiene el valor de la propiedad csName.
      * 
      * @return
      *     possible object is
@@ -76,7 +103,7 @@ public class Competences {
     }
 
     /**
-     * Sets the value of the csName property.
+     * Define el valor de la propiedad csName.
      * 
      * @param value
      *     allowed object is
@@ -88,7 +115,7 @@ public class Competences {
     }
 
     /**
-     * Gets the value of the csState property.
+     * Obtiene el valor de la propiedad csState.
      * 
      * @return
      *     possible object is
@@ -100,7 +127,7 @@ public class Competences {
     }
 
     /**
-     * Sets the value of the csState property.
+     * Define el valor de la propiedad csState.
      * 
      * @param value
      *     allowed object is

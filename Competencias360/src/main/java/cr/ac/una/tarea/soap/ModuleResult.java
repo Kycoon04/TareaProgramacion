@@ -1,7 +1,6 @@
 
 package cr.ac.una.tarea.soap;
 
-import java.util.List;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
@@ -25,23 +24,6 @@ import jakarta.xml.ws.ResponseWrapper;
 })
 public interface ModuleResult {
 
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<cr.ac.una.tarea.soap.ResultDto>
-     * @throws IOException_Exception
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getResults", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetResults")
-    @ResponseWrapper(localName = "getResultsResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetResultsResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleResult/getResultsRequest", output = "http://controller.tareaws.una.ac.cr/ModuleResult/getResultsResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleResult/getResults/Fault/IOException")
-    })
-    public List<ResultDto> getResults()
-        throws IOException_Exception
-    ;
 
     /**
      * 

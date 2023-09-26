@@ -32,6 +32,7 @@ public class ComInformationService {
             comInformation.setName(comInformationDto.getName());
             comInformation.setEmail(comInformationDto.getEmail());
             comInformation.setPhoto(comInformationDto.getPhoto());
+            comInformation.setCpKey(comInformationDto.getCpKey());
             cliente.generalParameters(comInformation);
             return new Respuesta(true, "", "", "Informacion", comInformation);
         } catch (Exception ex) {
@@ -54,6 +55,7 @@ public class ComInformationService {
                 lis.setName(listComInfo.get(0).getName());
                 lis.setPhoto(listComInfo.get(0).getPhoto());
                 lis.setId(listComInfo.get(0).getId());
+                lis.setCpKey(listComInfo.get(0).getCpKey());
                 listInfo.add(lis);
                 return new Respuesta(true, "Error obteniendo la informacion.", "getInformation", "ComInformation", listInfo);
             } else {

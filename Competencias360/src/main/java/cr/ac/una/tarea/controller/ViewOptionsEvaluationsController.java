@@ -11,7 +11,6 @@ import cr.ac.una.tarea.model.EvaluatedsDto;
 import cr.ac.una.tarea.model.EvaluatorDto;
 import cr.ac.una.tarea.model.EvaluatorResultsDto;
 import cr.ac.una.tarea.model.ProcesosevaDto;
-import cr.ac.una.tarea.model.ResultsDto;
 import cr.ac.una.tarea.model.WorkerDto;
 import cr.ac.una.tarea.service.CharacteristicService;
 import cr.ac.una.tarea.service.CompetencesService;
@@ -20,7 +19,6 @@ import cr.ac.una.tarea.service.EvaluatorResultsService;
 import cr.ac.una.tarea.service.EvaluatorService;
 import cr.ac.una.tarea.service.JobsCompetencesService;
 import cr.ac.una.tarea.service.ProcesoevaService;
-import cr.ac.una.tarea.service.ResultsService;
 import cr.ac.una.tarea.soap.Evaluators;
 import cr.ac.una.tarea.soap.ProcesoevaDto;
 import cr.ac.una.tarea.util.FlowController;
@@ -30,7 +28,6 @@ import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
@@ -61,8 +58,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -117,11 +112,9 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     ProcesosevaDto procesoDto;
     EvaluatorDto evaluatorDto;
     List<EvaJobCompetenceDto> listCompetences = new ArrayList<>();
-    private List<EvaluatorResultsDto> evaluatorsDto;
     List<ProcesosevaDto> listProcesos = new ArrayList<>();
     List<ProcesosevaDto> listProEvaluados = new ArrayList<>();
     List<ProcesosevaDto> listProFinalizados = new ArrayList<>();
-    List<EvaluatorDto> listEvaluatorAss = new ArrayList<>();
     ObservableList<ProcesosevaDto> procesosList;
     ObservableList<ProcesosevaDto> procesosEvaList;
     ObservableList<ProcesosevaDto> procesosFinalList;
@@ -231,201 +224,23 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
     @FXML
     private void backEvaluationGen(ActionEvent event) {
-        List<Button> botonesParaEliminar = new ArrayList<>();
-        List<Button> botonesParaEliminar2 = new ArrayList<>();
-        List<VBox> botonesParaEliminar3 = new ArrayList<>();
-        ObservableList<Node> children = gridEvaGeneral.getChildren();
-        ObservableList<Node> children2 = gridResGeneral.getChildren();
-        ObservableList<Node> children3 = gridResGeneral.getChildren();
-        for (Node node : children) {
-            if (node instanceof Button) {
-                botonesParaEliminar.add((Button) node);
-            }
-        }
-        for (Node node : children3) {
-            if (node instanceof VBox) {
-                botonesParaEliminar3.add((VBox) node);
-            }
-        }
-        for (Node node : children2) {
-            if (node instanceof Button) {
-                botonesParaEliminar2.add((Button) node);
-            }
-        }
-        ColumnConstraints originalConstraints = gridEvaGeneral.getColumnConstraints().get(0);
-        gridEvaGeneral.getColumnConstraints().clear();
-        gridEvaGeneral.getColumnConstraints().add(originalConstraints);
-
-        gridHeaderResGeneral.getColumnConstraints().clear();
-        gridHeaderResGeneral.getColumnConstraints().add(originalConstraints);
-        gridEvaGeneral.setGridLinesVisible(true);
-
-        gridHeaderResGeneral.setGridLinesVisible(true);
-
-        textEvaluation_Feedback.setText(" ");
-        for (Button boton : botonesParaEliminar) {
-            gridEvaGeneral.getChildren().remove(boton);
-        }
-        for (VBox vBox : botonesParaEliminar3) {
-            gridEvaGeneral.getChildren().remove(vBox);
-        }
-        for (Button boton : botonesParaEliminar2) {
-            gridResGeneral.getChildren().remove(boton);
-        }
         OptionsProcessEva.toFront();
     }
 
     @FXML
     private void procesoResultClicked(MouseEvent event) {
-        if (event.getClickCount() == 2) {
+         if (event.getClickCount() == 2) {
             try {
                 procesoDto = tableColResEvaluated.getSelectionModel().getSelectedItem();
                 textEvaluationGen_Name.setText(workerDto.getName() + " " + workerDto.getPsurname() + " " + workerDto.getSsurname());
                 textEvaluationGen_Job.setText(workerDto.getJob().getJsName());
                 textEvaluationGen_Period.setText(procesoDto.getInicialperiod().getYear() + " - " + procesoDto.getFinalperiod().getYear());
                 textEvaluationGen_Apli.setText(procesoDto.getApplication().toString());
-                ResultJefatura();
-                OptionsEvaluationGeneralView.toFront();
+               OptionsEvaluationGeneralView.toFront();
             } catch (Exception ex) {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un proceso en este campo.");
             }
         }
-    }
-    Predicate<EvaluatorDto> getProEvaluators = x -> x.getEvsEvaluated().getEsProcesoeva().getEnId().equals(procesoDto.getId());
-
-    public List<EvaluatorDto> getEvaluators(int idEvaluated) {
-        return listEvaluatorAss.stream().
-                filter(getProEvaluators.and(x -> x.getEvsEvaluated().getEsWorker().getWrId().equals(idEvaluated))).collect(Collectors.toList());
-    }
-
-    public void importList() {
-        EvaluatorService service = new EvaluatorService();
-        Respuesta respuesta = service.getEvaluators();
-        listEvaluatorAss = (List<EvaluatorDto>) respuesta.getResultado("Evaluators");
-        listEvaluatorAss = getEvaluators(workerDto.getId());
-    }
-    Predicate<EvaluatorResultsDto> pProcesos = x -> x.getErEvaluator().getEvsEvaluated().getEsProcesoeva().getEnName().equals(procesoDto.getName());
-
-    Predicate<EvaluatorResultsDto> pConexion(String conexion) {
-        return x -> x.getErEvaluator().getEvsConnection().equals(conexion);
-    }
-    Predicate<ResultsDto> pProcesosResult = x -> x.getRsEvaluated().getEsProcesoeva().getEnName().equals(procesoDto.getName());
-
-    public void ResultJefatura() {
-        CharacteristicService serviceChara = new CharacteristicService();
-        Respuesta respuestaChara = serviceChara.getCharacteristic();
-        JobsCompetencesService service = new JobsCompetencesService();
-        String concatenatedNames = "";
-        importList();
-        List<CharacteristicsDto> characteristics = (List<CharacteristicsDto>) respuestaChara.getResultado("Characteristic");
-        List<CharacteristicsDto> aux;
-        ResultsService ResultService = new ResultsService();
-        listEvaluatorAss = listEvaluatorAss.stream().filter(x -> x.getEvsState().equals("S")).toList();
-        Respuesta respuesta = ResultService.getResults();
-        List<ResultsDto> ResultsDto = (List<ResultsDto>) respuesta.getResultado("ResultsDto");
-        ResultsDto = ResultsDto.stream().filter(pProcesosResult.and(x -> x.getRsEvaluated().getEsWorker().getWrId().equals(workerDto.getId()))).toList();
-
-        respuesta = service.getjCompetences();
-        listCompetences = (List<EvaJobCompetenceDto>) respuesta.getResultado("JobsCompetences");
-        listCompetences = listCompetences.stream().filter(x -> x.getJobs().getJsName().equals(workerDto.getJob().getJsName())).toList();
-
-        ColumnConstraints originalConstraints = gridEvaGeneral.getColumnConstraints().get(0);
-        for (int i = 1; i < listCompetences.size(); i++) {
-            ColumnConstraints newConstraints = new ColumnConstraints();
-            newConstraints.setFillWidth(originalConstraints.isFillWidth());
-            newConstraints.setHalignment(originalConstraints.getHalignment());
-            newConstraints.setHgrow(originalConstraints.getHgrow());
-            newConstraints.setMaxWidth(originalConstraints.getMaxWidth());
-            newConstraints.setMinWidth(originalConstraints.getMinWidth());
-            newConstraints.setPercentWidth(originalConstraints.getPercentWidth());
-            newConstraints.setPrefWidth(originalConstraints.getPrefWidth());
-            gridEvaGeneral.getColumnConstraints().add(newConstraints);
-        }
-        originalConstraints = gridEvaGeneral.getColumnConstraints().get(0);
-
-        for (int i = 1; i < listCompetences.size(); i++) {
-
-            ColumnConstraints newConstraints = new ColumnConstraints();
-            newConstraints.setFillWidth(originalConstraints.isFillWidth());
-            newConstraints.setHalignment(originalConstraints.getHalignment());
-            newConstraints.setHgrow(originalConstraints.getHgrow());
-            newConstraints.setMaxWidth(originalConstraints.getMaxWidth());
-            newConstraints.setMinWidth(originalConstraints.getMinWidth());
-            newConstraints.setPercentWidth(originalConstraints.getPercentWidth());
-            newConstraints.setPrefWidth(originalConstraints.getPrefWidth());
-            gridHeaderResGeneral.getColumnConstraints().add(newConstraints);
-        }
-        for (int i = 0; i < listCompetences.size(); i++) {
-            final int Cant = i;
-            aux = characteristics.stream().filter(x -> x.getCcComid().getCsName().equals(listCompetences.get(Cant).getJxcCompetence().getCsName())).toList();
-            for (int j = 0; j < aux.size(); j++) {
-                concatenatedNames += (aux.get(j).getCcName() + " ");
-            }
-            Label label = new Label(listCompetences.get(i).getJxcCompetence().getCsName());
-            String fontFamily = "Tw Cen MT";
-            double fontSize = 23.0;
-            String textColor = "white";
-            label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;" + "-fx-text-fill: " + textColor + ";");
-            label.setTooltip(new Tooltip(concatenatedNames));
-            gridHeaderResGeneral.add(label, i, 0);
-            concatenatedNames = "";
-        }
-
-        String Texto = "";
-        float sumaTotal = 0;
-        for (int i = 0; i < listCompetences.size(); i++) {
-            final int cont = i;
-            ImageView checkInstance = new ImageView(check.getImage());
-            ImageView checkPositive = new ImageView(new Image("/cr/ac/una/tarea/view/CheckPositive.png"));
-            ImageView checkNegative = new ImageView(new Image("/cr/ac/una/tarea/view/CheckNegative.png"));
-
-            checkInstance.setFitHeight(50);
-            checkInstance.setFitWidth(50);
-            checkPositive.setFitHeight(50);
-            checkPositive.setFitWidth(50);
-            checkNegative.setFitHeight(50);
-            checkNegative.setFitWidth(50);
-
-            Button btn = new Button();
-            double fontSize = 18.0;
-            String fondo = "-fx-background-color: transparent";
-            btn.setStyle(fondo);
-
-            Optional<ResultsDto> ResultadoDto = ResultsDto.stream().filter(x -> x.getRsCompe().getCsId().equals(listCompetences.get(cont).getJxcCompetence().getCsId())).findAny();
-
-            int Redondeo = (int) Math.round(ResultadoDto.get().getRsNotasis());
-            Double valor = ResultadoDto.get().getRsNotasis();
-            
-                if (Redondeo > valor) {
-                    btn.setGraphic(checkPositive);
-                    gridEvaGeneral.add(btn, i, Math.abs((int) Math.floor(ResultadoDto.get().getRsNotajefatura()) - 4));
-                } else {
-                    if (Redondeo < valor) {
-                        btn.setGraphic(checkNegative);
-                        gridEvaGeneral.add(btn, i, Math.abs((int) Math.floor(ResultadoDto.get().getRsNotajefatura()) - 4));
-                    } else {
-                        btn.setGraphic(checkInstance);
-                        gridEvaGeneral.add(btn, i, Math.abs((int) Math.floor(ResultadoDto.get().getRsNotajefatura()) - 4));
-                    }
-                }
-                sumaTotal += ResultadoDto.get().getRsNotasis();
-        }
-        for (int i = 0; i < listEvaluatorAss.size(); i++) {
-            if(listEvaluatorAss.get(i).getEvsConnection().equals("Jefatura")){
-            Texto += "$ : " + listEvaluatorAss.get(i).getEvsFeedback() + "\n";
-            }else{
-            if(listEvaluatorAss.get(i).getEvsConnection().equals("Autoevaluación")){
-            Texto += "& : " + listEvaluatorAss.get(i).getEvsFeedback() + "\n";
-            }else{
-            Texto += listEvaluatorAss.get(i).getEvsFeedback() + "\n";
-            }
-            }
-        }
-        textEvaluationGen_Feedback.setText(Texto);
-        ImageView checkInstance = new ImageView(check.getImage());
-        checkInstance.setFitHeight(50);
-        checkInstance.setFitWidth(50);
-        gridResGeneral.add(checkInstance, 0, Math.abs(((int) Math.floor(sumaTotal / listCompetences.size()) - 4)));
     }
 
     class cordenadas {
@@ -454,7 +269,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         this.tableColProEvaluated_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));
         this.tableColProEvaluated_FinalPer.setCellValueFactory(new PropertyValueFactory("Finalperiod"));
         this.tableColProEvaluated_Apli.setCellValueFactory(new PropertyValueFactory("Application"));
-
+        
         this.tableColResEvaluated_State.setCellValueFactory(new PropertyValueFactory("State"));
         this.tableColResEvaluated_Name.setCellValueFactory(new PropertyValueFactory("Name"));
         this.tableColResEvaluated_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));
@@ -706,8 +521,8 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
             proceso.setId(evaluated.getEsProcesoeva().getEnId());
             respuesta = serviceProceso.getProcesos();
             List<ProcesosevaDto> listProcesosDto = (List<ProcesosevaDto>) respuesta.getResultado("ProcesosevaDto");
-
-            ProcesosevaDto dates = listProcesosDto.stream().filter(x -> x.getId().equals(evaluated.getEsProcesoeva().getEnId())).findAny().get();
+            
+           ProcesosevaDto dates = listProcesosDto.stream().filter(x -> x.getId().equals(evaluated.getEsProcesoeva().getEnId())).findAny().get();
 
             proceso.setsetApplication(dates.getApplication().toString());
             proceso.setsetFinalperiod(dates.getFinalperiod().toString());
@@ -718,7 +533,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         listProEvaluados = listProEvaluados.stream().filter(getState.negate()).toList();
     }
     Predicate<ProcesosevaDto> getStateFinal = x -> x.getState().equals("Finalizada");
-
     public void ImportListProResult() {
         EvaluatedService service = new EvaluatedService();
         Respuesta respuesta = service.getEvaluateds();
@@ -733,8 +547,8 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
             proceso.setId(evaluated.getEsProcesoeva().getEnId());
             respuesta = serviceProceso.getProcesos();
             List<ProcesosevaDto> listProcesosDto = (List<ProcesosevaDto>) respuesta.getResultado("ProcesosevaDto");
-
-            ProcesosevaDto dates = listProcesosDto.stream().filter(x -> x.getId().equals(evaluated.getEsProcesoeva().getEnId())).findAny().get();
+            
+           ProcesosevaDto dates = listProcesosDto.stream().filter(x -> x.getId().equals(evaluated.getEsProcesoeva().getEnId())).findAny().get();
 
             proceso.setsetApplication(dates.getApplication().toString());
             proceso.setsetFinalperiod(dates.getFinalperiod().toString());
@@ -744,7 +558,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         }
         listProFinalizados = listProFinalizados.stream().filter(getState.negate().and(getStateFinal)).toList();
     }
-
     public void ImportListEvaluator() {
         EvaluatorService service = new EvaluatorService();
         Respuesta respuesta = service.getEvaluators();
@@ -787,14 +600,15 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         ImportListProResult();
         procesosList = FXCollections.observableArrayList(listProcesos);
         procesosEvaList = FXCollections.observableArrayList(listProEvaluados);
-        procesosFinalList = FXCollections.observableArrayList(listProFinalizados);
+        procesosFinalList= FXCollections.observableArrayList(listProFinalizados);
         this.tableViewProEva.refresh();
         this.tableViewProEva.setItems(procesosList);
         this.tableColProEvaluated.refresh();
         this.tableColProEvaluated.setItems(procesosEvaList);
         this.tableColResEvaluated.refresh();
         this.tableColResEvaluated.setItems(procesosFinalList);
-
+        
+        
     }
     Predicate<EvaluatorDto> getEvaluator = x -> x.getEvsEvaluated().getEsProcesoeva().getEnId().equals(procesoDto.getId());
 
@@ -806,7 +620,8 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         evaluatedList = FXCollections.observableArrayList(evaluateds);
         this.tableViewEvaluated.refresh();
         this.tableViewEvaluated.setItems(evaluatedList);
-
+        
+        
     }
 
     @FXML

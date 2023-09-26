@@ -270,6 +270,8 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private Circle InformationMainPhoto1;
     @FXML
     private WebView htmlWeb;
+    @FXML
+    private TextField InfoInformatioKeynField11;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -285,6 +287,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         this.tableColAdmi.setCellValueFactory(new PropertyValueFactory("administrator"));
         //this.tableColJob.setCellValueFactory(new PropertyValueFactory("job"));
 
+        this.tableColCompCharac.setCellValueFactory(new PropertyValueFactory("Characteristics"));
         this.tableColCompSta.setCellValueFactory(new PropertyValueFactory("States"));
         this.tableColCompName.setCellValueFactory(new PropertyValueFactory("Name"));
 
@@ -506,6 +509,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
             NameInformationField1.setText(list.get(0).getName());
             EmailInformationField1.setText(list.get(0).getEmail());
             InfoInformationField1.setText(list.get(0).getInformation());
+            InfoInformatioKeynField11.setText(list.get(0).getCpKey());
             System.out.println(list.get(0).getPhoto());
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(list.get(0).getPhoto());
             Image image = new Image(byteArrayInputStream);
@@ -523,6 +527,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         informationDto.setName(NameInformationField1.getText());
         informationDto.setInformation(EmailInformationField1.getText());
         informationDto.setEmail(InfoInformationField1.getText());
+        informationDto.setCpKey(InfoInformatioKeynField11.getText());
 
         if (respuesta1.getEstado()) {
             informationDto.setId(list.get(0).getId());
@@ -548,6 +553,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private void UpdateCompetences(ActionEvent event) {
         CompetencesService competencesService = new CompetencesService();
         competenceDto.setName(NameCompetencesField.getText());
+        competenceDto.setCharacteristics("N/A");
 
         if (StateCompetencesCheck.isSelected()) {
             competenceDto.setState("S");
@@ -843,7 +849,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (true) {
+                if (CompetenceDto.getCharacteristics().toLowerCase().contains(search)) {
                     return true;
                 } else {
                     return false;
@@ -993,7 +999,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
             imageToBytesInfo(selectedFile);
         }
         Image image = new Image(selectedFile.toURI().toString());
-        InformationMainPhoto.setFill(new ImagePattern(image));
+        InformationMainPhoto1.setFill(new ImagePattern(image));
     }
 
     @FXML
@@ -1062,6 +1068,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
             job.setJsName(jobDto.getName());
             job.setJsState(jobDto.getState());
 
+            competence.setCsCharacteristics(selectedCompetence.getCharacteristics());
             competence.setCsId(selectedCompetence.getId());
             competence.setCsName(selectedCompetence.getName());
             competence.setCsState(selectedCompetence.getState());
@@ -1079,6 +1086,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         caract.setCcName(NameCharacteristicField.getText());
 
         Competences competence = new Competences();
+        competence.setCsCharacteristics("N/A");
         competence.setCsId(competenceDto.getId());
         competence.setCsName(competenceDto.getName());
         competence.setCsState(competenceDto.getState());

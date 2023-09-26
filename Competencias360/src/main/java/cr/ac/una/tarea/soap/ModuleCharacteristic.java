@@ -28,41 +28,6 @@ public interface ModuleCharacteristic {
 
     /**
      * 
-     * @param id
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "Delete")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
-    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteResponse")
-    public Boolean delete(
-        @WebParam(name = "Id", targetNamespace = "")
-        Integer id);
-
-    /**
-     * 
-     * @param name
-     * @return
-     *     returns cr.ac.una.tarea.soap.CharacteristicDto
-     * @throws IOException_Exception
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "findByCcName", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.FindByCcName")
-    @ResponseWrapper(localName = "findByCcNameResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.FindByCcNameResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/findByCcNameRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/findByCcNameResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/findByCcName/Fault/IOException")
-    })
-    public CharacteristicDto findByCcName(
-        @WebParam(name = "name", targetNamespace = "")
-        String name)
-        throws IOException_Exception
-    ;
-
-    /**
-     * 
      * @return
      *     returns java.util.List<cr.ac.una.tarea.soap.CharacteristicDto>
      * @throws IOException_Exception
@@ -97,6 +62,41 @@ public interface ModuleCharacteristic {
         Integer id)
         throws IOException_Exception
     ;
+
+    /**
+     * 
+     * @param name
+     * @return
+     *     returns cr.ac.una.tarea.soap.CharacteristicDto
+     * @throws IOException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "findByCcName", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.FindByCcName")
+    @ResponseWrapper(localName = "findByCcNameResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.FindByCcNameResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/findByCcNameRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/findByCcNameResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/findByCcName/Fault/IOException")
+    })
+    public CharacteristicDto findByCcName(
+        @WebParam(name = "name", targetNamespace = "")
+        String name)
+        throws IOException_Exception
+    ;
+
+    /**
+     * 
+     * @param id
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "Delete")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "Delete", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.Delete")
+    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.DeleteResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteRequest", output = "http://controller.tareaws.una.ac.cr/ModuleCharacteristic/DeleteResponse")
+    public Boolean delete(
+        @WebParam(name = "Id", targetNamespace = "")
+        Integer id);
 
     /**
      * 

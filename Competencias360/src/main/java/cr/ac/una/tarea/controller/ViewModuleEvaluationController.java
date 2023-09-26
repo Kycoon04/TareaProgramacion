@@ -426,6 +426,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void SummitFinal(ActionEvent event) {
+        System.out.println("ho;las");
         ResultsService resultService = new ResultsService();
         ResultsDto resultDto = new ResultsDto();
         EvaluatedService service = new EvaluatedService();
@@ -434,7 +435,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         ProcesoevaService serviceProceso = new ProcesoevaService();
         for (int i = 0; i < resultado.size(); i++) {
             resultDto.setRsCompe(listCompetences.get(i).getJxcCompetence());
-            resultDto.setRsNotasis((double)resultado.get(listCompetences.get(i).getJxcCompetence().getCsName()));
+            resultDto.setRsNotasis(floatToShort(resultado.get(listCompetences.get(i).getJxcCompetence().getCsName())));
             resultDto.setRsEvaluated(evaluatorsDto.get(i).getErEvaluator().getEvsEvaluated());
             for (Node node : gridEvaGeneral.getChildren()) {
                 if (node instanceof Button) {
@@ -448,7 +449,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                         continue;
                     } else {
                         if (colIndex == i) {
-                            resultDto.setRsNotajefatura((double) Math.abs((rowIndex - 4)));
+                            resultDto.setRsNotajefatura((short) Math.abs((rowIndex - 4)));
                         }
                     }
                 }

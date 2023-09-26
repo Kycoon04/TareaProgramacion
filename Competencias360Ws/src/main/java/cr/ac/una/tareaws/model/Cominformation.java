@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package cr.ac.una.tareaws.model;
 
 import java.io.Serializable;
@@ -12,7 +16,7 @@ import jakarta.persistence.Table;
 
 /**
  *
- * @author jomav
+ * @author dilan
  */
 @Entity
 @Table(name = "EVA_COMINFORMATION")
@@ -21,7 +25,8 @@ import jakarta.persistence.Table;
     @NamedQuery(name = "Cominformation.findByCpId", query = "SELECT c FROM Cominformation c WHERE c.cpId = :cpId"),
     @NamedQuery(name = "Cominformation.findByCpName", query = "SELECT c FROM Cominformation c WHERE c.cpName = :cpName"),
     @NamedQuery(name = "Cominformation.findByCpEmail", query = "SELECT c FROM Cominformation c WHERE c.cpEmail = :cpEmail"),
-    @NamedQuery(name = "Cominformation.findByCpInformation", query = "SELECT c FROM Cominformation c WHERE c.cpInformation = :cpInformation")})
+    @NamedQuery(name = "Cominformation.findByCpInformation", query = "SELECT c FROM Cominformation c WHERE c.cpInformation = :cpInformation"),
+    @NamedQuery(name = "Cominformation.findByCpKey", query = "SELECT c FROM Cominformation c WHERE c.cpKey = :cpKey")})
 public class Cominformation implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,20 +45,12 @@ public class Cominformation implements Serializable {
     @Lob
     @Column(name = "CP_PHOTO")
     private byte[] cpPhoto;
+    @Column(name = "CP_KEY")
+    private String cpKey;
 
     public Cominformation() {
     }
-    public Cominformation(ComInformationDto comInformationDto) {
-        this.cpId = 1;
-        Actualizar(comInformationDto);
-    }
 
-    public void Actualizar(ComInformationDto comInformationDto) {
-        this.cpName = comInformationDto.getName();
-        this.cpInformation = comInformationDto.getInformation();
-        this.cpEmail = comInformationDto.getEmail();
-        this.cpPhoto= comInformationDto.getPhoto();
-    }
     public Cominformation(Integer cpId) {
         this.cpId = cpId;
     }
@@ -63,6 +60,20 @@ public class Cominformation implements Serializable {
         this.cpName = cpName;
         this.cpEmail = cpEmail;
     }
+        public Cominformation(ComInformationDto comInformationDto) {
+        this.cpId = 1;
+        Actualizar(comInformationDto);
+    }
+
+    public void Actualizar(ComInformationDto comInformationDto) {
+        this.cpName = comInformationDto.getName();
+        this.cpInformation = comInformationDto.getInformation();
+        this.cpEmail = comInformationDto.getEmail();
+        this.cpPhoto= comInformationDto.getPhoto();
+        this.cpKey=comInformationDto.getCpKey();
+      
+    }
+ 
 
     public Integer getCpId() {
         return cpId;
@@ -102,6 +113,14 @@ public class Cominformation implements Serializable {
 
     public void setCpPhoto(byte[] cpPhoto) {
         this.cpPhoto = cpPhoto;
+    }
+
+    public String getCpKey() {
+        return cpKey;
+    }
+
+    public void setCpKey(String cpKey) {
+        this.cpKey = cpKey;
     }
 
     @Override

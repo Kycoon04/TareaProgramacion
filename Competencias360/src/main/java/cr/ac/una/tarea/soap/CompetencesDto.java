@@ -7,15 +7,16 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for competencesDto complex type.
+ * <p>Clase Java para competencesDto complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="competencesDto">
  *   <complexContent>
  *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       <sequence>
+ *         <element name="characteristics" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="id" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         <element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="state" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -29,18 +30,44 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "competencesDto", propOrder = {
+    "characteristics",
     "id",
     "name",
     "state"
 })
 public class CompetencesDto {
 
+    protected String characteristics;
     protected Integer id;
     protected String name;
     protected String state;
 
     /**
-     * Gets the value of the id property.
+     * Obtiene el valor de la propiedad characteristics.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCharacteristics() {
+        return characteristics;
+    }
+
+    /**
+     * Define el valor de la propiedad characteristics.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCharacteristics(String value) {
+        this.characteristics = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad id.
      * 
      * @return
      *     possible object is
@@ -52,7 +79,7 @@ public class CompetencesDto {
     }
 
     /**
-     * Sets the value of the id property.
+     * Define el valor de la propiedad id.
      * 
      * @param value
      *     allowed object is
@@ -64,7 +91,7 @@ public class CompetencesDto {
     }
 
     /**
-     * Gets the value of the name property.
+     * Obtiene el valor de la propiedad name.
      * 
      * @return
      *     possible object is
@@ -76,7 +103,7 @@ public class CompetencesDto {
     }
 
     /**
-     * Sets the value of the name property.
+     * Define el valor de la propiedad name.
      * 
      * @param value
      *     allowed object is
@@ -88,7 +115,7 @@ public class CompetencesDto {
     }
 
     /**
-     * Gets the value of the state property.
+     * Obtiene el valor de la propiedad state.
      * 
      * @return
      *     possible object is
@@ -100,7 +127,7 @@ public class CompetencesDto {
     }
 
     /**
-     * Sets the value of the state property.
+     * Define el valor de la propiedad state.
      * 
      * @param value
      *     allowed object is

@@ -63,21 +63,6 @@ public interface ModuleJobs {
 
     /**
      * 
-     * @param arg0
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "RegisterJob")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "RegisterJob", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterJob")
-    @ResponseWrapper(localName = "RegisterJobResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterJobResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleJobs/RegisterJobRequest", output = "http://controller.tareaws.una.ac.cr/ModuleJobs/RegisterJobResponse")
-    public Boolean registerJob(
-        @WebParam(name = "arg0", targetNamespace = "")
-        JobsDto arg0);
-
-    /**
-     * 
      * @return
      *     returns java.util.List<cr.ac.una.tarea.soap.JobsDto>
      * @throws IOException_Exception
@@ -92,5 +77,20 @@ public interface ModuleJobs {
     public List<JobsDto> getJobs()
         throws IOException_Exception
     ;
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "RegisterJob")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "RegisterJob", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterJob")
+    @ResponseWrapper(localName = "RegisterJobResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterJobResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleJobs/RegisterJobRequest", output = "http://controller.tareaws.una.ac.cr/ModuleJobs/RegisterJobResponse")
+    public Boolean registerJob(
+        @WebParam(name = "arg0", targetNamespace = "")
+        JobsDto arg0);
 
 }

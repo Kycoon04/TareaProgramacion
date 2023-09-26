@@ -26,6 +26,7 @@ public class CompetencesService {
             ModuleCompetences cliente = servicio.getModuleCompetencesPort();
 
             CompetencesDto competencesDto = new CompetencesDto();
+            competencesDto.setCharacteristics(competenceDto.getCharacteristics());
             competencesDto.setId(competenceDto.getId());
             competencesDto.setName(competenceDto.getName());
             competencesDto.setState(competenceDto.getState());
@@ -49,6 +50,7 @@ public class CompetencesService {
                 competenceDto.setName(comp.getName());
                 competenceDto.setId(comp.getId());
                 competenceDto.setState(comp.getState());
+                competenceDto.setCharacteristics(comp.getCharacteristics());
                 competences.add(competenceDto);
             }
 

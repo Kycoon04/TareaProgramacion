@@ -43,21 +43,6 @@ public interface ModuleProcesoeva {
 
     /**
      * 
-     * @param arg0
-     * @return
-     *     returns java.lang.Boolean
-     */
-    @WebMethod(operationName = "RegisterProcesova")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "RegisterProcesova", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterProcesova")
-    @ResponseWrapper(localName = "RegisterProcesovaResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterProcesovaResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/RegisterProcesovaRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/RegisterProcesovaResponse")
-    public Boolean registerProcesova(
-        @WebParam(name = "arg0", targetNamespace = "")
-        ProcesoevaDto arg0);
-
-    /**
-     * 
      * @param name
      * @return
      *     returns cr.ac.una.tarea.soap.ProcesoevaDto
@@ -70,6 +55,21 @@ public interface ModuleProcesoeva {
     public ProcesoevaDto getProcesova(
         @WebParam(name = "Name", targetNamespace = "")
         String name);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "RegisterProcesova")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "RegisterProcesova", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterProcesova")
+    @ResponseWrapper(localName = "RegisterProcesovaResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.RegisterProcesovaResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/RegisterProcesovaRequest", output = "http://controller.tareaws.una.ac.cr/ModuleProcesoeva/RegisterProcesovaResponse")
+    public Boolean registerProcesova(
+        @WebParam(name = "arg0", targetNamespace = "")
+        ProcesoevaDto arg0);
 
     /**
      * 

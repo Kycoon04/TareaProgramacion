@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for getResultByGrade complex type.
+ * <p>Clase Java para getResultByGrade complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="getResultByGrade">
@@ -34,7 +34,7 @@ public class GetResultByGrade {
     protected Integer nota;
 
     /**
-     * Gets the value of the nota property.
+     * Obtiene el valor de la propiedad nota.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class GetResultByGrade {
     }
 
     /**
-     * Sets the value of the nota property.
+     * Define el valor de la propiedad nota.
      * 
      * @param value
      *     allowed object is

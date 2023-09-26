@@ -20,17 +20,20 @@ public class CompetenceDto {
     public SimpleIntegerProperty id;
     public SimpleStringProperty name;
     public SimpleStringProperty state;
+    public SimpleStringProperty characteristics;
 
     public CompetenceDto() {
         this.id = new SimpleIntegerProperty();
         this.name = new SimpleStringProperty();
         this.state = new SimpleStringProperty();
+        this.characteristics = new SimpleStringProperty();
     }
 
     public CompetenceDto(CompetencesDto competenceDto) {
         this.id.set(competenceDto.getId());
         this.name.set(competenceDto.getName());
         this.state.set(competenceDto.getState());
+        this.name.set(competenceDto.getCharacteristics());
     }
 
     public Integer getId() {
@@ -64,5 +67,13 @@ public class CompetenceDto {
 
     public void setState(String State) {
         this.state.set(State);
+    }
+
+    public String getCharacteristics() {
+        return characteristics.get();
+    }
+
+    public void setCharacteristics(String Characteristics) {
+        this.characteristics.set(Characteristics);
     }
 }

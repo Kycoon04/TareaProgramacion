@@ -1685,6 +1685,18 @@
                                           </HBox>
                                           <TextField fx:id="InfoInformationField1" prefHeight="32.0" prefWidth="432.0" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-radius: 4px; -fx-border-color: white;" />
                                           <Separator prefHeight="66.0" prefWidth="201.0" visible="false" />
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Key" wrappingWidth="227.984375">
+                                             <font>
+                                                <Font name="Tw Cen MT" size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="InfoInformatioKeynField11" prefHeight="32.0" prefWidth="432.0" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-radius: 4px; -fx-border-color: white;" />
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Html" wrappingWidth="227.984375">
+                                             <font>
+                                                <Font name="Tw Cen MT" size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="InfoInformatioHtmnField111" prefHeight="32.0" prefWidth="432.0" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-radius: 4px; -fx-border-color: white;" />
                                        </children>
                                        <padding>
                                           <Insets bottom="20.0" left="40.0" top="20.0" />

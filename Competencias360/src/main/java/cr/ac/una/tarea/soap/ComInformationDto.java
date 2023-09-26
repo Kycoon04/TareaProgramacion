@@ -7,15 +7,16 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for comInformationDto complex type.
+ * <p>Clase Java para comInformationDto complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="comInformationDto">
  *   <complexContent>
  *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       <sequence>
+ *         <element name="cpKey" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="id" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         <element name="information" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -31,6 +32,7 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "comInformationDto", propOrder = {
+    "cpKey",
     "email",
     "id",
     "information",
@@ -39,6 +41,7 @@ import jakarta.xml.bind.annotation.XmlType;
 })
 public class ComInformationDto {
 
+    protected String cpKey;
     protected String email;
     protected Integer id;
     protected String information;
@@ -46,7 +49,31 @@ public class ComInformationDto {
     protected byte[] photo;
 
     /**
-     * Gets the value of the email property.
+     * Obtiene el valor de la propiedad cpKey.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCpKey() {
+        return cpKey;
+    }
+
+    /**
+     * Define el valor de la propiedad cpKey.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCpKey(String value) {
+        this.cpKey = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad email.
      * 
      * @return
      *     possible object is
@@ -58,7 +85,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Sets the value of the email property.
+     * Define el valor de la propiedad email.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +97,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Gets the value of the id property.
+     * Obtiene el valor de la propiedad id.
      * 
      * @return
      *     possible object is
@@ -82,7 +109,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Sets the value of the id property.
+     * Define el valor de la propiedad id.
      * 
      * @param value
      *     allowed object is
@@ -94,7 +121,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Gets the value of the information property.
+     * Obtiene el valor de la propiedad information.
      * 
      * @return
      *     possible object is
@@ -106,7 +133,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Sets the value of the information property.
+     * Define el valor de la propiedad information.
      * 
      * @param value
      *     allowed object is
@@ -118,7 +145,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Gets the value of the name property.
+     * Obtiene el valor de la propiedad name.
      * 
      * @return
      *     possible object is
@@ -130,7 +157,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Sets the value of the name property.
+     * Define el valor de la propiedad name.
      * 
      * @param value
      *     allowed object is
@@ -142,7 +169,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Gets the value of the photo property.
+     * Obtiene el valor de la propiedad photo.
      * 
      * @return
      *     possible object is
@@ -153,7 +180,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Sets the value of the photo property.
+     * Define el valor de la propiedad photo.
      * 
      * @param value
      *     allowed object is

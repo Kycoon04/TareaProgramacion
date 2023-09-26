@@ -14,8 +14,9 @@ import javafx.beans.property.SimpleIntegerProperty;
  */
 public class ResultsDto {
 
-    private Double rsNotasis;
-    private Double rsNotajefatura;
+ 
+    private Short rsNotasis;
+    private Short rsNotajefatura;
     private SimpleIntegerProperty rsId;
     private Competences rsCompe;
     private Evaluated rsEvaluated;
@@ -24,19 +25,19 @@ public class ResultsDto {
         rsId = new SimpleIntegerProperty();
     }
 
-    public Double getRsNotasis() {
+    public Short getRsNotasis() {
         return rsNotasis;
     }
 
-    public void setRsNotasis(Double rsNotasis) {
+    public void setRsNotasis(Short rsNotasis) {
         this.rsNotasis = rsNotasis;
     }
 
-    public Double getRsNotajefatura() {
+    public Short getRsNotajefatura() {
         return rsNotajefatura;
     }
 
-    public void setRsNotajefatura(Double rsNotajefatura) {
+    public void setRsNotajefatura(Short rsNotajefatura) {
         this.rsNotajefatura = rsNotajefatura;
     }
 
