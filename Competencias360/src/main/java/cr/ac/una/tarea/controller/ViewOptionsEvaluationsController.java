@@ -113,7 +113,11 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     EvaluatorDto evaluatorDto;
     List<EvaJobCompetenceDto> listCompetences = new ArrayList<>();
     List<ProcesosevaDto> listProcesos = new ArrayList<>();
+    List<ProcesosevaDto> listProEvaluados = new ArrayList<>();
+    List<ProcesosevaDto> listProFinalizados = new ArrayList<>();
     ObservableList<ProcesosevaDto> procesosList;
+    ObservableList<ProcesosevaDto> procesosEvaList;
+    ObservableList<ProcesosevaDto> procesosFinalList;
     List<EvaluatorDto> listEvaluators = new ArrayList<>();
     List<EvaluatedsDto> listEvaluateds = new ArrayList<>();
     List<EvaluatorDto> evaluateds = new ArrayList<>();
@@ -183,6 +187,62 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     double xTab, yTab;
     EvaluatorResultsDto evaluatorResultsDto = new EvaluatorResultsDto();
     boolean delet = false;
+    @FXML
+    private TableView<ProcesosevaDto> tableColResEvaluated;
+    @FXML
+    private TableColumn<ProcesosevaDto, String> tableColResEvaluated_State;
+    @FXML
+    private TableColumn<ProcesosevaDto, String> tableColResEvaluated_Name;
+    @FXML
+    private TableColumn<ProcesosevaDto, String> tableColResEvaluated_IniPer;
+    @FXML
+    private TableColumn<ProcesosevaDto, String> tableColResEvaluated_FinalPer;
+    @FXML
+    private TableColumn<ProcesosevaDto, String> tableColResEvaluated_Apli;
+    @FXML
+    private BorderPane OptionsEvaluationGeneralView;
+    @FXML
+    private Text textEvaluationGen_Name;
+    @FXML
+    private Text textEvaluationGen_Job;
+    @FXML
+    private Text textEvaluationGen_Period;
+    @FXML
+    private Text textEvaluationGen_Apli;
+    @FXML
+    private TextArea textEvaluationGen_Feedback;
+    @FXML
+    private AnchorPane anchorDrag1;
+    @FXML
+    private GridPane gridHeaderResGeneral;
+    @FXML
+    private GridPane gridHeaderResGeneral1;
+    @FXML
+    private GridPane gridEvaGeneral;
+    @FXML
+    private GridPane gridResGeneral;
+
+    @FXML
+    private void backEvaluationGen(ActionEvent event) {
+        OptionsProcessEva.toFront();
+    }
+
+    @FXML
+    private void procesoResultClicked(MouseEvent event) {
+         if (event.getClickCount() == 2) {
+            try {
+                procesoDto = tableColResEvaluated.getSelectionModel().getSelectedItem();
+                textEvaluationGen_Name.setText(workerDto.getName() + " " + workerDto.getPsurname() + " " + workerDto.getSsurname());
+                textEvaluationGen_Job.setText(workerDto.getJob().getJsName());
+                textEvaluationGen_Period.setText(procesoDto.getInicialperiod().getYear() + " - " + procesoDto.getFinalperiod().getYear());
+                textEvaluationGen_Apli.setText(procesoDto.getApplication().toString());
+               OptionsEvaluationGeneralView.toFront();
+            } catch (Exception ex) {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un proceso en este campo.");
+            }
+        }
+    }
+
     class cordenadas {
 
         double x, y;
@@ -209,6 +269,12 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         this.tableColProEvaluated_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));
         this.tableColProEvaluated_FinalPer.setCellValueFactory(new PropertyValueFactory("Finalperiod"));
         this.tableColProEvaluated_Apli.setCellValueFactory(new PropertyValueFactory("Application"));
+        
+        this.tableColResEvaluated_State.setCellValueFactory(new PropertyValueFactory("State"));
+        this.tableColResEvaluated_Name.setCellValueFactory(new PropertyValueFactory("Name"));
+        this.tableColResEvaluated_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));
+        this.tableColResEvaluated_FinalPer.setCellValueFactory(new PropertyValueFactory("Finalperiod"));
+        this.tableColResEvaluated_Apli.setCellValueFactory(new PropertyValueFactory("Application"));
 
         this.tableColEvaluated_Ident.setCellValueFactory(new PropertyValueFactory("EvIden"));
         this.tableColEvaluated_Name.setCellValueFactory(new PropertyValueFactory("EvName"));
@@ -219,15 +285,15 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         this.tableColEvaluated_State.setCellValueFactory(new PropertyValueFactory("EvsStateList"));
         mouseBton();
     }
-    
-      @FXML
+
+    @FXML
     private void mouse(MouseEvent event) {
     }
 
     @FXML
     private void delete(MouseEvent event) {
-       List<Button> botonesParaEliminar = new ArrayList<>();
-       ObservableList<Node> children = grid.getChildren();
+        List<Button> botonesParaEliminar = new ArrayList<>();
+        ObservableList<Node> children = grid.getChildren();
 
         for (Node node : children) {
             if (node instanceof Button) {
@@ -238,11 +304,10 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         for (Button boton : botonesParaEliminar) {
             grid.getChildren().remove(boton);
         }
-         
+
     }
 
-
-     private void mouseBton() {
+    private void mouseBton() {
         btnDragEva.setOnMousePressed((t) -> {
             startX = t.getSceneX();
             startY = t.getSceneY();
@@ -280,13 +345,13 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         final int[] newInitialColumn = {initialColumn};
         final int[] newInitialRow = {initialRow};
 
-         boton.setOnMousePressed(mouseEvent -> {
-            if (delet==true ){
+        boton.setOnMousePressed(mouseEvent -> {
+            if (delet == true) {
                 grid.getChildren().remove(boton);
-                delet=false;
+                delet = false;
             }
         });
-         
+
         boton.setOnMousePressed((mouseEvent) -> {
             dragDelta.x = boton.getLayoutX() - mouseEvent.getSceneX();
             dragDelta.y = boton.getLayoutY() - mouseEvent.getSceneY();
@@ -442,7 +507,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         OptionsProcessEva.toFront();
     }
 
-    /*public void ImportListEvaluated() {
+    public void ImportListEvaluated() {
         EvaluatedService service = new EvaluatedService();
         Respuesta respuesta = service.getEvaluateds();
         listEvaluateds = (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
@@ -463,11 +528,37 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
             proceso.setsetFinalperiod(dates.getFinalperiod().toString());
             proceso.setsetInicialperiod(dates.getInicialperiod().toString());
 
-            listProcesos.add(proceso);
+            listProEvaluados.add(proceso);
         }
-        listProcesos = listProcesos.stream().filter(getState.negate()).toList();
-    }*/
-    public void ImportListEvaluated() {
+        listProEvaluados = listProEvaluados.stream().filter(getState.negate()).toList();
+    }
+    Predicate<ProcesosevaDto> getStateFinal = x -> x.getState().equals("Finalizada");
+    public void ImportListProResult() {
+        EvaluatedService service = new EvaluatedService();
+        Respuesta respuesta = service.getEvaluateds();
+        listEvaluateds = (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
+        listEvaluateds = listEvaluateds.stream().filter(x -> x.getEsWorker().getWrId().equals(workerDto.getId())).toList();
+        ProcesoevaService serviceProceso = new ProcesoevaService();
+
+        for (EvaluatedsDto evaluated : listEvaluateds) {
+            ProcesosevaDto proceso = new ProcesosevaDto();
+            proceso.setName(evaluated.getEsProcesoeva().getEnName());
+            proceso.setState(evaluated.getEsProcesoeva().getEnState());
+            proceso.setId(evaluated.getEsProcesoeva().getEnId());
+            respuesta = serviceProceso.getProcesos();
+            List<ProcesosevaDto> listProcesosDto = (List<ProcesosevaDto>) respuesta.getResultado("ProcesosevaDto");
+            
+           ProcesosevaDto dates = listProcesosDto.stream().filter(x -> x.getId().equals(evaluated.getEsProcesoeva().getEnId())).findAny().get();
+
+            proceso.setsetApplication(dates.getApplication().toString());
+            proceso.setsetFinalperiod(dates.getFinalperiod().toString());
+            proceso.setsetInicialperiod(dates.getInicialperiod().toString());
+
+            listProFinalizados.add(proceso);
+        }
+        listProFinalizados = listProFinalizados.stream().filter(getState.negate().and(getStateFinal)).toList();
+    }
+    public void ImportListEvaluator() {
         EvaluatorService service = new EvaluatorService();
         Respuesta respuesta = service.getEvaluators();
         listEvaluators = (List<EvaluatorDto>) respuesta.getResultado("Evaluators");
@@ -504,10 +595,20 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     Predicate<ProcesosevaDto> getState = x -> x.getState().equals("En construcción");
 
     public void ImportListProcesoEva() {
+        ImportListEvaluator();
         ImportListEvaluated();
+        ImportListProResult();
         procesosList = FXCollections.observableArrayList(listProcesos);
+        procesosEvaList = FXCollections.observableArrayList(listProEvaluados);
+        procesosFinalList= FXCollections.observableArrayList(listProFinalizados);
         this.tableViewProEva.refresh();
         this.tableViewProEva.setItems(procesosList);
+        this.tableColProEvaluated.refresh();
+        this.tableColProEvaluated.setItems(procesosEvaList);
+        this.tableColResEvaluated.refresh();
+        this.tableColResEvaluated.setItems(procesosFinalList);
+        
+        
     }
     Predicate<EvaluatorDto> getEvaluator = x -> x.getEvsEvaluated().getEsProcesoeva().getEnId().equals(procesoDto.getId());
 
@@ -519,6 +620,8 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         evaluatedList = FXCollections.observableArrayList(evaluateds);
         this.tableViewEvaluated.refresh();
         this.tableViewEvaluated.setItems(evaluatedList);
+        
+        
     }
 
     @FXML
@@ -604,11 +707,11 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
                     for (int i = 0; i < listCompetences.size(); i++) {
                         final int Cant = i;
                         aux = characteristics.stream().filter(x -> x.getCcComid().getCsName().equals(listCompetences.get(Cant).getJxcCompetence().getCsName())).toList();
-                        
+
                         for (int j = 0; j < aux.size(); j++) {
-                            concatenatedNames += (aux.get(j).getCcName()+" ");
+                            concatenatedNames += (aux.get(j).getCcName() + " ");
                         }
-                        
+
                         Label label = new Label(listCompetences.get(i).getJxcCompetence().getCsName());
                         String fontFamily = "Tw Cen MT";
                         double fontSize = 23.0;

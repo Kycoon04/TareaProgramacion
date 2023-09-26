@@ -104,8 +104,6 @@ public class ViewModuleWorkersController extends Controller implements Initializ
     WorkerDto workerDto;
     List<Node> requeridos = new ArrayList<>();
     static boolean admi;
-    @FXML
-    private Button generate;
 
     @Override
     @SuppressWarnings("empty-statement")
@@ -395,13 +393,6 @@ public class ViewModuleWorkersController extends Controller implements Initializ
             AcceptAccess();
         }
 
-    }
-
-    @FXML
-    private void generate(ActionEvent event) {
-
-        System.out.print(" ssdfsf");
-        FlowController.getInstance().goMain("Drag");
     }
 
 }
