@@ -13,7 +13,14 @@ import jakarta.persistence.Query;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**
+ * La clase `ResultService` proporciona funciones para gestionar los resultados en la aplicación.
+ * Esto incluye la búsqueda de resultados por ID y nota, así como la creación, modificación y eliminación de resultados.
+ * 
+ * Esta clase se utiliza para administrar los resultados de evaluaciones u otras métricas en la aplicación.
+ * 
+ * Autores: - Dilan Sancho - Jose Valverde - Anderson Fernandez
+ */
 @Stateless
 @LocalBean
 public class ResultService {
