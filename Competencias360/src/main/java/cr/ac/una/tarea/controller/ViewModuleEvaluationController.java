@@ -29,10 +29,16 @@ import cr.ac.una.tarea.soap.Workers;
 import cr.ac.una.tarea.util.FlowController;
 import cr.ac.una.tarea.util.Mensaje;
 import cr.ac.una.tarea.util.Respuesta;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -68,6 +74,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * FXML Controller class
@@ -423,6 +438,8 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private Button btnAssignFollowUp;
     @FXML
     private Button btnResultGeneral;
+    @FXML
+    private Button btnExcel;
 
     @FXML
     private void SummitFinal(ActionEvent event) {
@@ -434,7 +451,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         ProcesoevaService serviceProceso = new ProcesoevaService();
         for (int i = 0; i < resultado.size(); i++) {
             resultDto.setRsCompe(listCompetences.get(i).getJxcCompetence());
-            resultDto.setRsNotasis((double)resultado.get(listCompetences.get(i).getJxcCompetence().getCsName()));
+            resultDto.setRsNotasis((double) resultado.get(listCompetences.get(i).getJxcCompetence().getCsName()));
             resultDto.setRsEvaluated(evaluatorsDto.get(i).getErEvaluator().getEvsEvaluated());
             for (Node node : gridEvaGeneral.getChildren()) {
                 if (node instanceof Button) {
@@ -473,6 +490,121 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             return Short.MAX_VALUE;
         }
         return (short) Math.round(x);
+    }
+
+    @FXML
+    private void GenerarExcel(ActionEvent event) {
+        final int cont = 0;
+        ResultsService resultService = new ResultsService();
+        Respuesta respuesta = resultService.getResults();
+
+        List<ResultsDto> resultsDto = (List<ResultsDto>) respuesta.getResultado("ResultsDto");
+        resultsDto = resultsDto.stream().filter(x -> x.getRsEvaluated().getEsProcesoeva().getEnId().equals(procesoDto.getId())).toList();
+        ResultsDto resultDto = resultsDto.get(cont);
+
+        JobsCompetencesService service = new JobsCompetencesService();
+        respuesta = service.getjCompetences();
+        listCompetences = (List<EvaJobCompetenceDto>) respuesta.getResultado("JobsCompetences");
+        listCompetences = listCompetences.stream().filter(x -> x.getJobs().getJsName().equals(resultDto.getRsEvaluated().getEsWorker().getWrJob().getJsName())).toList();
+
+        String nombreArchivo = "TablaCompetencias.xlsx";
+        String hoja = "Competencias";
+        XSSFWorkbook libro = new XSSFWorkbook();
+        XSSFSheet hoja1 = libro.createSheet(hoja);
+        List<String> header = new ArrayList<>();
+        header.add("        ");
+        for (int i = 0; i < listCompetences.size(); i++) {
+            header.add(listCompetences.get(i).getJxcCompetence().getCsName());
+        }
+        header.add("Total");
+        header.add("Nota");
+        header.add("Promedio");
+
+        CellStyle style = libro.createCellStyle();
+        Font font = libro.createFont();
+        font.setBold(true);
+        style.setFont(font);
+
+        CellStyle headerCellStyle = libro.createCellStyle();
+        Font headerFont = libro.createFont();
+        headerFont.setBold(true);
+        headerCellStyle.setFont(headerFont);
+        headerCellStyle.setAlignment(HorizontalAlignment.CENTER);
+        headerCellStyle.setFillForegroundColor(IndexedColors.GREEN.getIndex());
+        headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+        XSSFRow headerRow = hoja1.createRow(0);
+        for (int i = 0; i < header.size(); i++) {
+            XSSFCell cell = headerRow.createCell(i);
+            cell.setCellValue(header.get(i));
+            cell.setCellStyle(headerCellStyle);
+        }
+
+        List<String> puntajes = new ArrayList<>();
+        puntajes.add("Puntajes");
+        for (int i = 0; i < listCompetences.size(); i++) {
+            puntajes.add("4");
+        }
+        XSSFRow puntajesRow = hoja1.createRow(1);
+        for (int i = 0; i < puntajes.size(); i++) {
+            XSSFCell cell = puntajesRow.createCell(i);
+            cell.setCellValue(puntajes.get(i));
+        }
+            XSSFCell cell = puntajesRow.createCell(puntajes.size());
+            cell.setCellValue(listCompetences.size()*4);
+            
+            cell = puntajesRow.createCell(puntajes.size()+1);
+            cell.setCellValue(100);
+            
+            cell = puntajesRow.createCell(puntajes.size()+2);
+            cell.setCellValue(4);
+            
+            float suma;
+        for (int k = 0; k < resultsDto.size(); k++) {
+            ResultsDto resultDtos = resultsDto.get(k);
+            List<ResultsDto> Aux = resultsDto.stream().filter(x -> x.getRsEvaluated().getEsWorker().getWrName().equals(resultDtos.getRsEvaluated().getEsWorker().getWrName())).toList();
+            List<String> nombre = new ArrayList<>();
+            nombre.add(resultDtos.getRsEvaluated().getEsWorker().getWrName());
+            suma=0;
+            for (int i = 0; i < listCompetences.size(); i++) {
+                final int tamano = i;
+                Optional<ResultsDto> Aux2 = Aux.stream().filter(x -> x.getRsCompe().getCsId().equals(listCompetences.get(tamano).getJxcCompetence().getCsId())).findFirst();
+                nombre.add(Aux2.get().getRsNotajefatura().toString());
+                suma+=Aux2.get().getRsNotajefatura();
+            }
+            
+            XSSFRow PersonaRow = hoja1.createRow(k + 2);
+            for (int i = 0; i < nombre.size(); i++) {
+                cell = PersonaRow.createCell(i);
+                cell.setCellValue(nombre.get(i));
+            }
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            String valorRedondeado = decimalFormat.format(suma);
+            
+            cell = PersonaRow.createCell(nombre.size());
+            cell.setCellValue(Double.parseDouble(valorRedondeado));
+
+            valorRedondeado = decimalFormat.format((suma*100)/(listCompetences.size()*4));
+            
+            cell = PersonaRow.createCell(nombre.size()+1);
+            cell.setCellValue(Double.parseDouble(valorRedondeado));
+
+            valorRedondeado = decimalFormat.format(suma/listCompetences.size());
+            
+            cell = PersonaRow.createCell(nombre.size()+2);
+            cell.setCellValue(Double.parseDouble(valorRedondeado));
+            resultsDto = resultsDto.stream().dropWhile(x -> x.getRsEvaluated().getEsWorker().getWrName().equals(resultDtos.getRsEvaluated().getEsWorker().getWrName())).toList();
+        }
+        for (int i = 0; i < header.size(); i++) {
+            hoja1.autoSizeColumn(i);
+        }
+
+        try (FileOutputStream fileOut = new FileOutputStream(nombreArchivo)) {
+            libro.write(fileOut);
+            System.out.println("SE CREÓ EL EXCEL");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     class cordenadas {
