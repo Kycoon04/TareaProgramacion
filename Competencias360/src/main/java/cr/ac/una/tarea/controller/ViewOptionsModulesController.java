@@ -40,6 +40,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -152,8 +154,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private TableColumn<CompetenceDto, String> tableColCompSta;
     @FXML
-    private TableColumn<CompetenceDto, String> tableColCompCharac;
-    @FXML
     private TableView<JobDto> tableViewJobs;
     @FXML
     private TableColumn<JobDto, String> tableColJobId;
@@ -170,7 +170,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TextField textFieldSComp_Name;
     @FXML
     private TextField textFieldSComp_State;
-    @FXML
     private TextField textFieldSComp_Charac;
 
     @FXML
@@ -262,6 +261,22 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private TableColumn<CompetenceDto, String> tableColCCompStaAss;
      List<InformationDto> list;
+    @FXML
+    private Tab tabMantComp;
+    @FXML
+    private TabPane tabPaneMantComp;
+    @FXML
+    private TabPane tabPaneMantJob;
+    @FXML
+    private Tab tabMantJob;
+    @FXML
+    private TabPane tabPaneMantWorkers;
+    @FXML
+    private Tab tabMantWorkers;
+    @FXML
+    private TabPane tabPaneMantCharact;
+    @FXML
+    private Tab tabMantCharact;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -423,6 +438,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                     Image image = new Image(byteArrayInputStream);
                     UserMainPhoto.setFill(new ImagePattern(image));
                     JobMainField.setText(String.valueOf(workerDto.getJob().getJsName()));
+                    tabPaneMantWorkers.getSelectionModel().select(tabMantWorkers);
                 } catch (Exception ex) {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un usuario en este campo.");
                 }
@@ -826,7 +842,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         filteredCompetences(filteredCompetence);
     }
 
-    @FXML
     private void searchCompetence_Characteristics(KeyEvent event) {
         FilteredList<CompetenceDto> filteredCompetence = new FilteredList<>(competencesList, f -> true);
 
@@ -872,6 +887,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                 } else {
                     StateCompetencesCheck.setSelected(false);
                 }
+                tabPaneMantComp.getSelectionModel().select(tabMantComp);
 
             } catch (Exception ex) {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe una competencia en este campo.");
@@ -899,6 +915,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                     } else {
                         ActiveJobsCheck.setSelected(false);
                     }
+                    tabPaneMantJob.getSelectionModel().select(tabMantJob);
 
                 } catch (Exception ex) {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe una competencia en este campo.");
@@ -1101,6 +1118,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
             selectedCharacteristics = tableViewCharacteristics.getSelectionModel().getSelectedItem();
             NameCharacteristicField.setText(selectedCharacteristics.getCcName());
             CompetenceCharacteristicField.setText( selectedCharacteristics.getCcComid().getCsName());
+            tabPaneMantCharact.getSelectionModel().select(tabMantCharact);
         }
     }
 
