@@ -56,6 +56,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -440,6 +442,10 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private Button btnResultGeneral;
     @FXML
     private Button btnExcel;
+    @FXML
+    private TabPane tabPaneMantProcess;
+    @FXML
+    private Tab tabMantProcess;
 
     @FXML
     private void SummitFinal(ActionEvent event) {
@@ -1414,6 +1420,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                 DateProEva_Final.setValue(procesoDto.getFinalperiod());
                 DateProEva_Application.setValue(procesoDto.getApplication());
                 reviewStateProcess();
+                tabPaneMantProcess.getSelectionModel().select(tabMantProcess);
             } catch (Exception ex) {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un proceso en este campo.");
             }
