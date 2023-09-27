@@ -23,9 +23,9 @@
    <children>
       <BorderPane fx:id="RecoverView" layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
          <center>
-            <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+            <AnchorPane id="AnchorPane" fx:id="root4" prefHeight="400.0" prefWidth="600.0">
                <children>
-                  <ImageView fitHeight="602.0" fitWidth="1008.0" layoutX="-3.0" layoutY="1.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                  <ImageView fx:id="image4" fitHeight="602.0" fitWidth="1008.0" layoutX="-3.0" layoutY="1.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                      <image>
                         <Image url="@../resources/BackgroundLogin.jpg" />
                      </image>
@@ -100,9 +100,9 @@
       </BorderPane>
       <BorderPane fx:id="RecoverFinalView" layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
          <center>
-            <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+            <AnchorPane id="AnchorPane" fx:id="root3" prefHeight="400.0" prefWidth="600.0">
                <children>
-                  <ImageView fitHeight="602.0" fitWidth="1008.0" layoutX="-3.0" layoutY="1.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                  <ImageView fx:id="image3" fitHeight="602.0" fitWidth="1008.0" layoutX="-3.0" layoutY="1.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                      <image>
                         <Image url="@../resources/BackgroundLogin.jpg" />
                      </image>
@@ -175,16 +175,114 @@
             </AnchorPane>
          </center>
       </BorderPane>
-      <BorderPane fx:id="RegisterView" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
+      <BorderPane fx:id="LoginView" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
          <center>
-            <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+            <AnchorPane id="AnchorPane" fx:id="root1" prefHeight="400.0" prefWidth="600.0">
                <children>
-                  <ImageView fitHeight="602.0" fitWidth="1008.0" layoutX="-3.0" layoutY="1.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                  <ImageView fx:id="image1" fitHeight="602.0" fitWidth="1008.0" layoutX="-3.0" layoutY="1.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                      <image>
                         <Image url="@../resources/BackgroundLogin.jpg" />
                      </image>
                   </ImageView>
-                  <HBox layoutX="47.0" layoutY="55.0" prefHeight="494.0" prefWidth="913.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="55.0">
+                  <VBox alignment="CENTER" fillWidth="false" layoutX="339.0" layoutY="46.0" onKeyPressed="#AcceptLoginEnter" prefHeight="487.0" prefWidth="371.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="339.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="46.0">
+                     <children>
+                        <Separator prefHeight="10.0" prefWidth="214.0" visible="false" />
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar sesión">
+                           <font>
+                              <Font name="Tw Cen MT" size="32.0" />
+                           </font>
+                        </Text>
+                        <Separator prefHeight="6.0" prefWidth="214.0" visible="false" />
+                        <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: #76ff03; -fx-background-radius: 3px;" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="74.0" prefWidth="278.0">
+                           <children>
+                              <ImageView fitHeight="41.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/IconUser.png" />
+                                 </image>
+                              </ImageView>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario:" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Tw Cen MT" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <TextField fx:id="usernameField" prefHeight="26.0" prefWidth="184.0" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-radius: 4px; -fx-border-color: white;" />
+                        <Separator prefHeight="23.0" prefWidth="200.0" visible="false" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="290.0">
+                           <children>
+                              <ImageView fitHeight="49.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/IconPassword.png" />
+                                 </image>
+                              </ImageView>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña:">
+                                 <font>
+                                    <Font name="Tw Cen MT" size="24.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <PasswordField fx:id="passwordField" prefHeight="26.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-color: white; -fx-border-radius: 4px;" />
+                        <Separator prefHeight="15.0" prefWidth="214.0" visible="false" />
+                        <Text fx:id="btnForgetPassword" fill="WHITE" onMouseClicked="#PasswordForget" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Olvidaste tu contraseña?">
+                           <font>
+                              <Font name="Tw Cen MT" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Text>
+                        <PasswordField editable="false" prefHeight="26.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-color: white; -fx-border-radius: 4px;" visible="false" />
+                        <Button mnemonicParsing="false" onAction="#AcceptLogin" prefHeight="28.0" prefWidth="96.0" text="Aceptar">
+                           <font>
+                              <Font name="Arial Bold" size="16.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Separator prefHeight="25.0" prefWidth="216.0" visible="false" />
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="¿No tienes cuenta?">
+                           <font>
+                              <Font name="Tw Cen MT" size="18.0" />
+                           </font>
+                        </Text>
+                        <Separator prefHeight="9.0" prefWidth="216.0" visible="false" />
+                        <Button mnemonicParsing="false" onAction="#Register" prefHeight="26.0" prefWidth="123.0" text="Registrate">
+                           <font>
+                              <Font name="Tw Cen MT" size="16.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                     <effect>
+                        <DropShadow height="255.0" radius="127.0" spread="0.18" width="255.0" />
+                     </effect>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+      <BorderPane fx:id="RegisterView" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
+         <center>
+            <AnchorPane id="AnchorPane" fx:id="root2" prefHeight="400.0" prefWidth="600.0">
+               <children>
+                  <ImageView fx:id="image2" fitHeight="602.0" fitWidth="1008.0" layoutX="-3.0" layoutY="1.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                     <image>
+                        <Image url="@../resources/BackgroundLogin.jpg" />
+                     </image>
+                  </ImageView>
+                  <HBox alignment="CENTER" layoutX="47.0" layoutY="55.0" prefHeight="494.0" prefWidth="913.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;">
                      <children>
                         <VBox fillWidth="false" prefHeight="458.0" prefWidth="240.0">
                            <children>
@@ -369,104 +467,6 @@
                         <DropShadow height="166.05" radius="90.1275" width="196.46" />
                      </effect>
                   </HBox>
-               </children>
-            </AnchorPane>
-         </center>
-      </BorderPane>
-      <BorderPane fx:id="LoginView" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
-         <center>
-            <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
-               <children>
-                  <ImageView fx:id="imagenFondo" fitHeight="602.0" fitWidth="1008.0" layoutX="-3.0" layoutY="1.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
-                     <image>
-                        <Image url="@../resources/BackgroundLogin.jpg" />
-                     </image>
-                  </ImageView>
-                  <VBox alignment="CENTER" fillWidth="false" layoutX="339.0" layoutY="46.0" onKeyPressed="#AcceptLoginEnter" prefHeight="487.0" prefWidth="371.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="339.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="46.0">
-                     <children>
-                        <Separator prefHeight="10.0" prefWidth="214.0" visible="false" />
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar sesión">
-                           <font>
-                              <Font name="Tw Cen MT" size="32.0" />
-                           </font>
-                        </Text>
-                        <Separator prefHeight="6.0" prefWidth="214.0" visible="false" />
-                        <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: #76ff03; -fx-background-radius: 3px;" />
-                        <HBox alignment="CENTER_LEFT" prefHeight="74.0" prefWidth="278.0">
-                           <children>
-                              <ImageView fitHeight="41.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../resources/IconUser.png" />
-                                 </image>
-                              </ImageView>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario:" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Tw Cen MT" size="24.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Text>
-                           </children>
-                        </HBox>
-                        <TextField fx:id="usernameField" prefHeight="26.0" prefWidth="184.0" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-radius: 4px; -fx-border-color: white;" />
-                        <Separator prefHeight="23.0" prefWidth="200.0" visible="false" />
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="290.0">
-                           <children>
-                              <ImageView fitHeight="49.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../resources/IconPassword.png" />
-                                 </image>
-                              </ImageView>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña:">
-                                 <font>
-                                    <Font name="Tw Cen MT" size="24.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </HBox>
-                        <PasswordField fx:id="passwordField" prefHeight="26.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-color: white; -fx-border-radius: 4px;" />
-                        <Separator prefHeight="15.0" prefWidth="214.0" visible="false" />
-                        <Text fx:id="btnForgetPassword" fill="WHITE" onMouseClicked="#PasswordForget" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Olvidaste tu contraseña?">
-                           <font>
-                              <Font name="Tw Cen MT" size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Text>
-                        <PasswordField editable="false" prefHeight="26.0" prefWidth="187.0" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-color: white; -fx-border-radius: 4px;" visible="false" />
-                        <Button mnemonicParsing="false" onAction="#AcceptLogin" prefHeight="28.0" prefWidth="96.0" text="Aceptar">
-                           <font>
-                              <Font name="Arial Bold" size="16.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Separator prefHeight="25.0" prefWidth="216.0" visible="false" />
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="¿No tienes cuenta?">
-                           <font>
-                              <Font name="Tw Cen MT" size="18.0" />
-                           </font>
-                        </Text>
-                        <Separator prefHeight="9.0" prefWidth="216.0" visible="false" />
-                        <Button mnemonicParsing="false" onAction="#Register" prefHeight="26.0" prefWidth="123.0" text="Registrate">
-                           <font>
-                              <Font name="Tw Cen MT" size="16.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                     </children>
-                     <effect>
-                        <DropShadow height="255.0" radius="127.0" spread="0.18" width="255.0" />
-                     </effect>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </VBox>
                </children>
             </AnchorPane>
          </center>

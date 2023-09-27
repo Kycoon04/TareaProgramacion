@@ -446,6 +446,42 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private TabPane tabPaneMantProcess;
     @FXML
     private Tab tabMantProcess;
+    @FXML
+    private AnchorPane root9;
+    @FXML
+    private ImageView image9;
+    @FXML
+    private AnchorPane root8;
+    @FXML
+    private ImageView image8;
+    @FXML
+    private AnchorPane root7;
+    @FXML
+    private ImageView image7;
+    @FXML
+    private AnchorPane root6;
+    @FXML
+    private ImageView image6;
+    @FXML
+    private AnchorPane root5;
+    @FXML
+    private ImageView image5;
+    @FXML
+    private AnchorPane root4;
+    @FXML
+    private ImageView image4;
+    @FXML
+    private AnchorPane root3;
+    @FXML
+    private ImageView image3;
+    @FXML
+    private AnchorPane root2;
+    @FXML
+    private ImageView image2;
+    @FXML
+    private AnchorPane root1;
+    @FXML
+    private ImageView image1;
 
     @FXML
     private void SummitFinal(ActionEvent event) {
@@ -630,6 +666,35 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         OptionsEvaConfigView.toFront();
         procesoDto = new ProcesosevaDto();
 
+      /*       
+        image1.fitHeightProperty().bind(root1.heightProperty());
+        image1.fitWidthProperty().bind(root1.widthProperty());
+        
+        image2.fitHeightProperty().bind(root2.heightProperty());
+        image2.fitWidthProperty().bind(root2.widthProperty());
+        
+        image3.fitHeightProperty().bind(root3.heightProperty());
+        image3.fitWidthProperty().bind(root3.widthProperty());
+        
+        image4.fitHeightProperty().bind(root4.heightProperty());
+        image4.fitWidthProperty().bind(root4.widthProperty());
+        
+        image5.fitHeightProperty().bind(root5.heightProperty());
+        image5.fitWidthProperty().bind(root5.widthProperty());
+        
+        image6.fitHeightProperty().bind(root6.heightProperty());
+        image6.fitWidthProperty().bind(root6.widthProperty());
+        
+        image7.fitHeightProperty().bind(root7.heightProperty());
+        image7.fitWidthProperty().bind(root7.widthProperty());
+        
+           
+        image8.fitHeightProperty().bind(root6.heightProperty());
+        image8.fitWidthProperty().bind(root6.widthProperty());
+        
+        image9.fitHeightProperty().bind(root7.heightProperty());
+        image9.fitWidthProperty().bind(root7.widthProperty());*/
+        
         this.tableColActPE.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColIdentifPE.setCellValueFactory(new PropertyValueFactory("iden"));
         this.tableColNamePE.setCellValueFactory(new PropertyValueFactory("name"));

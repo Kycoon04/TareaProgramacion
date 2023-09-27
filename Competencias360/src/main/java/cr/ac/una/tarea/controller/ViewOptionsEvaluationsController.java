@@ -228,6 +228,30 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     private GridPane gridEvaGeneral;
     @FXML
     private GridPane gridResGeneral;
+    @FXML
+    private AnchorPane root6;
+    @FXML
+    private ImageView image6;
+    @FXML
+    private AnchorPane root5;
+    @FXML
+    private ImageView image5;
+    @FXML
+    private ImageView image4;
+    @FXML
+    private AnchorPane root3;
+    @FXML
+    private ImageView image3;
+    @FXML
+    private AnchorPane root2;
+    @FXML
+    private ImageView image2;
+    @FXML
+    private AnchorPane root1;
+    @FXML
+    private ImageView image1;
+    @FXML
+    private AnchorPane root4;
 
     @FXML
     private void backEvaluationGen(ActionEvent event) {
@@ -443,6 +467,24 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         }
         workerDto = FlowController.worker;
         workerDto.getName();
+        
+     /*   image1.fitHeightProperty().bind(root1.heightProperty());
+        image1.fitWidthProperty().bind(root1.widthProperty());
+        
+        image2.fitHeightProperty().bind(root2.heightProperty());
+        image2.fitWidthProperty().bind(root2.widthProperty());
+        
+        image3.fitHeightProperty().bind(root3.heightProperty());
+        image3.fitWidthProperty().bind(root3.widthProperty());
+        
+        image4.fitHeightProperty().bind(root4.heightProperty());
+        image4.fitWidthProperty().bind(root4.widthProperty());
+        
+        image5.fitHeightProperty().bind(root5.heightProperty());
+        image5.fitWidthProperty().bind(root5.widthProperty());
+        */
+        image6.fitHeightProperty().bind(root6.heightProperty());
+        image6.fitWidthProperty().bind(root6.widthProperty());
         this.tableColProEva_State.setCellValueFactory(new PropertyValueFactory("State"));
         this.tableColProEva_Name.setCellValueFactory(new PropertyValueFactory("Name"));
         this.tableColProEva_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));

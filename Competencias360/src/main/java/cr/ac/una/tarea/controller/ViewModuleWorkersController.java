@@ -106,17 +106,41 @@ public class ViewModuleWorkersController extends Controller implements Initializ
     WorkerDto workerDto;
     List<Node> requeridos = new ArrayList<>();
     static boolean admi;
-    @FXML
-    private ImageView imagenFondo;
     private AnchorPane root;
+    @FXML
     private ImageView image2;
+    @FXML
     private AnchorPane root2;
+    @FXML
+    private AnchorPane root4;
+    @FXML
+    private ImageView image4;
+    @FXML
+    private AnchorPane root3;
+    @FXML
+    private ImageView image3;
+    @FXML
+    private AnchorPane root1;
+    @FXML
+    private ImageView image1;
 
     @Override
     @SuppressWarnings("empty-statement")
     public void initialize(URL url, ResourceBundle rb) {
          
         LoginView.toFront();
+       /*
+        image1.fitHeightProperty().bind(root1.heightProperty());
+        image1.fitWidthProperty().bind(root1.widthProperty());
+        
+        image2.fitHeightProperty().bind(root2.heightProperty());
+        image2.fitWidthProperty().bind(root2.widthProperty());
+        
+        image3.fitHeightProperty().bind(root3.heightProperty());
+        image3.fitWidthProperty().bind(root3.widthProperty());
+        
+        image4.fitHeightProperty().bind(root4.heightProperty());
+        image4.fitWidthProperty().bind(root4.widthProperty());*/
         
         usernameField.setTextFormatter(Formato.getInstance().UsernameFormat(30));
         usernameRegisField.setTextFormatter(Formato.getInstance().UsernameFormat(30));

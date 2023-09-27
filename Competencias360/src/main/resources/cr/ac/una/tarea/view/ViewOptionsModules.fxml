@@ -34,9 +34,9 @@
    <children>
       <BorderPane fx:id="OptionsPuestosView" layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" prefHeight="600.0" prefWidth="1000.0">
          <center>
-            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1366.0">
+            <AnchorPane id="AnchorPane" fx:id="root7" prefHeight="750.0" prefWidth="1366.0">
                <children>
-                  <ImageView fitHeight="758.0" fitWidth="1651.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-352.0" AnchorPane.topAnchor="-7.0">
+                  <ImageView fx:id="image7" fitHeight="758.0" fitWidth="1651.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-352.0" AnchorPane.topAnchor="-7.0">
                      <image>
                         <Image url="@../resources/BackgroundLogin.jpg" />
                      </image>
@@ -307,123 +307,11 @@
             </VBox>
          </left>
       </BorderPane>
-      <BorderPane fx:id="OptionsAssociateCompView" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" prefHeight="600.0" prefWidth="1000.0">
-         <center>
-            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1198.0">
-               <children>
-                  <ImageView fitHeight="758.0" fitWidth="1365.0" layoutX="-153.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-153.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="-7.0">
-                     <image>
-                        <Image url="@../resources/BackgroundLogin.jpg" />
-                     </image>
-                  </ImageView>
-                  <HBox layoutX="140.0" prefHeight="738.0" prefWidth="1072.0">
-                     <children>
-                        <AnchorPane prefHeight="738.0" prefWidth="1072.0">
-                           <children>
-                              <ScrollPane layoutX="29.0" layoutY="168.0" prefHeight="490.0" prefWidth="462.0">
-                                 <content>
-                                    <TableView fx:id="tableViewAsCompetences" onMouseClicked="#competenceClick" prefHeight="600.0" prefWidth="486.0">
-                                       <columns>
-                                          <TableColumn fx:id="tableColAsCompName" prefWidth="150.0" text="Nombre" />
-                                          <TableColumn fx:id="tableColAsCompSta" prefWidth="159.0" text="Estado" />
-                                          <TableColumn fx:id="tableColAsCompCharac" prefWidth="198.0" text="Caracteristica" />
-                                       </columns>
-                                    </TableView>
-                                 </content>
-                              </ScrollPane>
-                              <Label layoutX="194.0" layoutY="692.0" text="Competencias" textFill="WHITE">
-                                 <font>
-                                    <Font size="21.0" />
-                                 </font>
-                              </Label>
-                              <TextField layoutX="39.0" layoutY="132.0" />
-                              <Label layoutX="39.0" layoutY="100.0" text="Nombre" textFill="WHITE">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <TextField layoutX="260.0" layoutY="132.0" />
-                              <Label layoutX="260.0" layoutY="100.0" text="Estado" textFill="WHITE">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="707.0" layoutY="692.0" text="Asociacion" textFill="WHITE">
-                                 <font>
-                                    <Font size="21.0" />
-                                 </font>
-                              </Label>
-                              <ScrollPane layoutX="524.0" layoutY="169.0" prefHeight="487.0" prefWidth="450.0">
-                                 <content>
-                                    <TableView fx:id="tableViewCompetencesAss" prefHeight="587.0" prefWidth="494.0">
-                                       <columns>
-                                          <TableColumn fx:id="tableColCompNameAss" prefWidth="150.0" text="Nombre" />
-                                          <TableColumn fx:id="tableColCompStaAss" prefWidth="159.0" text="Estado" />
-                                          <TableColumn fx:id="tableColCompCharacAss" prefWidth="159.0" text="Competencia" />
-                                       </columns>
-                                    </TableView>
-                                 </content>
-                              </ScrollPane>
-                              <Text fx:id="textFieldAsJob" fill="WHITE" layoutX="417.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="213.3367156982422">
-                                 <font>
-                                    <Font name="Tw Cen MT" size="23.0" />
-                                 </font>
-                              </Text>
-                              <Text fill="WHITE" layoutX="194.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puesto:" textAlignment="RIGHT" wrappingWidth="213.3367156982422">
-                                 <font>
-                                    <Font name="Tw Cen MT" size="26.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-         </center>
-         <left>
-            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="720.0" prefWidth="213.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;" BorderPane.alignment="TOP_CENTER">
-               <children>
-                  <Separator prefHeight="10.0" prefWidth="214.0" visible="false" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Asociar Competencia">
-                     <font>
-                        <Font name="Tw Cen MT" size="28.0" />
-                     </font>
-                  </Text>
-                  <Separator prefHeight="6.0" prefWidth="214.0" visible="false" />
-                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: #76ff03; -fx-background-radius: 3px;" />
-                  <Separator layoutX="38.0" layoutY="60.0" prefHeight="17.0" prefWidth="214.0" visible="false" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrador" textAlignment="CENTER" wrappingWidth="270.93670654296875">
-                     <font>
-                        <Font name="Tw Cen MT" size="25.0" />
-                     </font>
-                  </Text>
-                  <Separator prefHeight="441.0" prefWidth="216.0" visible="false" />
-                  <Button mnemonicParsing="false" onMouseClicked="#registerAsoci" prefHeight="30.0" prefWidth="109.0" text="Asociar" />
-                  <Separator layoutX="37.0" layoutY="88.0" prefHeight="101.0" prefWidth="216.0" visible="false" />
-                  <Button layoutX="91.0" layoutY="491.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="30.0" prefWidth="109.0" text="Volver" />
-                  <Separator prefHeight="146.0" prefWidth="216.0" visible="false" />
-               </children>
-               <effect>
-                  <DropShadow height="255.0" radius="127.0" spread="0.18" width="255.0" />
-               </effect>
-               <padding>
-                  <Insets top="5.0" />
-               </padding>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <BorderPane.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </BorderPane.margin>
-            </VBox>
-         </left>
-      </BorderPane>
       <BorderPane fx:id="OptionsMenuView" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" onMouseClicked="#openEvaluations" prefHeight="600.0" prefWidth="1000.0">
          <center>
-            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1590.0">
+            <AnchorPane id="AnchorPane" fx:id="root5" prefHeight="750.0" prefWidth="1590.0">
                <children>
-                  <ImageView fitHeight="758.0" fitWidth="1650.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-351.0" AnchorPane.topAnchor="-7.0">
+                  <ImageView fx:id="image5" fitHeight="758.0" fitWidth="1650.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-351.0" AnchorPane.topAnchor="-7.0">
                      <image>
                         <Image url="@../resources/BackgroundLogin.jpg" />
                      </image>
@@ -571,9 +459,9 @@
       </BorderPane>
       <BorderPane fx:id="OptionsWorkesView" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" prefHeight="600.0" prefWidth="1000.0">
          <center>
-            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1366.0">
+            <AnchorPane id="AnchorPane" fx:id="root4" prefHeight="750.0" prefWidth="1366.0">
                <children>
-                  <ImageView fitHeight="758.0" fitWidth="1651.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-352.0" AnchorPane.topAnchor="-7.0">
+                  <ImageView fx:id="image4" fitHeight="758.0" fitWidth="1651.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-352.0" AnchorPane.topAnchor="-7.0">
                      <image>
                         <Image url="@../resources/BackgroundLogin.jpg" />
                      </image>
@@ -1034,9 +922,9 @@
       </BorderPane>
       <BorderPane fx:id="OptionsCompetencesView" layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" prefHeight="600.0" prefWidth="1000.0">
          <center>
-            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1366.0">
+            <AnchorPane id="AnchorPane" fx:id="root3" prefHeight="750.0" prefWidth="1366.0">
                <children>
-                  <ImageView fitHeight="758.0" fitWidth="1651.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-352.0" AnchorPane.topAnchor="-7.0">
+                  <ImageView fx:id="image3" fitHeight="758.0" fitWidth="1651.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-352.0" AnchorPane.topAnchor="-7.0">
                      <image>
                         <Image url="@../resources/BackgroundLogin.jpg" />
                      </image>
@@ -1307,9 +1195,9 @@
       </BorderPane>
       <BorderPane fx:id="OptionsCharacteristicsView" layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" prefHeight="600.0" prefWidth="1000.0">
          <center>
-            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1366.0">
+            <AnchorPane id="AnchorPane" fx:id="root2" prefHeight="750.0" prefWidth="1366.0">
                <children>
-                  <ImageView fitHeight="758.0" fitWidth="1651.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-352.0" AnchorPane.topAnchor="-7.0">
+                  <ImageView fx:id="image2" fitHeight="758.0" fitWidth="1651.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-352.0" AnchorPane.topAnchor="-7.0">
                      <image>
                         <Image url="@../resources/BackgroundLogin.jpg" />
                      </image>
@@ -1618,9 +1506,9 @@
       </BorderPane>
       <BorderPane fx:id="OptionsInformationView" layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" prefHeight="600.0" prefWidth="1000.0">
          <center>
-            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1366.0">
+            <AnchorPane id="AnchorPane" fx:id="root1" prefHeight="750.0" prefWidth="1366.0">
                <children>
-                  <ImageView fitHeight="758.0" fitWidth="1651.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-352.0" AnchorPane.topAnchor="-7.0">
+                  <ImageView fx:id="image1" fitHeight="758.0" fitWidth="1651.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-352.0" AnchorPane.topAnchor="-7.0">
                      <image>
                         <Image url="@../resources/BackgroundLogin.jpg" />
                      </image>
@@ -1847,6 +1735,118 @@
                      </cursor>
                   </Button>
                   <Separator layoutX="37.0" layoutY="498.0" prefHeight="15.0" prefWidth="216.0" visible="false" />
+               </children>
+               <effect>
+                  <DropShadow height="255.0" radius="127.0" spread="0.18" width="255.0" />
+               </effect>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <BorderPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </BorderPane.margin>
+            </VBox>
+         </left>
+      </BorderPane>
+      <BorderPane fx:id="OptionsAssociateCompView" maxHeight="600.0" maxWidth="1000.0" minHeight="750.0" minWidth="1300.0" prefHeight="600.0" prefWidth="1000.0">
+         <center>
+            <AnchorPane id="AnchorPane" fx:id="root6" prefHeight="750.0" prefWidth="1198.0">
+               <children>
+                  <ImageView fx:id="image6" fitHeight="758.0" fitWidth="1365.0" layoutX="-153.0" layoutY="-7.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-153.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="-7.0">
+                     <image>
+                        <Image url="@../resources/BackgroundLogin.jpg" />
+                     </image>
+                  </ImageView>
+                  <HBox layoutX="140.0" prefHeight="738.0" prefWidth="1072.0">
+                     <children>
+                        <AnchorPane fx:id="root6" prefHeight="738.0" prefWidth="1072.0">
+                           <children>
+                              <ScrollPane layoutX="29.0" layoutY="168.0" prefHeight="490.0" prefWidth="462.0">
+                                 <content>
+                                    <TableView fx:id="tableViewAsCompetences" onMouseClicked="#competenceClick" prefHeight="600.0" prefWidth="486.0">
+                                       <columns>
+                                          <TableColumn fx:id="tableColAsCompName" prefWidth="150.0" text="Nombre" />
+                                          <TableColumn fx:id="tableColAsCompSta" prefWidth="159.0" text="Estado" />
+                                          <TableColumn fx:id="tableColAsCompCharac" prefWidth="198.0" text="Caracteristica" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                              <Label layoutX="194.0" layoutY="692.0" text="Competencias" textFill="WHITE">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Label>
+                              <TextField layoutX="39.0" layoutY="132.0" />
+                              <Label layoutX="39.0" layoutY="100.0" text="Nombre" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField layoutX="260.0" layoutY="132.0" />
+                              <Label layoutX="260.0" layoutY="100.0" text="Estado" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="707.0" layoutY="692.0" text="Asociacion" textFill="WHITE">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Label>
+                              <ScrollPane layoutX="524.0" layoutY="169.0" prefHeight="487.0" prefWidth="450.0">
+                                 <content>
+                                    <TableView fx:id="tableViewCompetencesAss" prefHeight="587.0" prefWidth="494.0">
+                                       <columns>
+                                          <TableColumn fx:id="tableColCompNameAss" prefWidth="150.0" text="Nombre" />
+                                          <TableColumn fx:id="tableColCompStaAss" prefWidth="159.0" text="Estado" />
+                                          <TableColumn fx:id="tableColCompCharacAss" prefWidth="159.0" text="Competencia" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                              <Text fx:id="textFieldAsJob" fill="WHITE" layoutX="417.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="213.3367156982422">
+                                 <font>
+                                    <Font name="Tw Cen MT" size="23.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="194.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puesto:" textAlignment="RIGHT" wrappingWidth="213.3367156982422">
+                                 <font>
+                                    <Font name="Tw Cen MT" size="26.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </center>
+         <left>
+            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="720.0" prefWidth="213.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;" BorderPane.alignment="TOP_CENTER">
+               <children>
+                  <Separator prefHeight="10.0" prefWidth="214.0" visible="false" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Asociar Competencia">
+                     <font>
+                        <Font name="Tw Cen MT" size="28.0" />
+                     </font>
+                  </Text>
+                  <Separator prefHeight="6.0" prefWidth="214.0" visible="false" />
+                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: #76ff03; -fx-background-radius: 3px;" />
+                  <Separator layoutX="38.0" layoutY="60.0" prefHeight="17.0" prefWidth="214.0" visible="false" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrador" textAlignment="CENTER" wrappingWidth="270.93670654296875">
+                     <font>
+                        <Font name="Tw Cen MT" size="25.0" />
+                     </font>
+                  </Text>
+                  <Separator prefHeight="441.0" prefWidth="216.0" visible="false" />
+                  <Button mnemonicParsing="false" onMouseClicked="#registerAsoci" prefHeight="30.0" prefWidth="109.0" text="Asociar" />
+                  <Separator layoutX="37.0" layoutY="88.0" prefHeight="101.0" prefWidth="216.0" visible="false" />
+                  <Button layoutX="91.0" layoutY="491.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="30.0" prefWidth="109.0" text="Volver" />
+                  <Separator prefHeight="146.0" prefWidth="216.0" visible="false" />
                </children>
                <effect>
                   <DropShadow height="255.0" radius="127.0" spread="0.18" width="255.0" />
