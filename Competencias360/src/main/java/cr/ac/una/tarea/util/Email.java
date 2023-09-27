@@ -163,7 +163,7 @@ public class Email {
             mensaje.setContent(multipart);
 
             Transport transport = session.getTransport("smtp");
-            transport.connect(sourceMail, password); // Reemplaza "tu_contrasena" con tu contraseña
+            transport.connect(sourceMail, password); 
             if (transport.isConnected()) {
                 transport.sendMessage(mensaje, mensaje.getAllRecipients());
                 transport.close();

@@ -279,6 +279,8 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TabPane tabPaneMantCharact;
     @FXML
     private Tab tabMantCharact;
+    @FXML
+    private TextField InfoKeytxt1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
