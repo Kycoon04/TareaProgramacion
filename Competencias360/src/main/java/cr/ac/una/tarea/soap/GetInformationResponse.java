@@ -8,9 +8,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for getInformationResponse complex type.
+ * <p>Clase Java para getInformationResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="getInformationResponse">
@@ -36,7 +36,7 @@ public class GetInformationResponse {
     protected ComInformationDto _return;
 
     /**
-     * Gets the value of the return property.
+     * Obtiene el valor de la propiedad return.
      * 
      * @return
      *     possible object is
@@ -48,7 +48,7 @@ public class GetInformationResponse {
     }
 
     /**
-     * Sets the value of the return property.
+     * Define el valor de la propiedad return.
      * 
      * @param value
      *     allowed object is

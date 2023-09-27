@@ -10,14 +10,11 @@
 <message name="DeleteResponse">
 <part name="parameters" element="tns:DeleteResponse"/>
 </message>
-<message name="getInformation">
-<part name="parameters" element="tns:getInformation"/>
+<message name="GeneralParameters">
+<part name="parameters" element="tns:GeneralParameters"/>
 </message>
-<message name="getInformationResponse">
-<part name="parameters" element="tns:getInformationResponse"/>
-</message>
-<message name="IOException">
-<part name="fault" element="tns:IOException"/>
+<message name="GeneralParametersResponse">
+<part name="parameters" element="tns:GeneralParametersResponse"/>
 </message>
 <message name="GetComInfo">
 <part name="parameters" element="tns:GetComInfo"/>
@@ -25,30 +22,33 @@
 <message name="GetComInfoResponse">
 <part name="parameters" element="tns:GetComInfoResponse"/>
 </message>
-<message name="GeneralParameters">
-<part name="parameters" element="tns:GeneralParameters"/>
+<message name="IOException">
+<part name="fault" element="tns:IOException"/>
 </message>
-<message name="GeneralParametersResponse">
-<part name="parameters" element="tns:GeneralParametersResponse"/>
+<message name="getInformation">
+<part name="parameters" element="tns:getInformation"/>
+</message>
+<message name="getInformationResponse">
+<part name="parameters" element="tns:getInformationResponse"/>
 </message>
 <portType name="ModuleComInformation">
 <operation name="Delete">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/DeleteRequest" message="tns:Delete"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/DeleteResponse" message="tns:DeleteResponse"/>
 </operation>
-<operation name="getInformation">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformationRequest" message="tns:getInformation"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformationResponse" message="tns:getInformationResponse"/>
-<fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformation/Fault/IOException"/>
+<operation name="GeneralParameters">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersRequest" message="tns:GeneralParameters"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersResponse" message="tns:GeneralParametersResponse"/>
 </operation>
 <operation name="GetComInfo">
 <input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/GetComInfoRequest" message="tns:GetComInfo"/>
 <output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/GetComInfoResponse" message="tns:GetComInfoResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/GetComInfo/Fault/IOException"/>
 </operation>
-<operation name="GeneralParameters">
-<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersRequest" message="tns:GeneralParameters"/>
-<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersResponse" message="tns:GeneralParametersResponse"/>
+<operation name="getInformation">
+<input wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformationRequest" message="tns:getInformation"/>
+<output wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformationResponse" message="tns:getInformationResponse"/>
+<fault message="tns:IOException" name="IOException" wsam:Action="http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformation/Fault/IOException"/>
 </operation>
 </portType>
 <binding name="ModuleComInformationPortBinding" type="tns:ModuleComInformation">
@@ -62,7 +62,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getInformation">
+<operation name="GeneralParameters">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -70,9 +70,6 @@
 <output>
 <soap:body use="literal"/>
 </output>
-<fault name="IOException">
-<soap:fault name="IOException" use="literal"/>
-</fault>
 </operation>
 <operation name="GetComInfo">
 <soap:operation soapAction=""/>
@@ -86,7 +83,7 @@
 <soap:fault name="IOException" use="literal"/>
 </fault>
 </operation>
-<operation name="GeneralParameters">
+<operation name="getInformation">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -94,6 +91,9 @@
 <output>
 <soap:body use="literal"/>
 </output>
+<fault name="IOException">
+<soap:fault name="IOException" use="literal"/>
+</fault>
 </operation>
 </binding>
 <service name="ModuleComInformation">

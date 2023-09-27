@@ -4,6 +4,8 @@
  */
 package cr.ac.una.tarea.util;
 
+import cr.ac.una.tarea.model.InformationDto;
+import cr.ac.una.tarea.service.ComInformationService;
 import jakarta.activation.DataHandler;
 import jakarta.activation.FileDataSource;
 import jakarta.mail.BodyPart;
@@ -16,6 +18,7 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
+import java.util.List;
 import java.util.Properties;
 
 public class Email {
@@ -27,6 +30,8 @@ public class Email {
     private String link;
     private String archiveName;
     private String password;
+    private String name;
+    private String info;
 
     public Email(String destino, String usuario, String asunto) {
         this.sourceMail = "competencias360develop@gmail.com";
@@ -43,8 +48,23 @@ public class Email {
     }
 
     public void enviarCorreoReporte(String enlace) {
+        ComInformationService comInformationService = new ComInformationService();
+        Respuesta respuesta = comInformationService.getComInformation();
+        List<InformationDto> list;
+        if (!respuesta.getEstado()) {
+            System.out.println("Vacia");
+            sourceMail = "competencias360develop@gmail.com";
+            name = "Competencias360";
+            password= "uuvjaqwjlqglbdhb"; 
+        } else {
+            list = (List<InformationDto>) respuesta.getResultado("ComInformation");
+            sourceMail = list.get(0).getEmail();
+            name = list.get(0).getName();
+            info = list.get(0).getInformation();
+            password= list.get(0).getCpKey();
+        }
         try {
-            // Configurar propiedades para el servidor SMTP de Gmail
+
             Properties props = new Properties();
             props.put("mail.smtp.host", "smtp.gmail.com");
             props.put("mail.smtp.starttls.enable", "true");
@@ -55,28 +75,79 @@ public class Email {
 
             Session session = Session.getDefaultInstance(props);
 
-            String mensajeHTML = "<html>"
-                    + "<head>"
-                    + "<style>"
-                    + "body { font-family: Arial, sans-serif; background-color: #212121; background-image: url(Active.jpg); background-size: cover; background-repeat: no-repeat; background-attachment: fixed; margin: 0; padding: 0; height: 100vh; }" // Modificación aquí
-                    + "header { background-color: #333; color: white; text-align: center; padding: 10px 0; }"
-                    + "h1 { font-size: 24px; margin-bottom: 20px; }"
-                    + "h2 { font-size: 16px; margin-bottom: 20px; }"
-                    + "p { font-size: 18px; line-height: 1.6; }"
-                    + ".center { text-align: center; }"
-                    + "#activeButton { font-family: 'Tw Cen MT'; font-size: 18px; display: inline-block; padding: 10px 20px; background-color: #76ff03; color: black; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease; cursor: pointer; }"
-                    + "#activeButton:hover { background-color: #5ac500; }"
-                    + "</style>"
-                    + "</head>"
-                    + "<body>"
-                    + "<header>"
-                    + "<h1>Activación de Cuentas Competencias360</h1>"
-                    + "<h2>Bienvenido al sistema de evaluaciones 360, para continuar con su proceso de activación, da clic en el siguiente botón</h2>"
-                    + "</header>"
-                    + "<div class='container'>"
-                    + "<p class='center'><a id='activeButton' href='" + enlace + "'>Continuar</a></p>"
-                    + "</div>"
-                    + "</body>"
+            String mensajeHTML = "<!DOCTYPE html>\n"
+                    + "<html>\n"
+                    + "<head>\n"
+                    + "<style>\n"
+                    + "  body {\n"
+                    + "    font-family: Arial, sans-serif;\n"
+                    + "    background-color: #212121;\n"
+                    + "    max-width: 600px;\n"
+                    + "    margin: 0 auto;\n"
+                    + "    padding: 20px;\n"
+                    + "  }\n"
+                    + "  header {\n"
+                    + "    background-color: #333;\n"
+                    + "    color: white;\n"
+                    + "    text-align: center;\n"
+                    + "    padding: 10px 0;\n"
+                    + "  }\n"
+                    + "  h1 {\n"
+                    + "    font-size: 24px;\n"
+                    + "    margin-bottom: 20px;\n"
+                    + "    background-color: #333;\n"
+                    + "  }\n"
+                    + "  h2 {\n"
+                    + "    font-size: 16px;\n"
+                    + "    margin-bottom: 20px;\n"
+                    + "    background-color: #333;\n"
+                    + "    padding: 10px;\n"
+                    + "  }\n"
+                    + "  p {\n"
+                    + "    font-size: 18px;\n"
+                    + "    line-height: 1.6;\n"
+                    + "  }\n"
+                    + "  .center {\n"
+                    + "    text-align: center;\n"
+                    + "  }\n"
+                    + "  #activeButton {\n"
+                    + "    font-family: 'Tw Cen MT';\n"
+                    + "    font-size: 18px;\n"
+                    + "    display: inline-block;\n"
+                    + "    padding: 10px 20px;\n"
+                    + "    background-color: #76ff03;\n"
+                    + "    color: black;\n"
+                    + "    text-decoration: none;\n"
+                    + "    border-radius: 5px;\n"
+                    + "    transition: background-color 0.3s ease;\n"
+                    + "    cursor: pointer;\n"
+                    + "  }\n"
+                    + "  #activeButton:hover {\n"
+                    + "    background-color: #5ac500;\n"
+                    + "  }\n"
+                    + "  a {\n"
+                    + "    color: #007bff;\n"
+                    + "    text-decoration: none;\n"
+                    + "  }\n"
+                    + "  ul {\n"
+                    + "    list-style: none;\n"
+                    + "    padding: 0;\n"
+                    + "  }\n"
+                    + "  li {\n"
+                    + "    margin-bottom: 10px;\n"
+                    + "  }\n"
+                    + "</style>\n"
+                    + "</head>\n"
+                    + "<body>\n"
+                    + "<header>\n"
+                    + "<h1>Activacion de Cuentas " + name + "</h1>\n"
+                    + "<h2>Bienvenido al sistema de evaluaciones 360, para continuar con su proceso de activacion, da clic en el siguiente boton</h2>\n"
+                    + "<h2>" + info + "</h2>\n"
+                    + "</header>\n"
+                    + "<div class='container'>\n"
+                    + "<p class='center'><a id='activeButton' href='" + enlace + "'>Continuar</a></p>\n"
+                    + "</div>\n"
+                    + "</body>\n"
                     + "</html>";
 
             MimeBodyPart htmlPart = new MimeBodyPart();
@@ -92,7 +163,7 @@ public class Email {
             mensaje.setContent(multipart);
 
             Transport transport = session.getTransport("smtp");
-            transport.connect(sourceMail, "uuvjaqwjlqglbdhb"); // Reemplaza "tu_contrasena" con tu contraseña
+            transport.connect(sourceMail, password); // Reemplaza "tu_contrasena" con tu contraseña
             if (transport.isConnected()) {
                 transport.sendMessage(mensaje, mensaje.getAllRecipients());
                 transport.close();
@@ -103,7 +174,23 @@ public class Email {
     }
 
     private void enviarClave(String link) {
-
+     ComInformationService comInformationService = new ComInformationService();
+        Respuesta respuesta = comInformationService.getComInformation();
+        List<InformationDto> list;
+        if (!respuesta.getEstado()) {
+            System.out.println("Vacia");
+            sourceMail = "competencias360develop@gmail.com";
+            name = "Competencias360";
+            password= "uuvjaqwjlqglbdhb"; 
+        } else {
+            list = (List<InformationDto>) respuesta.getResultado("ComInformation");
+            sourceMail = list.get(0).getEmail();
+            name = list.get(0).getName();
+            info = list.get(0).getInformation();
+            password= list.get(0).getCpKey();
+            
+        }
+     
         try {
             Properties p = new Properties();
             p.put("mail.smtp.host", "smtp.gmail.com");
@@ -139,7 +226,7 @@ public class Email {
             mensaje.setContent(mensajeHTML, "text/html");
 
             Transport t = s.getTransport("smtp");
-            t.connect(sourceMail, "uuvjaqwjlqglbdhb");
+            t.connect(sourceMail, password);
             if (t.isConnected()) {
                 t.sendMessage(mensaje, mensaje.getAllRecipients());
                 t.close();

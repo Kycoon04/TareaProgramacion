@@ -8,9 +8,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for getUsuario complex type.
+ * <p>Clase Java para getUsuario complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="getUsuario">
@@ -40,7 +40,7 @@ public class GetUsuario {
     protected String password;
 
     /**
-     * Gets the value of the user property.
+     * Obtiene el valor de la propiedad user.
      * 
      * @return
      *     possible object is
@@ -52,7 +52,7 @@ public class GetUsuario {
     }
 
     /**
-     * Sets the value of the user property.
+     * Define el valor de la propiedad user.
      * 
      * @param value
      *     allowed object is
@@ -64,7 +64,7 @@ public class GetUsuario {
     }
 
     /**
-     * Gets the value of the password property.
+     * Obtiene el valor de la propiedad password.
      * 
      * @return
      *     possible object is
@@ -76,7 +76,7 @@ public class GetUsuario {
     }
 
     /**
-     * Sets the value of the password property.
+     * Define el valor de la propiedad password.
      * 
      * @param value
      *     allowed object is

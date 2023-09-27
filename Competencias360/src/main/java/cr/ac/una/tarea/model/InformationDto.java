@@ -5,8 +5,10 @@ import java.io.IOException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+
 /**
- * @author jomav
+ *
+ * @author dilan
  */
 public class InformationDto {
     
@@ -15,12 +17,22 @@ public class InformationDto {
     public SimpleStringProperty email;
     public byte[] photo;
     public SimpleStringProperty information;
+    private SimpleStringProperty cpKey;
+
+    public String getCpKey() {
+        return cpKey.get();
+    }
+
+    public void setCpKey(String cpKey) {
+        this.cpKey.set(cpKey);
+    }
 
     public InformationDto() {
         this.id = new SimpleIntegerProperty();
         this.name = new SimpleStringProperty();
         this.email = new SimpleStringProperty();
         this.information = new SimpleStringProperty();
+        this.cpKey= new SimpleStringProperty();
     }
 
     public InformationDto(ComInformationDto comInformationDto) throws IOException {
@@ -28,6 +40,7 @@ public class InformationDto {
         this.name.set(comInformationDto.getName());
         this.email.set(comInformationDto.getEmail());
         this.photo = comInformationDto.getPhoto();
+        this.cpKey.set(comInformationDto.getCpKey());
     }
     
     public Integer getId() {

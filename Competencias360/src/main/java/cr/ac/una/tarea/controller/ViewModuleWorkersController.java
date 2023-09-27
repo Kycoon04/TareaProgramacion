@@ -41,9 +41,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -104,12 +106,18 @@ public class ViewModuleWorkersController extends Controller implements Initializ
     WorkerDto workerDto;
     List<Node> requeridos = new ArrayList<>();
     static boolean admi;
+    @FXML
+    private ImageView imagenFondo;
+    private AnchorPane root;
+    private ImageView image2;
+    private AnchorPane root2;
 
     @Override
     @SuppressWarnings("empty-statement")
     public void initialize(URL url, ResourceBundle rb) {
-
+         
         LoginView.toFront();
+        
         usernameField.setTextFormatter(Formato.getInstance().UsernameFormat(30));
         usernameRegisField.setTextFormatter(Formato.getInstance().UsernameFormat(30));
         passwordField.setTextFormatter(Formato.getInstance().maxLengthFormat(15));

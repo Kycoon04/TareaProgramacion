@@ -46,10 +46,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -262,6 +264,10 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private TableColumn<CompetenceDto, String> tableColCCompStaAss;
      List<InformationDto> list;
+    private ImageView image2;
+    private AnchorPane root2;
+    @FXML
+    private TextField InfoKeytxt1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -498,6 +504,9 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         NameInformationField.setText(list.get(0).getName());
         EmailInformationField.setText(list.get(0).getEmail());
         InfoInformationField.setText(list.get(0).getInformation());
+        System.out.println(list.get(0).getCpKey());
+        InfoKeytxt1.setText(list.get(0).getCpKey());
+        
         System.out.println(list.get(0).getPhoto());
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(list.get(0).getPhoto());
         Image image = new Image(byteArrayInputStream);
@@ -515,7 +524,8 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         informationDto.setName(NameInformationField.getText());
         informationDto.setInformation(InfoInformationField.getText());
         informationDto.setEmail(EmailInformationField.getText());
-        
+        informationDto.setCpKey(InfoKeytxt1.getText());
+        System.out.println(informationDto.getCpKey());
         if(respuesta1.getEstado()){
               informationDto.setId(list.get(0).getId());
               Respuesta respuesta = comInformationService.SaveInformation(informationDto);

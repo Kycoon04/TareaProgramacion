@@ -6,6 +6,7 @@ start with 281
 increment by 1
 cache 20; 
 
+
 -- Create table
 create table EVA_JOBS
 (
@@ -53,6 +54,8 @@ alter table EVA_JOBS
     minextents 1
     maxextents unlimited
   );
+
+
 
 
 -- Create table
@@ -134,6 +137,8 @@ alter table EVA_WORKERS
   references EVA_JOBS (JS_ID);
 
 
+
+
 -- Create table
 create table EVA_COMINFORMATION
 (
@@ -141,7 +146,8 @@ create table EVA_COMINFORMATION
   cp_name        VARCHAR2(30) not null,
   cp_email       VARCHAR2(50) not null,
   cp_information VARCHAR2(200),
-  cp_photo       BLOB
+  cp_photo       BLOB,
+  cp_key         VARCHAR2(50)
 )
 tablespace USERS
   pctfree 10
@@ -174,10 +180,9 @@ alter table EVA_COMINFORMATION
 -- Create table
 create table EVA_COMPETENCES
 (
-  cs_id              NUMBER(5) not null,
-  cs_name            VARCHAR2(20),
-  cs_state           VARCHAR2(1),
-  cs_characteristics VARCHAR2(200)
+  cs_id    NUMBER(5) not null,
+  cs_name  VARCHAR2(20),
+  cs_state VARCHAR2(1)
 )
 tablespace USERS
   pctfree 10
@@ -205,6 +210,8 @@ alter table EVA_COMPETENCES
     minextents 1
     maxextents unlimited
   );
+
+
 
 
 -- Create table
@@ -269,7 +276,14 @@ create table EVA_CHARACTERISTIC
 tablespace USERS
   pctfree 10
   initrans 1
-  maxtrans 255;
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
 -- Create/Recreate primary, unique and foreign key constraints 
 alter table EVA_CHARACTERISTIC
   add constraint CCPK_ID primary key (CC_ID)
@@ -277,10 +291,19 @@ alter table EVA_CHARACTERISTIC
   tablespace USERS
   pctfree 10
   initrans 2
-  maxtrans 255;
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
 alter table EVA_CHARACTERISTIC
   add constraint CCFK_COMID foreign key (CC_COMID)
   references EVA_COMPETENCES (CS_ID);
+
+
 
 
 -- Create table
@@ -324,6 +347,7 @@ alter table EVA_JOBS_COMPETENCES
   references EVA_JOBS (JS_ID);
 
 
+
 -- Create table
 create table EVA_EVALUATED
 (
@@ -350,14 +374,13 @@ alter table EVA_EVALUATED
   add constraint FK_WORKER foreign key (ES_WORKER)
   references EVA_WORKERS (WR_ID);
 
-
 -- Create table
 create table EVA_RESULT
 (
   rs_evaluated    NUMBER(5) not null,
   rs_compe        NUMBER(5) not null,
-  rs_notaSis      NUMBER(1),
-  rs_notaJefatura NUMBER(1),
+  rs_notasis      FLOAT,
+  rs_notajefatura FLOAT,
   rs_id           NUMBER(5) not null
 )
 tablespace USERS
@@ -378,13 +401,21 @@ alter table EVA_RESULT
   tablespace USERS
   pctfree 10
   initrans 2
-  maxtrans 255;
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
 alter table EVA_RESULT
   add constraint FK_COMPE foreign key (RS_COMPE)
   references EVA_COMPETENCES (CS_ID);
 alter table EVA_RESULT
   add constraint FK_ED foreign key (RS_EVALUATED)
   references EVA_EVALUATED (ES_ID);
+
 
 
 -- Create table
@@ -415,6 +446,8 @@ alter table EVA_EVALUATORS
 alter table EVA_EVALUATORS
   add constraint FK_WORKERS foreign key (EVS_WORKER)
   references EVA_WORKERS (WR_ID);
+
+
 
 
 -- Create table
@@ -450,6 +483,7 @@ alter table EVA_EVALUATOR_RESULT
 alter table EVA_EVALUATOR_RESULT
   add constraint FK_EVALUATOR foreign key (ER_EVALUATOR)
   references EVA_EVALUATORS (EVS_ID);
+
 
 
   create or replace noneditionable trigger IDJSTIGGER
@@ -574,3 +608,4 @@ declare
 begin
   SELECT Secuenciaid.nextval INTO :new.er_id FROM dual;
 end IDERESULTSTIGGER;
+

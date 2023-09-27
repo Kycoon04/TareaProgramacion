@@ -43,23 +43,18 @@ public interface ModuleComInformation {
 
     /**
      * 
-     * @param name
+     * @param arg0
      * @return
-     *     returns cr.ac.una.tarea.soap.ComInformationDto
-     * @throws IOException_Exception
+     *     returns java.lang.Boolean
      */
-    @WebMethod
+    @WebMethod(operationName = "GeneralParameters")
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getInformation", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetInformation")
-    @ResponseWrapper(localName = "getInformationResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetInformationResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformationRequest", output = "http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformationResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformation/Fault/IOException")
-    })
-    public ComInformationDto getInformation(
-        @WebParam(name = "Name", targetNamespace = "")
-        String name)
-        throws IOException_Exception
-    ;
+    @RequestWrapper(localName = "GeneralParameters", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GeneralParameters")
+    @ResponseWrapper(localName = "GeneralParametersResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GeneralParametersResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersRequest", output = "http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersResponse")
+    public Boolean generalParameters(
+        @WebParam(name = "arg0", targetNamespace = "")
+        ComInformationDto arg0);
 
     /**
      * 
@@ -80,17 +75,22 @@ public interface ModuleComInformation {
 
     /**
      * 
-     * @param arg0
+     * @param name
      * @return
-     *     returns java.lang.Boolean
+     *     returns cr.ac.una.tarea.soap.ComInformationDto
+     * @throws IOException_Exception
      */
-    @WebMethod(operationName = "GeneralParameters")
+    @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "GeneralParameters", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GeneralParameters")
-    @ResponseWrapper(localName = "GeneralParametersResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GeneralParametersResponse")
-    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersRequest", output = "http://controller.tareaws.una.ac.cr/ModuleComInformation/GeneralParametersResponse")
-    public Boolean generalParameters(
-        @WebParam(name = "arg0", targetNamespace = "")
-        ComInformationDto arg0);
+    @RequestWrapper(localName = "getInformation", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetInformation")
+    @ResponseWrapper(localName = "getInformationResponse", targetNamespace = "http://controller.tareaws.una.ac.cr/", className = "cr.ac.una.tarea.soap.GetInformationResponse")
+    @Action(input = "http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformationRequest", output = "http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformationResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://controller.tareaws.una.ac.cr/ModuleComInformation/getInformation/Fault/IOException")
+    })
+    public ComInformationDto getInformation(
+        @WebParam(name = "Name", targetNamespace = "")
+        String name)
+        throws IOException_Exception
+    ;
 
 }

@@ -377,12 +377,12 @@
          <center>
             <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
                <children>
-                  <ImageView fitHeight="602.0" fitWidth="1008.0" layoutX="-3.0" layoutY="1.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                  <ImageView fx:id="imagenFondo" fitHeight="602.0" fitWidth="1008.0" layoutX="-3.0" layoutY="1.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                      <image>
                         <Image url="@../resources/BackgroundLogin.jpg" />
                      </image>
                   </ImageView>
-                  <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="325.0" layoutY="52.0" onKeyPressed="#AcceptLoginEnter" prefHeight="487.0" prefWidth="359.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="325.0" AnchorPane.rightAnchor="324.0" AnchorPane.topAnchor="52.0">
+                  <VBox alignment="CENTER" fillWidth="false" layoutX="339.0" layoutY="46.0" onKeyPressed="#AcceptLoginEnter" prefHeight="487.0" prefWidth="371.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="339.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="46.0">
                      <children>
                         <Separator prefHeight="10.0" prefWidth="214.0" visible="false" />
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar sesión">
