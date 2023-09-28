@@ -193,14 +193,11 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private TableColumn<WorkerDto, String> tableColCRETelephone;
     @FXML
-    private TableColumn<WorkerDto, String> tableColCREAdmi;
-    @FXML
     private TextField textFieldSearchCRE_Name;
     @FXML
     private TextField textFieldSearchCRE_Pusername;
     @FXML
     private TextField textFieldSearchCRE_Ident;
-    @FXML
     private TextField textFieldSearchCRE_Rol;
     @FXML
     private TextField textFieldSearchCRE_Susername;
@@ -445,8 +442,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private TabPane tabPaneMantProcess;
     @FXML
-    private Tab tabMantProcess;
-    @FXML
     private AnchorPane root9;
     @FXML
     private ImageView image9;
@@ -482,6 +477,30 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private AnchorPane root1;
     @FXML
     private ImageView image1;
+    @FXML
+    private BorderPane OptionsMantEvaView;
+    @FXML
+    private TabPane tabPaneMantProcess1;
+    @FXML
+    private Tab tabMantProcess1;
+    @FXML
+    private BorderPane OptionsMantEvaConfigView;
+    @FXML
+    private DatePicker DateProEva_InicialNew;
+    @FXML
+    private DatePicker DateProEva_FinalNew;
+    @FXML
+    private DatePicker DateProEva_ApplicationNew;
+    @FXML
+    private TextField TitleEvaFieldNew;
+    @FXML
+    private TextField StateEvaFieldNew;
+    @FXML
+    private TextField textFieldFollowUp_Ident;
+    @FXML
+    private TextField textFieldFollowUp_User;
+    @FXML
+    private Text textResultEva;
 
     @FXML
     private void SummitFinal(ActionEvent event) {
@@ -592,29 +611,29 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             XSSFCell cell = puntajesRow.createCell(i);
             cell.setCellValue(puntajes.get(i));
         }
-            XSSFCell cell = puntajesRow.createCell(puntajes.size());
-            cell.setCellValue(listCompetences.size()*4);
-            
-            cell = puntajesRow.createCell(puntajes.size()+1);
-            cell.setCellValue(100);
-            
-            cell = puntajesRow.createCell(puntajes.size()+2);
-            cell.setCellValue(4);
-            
-            float suma;
+        XSSFCell cell = puntajesRow.createCell(puntajes.size());
+        cell.setCellValue(listCompetences.size() * 4);
+
+        cell = puntajesRow.createCell(puntajes.size() + 1);
+        cell.setCellValue(100);
+
+        cell = puntajesRow.createCell(puntajes.size() + 2);
+        cell.setCellValue(4);
+
+        float suma;
         for (int k = 0; k < resultsDto.size(); k++) {
             ResultsDto resultDtos = resultsDto.get(k);
             List<ResultsDto> Aux = resultsDto.stream().filter(x -> x.getRsEvaluated().getEsWorker().getWrName().equals(resultDtos.getRsEvaluated().getEsWorker().getWrName())).toList();
             List<String> nombre = new ArrayList<>();
             nombre.add(resultDtos.getRsEvaluated().getEsWorker().getWrName());
-            suma=0;
+            suma = 0;
             for (int i = 0; i < listCompetences.size(); i++) {
                 final int tamano = i;
                 Optional<ResultsDto> Aux2 = Aux.stream().filter(x -> x.getRsCompe().getCsId().equals(listCompetences.get(tamano).getJxcCompetence().getCsId())).findFirst();
                 nombre.add(Aux2.get().getRsNotajefatura().toString());
-                suma+=Aux2.get().getRsNotajefatura();
+                suma += Aux2.get().getRsNotajefatura();
             }
-            
+
             XSSFRow PersonaRow = hoja1.createRow(k + 2);
             for (int i = 0; i < nombre.size(); i++) {
                 cell = PersonaRow.createCell(i);
@@ -622,18 +641,18 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             }
             DecimalFormat decimalFormat = new DecimalFormat("#.##");
             String valorRedondeado = decimalFormat.format(suma);
-            
+
             cell = PersonaRow.createCell(nombre.size());
             cell.setCellValue(Double.parseDouble(valorRedondeado));
 
-            valorRedondeado = decimalFormat.format((suma*100)/(listCompetences.size()*4));
-            
-            cell = PersonaRow.createCell(nombre.size()+1);
+            valorRedondeado = decimalFormat.format((suma * 100) / (listCompetences.size() * 4));
+
+            cell = PersonaRow.createCell(nombre.size() + 1);
             cell.setCellValue(Double.parseDouble(valorRedondeado));
 
-            valorRedondeado = decimalFormat.format(suma/listCompetences.size());
-            
-            cell = PersonaRow.createCell(nombre.size()+2);
+            valorRedondeado = decimalFormat.format(suma / listCompetences.size());
+
+            cell = PersonaRow.createCell(nombre.size() + 2);
             cell.setCellValue(Double.parseDouble(valorRedondeado));
             resultsDto = resultsDto.stream().dropWhile(x -> x.getRsEvaluated().getEsWorker().getWrName().equals(resultDtos.getRsEvaluated().getEsWorker().getWrName())).toList();
         }
@@ -649,6 +668,144 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         }
     }
 
+    @FXML
+    private void CreateProceso(ActionEvent event) {
+
+        ProcesoevaService service = new ProcesoevaService();
+        ProcesosevaDto procesosevaDto = new ProcesosevaDto();
+
+        procesosevaDto.setState(StateEvaFieldNew.getText());
+        procesosevaDto.setName(TitleEvaFieldNew.getText());
+        procesosevaDto.setId(procesoDto.getId());
+        reviewStateProcess();
+        if (DateProEva_InicialNew.getValue().isBefore(DateProEva_FinalNew.getValue())) {
+            procesosevaDto.setApplication(DateProEva_ApplicationNew.getValue());
+            procesosevaDto.setInicialperiod(DateProEva_InicialNew.getValue());
+            procesosevaDto.setFinalperiod(DateProEva_FinalNew.getValue());
+            Respuesta respuesta = service.SaveProceso(procesosevaDto);
+            if (!respuesta.getEstado()) {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar proceso de evaluación", getStage(), respuesta.getMensaje());
+            } else {
+                new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar proceso de evaluación", getStage(), "Proceso de evaluación actualizado correctamente.");
+            }
+            ImportListProcesoEva();
+        } else {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Seleccione una fecha de inicio menor a la fecha de finalizacion");
+        }
+
+    }
+
+    @FXML
+    private void searchProEva_Name(KeyEvent event) {
+        FilteredList<ProcesosevaDto> filteredProcess = new FilteredList<>(procesosList, f -> true);
+
+        textFieldProEva_Name.textProperty().addListener((observable, value, newValue) -> {
+            filteredProcess.setPredicate(ProcesoevaDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (ProcesoevaDto.getName().toLowerCase().contains(search)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredProcessEva(filteredProcess);
+    }
+
+    @FXML
+    private void searchProEva_State(KeyEvent event) {
+        FilteredList<ProcesosevaDto> filteredProcess = new FilteredList<>(procesosList, f -> true);
+
+        textFieldProEva_State.textProperty().addListener((observable, value, newValue) -> {
+            filteredProcess.setPredicate(ProcesoevaDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (ProcesoevaDto.getState().toLowerCase().contains(search)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredProcessEva(filteredProcess);
+    }
+
+    private void filteredProcessEva(FilteredList<ProcesosevaDto> list) {
+        SortedList<ProcesosevaDto> sorted = new SortedList<>(list);
+        sorted.comparatorProperty().bind(tableViewProEva.comparatorProperty());
+        tableViewProEva.setItems(sorted);
+    }
+
+    @FXML
+    private void searchEvaluated_Name(KeyEvent event) {
+         FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerListCRE, f -> true);
+
+        textFieldFollowUp_Name.textProperty().addListener((observable, value, newValue) -> {
+            filteredWorker.setPredicate(WorkerDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (WorkerDto.getName().toLowerCase().contains(search)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredWorkersFU(filteredWorker);
+    }
+
+    @FXML
+    private void searchEvaluated_Ident(KeyEvent event) {
+                FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerListCRE, f -> true);
+
+        textFieldFollowUp_Ident.textProperty().addListener((observable, value, newValue) -> {
+            filteredWorker.setPredicate(WorkerDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (WorkerDto.getIden().toLowerCase().indexOf(search)==0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredWorkersFU(filteredWorker);
+    }
+    
+
+    @FXML
+    private void searchEvaluated_User(KeyEvent event) {
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerListCRE, f -> true);
+
+        textFieldFollowUp_User.textProperty().addListener((observable, value, newValue) -> {
+            filteredWorker.setPredicate(WorkerDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (WorkerDto.getUsername().toLowerCase().contains(search)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredWorkersFU(filteredWorker);
+    }
+        private void filteredWorkersFU(FilteredList<WorkerDto> list) {
+        SortedList<WorkerDto> sorted = new SortedList<>(list);
+        sorted.comparatorProperty().bind(tableViewWorkersFU.comparatorProperty());
+        tableViewWorkersFU.setItems(sorted);
+    }
     class cordenadas {
 
         double x, y;
@@ -663,10 +820,11 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         choiceBoxStateEva.getItems().addAll(states);
         choiceBoxConEvaluator.getItems().addAll(connection);
         ImportListProcesoEva();
+        OptionsMantEvaConfigView.toFront();
         OptionsEvaConfigView.toFront();
         procesoDto = new ProcesosevaDto();
 
-      /*       
+        /*       
         image1.fitHeightProperty().bind(root1.heightProperty());
         image1.fitWidthProperty().bind(root1.widthProperty());
         
@@ -694,7 +852,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         
         image9.fitHeightProperty().bind(root7.heightProperty());
         image9.fitWidthProperty().bind(root7.widthProperty());*/
-        
         this.tableColActPE.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColIdentifPE.setCellValueFactory(new PropertyValueFactory("iden"));
         this.tableColNamePE.setCellValueFactory(new PropertyValueFactory("name"));
@@ -734,7 +891,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         this.tableColCREUserName.setCellValueFactory(new PropertyValueFactory("username"));
         this.tableColCREEmail.setCellValueFactory(new PropertyValueFactory("email"));
         this.tableColCRETelephone.setCellValueFactory(new PropertyValueFactory("telephone"));
-        this.tableColCREAdmi.setCellValueFactory(new PropertyValueFactory("administrator"));
 
         this.tableColJobIdW.setCellValueFactory(new PropertyValueFactory("Id"));
         this.tableColJobNamW.setCellValueFactory(new PropertyValueFactory("Name"));
@@ -779,6 +935,8 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             btnConfigFollowUp.setVisible(false);
             btnAssignFollowUp.setVisible(false);
             btnResultGeneral.setVisible(true);
+            btnExcel.setVisible(true);
+             textResultEva.setVisible(true);
         } else {
             btnResultGeneral.setVisible(false);
             btnConfigEva.setText("Configuración Evaluación");
@@ -790,6 +948,8 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             btnAssignRelational.setVisible(true);
             btnConfigFollowUp.setVisible(true);
             btnAssignFollowUp.setVisible(true);
+            btnExcel.setVisible(false);
+            textResultEva.setVisible(false);
         }
     }
 
@@ -935,7 +1095,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (WorkerDto.getIden().toLowerCase().contains(search)) {
+                if (WorkerDto.getIden().toLowerCase().indexOf(search)==0) {
                     return true;
                 } else {
                     return false;
@@ -1199,7 +1359,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void searchWorkerCRE_Name(KeyEvent event) {
-        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerListCRE, f -> true);
 
         textFieldSearchCRE_Name.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
@@ -1219,7 +1379,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void searchWorkerCRE_Pusername(KeyEvent event) {
-        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerListCRE, f -> true);
 
         textFieldSearchCRE_Pusername.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
@@ -1239,7 +1399,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void searchWorkerCRE_Identification(KeyEvent event) {
-        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerListCRE, f -> true);
 
         textFieldSearchCRE_Ident.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
@@ -1247,7 +1407,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (WorkerDto.getIden().toLowerCase().contains(search)) {
+                if (WorkerDto.getIden().toLowerCase().indexOf(search)==0) {
                     return true;
                 } else {
                     return false;
@@ -1257,9 +1417,8 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         filteredWorkersCRE(filteredWorker);
     }
 
-    @FXML
     private void searchWorkerCRE_Rol(KeyEvent event) {
-        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerListCRE, f -> true);
 
         textFieldSearchCRE_Rol.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
@@ -1280,7 +1439,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void searchWorkerCRE_Susername(KeyEvent event) {
-        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerListCRE, f -> true);
 
         textFieldSearchCRE_Susername.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
@@ -1300,7 +1459,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void searchWorkerCRE_State(KeyEvent event) {
-        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerList, f -> true);
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerListCRE, f -> true);
 
         textFieldSearchCRE_State.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
@@ -1308,7 +1467,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (WorkerDto.getActives().toLowerCase().contains(search)) {
+                if (WorkerDto.getActives().toLowerCase().indexOf(search)==0) {
                     return true;
                 } else {
                     return false;
@@ -1345,14 +1504,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private void viewChooseWorker(MouseEvent event) {
         viewChooseWorker.toFront();
-    }
-
-    @FXML
-    private void searchJob_Name(KeyEvent event) {
-    }
-
-    @FXML
-    private void searchJob_State(KeyEvent event) {
     }
 
     public boolean existsProcess(String name) {
@@ -1485,7 +1636,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                 DateProEva_Final.setValue(procesoDto.getFinalperiod());
                 DateProEva_Application.setValue(procesoDto.getApplication());
                 reviewStateProcess();
-                tabPaneMantProcess.getSelectionModel().select(tabMantProcess);
+                OptionsMantEvaView.toFront();
             } catch (Exception ex) {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un proceso en este campo.");
             }
@@ -1520,9 +1671,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         OptionsFollowUpView.toFront();
     }
 
-    @FXML
-    private void searchCompetence_Name(KeyEvent event) {
-    }
 
     @FXML
     private void backFUEvaluated(ActionEvent event) {

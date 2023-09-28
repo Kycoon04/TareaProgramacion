@@ -251,17 +251,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private Pane viewChooseJobs1;
     @FXML
-    private TextField textFieldSJob_NameW1;
-    @FXML
-    private TextField textFieldSJob_StateW1;
-    @FXML
     private BorderPane viewSettingsCharacteristics;
-    @FXML
-    private TableView<CompetenceDto> tableViewCCompetencesAss;
-    @FXML
-    private TableColumn<CompetenceDto, String> tableColCCompNameAss;
-    @FXML
-    private TableColumn<CompetenceDto, String> tableColCCompStaAss;
      List<InformationDto> list;
     @FXML
     private Tab tabMantComp;
@@ -309,6 +299,19 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private AnchorPane root1;
     @FXML
     private ImageView image1;
+    @FXML
+    private TextField textFieldMCharact_NameComp;
+    @FXML
+    private TextField textFieldAComp_Name;
+    @FXML
+    private TextField textFieldAComp_State;
+    @FXML
+    private TableView<CompetenceDto> tableViewCCompetencesAssoc;
+    @FXML
+    private TableColumn<CompetenceDto, String> tableColCCompNameAssoc;
+    @FXML
+    private TableColumn<CompetenceDto, String> tableColCCompStaAssoc;
+     
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -372,8 +375,8 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         this.tableColJobNamW.setCellValueFactory(new PropertyValueFactory("Name"));
         this.tableColJobStaW.setCellValueFactory(new PropertyValueFactory("States"));
 
-        this.tableColCCompNameAss.setCellValueFactory(new PropertyValueFactory("Name"));
-        this.tableColCCompStaAss.setCellValueFactory(new PropertyValueFactory("States"));
+        this.tableColCCompNameAssoc.setCellValueFactory(new PropertyValueFactory("Name"));
+        this.tableColCCompStaAssoc.setCellValueFactory(new PropertyValueFactory("States"));
 
         workerDto = new WorkerDto();
         informationDto = new InformationDto();
@@ -711,7 +714,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (WorkerDto.getIden().toLowerCase().contains(search)) {
+                if (WorkerDto.getIden().toLowerCase().indexOf(search) == 0) {
                     return true;
                 } else {
                     return false;
@@ -814,8 +817,8 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         competencesList = FXCollections.observableArrayList(list);
         this.tableViewCompetences.refresh();
         this.tableViewCompetences.setItems(competencesList);
-        this.tableViewCCompetencesAss.refresh();
-        this.tableViewCCompetencesAss.setItems(competencesList);
+        this.tableViewCCompetencesAssoc.refresh();
+        this.tableViewCCompetencesAssoc.setItems(competencesList);
     }
 
     @FXML
@@ -848,7 +851,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (JobDto.getStates().toLowerCase().contains(search)) {
+                if (JobDto.getStates().toLowerCase().indexOf(search) == 0) {
                     return true;
                 } else {
                     return false;
@@ -894,26 +897,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (CompetenceDto.getStates().toLowerCase().contains(search)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-        });
-        filteredCompetences(filteredCompetence);
-    }
-
-    private void searchCompetence_Characteristics(KeyEvent event) {
-        FilteredList<CompetenceDto> filteredCompetence = new FilteredList<>(competencesList, f -> true);
-
-        textFieldSComp_Charac.textProperty().addListener((observable, value, newValue) -> {
-            filteredCompetence.setPredicate(CompetenceDto -> {
-                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
-                    return true;
-                }
-                String search = newValue.toLowerCase();
-                if (true) {
+                if (CompetenceDto.getStates().toLowerCase().indexOf(search) == 0) {
                     return true;
                 } else {
                     return false;
@@ -1037,7 +1021,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (JobDto.getStates().toLowerCase().contains(search)) {
+                if (JobDto.getStates().toLowerCase().indexOf(search) == 0) {
                     return true;
                 } else {
                     return false;
@@ -1212,12 +1196,104 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private void competenceAssClicked(MouseEvent event) {
         if (event.getClickCount() == 2) {
             try {
-                competenceDto = tableViewCCompetencesAss.getSelectionModel().getSelectedItem();
+                competenceDto = tableViewCCompetencesAssoc.getSelectionModel().getSelectedItem();
                 CompetenceCharacteristicField.setText(competenceDto.getName());
                 viewSettingsCharacteristics.toFront();
             } catch (Exception ex) {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un proceso en este campo.");
             }
         }
+    }
+
+    @FXML
+    private void searchCharacteristic_Name(KeyEvent event) {
+        FilteredList<CharacteristicsDto> filteredCharacteristics = new FilteredList<>(characteristicList, f -> true);
+
+        textFieldMCharact_Name.textProperty().addListener((observable, value, newValue) -> {
+            filteredCharacteristics.setPredicate(CharacteristicDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (CharacteristicDto.getCcName().toLowerCase().contains(search)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredCharacateristics(filteredCharacteristics);
+    }
+
+    @FXML
+    private void searchCharacteristic_NameComp(KeyEvent event) {
+        FilteredList<CharacteristicsDto> filteredCharacteristics = new FilteredList<>(characteristicList, f -> true);
+
+        textFieldMCharact_NameComp.textProperty().addListener((observable, value, newValue) -> {
+            filteredCharacteristics.setPredicate(CharacteristicDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (CharacteristicDto.getCcComid().getCsName().toLowerCase().contains(search)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredCharacateristics(filteredCharacteristics);
+        
+    }
+    private void filteredCharacateristics(FilteredList<CharacteristicsDto> list) {
+        SortedList<CharacteristicsDto> sorted = new SortedList<>(list);
+        sorted.comparatorProperty().bind(tableViewCharacteristics.comparatorProperty());
+        tableViewCharacteristics.setItems(sorted);
+    }
+
+    @FXML
+    private void searchAComp_Name(KeyEvent event) {
+        FilteredList<CompetenceDto> filteredCompetence = new FilteredList<>(competencesList, f -> true);
+
+        textFieldAComp_Name.textProperty().addListener((observable, value, newValue) -> {
+            filteredCompetence.setPredicate(CompetenceDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (CompetenceDto.getName().toLowerCase().contains(search)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredACompetences(filteredCompetence);
+    }
+
+    @FXML
+    private void searchAComp_State(KeyEvent event) {
+            FilteredList<CompetenceDto> filteredCompetence = new FilteredList<>(competencesList, f -> true);
+
+        textFieldAComp_State.textProperty().addListener((observable, value, newValue) -> {
+            filteredCompetence.setPredicate(CompetenceDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (CompetenceDto.getStates().toLowerCase().indexOf(search) == 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredACompetences(filteredCompetence);
+    }
+
+    private void filteredACompetences(FilteredList<CompetenceDto> list) {
+        SortedList<CompetenceDto> sorted = new SortedList<>(list);
+        sorted.comparatorProperty().bind(tableViewCCompetencesAssoc.comparatorProperty());
+        tableViewCCompetencesAssoc.setItems(sorted);
     }
 }
