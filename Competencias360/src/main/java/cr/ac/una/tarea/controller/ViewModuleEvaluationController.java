@@ -31,8 +31,6 @@ import cr.ac.una.tarea.util.Mensaje;
 import cr.ac.una.tarea.util.Respuesta;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -151,29 +149,16 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private TableColumn<WorkerDto, String> tableColSelEmail;
     @FXML
     private TableColumn<WorkerDto, String> tableColSelAdmi;
-    private List<EvaluatorResultsDto> evaluatorsDto;
-    private ObservableList<WorkerDto> workerList;
-    private ObservableList<WorkerDto> workerListCopy;
-    private List<EvaJobCompetenceDto> listCompetences = new ArrayList<>();
-    private ObservableList<WorkerDto> workerListCRE;
-    private ObservableList<JobDto> jobsList;
-    private ObservableList<ProcesosevaDto> procesosList;
-    private ObservableList<EvaluatorDto> listEvaluator;
-    private ObservableList<WorkerDto> workersAss = FXCollections.observableArrayList();
-    List<WorkerDto> workersListSel = new ArrayList<>();
     @FXML
     private Text textEvaJob;
-    JobDto jobDto;
-    WorkerDto workerDto;
-    ProcesosevaDto procesoDto;
     @FXML
-    private BorderPane viewSelectedJob;
+    private AnchorPane viewSelectedJob;
     @FXML
-    private BorderPane viewChooseJob;
+    private AnchorPane viewChooseJob;
     @FXML
     private BorderPane OptionsSettingRelationalView;
     @FXML
-    private BorderPane viewChooseWorker;
+    private AnchorPane viewChooseWorker;
     @FXML
     private TableView<WorkerDto> tableViewWorkersCRE;
     @FXML
@@ -204,7 +189,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private TextField textFieldSearchCRE_State;
     @FXML
-    private BorderPane viewSelectedWorker;
+    private AnchorPane viewSelectedWorker;
     @FXML
     private TextField WorkerCREMainField;
     @FXML
@@ -256,7 +241,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private TableColumn<WorkerDto, String> tableColEmailPE;
     @FXML
     private TableColumn<WorkerDto, String> tableColAdmiPE;
-
     @FXML
     private TableView<EvaluatorDto> tableViewSelWorkersPE;
     @FXML
@@ -275,16 +259,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private TextField textFieldSearchPE_Name;
     @FXML
     private Text textNameWorker;
-    EvaluatedsDto evaluatedDto = new EvaluatedsDto();
-    WorkerDto selectedWorker = new WorkerDto();
-    List<WorkerDto> listWorkers = new ArrayList<>();
-    List<WorkerDto> listWorkersCopy = new ArrayList<>();
-    EvaluatorDto evaluatorDto;
-
-    List<WorkerDto> listWorkersEvaluated = new ArrayList<>();
-    List<EvaluatorDto> listEvaluators = new ArrayList<>();
-    List<EvaluatedsDto> listEvaluatedDto = new ArrayList<>();
-    List<EvaluatorDto> listEvaluatorAss = new ArrayList<>();
     @FXML
     private TableView<ProcesosevaDto> tableViewProEva;
     @FXML
@@ -321,9 +295,9 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private TextField textFieldFollowUp_Name;
     @FXML
-    private BorderPane viewFollowUpEvaluated;
+    private AnchorPane viewFollowUpEvaluated;
     @FXML
-    private BorderPane viewFollowUpInfoEvd;
+    private AnchorPane viewFollowUpInfoEvd;
     @FXML
     private Text textInfoE_Name;
     @FXML
@@ -360,7 +334,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private TextField textFieldSearchPE_Ident;
     @FXML
     private TextField textFieldSearch_Ident;
-    private boolean eliminar = false;
     @FXML
     private TextField textFieldEvaFU_Name;
     @FXML
@@ -395,7 +368,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private ImageView check;
     @FXML
     private BorderPane OptionsEvaluationGeneralView;
-    //private Text textEvaluationGen_Process;
     @FXML
     private Text textEvaluationGen_Name;
     @FXML
@@ -416,7 +388,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private GridPane gridHeaderResGeneral1;
     @FXML
     private GridPane gridEvaGeneral;
-    HashMap<String, Float> resultado = new HashMap<>();
     @FXML
     private Button btnConfigEva;
     @FXML
@@ -442,49 +413,13 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private TabPane tabPaneMantProcess;
     @FXML
-    private AnchorPane root9;
-    @FXML
-    private ImageView image9;
-    @FXML
-    private AnchorPane root8;
-    @FXML
-    private ImageView image8;
-    @FXML
-    private AnchorPane root7;
-    @FXML
-    private ImageView image7;
-    @FXML
-    private AnchorPane root6;
-    @FXML
-    private ImageView image6;
-    @FXML
-    private AnchorPane root5;
-    @FXML
-    private ImageView image5;
-    @FXML
-    private AnchorPane root4;
-    @FXML
-    private ImageView image4;
-    @FXML
-    private AnchorPane root3;
-    @FXML
-    private ImageView image3;
-    @FXML
-    private AnchorPane root2;
-    @FXML
-    private ImageView image2;
-    @FXML
-    private AnchorPane root1;
-    @FXML
-    private ImageView image1;
-    @FXML
-    private BorderPane OptionsMantEvaView;
+    private HBox OptionsMantEvaView;
     @FXML
     private TabPane tabPaneMantProcess1;
     @FXML
     private Tab tabMantProcess1;
     @FXML
-    private BorderPane OptionsMantEvaConfigView;
+    private HBox OptionsMantEvaConfigView;
     @FXML
     private DatePicker DateProEva_InicialNew;
     @FXML
@@ -502,6 +437,29 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private Text textResultEva;
 
+    private List<EvaluatorResultsDto> evaluatorsDto;
+    private ObservableList<WorkerDto> workerList;
+    private List<EvaJobCompetenceDto> listCompetences = new ArrayList<>();
+    private ObservableList<WorkerDto> workerListCRE;
+    private ObservableList<JobDto> jobsList;
+    private ObservableList<ProcesosevaDto> procesosList;
+    private ObservableList<EvaluatorDto> listEvaluator;
+    private ObservableList<WorkerDto> workersAss = FXCollections.observableArrayList();
+    private List<WorkerDto> workersListSel = new ArrayList<>();
+    private JobDto jobDto;
+    private WorkerDto workerDto;
+    private ProcesosevaDto procesoDto;
+    private EvaluatedsDto evaluatedDto = new EvaluatedsDto();
+    private WorkerDto selectedWorker = new WorkerDto();
+    private List<WorkerDto> listWorkers = new ArrayList<>();
+    private EvaluatorDto evaluatorDto;
+    private boolean eliminar = false;
+    private List<WorkerDto> listWorkersEvaluated = new ArrayList<>();
+    private List<EvaluatorDto> listEvaluators = new ArrayList<>();
+    private List<EvaluatedsDto> listEvaluatedDto = new ArrayList<>();
+    private List<EvaluatorDto> listEvaluatorAss = new ArrayList<>();
+    private HashMap<String, Float> resultado = new HashMap<>();
+    
     @FXML
     private void SummitFinal(ActionEvent event) {
         ResultsService resultService = new ResultsService();

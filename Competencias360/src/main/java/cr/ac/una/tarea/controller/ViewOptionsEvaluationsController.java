@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package cr.ac.una.tarea.controller;
 
 import cr.ac.una.tarea.model.CharacteristicsDto;
-import cr.ac.una.tarea.model.CompetenceDto;
 import cr.ac.una.tarea.model.EvaJobCompetenceDto;
 import cr.ac.una.tarea.model.EvaluatedsDto;
 import cr.ac.una.tarea.model.EvaluatorDto;
@@ -14,7 +9,6 @@ import cr.ac.una.tarea.model.ProcesosevaDto;
 import cr.ac.una.tarea.model.ResultsDto;
 import cr.ac.una.tarea.model.WorkerDto;
 import cr.ac.una.tarea.service.CharacteristicService;
-import cr.ac.una.tarea.service.CompetencesService;
 import cr.ac.una.tarea.service.EvaluatedService;
 import cr.ac.una.tarea.service.EvaluatorResultsService;
 import cr.ac.una.tarea.service.EvaluatorService;
@@ -22,26 +16,21 @@ import cr.ac.una.tarea.service.JobsCompetencesService;
 import cr.ac.una.tarea.service.ProcesoevaService;
 import cr.ac.una.tarea.service.ResultsService;
 import cr.ac.una.tarea.soap.Evaluators;
-import cr.ac.una.tarea.soap.ProcesoevaDto;
 import cr.ac.una.tarea.util.FlowController;
 import cr.ac.una.tarea.util.Mensaje;
 import cr.ac.una.tarea.util.Respuesta;
-import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -53,20 +42,14 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import org.apache.poi.ss.formula.functions.Delta;
 
 /**
  * FXML Controller class
@@ -77,15 +60,10 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
     @FXML
     private BorderPane OptionsMenuView;
-    boolean admi = ViewModuleWorkersController.admi;
-    @FXML
-    private Button optionSignOff;
     @FXML
     private Button optionBack;
     @FXML
     private BorderPane OptionsProcessEva;
-    @FXML
-    private Button optionSignOff1;
     @FXML
     private Button optionBack1;
     @FXML
@@ -112,27 +90,8 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     private TableColumn<ProcesosevaDto, String> tableColProEvaluated_FinalPer;
     @FXML
     private TableColumn<ProcesosevaDto, String> tableColProEvaluated_Apli;
-
-    WorkerDto workerDto;
-    ProcesosevaDto procesoDto;
-    EvaluatorDto evaluatorDto;
-    List<EvaJobCompetenceDto> listCompetences = new ArrayList<>();
-    private List<EvaluatorResultsDto> evaluatorsDto;
-    List<ProcesosevaDto> listProcesos = new ArrayList<>();
-    List<ProcesosevaDto> listProEvaluados = new ArrayList<>();
-    List<ProcesosevaDto> listProFinalizados = new ArrayList<>();
-    List<EvaluatorDto> listEvaluatorAss = new ArrayList<>();
-    ObservableList<ProcesosevaDto> procesosList;
-    ObservableList<ProcesosevaDto> procesosEvaList;
-    ObservableList<ProcesosevaDto> procesosFinalList;
-    List<EvaluatorDto> listEvaluators = new ArrayList<>();
-    List<EvaluatedsDto> listEvaluateds = new ArrayList<>();
-    List<EvaluatorDto> evaluateds = new ArrayList<>();
-    ObservableList<EvaluatorDto> evaluatedList;
     @FXML
     private BorderPane OptionsInformationWorker;
-    @FXML
-    private Button optionSignOff2;
     @FXML
     private Button optionBack2;
     @FXML
@@ -185,15 +144,10 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     private ImageView check;
     @FXML
     private AnchorPane anchorDrag;
-    GridPane gridPane = new GridPane();
     @FXML
     private GridPane grid;
     @FXML
     private GridPane gridHeader;
-    double startX, startY;
-    double xTab, yTab;
-    EvaluatorResultsDto evaluatorResultsDto = new EvaluatorResultsDto();
-    boolean delet = false;
     @FXML
     private TableView<ProcesosevaDto> tableColResEvaluated;
     @FXML
@@ -228,31 +182,27 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     private GridPane gridEvaGeneral;
     @FXML
     private GridPane gridResGeneral;
-    @FXML
-    private AnchorPane root6;
-    @FXML
-    private ImageView image6;
-    @FXML
-    private AnchorPane root5;
-    @FXML
-    private ImageView image5;
-    @FXML
-    private ImageView image4;
-    @FXML
-    private AnchorPane root3;
-    @FXML
-    private ImageView image3;
-    @FXML
-    private AnchorPane root2;
-    @FXML
-    private ImageView image2;
-    @FXML
-    private AnchorPane root1;
-    @FXML
-    private ImageView image1;
-    @FXML
-    private AnchorPane root4;
-
+    
+    private WorkerDto workerDto;
+    private ProcesosevaDto procesoDto;
+    private EvaluatorDto evaluatorDto;
+    private List<EvaJobCompetenceDto> listCompetences = new ArrayList<>();
+    private List<EvaluatorResultsDto> evaluatorsDto;
+    private List<ProcesosevaDto> listProcesos = new ArrayList<>();
+    private List<ProcesosevaDto> listProEvaluados = new ArrayList<>();
+    private List<ProcesosevaDto> listProFinalizados = new ArrayList<>();
+    private List<EvaluatorDto> listEvaluatorAss = new ArrayList<>();
+    private ObservableList<ProcesosevaDto> procesosList;
+    private ObservableList<ProcesosevaDto> procesosEvaList;
+    private ObservableList<ProcesosevaDto> procesosFinalList;
+    private List<EvaluatorDto> listEvaluators = new ArrayList<>();
+    private List<EvaluatedsDto> listEvaluateds = new ArrayList<>();
+    private List<EvaluatorDto> evaluateds = new ArrayList<>();
+    private ObservableList<EvaluatorDto> evaluatedList;
+    private double startX, startY;
+    private double xTab, yTab;
+    private EvaluatorResultsDto evaluatorResultsDto = new EvaluatorResultsDto();
+    private boolean delet = false;
     @FXML
     private void backEvaluationGen(ActionEvent event) {
         List<Button> botonesParaEliminar = new ArrayList<>();
@@ -460,11 +410,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         OptionsMenuView.toFront();
-        if (admi) {
-            optionSignOff.setVisible(false);
-        } else {
-            optionBack.setVisible(false);
-        }
         workerDto = FlowController.worker;
         workerDto.getName();
         
@@ -483,8 +428,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         image5.fitHeightProperty().bind(root5.heightProperty());
         image5.fitWidthProperty().bind(root5.widthProperty());
         */
-        image6.fitHeightProperty().bind(root6.heightProperty());
-        image6.fitWidthProperty().bind(root6.widthProperty());
+
         this.tableColProEva_State.setCellValueFactory(new PropertyValueFactory("State"));
         this.tableColProEva_Name.setCellValueFactory(new PropertyValueFactory("Name"));
         this.tableColProEva_IniPer.setCellValueFactory(new PropertyValueFactory("Inicialperiod"));
@@ -703,7 +647,6 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         imagen.setScaleY(1.5);
     }
 
-    @FXML
     private void SignOff(ActionEvent event) {
         FlowController.getInstance().goMain("ViewModuleWorkers");
 
@@ -735,6 +678,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     }
 
     public void ImportListEvaluated() {
+        listProEvaluados = new ArrayList();
         EvaluatedService service = new EvaluatedService();
         Respuesta respuesta = service.getEvaluateds();
         listEvaluateds = (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
@@ -762,6 +706,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     Predicate<ProcesosevaDto> getStateFinal = x -> x.getState().equals("Finalizada");
 
     public void ImportListProResult() {
+        listProFinalizados = new ArrayList();
         EvaluatedService service = new EvaluatedService();
         Respuesta respuesta = service.getEvaluateds();
         listEvaluateds = (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
@@ -775,19 +720,17 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
             proceso.setId(evaluated.getEsProcesoeva().getEnId());
             respuesta = serviceProceso.getProcesos();
             List<ProcesosevaDto> listProcesosDto = (List<ProcesosevaDto>) respuesta.getResultado("ProcesosevaDto");
-
             ProcesosevaDto dates = listProcesosDto.stream().filter(x -> x.getId().equals(evaluated.getEsProcesoeva().getEnId())).findAny().get();
-
             proceso.setsetApplication(dates.getApplication().toString());
             proceso.setsetFinalperiod(dates.getFinalperiod().toString());
             proceso.setsetInicialperiod(dates.getInicialperiod().toString());
-
             listProFinalizados.add(proceso);
         }
         listProFinalizados = listProFinalizados.stream().filter(getState.negate().and(getStateFinal)).toList();
     }
 
     public void ImportListEvaluator() {
+        listProcesos = new ArrayList();
         EvaluatorService service = new EvaluatorService();
         Respuesta respuesta = service.getEvaluators();
         listEvaluators = (List<EvaluatorDto>) respuesta.getResultado("Evaluators");

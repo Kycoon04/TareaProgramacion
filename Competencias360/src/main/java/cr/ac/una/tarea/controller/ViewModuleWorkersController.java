@@ -7,13 +7,9 @@ import cr.ac.una.tarea.util.FlowController;
 import cr.ac.una.tarea.util.Formato;
 import cr.ac.una.tarea.util.Mensaje;
 import cr.ac.una.tarea.util.Respuesta;
-import cr.ac.una.tarea.model.JobDto;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -22,26 +18,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -52,7 +36,6 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 /**
@@ -91,10 +74,7 @@ public class ViewModuleWorkersController extends Controller implements Initializ
     @FXML
     private BorderPane RecoverView;
     @FXML
-    private Text btnForgetPassword;
-    @FXML
     private Circle UserPhoto;
-
     @FXML
     private TextField usernameField;
     @FXML
@@ -103,45 +83,16 @@ public class ViewModuleWorkersController extends Controller implements Initializ
     private BorderPane RecoverFinalView;
     @FXML
     private TextField AceptRecoverField;
-    WorkerDto workerDto;
-    List<Node> requeridos = new ArrayList<>();
+
+    private WorkerDto workerDto;
+    private List<Node> requeridos = new ArrayList<>();
     static boolean admi;
-    private AnchorPane root;
-    @FXML
-    private ImageView image2;
-    @FXML
-    private AnchorPane root2;
-    @FXML
-    private AnchorPane root4;
-    @FXML
-    private ImageView image4;
-    @FXML
-    private AnchorPane root3;
-    @FXML
-    private ImageView image3;
-    @FXML
-    private AnchorPane root1;
-    @FXML
-    private ImageView image1;
 
     @Override
     @SuppressWarnings("empty-statement")
     public void initialize(URL url, ResourceBundle rb) {
-         
+
         LoginView.toFront();
-       /*
-        image1.fitHeightProperty().bind(root1.heightProperty());
-        image1.fitWidthProperty().bind(root1.widthProperty());
-        
-        image2.fitHeightProperty().bind(root2.heightProperty());
-        image2.fitWidthProperty().bind(root2.widthProperty());
-        
-        image3.fitHeightProperty().bind(root3.heightProperty());
-        image3.fitWidthProperty().bind(root3.widthProperty());
-        
-        image4.fitHeightProperty().bind(root4.heightProperty());
-        image4.fitWidthProperty().bind(root4.widthProperty());*/
-        
         usernameField.setTextFormatter(Formato.getInstance().UsernameFormat(30));
         usernameRegisField.setTextFormatter(Formato.getInstance().UsernameFormat(30));
         passwordField.setTextFormatter(Formato.getInstance().maxLengthFormat(15));
@@ -181,11 +132,11 @@ public class ViewModuleWorkersController extends Controller implements Initializ
             if (workerDto.getActive().equals("S")) {
                 if (!temporal.getEstado()) {
                     if (isAdmi.getEstado()) {
-                         FlowController.worker=workerDto;
+                        FlowController.worker = workerDto;
                         FlowController.getInstance().goMain("ViewOptionsModules");
                         admi = true;
                     } else {
-                        FlowController.worker=workerDto;
+                        FlowController.worker = workerDto;
                         FlowController.getInstance().goMain("ViewOptionsEvaluations");
                         admi = false;
                     }
@@ -244,7 +195,7 @@ public class ViewModuleWorkersController extends Controller implements Initializ
     @FXML
     private void ConfirmRegister(ActionEvent event) {
         try {
-            if (password2RegisField.getText().equals(passwordRegisField.getText())&& userRegisField.getText()!=null && surname1RegisField.getText()!=null && usernameRegisField.getText()!=null && surname2RegisField.getText()!=null ) {
+            if (password2RegisField.getText().equals(passwordRegisField.getText()) && userRegisField.getText() != null && surname1RegisField.getText() != null && usernameRegisField.getText() != null && surname2RegisField.getText() != null) {
                 WorkersService workersService = new WorkersService();
                 workerDto.setCode(CodeRamdon());
                 Respuesta respuesta = workersService.guardarEmpleado(workerDto);
@@ -259,8 +210,8 @@ public class ViewModuleWorkersController extends Controller implements Initializ
                     bindEmpleado(false);
                     new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar empleado", getStage(), "Empleado actualizado correctamente.");
                 }
-            }else{
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar Empleado", getStage(), "Verifica los campos.");
+            } else {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar Empleado", getStage(), "Verifica los campos.");
             }
         } catch (Exception ex) {
             Logger.getLogger(ViewModuleWorkersController.class
@@ -418,13 +369,10 @@ public class ViewModuleWorkersController extends Controller implements Initializ
         }
         return s;
     }
-
     @FXML
     private void AcceptLoginEnter(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             AcceptAccess();
         }
-
     }
-
 }

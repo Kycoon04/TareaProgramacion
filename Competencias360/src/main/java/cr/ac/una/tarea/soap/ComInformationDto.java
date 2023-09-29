@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para comInformationDto complex type.
+ * <p>Java class for comInformationDto complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="comInformationDto">
@@ -49,7 +49,7 @@ public class ComInformationDto {
     protected byte[] photo;
 
     /**
-     * Obtiene el valor de la propiedad cpKey.
+     * Gets the value of the cpKey property.
      * 
      * @return
      *     possible object is
@@ -61,7 +61,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Define el valor de la propiedad cpKey.
+     * Sets the value of the cpKey property.
      * 
      * @param value
      *     allowed object is
@@ -73,7 +73,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad email.
+     * Gets the value of the email property.
      * 
      * @return
      *     possible object is
@@ -85,7 +85,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Define el valor de la propiedad email.
+     * Sets the value of the email property.
      * 
      * @param value
      *     allowed object is
@@ -97,7 +97,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad id.
+     * Gets the value of the id property.
      * 
      * @return
      *     possible object is
@@ -109,7 +109,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Define el valor de la propiedad id.
+     * Sets the value of the id property.
      * 
      * @param value
      *     allowed object is
@@ -121,7 +121,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad information.
+     * Gets the value of the information property.
      * 
      * @return
      *     possible object is
@@ -133,7 +133,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Define el valor de la propiedad information.
+     * Sets the value of the information property.
      * 
      * @param value
      *     allowed object is
@@ -145,7 +145,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad name.
+     * Gets the value of the name property.
      * 
      * @return
      *     possible object is
@@ -157,7 +157,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Define el valor de la propiedad name.
+     * Sets the value of the name property.
      * 
      * @param value
      *     allowed object is
@@ -169,7 +169,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad photo.
+     * Gets the value of the photo property.
      * 
      * @return
      *     possible object is
@@ -180,7 +180,7 @@ public class ComInformationDto {
     }
 
     /**
-     * Define el valor de la propiedad photo.
+     * Sets the value of the photo property.
      * 
      * @param value
      *     allowed object is

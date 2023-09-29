@@ -14,7 +14,6 @@ import cr.ac.una.tarea.service.JobsService;
 import cr.ac.una.tarea.service.WorkersService;
 import cr.ac.una.tarea.soap.Competences;
 import cr.ac.una.tarea.soap.Jobs;
-import cr.ac.una.tarea.soap.JobsDto;
 import cr.ac.una.tarea.util.FlowController;
 import cr.ac.una.tarea.util.Mensaje;
 import cr.ac.una.tarea.util.Respuesta;
@@ -127,13 +126,10 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private BorderPane OptionsCompetencesView;
     @FXML
     private TextField NameCompetencesField;
-   
     @FXML
     private BorderPane OptionsPuestosView;
     @FXML
     private TextField PositionJobField;
-
-    public static ToggleGroup role;
     @FXML
     private TextField textFieldSearch_Name;
     @FXML
@@ -146,7 +142,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TextField textFieldSearch_Susername;
     @FXML
     private CheckBox ActiveJobsCheck;
-
     @FXML
     private CheckBox StateCompetencesCheck;
     @FXML
@@ -167,13 +162,10 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TextField textFieldSJob_Name;
     @FXML
     private TextField textFieldSJob_State;
-
     @FXML
     private TextField textFieldSComp_Name;
     @FXML
     private TextField textFieldSComp_State;
-    private TextField textFieldSComp_Charac;
-
     @FXML
     private TableView<JobDto> tableViewJobsW;
     @FXML
@@ -214,18 +206,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TableColumn<CompetenceDto, String> tableColCompStaAss;
     @FXML
     private TableColumn<CompetenceDto, String> tableColCompCharacAss;
-
-    boolean delete = false;
-    private ObservableList<CharacteristicsDto> selectedCharacteristicList;
-    private ObservableList<CharacteristicsDto> characteristicList;
-    private ObservableList<WorkerDto> workerList;
-    private ObservableList<JobDto> jobsList;
-    private ObservableList<CompetenceDto> competencesList;
-    List<CompetenceDto> competencesListAss = new ArrayList<>();
-    WorkerDto workerDto;
-    InformationDto informationDto;
-    CompetenceDto competenceDto;
-    JobDto jobDto;
     @FXML
     private Button deleteWorkerBtn;
     @FXML
@@ -242,17 +222,14 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TableColumn<CharacteristicsDto, String> tableColCharactName;
     @FXML
     private TextField textFieldMCharact_Name;
-
-    CharacteristicsDto selectedCharacteristics;
     @FXML
     private TextField CompetenceCharacteristicField;
     @FXML
-    private BorderPane viewChooseCompetence;
+    private AnchorPane viewChooseCompetence;
     @FXML
     private Pane viewChooseJobs1;
     @FXML
-    private BorderPane viewSettingsCharacteristics;
-     List<InformationDto> list;
+    private AnchorPane viewSettingsCharacteristics;
     @FXML
     private Tab tabMantComp;
     @FXML
@@ -272,33 +249,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private TextField InfoKeytxt1;
     @FXML
-    private AnchorPane root7;
-    @FXML
-    private ImageView image7;
-    @FXML
     private AnchorPane root6;
-    @FXML
-    private ImageView image6;
-    @FXML
-    private AnchorPane root5;
-    @FXML
-    private ImageView image5;
-    @FXML
-    private AnchorPane root4;
-    @FXML
-    private ImageView image4;
-    @FXML
-    private AnchorPane root3;
-    @FXML
-    private ImageView image3;
-    @FXML
-    private AnchorPane root2;
-    @FXML
-    private ImageView image2;
-    @FXML
-    private AnchorPane root1;
-    @FXML
-    private ImageView image1;
     @FXML
     private TextField textFieldMCharact_NameComp;
     @FXML
@@ -312,7 +263,21 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private TableColumn<CompetenceDto, String> tableColCCompStaAssoc;
      
-
+    CharacteristicsDto selectedCharacteristics;
+    boolean delete = false;
+    private ObservableList<CharacteristicsDto> selectedCharacteristicList;
+    private ObservableList<CharacteristicsDto> characteristicList;
+    private ObservableList<WorkerDto> workerList;
+    private ObservableList<JobDto> jobsList;
+    private ObservableList<CompetenceDto> competencesList;
+    List<CompetenceDto> competencesListAss = new ArrayList<>();
+    WorkerDto workerDto;
+    InformationDto informationDto;
+    CompetenceDto competenceDto;
+    JobDto jobDto;
+    public static ToggleGroup role;
+    List<InformationDto> list;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         

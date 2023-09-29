@@ -162,4 +162,6 @@
     -fx-border-color: #212121;
     -fx-border-width: 2px;
 }
-
+BorderPane {
+    -fx-background-image: url(../resources/BackgroundLogin.jpg);
+}
