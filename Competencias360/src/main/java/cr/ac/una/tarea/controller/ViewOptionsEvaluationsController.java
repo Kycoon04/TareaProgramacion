@@ -182,7 +182,29 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     private GridPane gridEvaGeneral;
     @FXML
     private GridPane gridResGeneral;
-    
+    @FXML
+    private BorderPane OptionsSelectEvaluatorView;
+    @FXML
+    private Text textNameEvaluatedProcess;
+    @FXML
+    private Text textNameProcess11;
+    @FXML
+    private TableView<EvaluatorDto> tableViewEvaluator;
+    @FXML
+    private TableColumn<EvaluatorDto, String> tableColEvaluator_Ident;
+    @FXML
+    private TableColumn<EvaluatorDto, String> tableColEvaluator_Name;
+    @FXML
+    private TableColumn<EvaluatorDto, String> tableColEvaluator_Psurname;
+    @FXML
+    private TableColumn<EvaluatorDto, String> tableColEvaluator_Ssurname;
+    @FXML
+    private TableColumn<EvaluatorDto, String> tableColEvaluator_User;
+    @FXML
+    private TableColumn<EvaluatorDto, String> tableColEvaluator_Email;
+    @FXML
+    private TableColumn<EvaluatorDto, String> tableColEvaluator_State;
+
     private WorkerDto workerDto;
     private ProcesosevaDto procesoDto;
     private EvaluatorDto evaluatorDto;
@@ -199,10 +221,12 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     private List<EvaluatedsDto> listEvaluateds = new ArrayList<>();
     private List<EvaluatorDto> evaluateds = new ArrayList<>();
     private ObservableList<EvaluatorDto> evaluatedList;
+    private ObservableList<EvaluatorDto> evaluatorsList;
     private double startX, startY;
     private double xTab, yTab;
     private EvaluatorResultsDto evaluatorResultsDto = new EvaluatorResultsDto();
     private boolean delet = false;
+
     @FXML
     private void backEvaluationGen(ActionEvent event) {
         List<Button> botonesParaEliminar = new ArrayList<>();
@@ -369,30 +393,30 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
             int Redondeo = (int) Math.round(ResultadoDto.get().getRsNotasis());
             Double valor = ResultadoDto.get().getRsNotasis();
-            
-                if (Redondeo > valor) {
-                    btn.setGraphic(checkPositive);
+
+            if (Redondeo > valor) {
+                btn.setGraphic(checkPositive);
+                gridEvaGeneral.add(btn, i, Math.abs((int) Math.floor(ResultadoDto.get().getRsNotajefatura()) - 4));
+            } else {
+                if (Redondeo < valor) {
+                    btn.setGraphic(checkNegative);
                     gridEvaGeneral.add(btn, i, Math.abs((int) Math.floor(ResultadoDto.get().getRsNotajefatura()) - 4));
                 } else {
-                    if (Redondeo < valor) {
-                        btn.setGraphic(checkNegative);
-                        gridEvaGeneral.add(btn, i, Math.abs((int) Math.floor(ResultadoDto.get().getRsNotajefatura()) - 4));
-                    } else {
-                        btn.setGraphic(checkInstance);
-                        gridEvaGeneral.add(btn, i, Math.abs((int) Math.floor(ResultadoDto.get().getRsNotajefatura()) - 4));
-                    }
+                    btn.setGraphic(checkInstance);
+                    gridEvaGeneral.add(btn, i, Math.abs((int) Math.floor(ResultadoDto.get().getRsNotajefatura()) - 4));
                 }
-                sumaTotal += ResultadoDto.get().getRsNotasis();
+            }
+            sumaTotal += ResultadoDto.get().getRsNotasis();
         }
         for (int i = 0; i < listEvaluatorAss.size(); i++) {
-            if(listEvaluatorAss.get(i).getEvsConnection().equals("Jefatura")){
-            Texto += "$ : " + listEvaluatorAss.get(i).getEvsFeedback() + "\n";
-            }else{
-            if(listEvaluatorAss.get(i).getEvsConnection().equals("Autoevaluación")){
-            Texto += "& : " + listEvaluatorAss.get(i).getEvsFeedback() + "\n";
-            }else{
-            Texto += listEvaluatorAss.get(i).getEvsFeedback() + "\n";
-            }
+            if (listEvaluatorAss.get(i).getEvsConnection().equals("Jefatura")) {
+                Texto += "$ : " + listEvaluatorAss.get(i).getEvsFeedback() + "\n";
+            } else {
+                if (listEvaluatorAss.get(i).getEvsConnection().equals("Autoevaluación")) {
+                    Texto += "& : " + listEvaluatorAss.get(i).getEvsFeedback() + "\n";
+                } else {
+                    Texto += listEvaluatorAss.get(i).getEvsFeedback() + "\n";
+                }
             }
         }
         textEvaluationGen_Feedback.setText(Texto);
@@ -409,25 +433,13 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        OptionsMenuView.toFront();
         workerDto = FlowController.worker;
-        workerDto.getName();
-        
-     /*   image1.fitHeightProperty().bind(root1.heightProperty());
-        image1.fitWidthProperty().bind(root1.widthProperty());
-        
-        image2.fitHeightProperty().bind(root2.heightProperty());
-        image2.fitWidthProperty().bind(root2.widthProperty());
-        
-        image3.fitHeightProperty().bind(root3.heightProperty());
-        image3.fitWidthProperty().bind(root3.widthProperty());
-        
-        image4.fitHeightProperty().bind(root4.heightProperty());
-        image4.fitWidthProperty().bind(root4.widthProperty());
-        
-        image5.fitHeightProperty().bind(root5.heightProperty());
-        image5.fitWidthProperty().bind(root5.widthProperty());
-        */
+        if (workerDto.getAdministrator().equals("N")) {
+            optionBack.setText("Cerrar Sesión");
+            optionBack1.setText("Cerrar Sesión");
+            optionBack2.setText("Cerrar Sesión");
+        }
+        OptionsMenuView.toFront();
 
         this.tableColProEva_State.setCellValueFactory(new PropertyValueFactory("State"));
         this.tableColProEva_Name.setCellValueFactory(new PropertyValueFactory("Name"));
@@ -454,6 +466,14 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         this.tableColEvaluated_User.setCellValueFactory(new PropertyValueFactory("EvUsername"));
         this.tableColEvaluated_Email.setCellValueFactory(new PropertyValueFactory("EvEmail"));
         this.tableColEvaluated_State.setCellValueFactory(new PropertyValueFactory("EvsStateList"));
+
+        this.tableColEvaluator_Ident.setCellValueFactory(new PropertyValueFactory("Iden"));
+        this.tableColEvaluator_Name.setCellValueFactory(new PropertyValueFactory("Name"));
+        this.tableColEvaluator_Psurname.setCellValueFactory(new PropertyValueFactory("Psurname"));
+        this.tableColEvaluator_Ssurname.setCellValueFactory(new PropertyValueFactory("Ssurname"));
+        this.tableColEvaluator_User.setCellValueFactory(new PropertyValueFactory("Username"));
+        this.tableColEvaluator_Email.setCellValueFactory(new PropertyValueFactory("Email"));
+        this.tableColEvaluator_State.setCellValueFactory(new PropertyValueFactory("EvsStateList"));
         mouseBton();
     }
 
@@ -655,7 +675,11 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
     @FXML
     private void Back(ActionEvent event) {
         grid.getChildren().clear();
-        FlowController.getInstance().goMain("ViewOptionsModules");
+        if (workerDto.getAdministrator().equals("N")) {
+            FlowController.getInstance().goMain("ViewModuleWorkers");
+        } else {
+            FlowController.getInstance().goMain("ViewOptionsModules");
+        }
     }
 
     @FXML
@@ -793,6 +817,23 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         this.tableViewEvaluated.setItems(evaluatedList);
 
     }
+    Predicate<EvaluatedsDto> getEvaluated = x -> x.getEsProcesoeva().getEnName().equals(procesoDto.getName());
+
+    public void ImportEvaluators() {
+        EvaluatedService service = new EvaluatedService();
+        Respuesta respuesta = service.getEvaluateds();
+        listEvaluateds = (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
+        listEvaluateds = listEvaluateds.stream().filter(getEvaluated.and(x -> x.getEsWorker().getWrId().equals(workerDto.getId()))).toList();
+        EvaluatedsDto evaluated = listEvaluateds.get(0);
+        EvaluatorService serviceEva = new EvaluatorService();
+        Respuesta respuestaEva = serviceEva.getEvaluators();
+        evaluateds = (List<EvaluatorDto>) respuestaEva.getResultado("Evaluators");
+        evaluateds = evaluateds.stream().filter(x -> x.getEvsEvaluated().getEsId().equals(evaluated.getId())).toList();
+        evaluatorsList = FXCollections.observableArrayList(evaluateds);
+        this.tableViewEvaluator.refresh();
+        this.tableViewEvaluator.setItems(evaluatorsList);
+
+    }
 
     @FXML
     private void procesoevaClicked(MouseEvent event) {
@@ -810,6 +851,17 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
 
     @FXML
     private void procesoEvaluatedClicked(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            try {
+                procesoDto = tableColProEvaluated.getSelectionModel().getSelectedItem();
+                textNameEvaluatedProcess.setText(procesoDto.getName());
+                ImportEvaluators();
+                OptionsSelectEvaluatorView.toFront();
+            } catch (Exception ex) {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un proceso en este campo.");
+            }
+        }
+
     }
 
     @FXML
