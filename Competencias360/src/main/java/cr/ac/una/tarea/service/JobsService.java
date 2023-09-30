@@ -15,11 +15,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Esta clase proporciona servicios relacionados con los puestos de trabajo,
+ * incluyendo guardar, obtener, obtener por nombre, eliminar y obtener todos los
+ * puestos de trabajo utilizando un servicio web SOAP (ModuleJobs).
  *
  * @author dilan
  */
 public class JobsService {
 
+    /**
+     * Guarda la información de un puesto de trabajo llamando al método
+     * registerJob del servicio web SOAP ModuleJobs.
+     *
+     * @param jobDto El objeto de transferencia de datos que contiene la
+     * información del puesto de trabajo.
+     * @return Una respuesta que indica el éxito o fracaso de la operación.
+     */
     public Respuesta SaveJob(JobDto jobDto) {
         try {
             ModuleJobs_Service servicio = new ModuleJobs_Service();
@@ -38,6 +49,14 @@ public class JobsService {
         }
     }
 
+    /**
+     * Obtiene la información de un puesto de trabajo por nombre llamando al
+     * método getJob del servicio web SOAP ModuleJobs.
+     *
+     * @param jobName El nombre del puesto de trabajo.
+     * @return Una respuesta que contiene la información del puesto de trabajo o
+     * indica un error.
+     */
     public Respuesta getJob(String jobName) {
         try {
             ModuleJobs_Service servicio = new ModuleJobs_Service();
@@ -55,6 +74,13 @@ public class JobsService {
         }
     }
 
+    /**
+     * Elimina un puesto de trabajo por ID llamando al método delete del
+     * servicio web SOAP ModuleJobs.
+     *
+     * @param id El identificador del puesto de trabajo que se va a eliminar.
+     * @return Una respuesta que indica el éxito o fracaso de la operación.
+     */
     public Respuesta deleteJob(int id) {
         try {
             ModuleJobs_Service servicio = new ModuleJobs_Service();
@@ -67,6 +93,13 @@ public class JobsService {
         }
     }
 
+    /**
+     * Obtiene la información de todos los puestos de trabajo llamando al método
+     * getJobs del servicio web SOAP ModuleJobs.
+     *
+     * @return Una respuesta que contiene la lista de puestos de trabajo o
+     * indica un error.
+     */
     public Respuesta getJobs() {
         try {
             ModuleJobs_Service servicio = new ModuleJobs_Service();

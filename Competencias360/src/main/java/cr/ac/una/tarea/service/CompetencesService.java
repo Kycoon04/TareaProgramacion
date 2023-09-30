@@ -18,6 +18,13 @@ import java.util.logging.Logger;
  *
  * @author dilan
  */
+/**
+ * Esta clase proporciona servicios relacionados con las competencias,
+ * incluyendo guardar, obtener y eliminar competencias utilizando un servicio
+ * web SOAP (ModuleCompetences).
+ *
+ * @author dilan
+ */
 public class CompetencesService {
 
     public Respuesta SaveCompetence(CompetenceDto competenceDto) {
@@ -38,6 +45,14 @@ public class CompetencesService {
         }
     }
 
+    /**
+     * Guarda una competencia llamando al método registerCompetences del
+     * servicio web SOAP ModuleCompetences.
+     *
+     * @param competenceDto El objeto de transferencia de datos que contiene la
+     * información de la competencia.
+     * @return Una respuesta que indica el éxito o fracaso de la operación.
+     */
     public Respuesta getCompetences() {
         try {
             ModuleCompetences_Service servicio = new ModuleCompetences_Service();
@@ -60,8 +75,15 @@ public class CompetencesService {
             return new Respuesta(false, "Error obteniendo las competencias.", "getCompetences" + ex.getMessage());
         }
     }
-    
-        public Respuesta eliminarCompe(int id) {
+
+    /**
+     * Obtiene las competencias llamando al método getCompetences del servicio
+     * web SOAP ModuleCompetences.
+     *
+     * @return Una respuesta que contiene la lista de competencias o indica un
+     * error.
+     */
+    public Respuesta eliminarCompe(int id) {
         try {
             ModuleCompetences_Service servicio = new ModuleCompetences_Service();
             ModuleCompetences cliente = servicio.getModuleCompetencesPort();

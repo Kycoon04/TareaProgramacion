@@ -23,8 +23,30 @@ import java.util.logging.Logger;
  *
  * @author jomav
  */
+/**
+ * Esta clase proporciona servicios relacionados con los evaluadores y procesos
+ * de evaluación, incluyendo guardar, obtener y eliminar evaluadores utilizando
+ * un servicio web SOAP (ModuleEvaluated).
+ *
+ * También gestiona la información de los procesos de evaluación, como fechas
+ * relacionadas, utilizando un servicio web SOAP adicional
+ * (ModuleJobsCompetences).
+ *
+ * @author jomav
+ */
 public class EvaluatedService {
 
+    /**
+     * Guarda la información de un evaluador y procesos de evaluación llamando a
+     * los métodos registerEvaluated y setDate del servicio web SOAP
+     * ModuleEvaluated y ModuleJobsCompetences respectivamente.
+     *
+     * @param evaluatedDto El objeto de transferencia de datos que contiene la
+     * información del evaluador.
+     * @param proceso El objeto que contiene información sobre el proceso de
+     * evaluación.
+     * @return Una respuesta que indica el éxito o fracaso de la operación.
+     */
     public Respuesta SaveEvaluated(EvaluatedsDto evaluatedDto, ProcesosevaDto proceso) {
         try {
             ModuleEvaluated_Service servicio = new ModuleEvaluated_Service();
@@ -47,6 +69,13 @@ public class EvaluatedService {
         }
     }
 
+    /**
+     * Obtiene la información de los evaluadores llamando al método
+     * getEvaluateds del servicio web SOAP ModuleEvaluated.
+     *
+     * @return Una respuesta que contiene la lista de evaluadores o indica un
+     * error.
+     */
     public Respuesta getEvaluateds() {
         try {
             ModuleEvaluated_Service servicio = new ModuleEvaluated_Service();
@@ -69,10 +98,17 @@ public class EvaluatedService {
             return new Respuesta(false, "Error obteniendo los puestos.", "getJobs" + ex.getMessage());
         }
     }
-    
-        public Respuesta eliminarEvaluated(int id) {
+
+    /**
+     * Elimina un evaluador llamando al método delete del servicio web SOAP
+     * ModuleEvaluated.
+     *
+     * @param id El identificador del evaluador que se va a eliminar.
+     * @return Una respuesta que indica el éxito o fracaso de la operación.
+     */
+    public Respuesta eliminarEvaluated(int id) {
         try {
-              ModuleEvaluated_Service servicio = new ModuleEvaluated_Service();
+            ModuleEvaluated_Service servicio = new ModuleEvaluated_Service();
             ModuleEvaluated cliente = servicio.getModuleEvaluatedPort();
 
             cliente.delete(id);

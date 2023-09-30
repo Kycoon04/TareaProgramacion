@@ -32,17 +32,33 @@ public class Email {
     private String password;
     private String name;
     private String info;
-
+ /**
+     * Constructor de la clase Email.
+     *
+     * @param destino Dirección de correo electrónico del destinatario.
+     * @param usuario Dirección de correo electrónico del remitente.
+     * @param asunto Asunto del correo electrónico.
+     */
     public Email(String destino, String usuario, String asunto) {
         this.sourceMail = "";
         this.destinationMail = destino;
         this.asunt = asunto;
     }
 
+    /**
+     * Método para enviar correos electrónicos relacionados con informes.
+     *
+     * @param link Enlace que se incluirá en el cuerpo del correo.
+     */
     public void envioDeCorreos(String link) {
         enviarCorreoReporte(link);
     }
 
+    /**
+     * Método para enviar correos electrónicos relacionados con el cambio de contraseña.
+     *
+     * @param link Enlace que se incluirá en el cuerpo del correo.
+     */
     public void envioCmbClave(String link) {
         enviarClave(link);
     }

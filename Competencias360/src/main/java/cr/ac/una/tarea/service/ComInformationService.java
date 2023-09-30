@@ -19,8 +19,23 @@ import java.util.logging.Logger;
  *
  * @author dilan
  */
+/**
+ * Esta clase proporciona servicios relacionados con la información de la
+ * empresa, incluyendo guardar y obtener información utilizando un servicio web
+ * SOAP (ModuleComInformation).
+ *
+ * @author dilan
+ */
 public class ComInformationService {
 
+    /**
+     * Guarda la información de la empresa llamando al método generalParameters
+     * del servicio web SOAP ModuleComInformation.
+     *
+     * @param comInformationDto El objeto de transferencia de datos que contiene
+     * la información de la empresa.
+     * @return Una respuesta que indica el éxito o fracaso de la operación.
+     */
     public Respuesta SaveInformation(InformationDto comInformationDto) {
         try {
             ModuleComInformation_Service servicio = new ModuleComInformation_Service();
@@ -41,6 +56,13 @@ public class ComInformationService {
         }
     }
 
+    /**
+     * Obtiene la información de la empresa llamando al método getComInfo del
+     * servicio web SOAP ModuleComInformation.
+     *
+     * @return Una respuesta que contiene la información de la empresa o indica
+     * un error.
+     */
     public Respuesta getComInformation() {
         try {
             ModuleComInformation_Service servicio = new ModuleComInformation_Service();
