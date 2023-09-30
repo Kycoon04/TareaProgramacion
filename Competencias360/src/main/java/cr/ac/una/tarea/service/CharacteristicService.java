@@ -18,8 +18,8 @@ import java.util.logging.Logger;
  *
  * @author Anderson
  */
-public class CharacteristicService {
 
+public class CharacteristicService {
     public Respuesta SaveCharacteristic(CharacteristicsDto characteristicsDto) {
         try {
             ModuleCharacteristic_Service servicio = new ModuleCharacteristic_Service();
@@ -37,7 +37,6 @@ public class CharacteristicService {
             return new Respuesta(false, "Error guardando el empleado.", "guardarEmpleado " + ex.getMessage());
         }
     }
-
     public Respuesta deleteCharacteristic(int id) {
         try {
             ModuleCharacteristic_Service servicio = new ModuleCharacteristic_Service();

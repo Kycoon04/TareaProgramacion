@@ -55,6 +55,7 @@ public class Email {
             System.out.println("Vacia");
             sourceMail = "competencias360develop@gmail.com";
             name = "Competencias360";
+            info= "la mejor empresa";
             password= "uuvjaqwjlqglbdhb"; 
         } else {
             list = (List<InformationDto>) respuesta.getResultado("ComInformation");
