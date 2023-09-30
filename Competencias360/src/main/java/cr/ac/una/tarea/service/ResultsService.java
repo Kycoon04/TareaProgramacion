@@ -21,10 +21,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Esta clase proporciona servicios relacionados con los resultados de
+ * evaluación, incluyendo guardar y eliminar resultados utilizando servicios web
+ * SOAP (ModuleEvaluators y ModuleResult).
  *
  * @author dilan
  */
 public class ResultsService {
+/**
+     * Guarda la información de un resultado de evaluación llamando al método
+     * registerResult del servicio web SOAP ModuleResult.
+     *
+     * @param results El objeto de transferencia de datos que contiene la
+     * información del resultado.
+     * @param proceso El objeto de transferencia de datos que contiene la
+     * información del proceso de evaluación.
+     * @return Una respuesta que indica el éxito o fracaso de la operación.
+     */
 
     public Respuesta SaveResult(ResultsDto results, ProcesosevaDto proceso) {
         try {
@@ -55,7 +68,14 @@ public class ResultsService {
             return new Respuesta(false, "Error guardando el resultado.", "guardarEmpleado " + ex.getMessage());
         }
     }
-
+  /**
+     * Elimina un resultado de evaluación por ID llamando al método delete del
+     * servicio web SOAP ModuleResult.
+     *
+     * @param id El identificador del resultado de evaluación que se va a
+     * eliminar.
+     * @return Una respuesta que indica el éxito o fracaso de la operación.
+     */
     public Respuesta getResults() {
         try {
             ModuleResult_Service servicio = new ModuleResult_Service();

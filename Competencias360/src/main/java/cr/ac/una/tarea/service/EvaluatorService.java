@@ -20,17 +20,34 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Esta clase proporciona servicios relacionados con los evaluadores, incluyendo
+ * guardar, obtener, obtener por ID y eliminar evaluadores utilizando un
+ * servicio web SOAP (ModuleEvaluators).
+ *
+ * También gestiona la información relacionada con los procesos de evaluación
+ * asociados a los evaluadores utilizando un servicio web SOAP adicional
+ * (ModuleJobs_Service).
  *
  * @author dilan
  */
 public class EvaluatorService {
 
+    /**
+     * Guarda la información de un evaluador llamando al método
+     * registerEvaluators del servicio web SOAP ModuleEvaluators.
+     *
+     * @param evaluatorDto El objeto de transferencia de datos que contiene la
+     * información del evaluador.
+     * @param proceso El objeto que contiene información sobre el proceso de
+     * evaluación asociado al evaluador.
+     * @return Una respuesta que indica el éxito o fracaso de la operación.
+     */
     public Respuesta SaveEvaluator(EvaluatorDto evaluatorDto, ProcesosevaDto proceso) {
         try {
             ModuleEvaluators_Service servicio = new ModuleEvaluators_Service();
             ModuleEvaluators cliente = servicio.getModuleEvaluatorsPort();
             Procesoeva aux = new Procesoeva();
-            
+
             cliente.setAllDates(aux,
                     proceso.getApplication().toString(),
                     proceso.getFinalperiod().toString(),
@@ -53,6 +70,14 @@ public class EvaluatorService {
         }
     }
 
+    /**
+     * Obtiene la información de un evaluador por ID llamando al método
+     * getEvaluatorById del servicio web SOAP ModuleEvaluators.
+     *
+     * @param id El identificador del evaluador.
+     * @return Una respuesta que contiene la información del evaluador o indica
+     * un error.
+     */
     public Respuesta getEvaluatorByID(int id) {
         try {
             ModuleEvaluators_Service servicio = new ModuleEvaluators_Service();
@@ -72,6 +97,13 @@ public class EvaluatorService {
         }
     }
 
+    /**
+     * Elimina un evaluador llamando al método delete del servicio web SOAP
+     * ModuleEvaluators.
+     *
+     * @param id El identificador del evaluador que se va a eliminar.
+     * @return Una respuesta que indica el éxito o fracaso de la operación.
+     */
     public Respuesta eliminarEvaluator(int id) {
         try {
             ModuleEvaluators_Service servicio = new ModuleEvaluators_Service();
@@ -83,9 +115,17 @@ public class EvaluatorService {
             return new Respuesta(false, "Error eliminando el Evaluador.", "eliminarEvaluador " + ex.getMessage());
         }
     }
+
+    /**
+     * Obtiene la información de todos los evaluadores llamando al método
+     * getEvaluators del servicio web SOAP ModuleEvaluators.
+     *
+     * @return Una respuesta que contiene la lista de evaluadores o indica un
+     * error.
+     */
     public Respuesta getEvaluators() {
         try {
-           ModuleEvaluators_Service servicio = new ModuleEvaluators_Service();
+            ModuleEvaluators_Service servicio = new ModuleEvaluators_Service();
             ModuleEvaluators cliente = servicio.getModuleEvaluatorsPort();
 
             List<EvaluatorsDto> jobsWs = cliente.getEvaluators();

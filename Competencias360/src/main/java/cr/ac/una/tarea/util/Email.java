@@ -33,16 +33,33 @@ public class Email {
     private String name;
     private String info;
 
+    /**
+     * Constructor de la clase Email.
+     *
+     * @param destino Dirección de correo electrónico del destinatario.
+     * @param usuario Dirección de correo electrónico del remitente.
+     * @param asunto Asunto del correo electrónico.
+     */
     public Email(String destino, String usuario, String asunto) {
         this.sourceMail = "competencias360develop@gmail.com";
         this.destinationMail = destino;
         this.asunt = asunto;
     }
 
+    /**
+     * Método para enviar correos electrónicos relacionados con informes.
+     *
+     * @param link Enlace que se incluirá en el cuerpo del correo.
+     */
     public void envioDeCorreos(String link) {
         enviarCorreoReporte(link);
     }
 
+    /**
+     * Método para enviar correos electrónicos relacionados con informes.
+     *
+     * @param link Enlace que se incluirá en el cuerpo del correo.
+     */
     public void envioCmbClave(String link) {
         enviarClave(link);
     }
@@ -55,14 +72,14 @@ public class Email {
             System.out.println("Vacia");
             sourceMail = "competencias360develop@gmail.com";
             name = "Competencias360";
-            info= "la mejor empresa";
-            password= "uuvjaqwjlqglbdhb"; 
+            info = "la mejor empresa";
+            password = "uuvjaqwjlqglbdhb";
         } else {
             list = (List<InformationDto>) respuesta.getResultado("ComInformation");
             sourceMail = list.get(0).getEmail();
             name = list.get(0).getName();
             info = list.get(0).getInformation();
-            password= list.get(0).getCpKey();
+            password = list.get(0).getCpKey();
         }
         try {
 
@@ -164,7 +181,7 @@ public class Email {
             mensaje.setContent(multipart);
 
             Transport transport = session.getTransport("smtp");
-            transport.connect(sourceMail, password); 
+            transport.connect(sourceMail, password);
             if (transport.isConnected()) {
                 transport.sendMessage(mensaje, mensaje.getAllRecipients());
                 transport.close();
@@ -175,23 +192,23 @@ public class Email {
     }
 
     private void enviarClave(String link) {
-     ComInformationService comInformationService = new ComInformationService();
+        ComInformationService comInformationService = new ComInformationService();
         Respuesta respuesta = comInformationService.getComInformation();
         List<InformationDto> list;
         if (!respuesta.getEstado()) {
             System.out.println("Vacia");
             sourceMail = "competencias360develop@gmail.com";
             name = "Competencias360";
-            password= "uuvjaqwjlqglbdhb"; 
+            password = "uuvjaqwjlqglbdhb";
         } else {
             list = (List<InformationDto>) respuesta.getResultado("ComInformation");
             sourceMail = list.get(0).getEmail();
             name = list.get(0).getName();
             info = list.get(0).getInformation();
-            password= list.get(0).getCpKey();
-            
+            password = list.get(0).getCpKey();
+
         }
-     
+
         try {
             Properties p = new Properties();
             p.put("mail.smtp.host", "smtp.gmail.com");

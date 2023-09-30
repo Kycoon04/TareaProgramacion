@@ -15,10 +15,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Esta clase proporciona servicios relacionados con las competencias,
+ * incluyendo guardar, obtener y eliminar competencias utilizando un servicio
+ * web SOAP (ModuleCompetences).
  *
  * @author dilan
  */
+
 public class CompetencesService {
+  /**
+     * Guarda una competencia llamando al método registerCompetences del
+     * servicio web SOAP ModuleCompetences.
+     *
+     * @param competenceDto El objeto de transferencia de datos que contiene la
+     * información de la competencia.
+     * @return Una respuesta que indica el éxito o fracaso de la operación.
+     */
 
     public Respuesta SaveCompetence(CompetenceDto competenceDto) {
         try {
@@ -36,7 +48,13 @@ public class CompetencesService {
             return new Respuesta(false, "Error guardando el empleado.", "guardarEmpleado " + ex.getMessage());
         }
     }
-
+/**
+     * Obtiene las competencias llamando al método getCompetences del servicio
+     * web SOAP ModuleCompetences.
+     *
+     * @return Una respuesta que contiene la lista de competencias o indica un
+     * error.
+     */
     public Respuesta getCompetences() {
         try {
             ModuleCompetences_Service servicio = new ModuleCompetences_Service();

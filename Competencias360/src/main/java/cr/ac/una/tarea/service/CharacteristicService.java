@@ -15,11 +15,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Esta clase proporciona servicios relacionados con las características,
+ * incluyendo guardar, eliminar y recuperar características. Interactúa con un
+ * servicio web SOAP (ModuleCharacteristic) para realizar estas operaciones.
  *
  * @author Anderson
  */
-
 public class CharacteristicService {
+
+    /**
+     * Guarda una característica llamando al método registerCharacteristic del
+     * servicio web SOAP ModuleCharacteristic.
+     *
+     * @param characteristicsDto El objeto de transferencia de datos que
+     * contiene la información de la característica.
+     * @return Una respuesta que indica el éxito o fracaso de la operación.
+     */
     public Respuesta SaveCharacteristic(CharacteristicsDto characteristicsDto) {
         try {
             ModuleCharacteristic_Service servicio = new ModuleCharacteristic_Service();
@@ -37,6 +48,14 @@ public class CharacteristicService {
             return new Respuesta(false, "Error guardando el empleado.", "guardarEmpleado " + ex.getMessage());
         }
     }
+
+    /**
+     * Elimina una característica llamando al método delete del servicio web
+     * SOAP ModuleCharacteristic.
+     *
+     * @param id El identificador de la característica que se va a eliminar.
+     * @return Una respuesta que indica el éxito o fracaso de la operación.
+     */
     public Respuesta deleteCharacteristic(int id) {
         try {
             ModuleCharacteristic_Service servicio = new ModuleCharacteristic_Service();
@@ -49,6 +68,13 @@ public class CharacteristicService {
         }
     }
 
+    /**
+     * Recupera características llamando al método getCharacteristics del
+     * servicio web SOAP ModuleCharacteristic.
+     *
+     * @return Una respuesta que contiene una lista de características o indica
+     * un error.
+     */
     public Respuesta getCharacteristic() {
         try {
             ModuleCharacteristic_Service servicio = new ModuleCharacteristic_Service();
@@ -69,8 +95,8 @@ public class CharacteristicService {
 
                 return new Respuesta(true, "Error obteniendo las caracteristicas.", "getCharacteristic", "Characteristic", characteristics);
             } else {
-              
-                return new Respuesta(false, "Error obteniendo las caracteristicas.", "getCharacteristic" );
+
+                return new Respuesta(false, "Error obteniendo las caracteristicas.", "getCharacteristic");
             }
         } catch (Exception ex) {
             Logger.getLogger(CharacteristicService.class.getName()).log(Level.SEVERE, "Error obteniendo los caracteristicas.", ex);
