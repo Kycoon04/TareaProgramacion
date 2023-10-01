@@ -441,7 +441,9 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                     Image image = new Image(byteArrayInputStream);
                     UserMainPhoto.setFill(new ImagePattern(image));
                 }
+                if (workerDto.getJob() != null) {
                 JobMainField.setText(String.valueOf(workerDto.getJob().getJsName()));
+                }
                 tabPaneMantWorkers.getSelectionModel().select(tabMantWorkers);
             }
         }

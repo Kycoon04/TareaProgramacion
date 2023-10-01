@@ -1063,14 +1063,14 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         for (int i = 0; i < listEvaluators.size(); i++) {
             for (int j = 0; j < listWorkers.size(); j++) {
                 if (listWorkers.get(j).getName().equals(listEvaluators.get(i).getEvsWorker().getWrName())
-                        && listWorkers.get(j).getName().equals(listEvaluators.get(i).getEvsEvaluated().getEsWorker().getWrName())) {
+                        && evaluatedDto.getEsWorker().getWrName().equals(listEvaluators.get(i).getEvsEvaluated().getEsWorker().getWrName())) {
                     listWorkers.remove(j);
                 }
             }
         }
-        ObservableList<EvaluatorDto> evaluatorsList = FXCollections.observableArrayList(listEvaluators);
-        this.tableViewSelWorkersPE.refresh();
-        this.tableViewSelWorkersPE.setItems(evaluatorsList);
+        workerList = FXCollections.observableArrayList(listWorkers);
+        this.tableViewWorkersPE.refresh();
+        this.tableViewWorkersPE.setItems(workerList);
     }
 
     public void ImportListWorker() {
@@ -1078,10 +1078,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         Respuesta respuesta = service.getUsuarios();
         listWorkers = (List<WorkerDto>) respuesta.getResultado("Usuarios");
         changeTextAdmi(listWorkers);
-        ImportListWorkerEvaluators();
-        workerList = FXCollections.observableArrayList(listWorkers);
-        this.tableViewWorkersPE.refresh();
-        this.tableViewWorkersPE.setItems(workerList);
     }
 
     public List<EvaluatedsDto> getEvaluatorProcess(int IdProcess) {
@@ -1245,7 +1241,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     }
 
     @FXML
-    private void deleteWorkers(ActionEvent event) { // Metodo a trabajar
+    private void deleteWorkers(ActionEvent event) {
         workerList.clear();
         workersAssoc.clear();
         listWorkersEvaluated.clear();
@@ -1581,6 +1577,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private void openSelectEvaluators(ActionEvent event) {
         if (!WorkerCREMainField.getText().isEmpty()) {
             ImportListWorker();
+            ImportListWorkerEvaluators();
             listEvaluators = getlistEvaluators();
             ObservableList<EvaluatorDto> evaluatorsList = FXCollections.observableArrayList(listEvaluators);
             this.tableViewSelWorkersPE.refresh();
@@ -1589,7 +1586,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         } else {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Debes agregar un trabajador.");
         }
-
     }
 
     @FXML
@@ -1744,6 +1740,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             if (eliminar == true) {
                 ev = tableViewSelWorkersPE.getSelectionModel().getSelectedItem();
                 EvaluatorService valor = new EvaluatorService();
+                System.out.println(ev.getEvsId());
                 valor.eliminarEvaluator(ev.getEvsId());
                 ImportListWorker();
                 ImportListWorkerEvaluators();
