@@ -314,6 +314,91 @@
             </HBox>
          </center>
       </BorderPane>
+      <BorderPane fx:id="OptionsSelectEvaluatorView" layoutX="10.0" layoutY="10.0" onMouseClicked="#openEvaluations">
+         <center>
+            <HBox alignment="CENTER" style="-fx-background-radius: 30px;" BorderPane.alignment="CENTER">
+               <children>
+                  <TabPane tabClosingPolicy="UNAVAILABLE">
+                     <tabs>
+                        <Tab text="Evaluado">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="690.0" prefWidth="986.0">
+                                 <children>
+                                    <VBox prefHeight="721.0" prefWidth="987.0">
+                                       <children>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Evaluación" textAlignment="CENTER" wrappingWidth="417.9281220436096">
+                                             <font>
+                                                <Font name="Tw Cen MT" size="29.0" />
+                                             </font>
+                                          </Text>
+                                          <Separator prefHeight="18.0" prefWidth="947.0" visible="false" />
+                                          <Text fx:id="textNameEvaluatedProcess" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="378.91168212890625">
+                                             <font>
+                                                <Font name="Tw Cen MT" size="26.0" />
+                                             </font>
+                                          </Text>
+                                          <Separator prefHeight="44.0" prefWidth="947.0" visible="false" />
+                                          <Text fx:id="textNameProcess11" fill="WHITE" layoutX="30.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estos son tus evaluadores:" wrappingWidth="378.91168212890625">
+                                             <font>
+                                                <Font name="Tw Cen MT" size="26.0" />
+                                             </font>
+                                          </Text>
+                                          <Separator layoutX="30.0" layoutY="109.0" prefHeight="44.0" prefWidth="947.0" visible="false" />
+                                          <ScrollPane prefHeight="370.0" prefWidth="947.0">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="386.0" prefWidth="951.0">
+                                                   <children>
+                                                      <TableView fx:id="tableViewEvaluator" layoutX="-3.0" prefHeight="374.0" prefWidth="954.0">
+                                                         <columns>
+                                                            <TableColumn fx:id="tableColEvaluator_Ident" prefWidth="116.0" text="Cedula" />
+                                                            <TableColumn fx:id="tableColEvaluator_Name" prefWidth="98.0" text="Nombre" />
+                                                            <TableColumn fx:id="tableColEvaluator_Psurname" prefWidth="133.0" text="Primer Apellido" />
+                                                            <TableColumn fx:id="tableColEvaluator_Ssurname" prefWidth="176.0" text="Segundo Apellido" />
+                                                            <TableColumn fx:id="tableColEvaluator_User" prefWidth="115.0" text="Usuario" />
+                                                            <TableColumn fx:id="tableColEvaluator_Email" prefWidth="180.0" text="Email" />
+                                                            <TableColumn fx:id="tableColEvaluator_State" prefWidth="168.0" text="Estado" />
+                                                         </columns>
+                                                      </TableView>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </ScrollPane>
+                                          <Button mnemonicParsing="false" onMouseClicked="#backProEvaluator" prefHeight="89.0" prefWidth="103.0" style="-fx-background-color: transparent;">
+                                             <font>
+                                                <Font name="Tw Cen MT" size="16.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <graphic>
+                                                <ImageView fitHeight="86.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../resources/back.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+               </children>
+               <effect>
+                  <DropShadow height="166.05" radius="90.1275" width="196.46" />
+               </effect>
+               <BorderPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </BorderPane.margin>
+            </HBox>
+         </center>
+      </BorderPane>
       <BorderPane fx:id="OptionsEvaluationGeneralView" onMouseClicked="#openEvaluations">
          <center>
             <FlowPane maxHeight="750.0" maxWidth="1300.0" minHeight="750.0" minWidth="1300.0" prefHeight="750.0" prefWidth="1300.0" style="-fx-background-color: #212121;" BorderPane.alignment="CENTER">
@@ -986,91 +1071,6 @@
                      </HBox.margin>
                   </TabPane>
                </children>
-            </HBox>
-         </center>
-      </BorderPane>
-      <BorderPane fx:id="OptionsSelectEvaluatorView" layoutX="10.0" layoutY="10.0" onMouseClicked="#openEvaluations">
-         <center>
-            <HBox alignment="CENTER" style="-fx-background-radius: 30px;" BorderPane.alignment="CENTER">
-               <children>
-                  <TabPane tabClosingPolicy="UNAVAILABLE">
-                     <tabs>
-                        <Tab text="Evaluado">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="690.0" prefWidth="986.0">
-                                 <children>
-                                    <VBox prefHeight="721.0" prefWidth="987.0">
-                                       <children>
-                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Evaluación" textAlignment="CENTER" wrappingWidth="417.9281220436096">
-                                             <font>
-                                                <Font name="Tw Cen MT" size="29.0" />
-                                             </font>
-                                          </Text>
-                                          <Separator prefHeight="18.0" prefWidth="947.0" visible="false" />
-                                          <Text fx:id="textNameEvaluatedProcess" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="378.91168212890625">
-                                             <font>
-                                                <Font name="Tw Cen MT" size="26.0" />
-                                             </font>
-                                          </Text>
-                                          <Separator prefHeight="44.0" prefWidth="947.0" visible="false" />
-                                          <Text fx:id="textNameProcess11" fill="WHITE" layoutX="30.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estos son tus evaluadores:" wrappingWidth="378.91168212890625">
-                                             <font>
-                                                <Font name="Tw Cen MT" size="26.0" />
-                                             </font>
-                                          </Text>
-                                          <Separator layoutX="30.0" layoutY="109.0" prefHeight="44.0" prefWidth="947.0" visible="false" />
-                                          <ScrollPane prefHeight="370.0" prefWidth="947.0">
-                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="386.0" prefWidth="951.0">
-                                                   <children>
-                                                      <TableView fx:id="tableViewEvaluator" layoutX="-3.0" prefHeight="374.0" prefWidth="954.0">
-                                                         <columns>
-                                                            <TableColumn fx:id="tableColEvaluator_Ident" prefWidth="116.0" text="Cedula" />
-                                                            <TableColumn fx:id="tableColEvaluator_Name" prefWidth="98.0" text="Nombre" />
-                                                            <TableColumn fx:id="tableColEvaluator_Psurname" prefWidth="133.0" text="Primer Apellido" />
-                                                            <TableColumn fx:id="tableColEvaluator_Ssurname" prefWidth="176.0" text="Segundo Apellido" />
-                                                            <TableColumn fx:id="tableColEvaluator_User" prefWidth="115.0" text="Usuario" />
-                                                            <TableColumn fx:id="tableColEvaluator_Email" prefWidth="180.0" text="Email" />
-                                                            <TableColumn fx:id="tableColEvaluator_State" prefWidth="168.0" text="Estado" />
-                                                         </columns>
-                                                      </TableView>
-                                                   </children>
-                                                </AnchorPane>
-                                             </content>
-                                          </ScrollPane>
-                                          <Button mnemonicParsing="false" onMouseClicked="#backProEvaluator" prefHeight="89.0" prefWidth="103.0" style="-fx-background-color: transparent;">
-                                             <font>
-                                                <Font name="Tw Cen MT" size="16.0" />
-                                             </font>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <graphic>
-                                                <ImageView fitHeight="86.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../resources/back.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </Button>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                       </padding>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </Tab>
-                     </tabs>
-                  </TabPane>
-               </children>
-               <effect>
-                  <DropShadow height="166.05" radius="90.1275" width="196.46" />
-               </effect>
-               <BorderPane.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </BorderPane.margin>
             </HBox>
          </center>
       </BorderPane>

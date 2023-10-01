@@ -7,7 +7,7 @@
     <class>cr.ac.una.tarea.controllersssss.EvaCompetences</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:UNA"/>
-      <property name="javax.persistence.jdbc.user" value="una"/>
+      <property name="javax.persistence.jdbc.user" value="EvaComUNA"/>
       <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
       <property name="javax.persistence.jdbc.password" value="una"/>
     </properties>

@@ -459,7 +459,9 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private List<EvaluatedsDto> listEvaluatedDto = new ArrayList<>();
     private List<EvaluatorDto> listEvaluatorAss = new ArrayList<>();
     private HashMap<String, Float> resultado = new HashMap<>();
-    
+    @FXML
+    private Button btnSaveRes;
+
     @FXML
     private void SummitFinal(ActionEvent event) {
         ResultsService resultService = new ResultsService();
@@ -701,7 +703,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void searchEvaluated_Name(KeyEvent event) {
-         FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerListCRE, f -> true);
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerListCRE, f -> true);
 
         textFieldFollowUp_Name.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
@@ -721,7 +723,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void searchEvaluated_Ident(KeyEvent event) {
-                FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerListCRE, f -> true);
+        FilteredList<WorkerDto> filteredWorker = new FilteredList<>(workerListCRE, f -> true);
 
         textFieldFollowUp_Ident.textProperty().addListener((observable, value, newValue) -> {
             filteredWorker.setPredicate(WorkerDto -> {
@@ -729,7 +731,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (WorkerDto.getIden().toLowerCase().indexOf(search)==0) {
+                if (WorkerDto.getIden().toLowerCase().indexOf(search) == 0) {
                     return true;
                 } else {
                     return false;
@@ -738,7 +740,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         });
         filteredWorkersFU(filteredWorker);
     }
-    
 
     @FXML
     private void searchEvaluated_User(KeyEvent event) {
@@ -759,11 +760,13 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         });
         filteredWorkersFU(filteredWorker);
     }
-        private void filteredWorkersFU(FilteredList<WorkerDto> list) {
+
+    private void filteredWorkersFU(FilteredList<WorkerDto> list) {
         SortedList<WorkerDto> sorted = new SortedList<>(list);
         sorted.comparatorProperty().bind(tableViewWorkersFU.comparatorProperty());
         tableViewWorkersFU.setItems(sorted);
     }
+
     class cordenadas {
 
         double x, y;
@@ -782,34 +785,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         OptionsEvaConfigView.toFront();
         procesoDto = new ProcesosevaDto();
 
-        /*       
-        image1.fitHeightProperty().bind(root1.heightProperty());
-        image1.fitWidthProperty().bind(root1.widthProperty());
-        
-        image2.fitHeightProperty().bind(root2.heightProperty());
-        image2.fitWidthProperty().bind(root2.widthProperty());
-        
-        image3.fitHeightProperty().bind(root3.heightProperty());
-        image3.fitWidthProperty().bind(root3.widthProperty());
-        
-        image4.fitHeightProperty().bind(root4.heightProperty());
-        image4.fitWidthProperty().bind(root4.widthProperty());
-        
-        image5.fitHeightProperty().bind(root5.heightProperty());
-        image5.fitWidthProperty().bind(root5.widthProperty());
-        
-        image6.fitHeightProperty().bind(root6.heightProperty());
-        image6.fitWidthProperty().bind(root6.widthProperty());
-        
-        image7.fitHeightProperty().bind(root7.heightProperty());
-        image7.fitWidthProperty().bind(root7.widthProperty());
-        
-           
-        image8.fitHeightProperty().bind(root6.heightProperty());
-        image8.fitWidthProperty().bind(root6.widthProperty());
-        
-        image9.fitHeightProperty().bind(root7.heightProperty());
-        image9.fitWidthProperty().bind(root7.widthProperty());*/
         this.tableColActPE.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColIdentifPE.setCellValueFactory(new PropertyValueFactory("iden"));
         this.tableColNamePE.setCellValueFactory(new PropertyValueFactory("name"));
@@ -882,7 +857,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     }
 
     public void reviewStateProcess() {
-        if (choiceBoxStateEva.getValue() == "En revisión") {
+        if (choiceBoxStateEva.getValue() == "En revisión"||choiceBoxStateEva.getValue() == "Finalizada") {
             btnConfigEva.setText("Revisar Nota");
             btnConfigMenu.setVisible(false);
             btnAssignMenu.setVisible(false);
@@ -894,7 +869,11 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             btnAssignFollowUp.setVisible(false);
             btnResultGeneral.setVisible(true);
             btnExcel.setVisible(true);
-             textResultEva.setVisible(true);
+            textResultEva.setVisible(true);
+            btnSaveRes.setVisible(true);
+            if(choiceBoxStateEva.getValue() == "Finalizada"){
+                btnSaveRes.setVisible(false);
+            }
         } else {
             btnResultGeneral.setVisible(false);
             btnConfigEva.setText("Configuración Evaluación");
@@ -1053,7 +1032,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (WorkerDto.getIden().toLowerCase().indexOf(search)==0) {
+                if (WorkerDto.getIden().toLowerCase().indexOf(search) == 0) {
                     return true;
                 } else {
                     return false;
@@ -1177,7 +1156,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private void addEvaluateWorkers(ActionEvent event) {
         EvaluatedService evaluated = new EvaluatedService();
-
+         Respuesta respuesta=new Respuesta();
         for (WorkerDto workerSel : workersListSel) {
             Procesoeva proceso = new Procesoeva();
             proceso.setEnId(procesoDto.getId());
@@ -1202,7 +1181,12 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             worker.setWrUsername(workerSel.getUsername());
             evaluatedDto.setEsProcesoeva(proceso);
             evaluatedDto.setEsWorker(worker);
-            evaluated.SaveEvaluated(evaluatedDto, procesoDto);
+            respuesta=evaluated.SaveEvaluated(evaluatedDto, procesoDto);
+        }
+        if (!respuesta.getEstado()) {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar evaluados", getStage(), respuesta.getMensaje());
+        } else {
+            new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar evaluados", getStage(), "Evaluados agregados correctamente.");
         }
     }
 
@@ -1365,7 +1349,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (WorkerDto.getIden().toLowerCase().indexOf(search)==0) {
+                if (WorkerDto.getIden().toLowerCase().indexOf(search) == 0) {
                     return true;
                 } else {
                     return false;
@@ -1425,7 +1409,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                     return true;
                 }
                 String search = newValue.toLowerCase();
-                if (WorkerDto.getActives().toLowerCase().indexOf(search)==0) {
+                if (WorkerDto.getActives().toLowerCase().indexOf(search) == 0) {
                     return true;
                 } else {
                     return false;
@@ -1542,7 +1526,13 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         evaluator.setEvsEvaluated(evaluated);
         listEvaluators.add(evaluator);
         ObservableList<EvaluatorDto> evaluatorsList = FXCollections.observableArrayList(listEvaluators);
-        cliente.SaveEvaluator(evaluator, procesoDto);
+        respuesta = cliente.SaveEvaluator(evaluator, procesoDto);
+        if (!respuesta.getEstado()) {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar evaluador", getStage(), respuesta.getMensaje());
+        } else {
+            new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar evaluador", getStage(), "Evaluador agregado correctamente.");
+        }
+
         this.tableViewSelWorkersPE.refresh();
         this.tableViewSelWorkersPE.setItems(evaluatorsList);
 
@@ -1629,7 +1619,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         OptionsFollowUpView.toFront();
     }
 
-
     @FXML
     private void backFUEvaluated(ActionEvent event) {
         viewFollowUpEvaluated.toFront();
@@ -1645,15 +1634,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             textInfoE_Email.setText(selectedWorker.getEmail());
             ImportListEvaluators();
             viewFollowUpInfoEvd.toFront();
-            //textEvaluator.setText(selectedWorker.getName() + " " + selectedWorker.getPsurname() + " " + selectedWorker.getSsurname());
 
-            /*workersListSel.add(selectedWorker);
-
-
-            workersAss = FXCollections.observableArrayList(workersListSel);
-
-            //this.tableViewSelWorkers1.refresh();
-            //this.tableViewSelWorkers1.setItems(workersAss);*/
         }
     }
 
@@ -1918,14 +1899,6 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     }
 
     @FXML
-    private void Summit(ActionEvent event) {
-    }
-
-    @FXML
-    private void delete(MouseEvent event) {
-    }
-
-    @FXML
     private void getxy(MouseEvent event) {
     }
 
@@ -1990,30 +1963,54 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         OptionsFollowUpView.toFront();
     }
 
+    public Boolean evaluationsInProcess(List<EvaluatorDto> evaluators) {
+        return evaluators.stream().anyMatch(x -> x.getEvsState().equals("N"));
+    }
+    public List<EvaluatorDto> getEvaluatorsInProcess(List<EvaluatorDto> evaluators){
+        return evaluators.stream().filter(x->x.getEvsEvaluated().getEsProcesoeva().getEnName().equals(procesoDto.getName())).collect(Collectors.toList());
+    }
+
     @FXML
     private void UpdateProceso(ActionEvent event) {
-        ProcesoevaService service = new ProcesoevaService();
-        ProcesosevaDto procesosevaDto = new ProcesosevaDto();
+        EvaluatorService serviceEva = new EvaluatorService();
+        Respuesta respuestaEva = serviceEva.getEvaluators();
+        Boolean continueProcess=false, evaluatorsAssign=true;
 
-        procesosevaDto.setState(choiceBoxStateEva.getValue());
-        procesosevaDto.setName(TitleEvaField.getText());
-        procesosevaDto.setId(procesoDto.getId());
-        reviewStateProcess();
-        if (DateProEva_Inicial.getValue().isBefore(DateProEva_Final.getValue())) {
-            procesosevaDto.setApplication(DateProEva_Application.getValue());
-            procesosevaDto.setInicialperiod(DateProEva_Inicial.getValue());
-            procesosevaDto.setFinalperiod(DateProEva_Final.getValue());
-            Respuesta respuesta = service.SaveProceso(procesosevaDto);
-            if (!respuesta.getEstado()) {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar proceso de evaluación", getStage(), respuesta.getMensaje());
-            } else {
-                new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar proceso de evaluación", getStage(), "Proceso de evaluación actualizado correctamente.");
-            }
-            ImportListProcesoEva();
-        } else {
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Seleccione una fecha de inicio menor a la fecha de finalizacion");
+        List<EvaluatorDto> listEvaluators = (List<EvaluatorDto>) respuestaEva.getResultado("Evaluators");
+        listEvaluators=getEvaluatorsInProcess(listEvaluators);
+        if (evaluationsInProcess(listEvaluators)&&choiceBoxStateEva.getValue().equals("En revisión")) {
+           continueProcess = new Mensaje().showConfirmation("Cambio a Estado de Revisón", getStage(), "Aún faltan evaluaciones  a ser realizadas, ¿Deseas continuar en cambiar el estado?");
+        } 
+        if(listEvaluators.isEmpty()){
+            evaluatorsAssign=false;
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Cambio de estado", getStage(), "Aún falta configuración del proceso");
         }
+        if ((continueProcess||!choiceBoxStateEva.getValue().equals("En revisión"))&&evaluatorsAssign) {
+            ProcesoevaService service = new ProcesoevaService();
+            ProcesosevaDto procesosevaDto = new ProcesosevaDto();
 
+            procesosevaDto.setState(choiceBoxStateEva.getValue());
+            procesosevaDto.setName(TitleEvaField.getText());
+            procesosevaDto.setId(procesoDto.getId());
+            reviewStateProcess();
+            if (DateProEva_Inicial.getValue().isBefore(DateProEva_Final.getValue())) {
+                procesosevaDto.setApplication(DateProEva_Application.getValue());
+                procesosevaDto.setInicialperiod(DateProEva_Inicial.getValue());
+                procesosevaDto.setFinalperiod(DateProEva_Final.getValue());
+
+                Respuesta respuesta = service.SaveProceso(procesosevaDto);
+                if (!respuesta.getEstado()) {
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar proceso de evaluación", getStage(), respuesta.getMensaje());
+                } else {
+                    new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar proceso de evaluación", getStage(), "Proceso de evaluación actualizado correctamente.");
+                }
+                ImportListProcesoEva();
+            } else {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Seleccione una fecha de inicio menor a la fecha de finalizacion");
+            }
+        }else{
+            choiceBoxStateEva.setValue(procesoDto.getState());
+        }
     }
 
     Predicate<EvaluatorResultsDto> pProcesos = x -> x.getErEvaluator().getEvsEvaluated().getEsProcesoeva().getEnName().equals(procesoDto.getName());

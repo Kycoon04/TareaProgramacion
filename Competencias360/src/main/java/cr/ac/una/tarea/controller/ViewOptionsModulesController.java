@@ -26,6 +26,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -197,16 +198,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private TableColumn<CompetenceDto, String> tableColAsCompSta;
     @FXML
-    private TableColumn<CompetenceDto, String> tableColAsCompCharac;
-    @FXML
-    private TableView<CompetenceDto> tableViewCompetencesAss;
-    @FXML
-    private TableColumn<CompetenceDto, String> tableColCompNameAss;
-    @FXML
-    private TableColumn<CompetenceDto, String> tableColCompStaAss;
-    @FXML
-    private TableColumn<CompetenceDto, String> tableColCompCharacAss;
-    @FXML
     private Button deleteWorkerBtn;
     @FXML
     private Label txtEliminarPuesto;
@@ -262,7 +253,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TableColumn<CompetenceDto, String> tableColCCompNameAssoc;
     @FXML
     private TableColumn<CompetenceDto, String> tableColCCompStaAssoc;
-     
+
     CharacteristicsDto selectedCharacteristics;
     boolean delete = false;
     private ObservableList<CharacteristicsDto> selectedCharacteristicList;
@@ -270,43 +261,31 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private ObservableList<WorkerDto> workerList;
     private ObservableList<JobDto> jobsList;
     private ObservableList<CompetenceDto> competencesList;
+    ObservableList<CompetenceDto> competenceAssoc;
     List<CompetenceDto> competencesListAss = new ArrayList<>();
+    List<CompetenceDto> listComp= new ArrayList<>();
     WorkerDto workerDto;
     InformationDto informationDto;
     CompetenceDto competenceDto;
     JobDto jobDto;
     public static ToggleGroup role;
     List<InformationDto> list;
-    
+    @FXML
+    private TableView<CompetenceDto> tableViewCompetencesAssoc;
+    @FXML
+    private TableColumn<CompetenceDto, String> tableColCompNameAssoc;
+    @FXML
+    private TableColumn<CompetenceDto, String> tableColCompStaAssoc;
+    @FXML
+    private TextField NameCompTextField;
+    @FXML
+    private TextField StateCompTextField;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
+
         OptionsMenuView.toFront();
-       /*
-         
-        image1.fitHeightProperty().bind(root1.heightProperty());
-        image1.fitWidthProperty().bind(root1.widthProperty());
-        
-        image2.fitHeightProperty().bind(root2.heightProperty());
-        image2.fitWidthProperty().bind(root2.widthProperty());
-        
-        image3.fitHeightProperty().bind(root3.heightProperty());
-        image3.fitWidthProperty().bind(root3.widthProperty());
-        
-        image4.fitHeightProperty().bind(root4.heightProperty());
-        image4.fitWidthProperty().bind(root4.widthProperty());
-        
-        image5.fitHeightProperty().bind(root5.heightProperty());
-        image5.fitWidthProperty().bind(root5.widthProperty());
-        
-        image6.fitHeightProperty().bind(root6.heightProperty());
-        image6.fitWidthProperty().bind(root6.widthProperty());
-        
-        image7.fitHeightProperty().bind(root7.heightProperty());
-        image7.fitWidthProperty().bind(root7.widthProperty());
-        
-        */
+
         this.tableColAct.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColIdentif.setCellValueFactory(new PropertyValueFactory("iden"));
         this.tableColName.setCellValueFactory(new PropertyValueFactory("name"));
@@ -321,16 +300,14 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         this.tableColCompSta.setCellValueFactory(new PropertyValueFactory("States"));
         this.tableColCompName.setCellValueFactory(new PropertyValueFactory("Name"));
 
-        this.tableColAsCompCharac.setCellValueFactory(new PropertyValueFactory("Characteristics"));
         this.tableColAsCompSta.setCellValueFactory(new PropertyValueFactory("States"));
         this.tableColAsCompName.setCellValueFactory(new PropertyValueFactory("Name"));
 
         this.tableColCharactComp.setCellValueFactory(new PropertyValueFactory("CcComName"));
         this.tableColCharactName.setCellValueFactory(new PropertyValueFactory("CcName"));
 
-        this.tableColCompCharacAss.setCellValueFactory(new PropertyValueFactory("Characteristics"));
-        this.tableColCompStaAss.setCellValueFactory(new PropertyValueFactory("States"));
-        this.tableColCompNameAss.setCellValueFactory(new PropertyValueFactory("Name"));
+        this.tableColCompStaAssoc.setCellValueFactory(new PropertyValueFactory("States"));
+        this.tableColCompNameAssoc.setCellValueFactory(new PropertyValueFactory("Name"));
 
         this.tableColJobSta.setCellValueFactory(new PropertyValueFactory("States"));
         this.tableColJobNam.setCellValueFactory(new PropertyValueFactory("Name"));
@@ -527,28 +504,28 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         int bytesRead = fis.read(buffer);
         informationDto.setPhoto(buffer);
     }
-    
+
     @FXML
     private void InformationGeneral(ActionEvent event) {
         ComInformationService comInformationService = new ComInformationService();
-        Respuesta respuesta = comInformationService.getComInformation();    
-       if(!respuesta.getEstado()){
-           System.out.println("Vacia");  
-           OptionsInformationView.toFront();
-       }else{
-           list = (List<InformationDto>) respuesta.getResultado("ComInformation");
-        NameInformationField.setText(list.get(0).getName());
-        EmailInformationField.setText(list.get(0).getEmail());
-        InfoInformationField.setText(list.get(0).getInformation());
-        System.out.println(list.get(0).getCpKey());
-        InfoKeytxt1.setText(list.get(0).getCpKey());
-        
-        System.out.println(list.get(0).getPhoto());
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(list.get(0).getPhoto());
-        Image image = new Image(byteArrayInputStream);
-        InformationMainPhoto.setFill(new ImagePattern(image));
-        OptionsInformationView.toFront();
-       }
+        Respuesta respuesta = comInformationService.getComInformation();
+        if (!respuesta.getEstado()) {
+            System.out.println("Vacia");
+            OptionsInformationView.toFront();
+        } else {
+            list = (List<InformationDto>) respuesta.getResultado("ComInformation");
+            NameInformationField.setText(list.get(0).getName());
+            EmailInformationField.setText(list.get(0).getEmail());
+            InfoInformationField.setText(list.get(0).getInformation());
+            System.out.println(list.get(0).getCpKey());
+            InfoKeytxt1.setText(list.get(0).getCpKey());
+
+            System.out.println(list.get(0).getPhoto());
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(list.get(0).getPhoto());
+            Image image = new Image(byteArrayInputStream);
+            InformationMainPhoto.setFill(new ImagePattern(image));
+            OptionsInformationView.toFront();
+        }
     }
 
     @FXML
@@ -556,29 +533,29 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
         ComInformationService comInformationService = new ComInformationService();
         Respuesta respuesta1 = comInformationService.getComInformation();
-           
+
         informationDto.setName(NameInformationField.getText());
         informationDto.setInformation(InfoInformationField.getText());
         informationDto.setEmail(EmailInformationField.getText());
         informationDto.setCpKey(InfoKeytxt1.getText());
         System.out.println(informationDto.getCpKey());
-        if(respuesta1.getEstado()){
-              informationDto.setId(list.get(0).getId());
-              Respuesta respuesta = comInformationService.SaveInformation(informationDto);
+        if (respuesta1.getEstado()) {
+            informationDto.setId(list.get(0).getId());
+            Respuesta respuesta = comInformationService.SaveInformation(informationDto);
         }
         Respuesta respuesta = comInformationService.SaveInformation(informationDto);
-        
+
         if (!respuesta.getEstado()) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar empleado", getStage(), respuesta.getMensaje());
         } else {
             new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar empleado", getStage(), "Empleado actualizado correctamente.");
         }
-        
-        
+
     }
 
     @FXML
     private void CompetencesModi(ActionEvent event) {
+        clearMantCompetences();
         ImportListCompetences();
         OptionsCompetencesView.toFront();
     }
@@ -596,15 +573,16 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         Respuesta respuesta = competencesService.SaveCompetence(competenceDto);
 
         if (!respuesta.getEstado()) {
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar empleado", getStage(), respuesta.getMensaje());
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar competencia", getStage(), respuesta.getMensaje());
         } else {
-            new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar empleado", getStage(), "Empleado actualizado correctamente.");
+            new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar competencia", getStage(), "Competencia actualizada correctamente.");
         }
         ImportListCompetences();
     }
 
     @FXML
     private void JobsModi(ActionEvent event) {
+        clearMantJobs();
         ImportListJobs();
         OptionsPuestosView.toFront();
     }
@@ -623,9 +601,9 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         Respuesta respuesta = jobsService.SaveJob(jobDto);
 
         if (!respuesta.getEstado()) {
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar empleado", getStage(), respuesta.getMensaje());
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar puesto", getStage(), respuesta.getMensaje());
         } else {
-            new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar empleado", getStage(), "Empleado actualizado correctamente.");
+            new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar puesto", getStage(), "Puesto actualizado correctamente.");
         }
     }
 
@@ -880,7 +858,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void competenceClicked(MouseEvent event) {
-         if (event.getClickCount() == 1) {  
+        if (event.getClickCount() == 1) {
             if (delete == true) {
                 competenceDto = tableViewCompetences.getSelectionModel().getSelectedItem();
                 CompetencesService competenceService = new CompetencesService();
@@ -888,7 +866,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                 ImportListCompetences();
                 delete = false;
             }
-         }
+        }
         if (event.getClickCount() == 2) {
             try {
                 competenceDto = tableViewCompetences.getSelectionModel().getSelectedItem();
@@ -916,7 +894,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                 ImportListJobs();
                 delete = false;
             }
-        }else{
+        } else {
             if (event.getClickCount() == 2) {
                 try {
                     jobDto = tableViewJobs.getSelectionModel().getSelectedItem();
@@ -1004,7 +982,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void SelectImageInformation(ActionEvent event) throws IOException {
-            FileChooser fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg"),
                 new FileChooser.ExtensionFilter("Todos los archivos", "*.*")
@@ -1017,7 +995,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         InformationMainPhoto.setFill(new ImagePattern(image));
     }
 
-
     @FXML
     private void openEvaluations(MouseEvent event) {
         FlowController.getInstance().goMain("ViewOptionsEvaluations");
@@ -1025,17 +1002,55 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void AsoRoot(MouseEvent event) {
-        textFieldAsJob.setText(jobDto.getName());
-        competencesListAss.clear();
-        CompetencesService competencesService = new CompetencesService();
-        Respuesta respuesta = competencesService.getCompetences();
-        List<CompetenceDto> list = (List<CompetenceDto>) respuesta.getResultado("Competences");
-        competencesList = FXCollections.observableArrayList(list);
+        if (!jobDto.getName().isEmpty()) {
+            competencesListAss.clear();
+            ImportCompXJobs();
+            textFieldAsJob.setText(jobDto.getName());
+            CompetencesService competencesService = new CompetencesService();
+            Respuesta respuesta = competencesService.getCompetences();
+             listComp = (List<CompetenceDto>) respuesta.getResultado("Competences");
+            if (!competencesListAss.isEmpty()) {
+                getListComp();
+            }
+            competencesList = FXCollections.observableArrayList(listComp);
+            this.tableViewAsCompetences.refresh();
+            this.tableViewAsCompetences.setItems(competencesList);
 
-        this.tableViewAsCompetences.refresh();
-        this.tableViewAsCompetences.setItems(competencesList);
+            OptionsAssociateCompView.toFront();
+        } else {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Asociar competencias", getStage(), "Debes seleccionar un puesto");
+        }
+    }
 
-        OptionsAssociateCompView.toFront();
+    public void getListComp() {
+        for (int i = 0; i < competencesListAss.size(); i++) {
+            for (int j = 0; j < listComp.size(); j++) {
+                if (competencesListAss.get(i).getId().equals(listComp.get(j).getId())) {
+                    listComp.remove(j);
+                }
+            }
+        }
+    }
+
+    public List<EvaJobCompetenceDto> getCompetencesXjob(List<EvaJobCompetenceDto> list) {
+        return list.stream().filter(x -> x.getJobs().getJsId().equals(jobDto.getId())).collect(Collectors.toList());
+    }
+
+    public void ImportCompXJobs() {
+        JobsCompetencesService serviceAssoc = new JobsCompetencesService();
+        Respuesta respuesta = serviceAssoc.getjCompetences();
+        List<EvaJobCompetenceDto> compList = (List<EvaJobCompetenceDto>) respuesta.getResultado("JobsCompetences");
+        compList = getCompetencesXjob(compList);
+        for (EvaJobCompetenceDto competence : compList) {
+            CompetenceDto comp = new CompetenceDto();
+            comp.setId(competence.getJxcCompetence().getCsId());
+            comp.setName(competence.getJxcCompetence().getCsName());
+            comp.setState(competence.getJxcCompetence().getCsState());
+            competencesListAss.add(comp);
+        }
+        competenceAssoc = FXCollections.observableArrayList(competencesListAss);
+        this.tableViewCompetencesAssoc.refresh();
+        this.tableViewCompetencesAssoc.setItems(competenceAssoc);
     }
 
     @FXML
@@ -1044,15 +1059,21 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
             CompetenceDto selectedCompetence = tableViewAsCompetences.getSelectionModel().getSelectedItem();
             competencesListAss.add(selectedCompetence);
-            ObservableList<CompetenceDto> competenceAss = FXCollections.observableArrayList(competencesListAss);
-
-            this.tableViewCompetencesAss.refresh();
-            this.tableViewCompetencesAss.setItems(competenceAss);
+            listComp.remove(selectedCompetence);
+            competenceAssoc = FXCollections.observableArrayList(competencesListAss);
+            competencesList = FXCollections.observableArrayList(listComp);
+            this.tableViewAsCompetences.refresh();
+            this.tableViewAsCompetences.setItems(competencesList);
+            this.tableViewCompetencesAssoc.refresh();
+            this.tableViewCompetencesAssoc.setItems(competenceAssoc);
         }
     }
 
     @FXML
     private void back(MouseEvent event) {
+        if (!competenceAssoc.isEmpty()) {
+            competenceAssoc.clear();
+        }
         OptionsMenuView.toFront();
 
     }
@@ -1075,6 +1096,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private void registerAsoci(MouseEvent event) {
         JobsCompetencesService jb = new JobsCompetencesService();
+        Respuesta resp = new Respuesta();
         for (CompetenceDto selectedCompetence : competencesListAss) {
             EvaJobCompetenceDto evaJobCompetenceDto = new EvaJobCompetenceDto();
             Jobs job = new Jobs();
@@ -1090,7 +1112,12 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
             evaJobCompetenceDto.setEvaJobs(job);
             evaJobCompetenceDto.setJxcCompetence(competence);
-            Respuesta a = jb.SaveJobCompetences(evaJobCompetenceDto);
+            resp = jb.SaveJobCompetences(evaJobCompetenceDto);
+        }
+        if (!resp.getEstado()) {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Asociar Competencias", getStage(), resp.getMensaje());
+        } else {
+            new Mensaje().showModal(Alert.AlertType.INFORMATION, "Asociar Competencias", getStage(), "Competencias asociadas correctamente.");
         }
     }
 
@@ -1105,7 +1132,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         competence.setCsName(competenceDto.getName());
         competence.setCsState(competenceDto.getState());
         caract.setCcComid(competence);
-        Respuesta respuesta=cs.SaveCharacteristic(caract);
+        Respuesta respuesta = cs.SaveCharacteristic(caract);
         if (!respuesta.getEstado()) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar característica", getStage(), respuesta.getMensaje());
         } else {
@@ -1116,7 +1143,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void characteristicClicked(MouseEvent event) {
-         if (event.getClickCount() == 1) {
+        if (event.getClickCount() == 1) {
             if (delete == true) {
                 selectedCharacteristics = tableViewCharacteristics.getSelectionModel().getSelectedItem();
                 CharacteristicService characteristicService = new CharacteristicService();
@@ -1124,11 +1151,11 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                 ImportListCharacteristics();
                 delete = false;
             }
-         }
+        }
         if (event.getClickCount() == 2) {
             selectedCharacteristics = tableViewCharacteristics.getSelectionModel().getSelectedItem();
             NameCharacteristicField.setText(selectedCharacteristics.getCcName());
-            CompetenceCharacteristicField.setText( selectedCharacteristics.getCcComid().getCsName());
+            CompetenceCharacteristicField.setText(selectedCharacteristics.getCcComid().getCsName());
             tabPaneMantCharact.getSelectionModel().select(tabMantCharact);
         }
     }
@@ -1146,6 +1173,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void CharacteristicsModi(ActionEvent event) {
+        clearMantCharacteristics();
         ImportListCharacteristics();
         viewSettingsCharacteristics.toFront();
         OptionsCharacteristicsView.toFront();
@@ -1208,8 +1236,9 @@ public class ViewOptionsModulesController extends Controller implements Initiali
             });
         });
         filteredCharacateristics(filteredCharacteristics);
-        
+
     }
+
     private void filteredCharacateristics(FilteredList<CharacteristicsDto> list) {
         SortedList<CharacteristicsDto> sorted = new SortedList<>(list);
         sorted.comparatorProperty().bind(tableViewCharacteristics.comparatorProperty());
@@ -1238,7 +1267,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void searchAComp_State(KeyEvent event) {
-            FilteredList<CompetenceDto> filteredCompetence = new FilteredList<>(competencesList, f -> true);
+        FilteredList<CompetenceDto> filteredCompetence = new FilteredList<>(competencesList, f -> true);
 
         textFieldAComp_State.textProperty().addListener((observable, value, newValue) -> {
             filteredCompetence.setPredicate(CompetenceDto -> {
@@ -1261,4 +1290,66 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         sorted.comparatorProperty().bind(tableViewCCompetencesAssoc.comparatorProperty());
         tableViewCCompetencesAssoc.setItems(sorted);
     }
+
+    @FXML
+    private void searchNameCompAssoc(KeyEvent event) {
+        FilteredList<CompetenceDto> filteredCompetence = new FilteredList<>(competencesList, f -> true);
+
+        NameCompTextField.textProperty().addListener((observable, value, newValue) -> {
+            filteredCompetence.setPredicate(CompetenceDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (CompetenceDto.getName().toLowerCase().contains(search)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredCompetencesAssoc(filteredCompetence);
+    }
+
+    @FXML
+    private void searchStateCompAssoc(KeyEvent event) {
+        FilteredList<CompetenceDto> filteredCompetence = new FilteredList<>(competencesList, f -> true);
+
+        StateCompTextField.textProperty().addListener((observable, value, newValue) -> {
+            filteredCompetence.setPredicate(CompetenceDto -> {
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+                    return true;
+                }
+                String search = newValue.toLowerCase();
+                if (CompetenceDto.getStates().toLowerCase().indexOf(search) == 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        filteredCompetencesAssoc(filteredCompetence);
+    }
+
+    private void filteredCompetencesAssoc(FilteredList<CompetenceDto> list) {
+        SortedList<CompetenceDto> sorted = new SortedList<>(list);
+        sorted.comparatorProperty().bind(tableViewAsCompetences.comparatorProperty());
+        tableViewAsCompetences.setItems(sorted);
+    }
+
+    public void clearMantJobs() {
+        PositionJobField.clear();
+        ActiveJobsCheck.setSelected(false);
+    }
+
+    public void clearMantCompetences() {
+        NameCompetencesField.clear();
+        StateCompetencesCheck.setSelected(false);
+    }
+
+    public void clearMantCharacteristics() {
+        NameCharacteristicField.clear();
+        CompetenceCharacteristicField.clear();
+    }
+
 }

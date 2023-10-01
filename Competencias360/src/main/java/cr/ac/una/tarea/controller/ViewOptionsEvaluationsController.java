@@ -787,6 +787,7 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
             listProcesos.add(proceso);
         }
         listProcesos = listProcesos.stream().filter(getState.negate()).toList();
+        listProcesos= listProcesos.stream().filter(x->x.getState().equals("En aplicación")).toList();
     }
     Predicate<ProcesosevaDto> getState = x -> x.getState().equals("En construcción");
 
