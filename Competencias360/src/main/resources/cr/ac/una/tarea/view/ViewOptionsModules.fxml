@@ -1403,6 +1403,116 @@
             </TabPane>
          </center>
       </BorderPane>
+      <BorderPane fx:id="OptionsAssociateCompView">
+         <left>
+            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="720.0" prefWidth="213.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;" BorderPane.alignment="TOP_CENTER">
+               <children>
+                  <Separator prefHeight="10.0" prefWidth="214.0" visible="false" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Asociar Competencia">
+                     <font>
+                        <Font name="Tw Cen MT" size="28.0" />
+                     </font>
+                  </Text>
+                  <Separator prefHeight="6.0" prefWidth="214.0" visible="false" />
+                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: #76ff03; -fx-background-radius: 3px;" />
+                  <Separator layoutX="38.0" layoutY="60.0" prefHeight="17.0" prefWidth="214.0" visible="false" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrador" textAlignment="CENTER" wrappingWidth="270.93670654296875">
+                     <font>
+                        <Font name="Tw Cen MT" size="25.0" />
+                     </font>
+                  </Text>
+                  <Separator prefHeight="441.0" prefWidth="216.0" visible="false" />
+                  <Button mnemonicParsing="false" onMouseClicked="#registerAsoci" prefHeight="30.0" prefWidth="109.0" text="Asociar" />
+                  <Separator layoutX="37.0" layoutY="88.0" prefHeight="101.0" prefWidth="216.0" visible="false" />
+                  <Button layoutX="91.0" layoutY="491.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="30.0" prefWidth="109.0" text="Volver" />
+                  <Separator prefHeight="146.0" prefWidth="216.0" visible="false" />
+               </children>
+               <effect>
+                  <DropShadow height="255.0" radius="127.0" spread="0.18" width="255.0" />
+               </effect>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <BorderPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </BorderPane.margin>
+            </VBox>
+         </left>
+         <center>
+            <HBox prefHeight="738.0" prefWidth="1072.0" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane fx:id="root6" prefHeight="738.0" prefWidth="1072.0">
+                     <children>
+                        <ScrollPane layoutX="29.0" layoutY="168.0" prefHeight="490.0" prefWidth="462.0">
+                           <content>
+                              <TableView fx:id="tableViewAsCompetences" onMouseClicked="#competenceClick" prefHeight="600.0" prefWidth="486.0">
+                                 <columns>
+                                    <TableColumn fx:id="tableColAsCompName" prefWidth="215.99999123811722" text="Nombre" />
+                                    <TableColumn fx:id="tableColAsCompSta" prefWidth="248.00001525878906" text="Estado" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
+                        <Label layoutX="194.0" layoutY="692.0" text="Competencias" textFill="WHITE">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="NameCompTextField" layoutX="39.0" layoutY="132.0" onKeyPressed="#searchNameCompAssoc" style="-fx-text-fill: black;">
+                           <font>
+                              <Font name="Tw Cen MT" size="12.0" />
+                           </font></TextField>
+                        <Label layoutX="39.0" layoutY="100.0" text="Nombre" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="StateCompTextField" layoutX="260.0" layoutY="132.0" onKeyPressed="#searchStateCompAssoc" style="-fx-text-fill: black;">
+                           <font>
+                              <Font name="Tw Cen MT" size="12.0" />
+                           </font></TextField>
+                        <Label layoutX="260.0" layoutY="100.0" text="Estado" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="707.0" layoutY="692.0" text="Asociacion" textFill="WHITE">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane layoutX="524.0" layoutY="169.0" prefHeight="487.0" prefWidth="450.0">
+                           <content>
+                              <TableView fx:id="tableViewCompetencesAssoc" prefHeight="587.0" prefWidth="494.0">
+                                 <columns>
+                                    <TableColumn fx:id="tableColCompNameAssoc" prefWidth="223.19994813203812" text="Nombre" />
+                                    <TableColumn fx:id="tableColCompStaAssoc" prefWidth="219.2000274658203" text="Estado" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
+                        <Text fx:id="textFieldAsJob" fill="WHITE" layoutX="417.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="213.3367156982422">
+                           <font>
+                              <Font name="Tw Cen MT" size="23.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="194.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puesto:" textAlignment="RIGHT" wrappingWidth="213.3367156982422">
+                           <font>
+                              <Font name="Tw Cen MT" size="26.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </BorderPane.margin>
+            </HBox>
+         </center>
+      </BorderPane>
       <BorderPane fx:id="OptionsPuestosView" layoutX="10.0" layoutY="10.0">
          <left>
             <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="566.0" prefWidth="271.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;" BorderPane.alignment="CENTER">
@@ -1658,116 +1768,6 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </BorderPane.margin>
             </TabPane>
-         </center>
-      </BorderPane>
-      <BorderPane fx:id="OptionsAssociateCompView">
-         <left>
-            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="720.0" prefWidth="213.0" style="-fx-background-color: #212121; -fx-background-radius: 5px;" BorderPane.alignment="TOP_CENTER">
-               <children>
-                  <Separator prefHeight="10.0" prefWidth="214.0" visible="false" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Asociar Competencia">
-                     <font>
-                        <Font name="Tw Cen MT" size="28.0" />
-                     </font>
-                  </Text>
-                  <Separator prefHeight="6.0" prefWidth="214.0" visible="false" />
-                  <Pane prefHeight="2.0" prefWidth="96.0" style="-fx-background-color: #76ff03; -fx-background-radius: 3px;" />
-                  <Separator layoutX="38.0" layoutY="60.0" prefHeight="17.0" prefWidth="214.0" visible="false" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrador" textAlignment="CENTER" wrappingWidth="270.93670654296875">
-                     <font>
-                        <Font name="Tw Cen MT" size="25.0" />
-                     </font>
-                  </Text>
-                  <Separator prefHeight="441.0" prefWidth="216.0" visible="false" />
-                  <Button mnemonicParsing="false" onMouseClicked="#registerAsoci" prefHeight="30.0" prefWidth="109.0" text="Asociar" />
-                  <Separator layoutX="37.0" layoutY="88.0" prefHeight="101.0" prefWidth="216.0" visible="false" />
-                  <Button layoutX="91.0" layoutY="491.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="30.0" prefWidth="109.0" text="Volver" />
-                  <Separator prefHeight="146.0" prefWidth="216.0" visible="false" />
-               </children>
-               <effect>
-                  <DropShadow height="255.0" radius="127.0" spread="0.18" width="255.0" />
-               </effect>
-               <padding>
-                  <Insets top="5.0" />
-               </padding>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <BorderPane.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </BorderPane.margin>
-            </VBox>
-         </left>
-         <center>
-            <HBox prefHeight="738.0" prefWidth="1072.0" BorderPane.alignment="CENTER">
-               <children>
-                  <AnchorPane fx:id="root6" prefHeight="738.0" prefWidth="1072.0">
-                     <children>
-                        <ScrollPane layoutX="29.0" layoutY="168.0" prefHeight="490.0" prefWidth="462.0">
-                           <content>
-                              <TableView fx:id="tableViewAsCompetences" onMouseClicked="#competenceClick" prefHeight="600.0" prefWidth="486.0">
-                                 <columns>
-                                    <TableColumn fx:id="tableColAsCompName" prefWidth="215.99999123811722" text="Nombre" />
-                                    <TableColumn fx:id="tableColAsCompSta" prefWidth="248.00001525878906" text="Estado" />
-                                 </columns>
-                              </TableView>
-                           </content>
-                        </ScrollPane>
-                        <Label layoutX="194.0" layoutY="692.0" text="Competencias" textFill="WHITE">
-                           <font>
-                              <Font size="21.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="NameCompTextField" layoutX="39.0" layoutY="132.0" onKeyPressed="#searchNameCompAssoc" style="-fx-text-fill: black;">
-                           <font>
-                              <Font name="Tw Cen MT" size="12.0" />
-                           </font></TextField>
-                        <Label layoutX="39.0" layoutY="100.0" text="Nombre" textFill="WHITE">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="StateCompTextField" layoutX="260.0" layoutY="132.0" onKeyPressed="#searchStateCompAssoc" style="-fx-text-fill: black;">
-                           <font>
-                              <Font name="Tw Cen MT" size="12.0" />
-                           </font></TextField>
-                        <Label layoutX="260.0" layoutY="100.0" text="Estado" textFill="WHITE">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="707.0" layoutY="692.0" text="Asociacion" textFill="WHITE">
-                           <font>
-                              <Font size="21.0" />
-                           </font>
-                        </Label>
-                        <ScrollPane layoutX="524.0" layoutY="169.0" prefHeight="487.0" prefWidth="450.0">
-                           <content>
-                              <TableView fx:id="tableViewCompetencesAssoc" prefHeight="587.0" prefWidth="494.0">
-                                 <columns>
-                                    <TableColumn fx:id="tableColCompNameAssoc" prefWidth="223.19994813203812" text="Nombre" />
-                                    <TableColumn fx:id="tableColCompStaAssoc" prefWidth="219.2000274658203" text="Estado" />
-                                 </columns>
-                              </TableView>
-                           </content>
-                        </ScrollPane>
-                        <Text fx:id="textFieldAsJob" fill="WHITE" layoutX="417.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="213.3367156982422">
-                           <font>
-                              <Font name="Tw Cen MT" size="23.0" />
-                           </font>
-                        </Text>
-                        <Text fill="WHITE" layoutX="194.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puesto:" textAlignment="RIGHT" wrappingWidth="213.3367156982422">
-                           <font>
-                              <Font name="Tw Cen MT" size="26.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </AnchorPane>
-               </children>
-               <BorderPane.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </BorderPane.margin>
-            </HBox>
          </center>
       </BorderPane>
    </children>

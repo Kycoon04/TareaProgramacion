@@ -85,6 +85,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * FXML Controller class
+ *
  * @author Anderson
  */
 public class ViewModuleEvaluationController extends Controller implements Initializable {
@@ -442,6 +443,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private ObservableList<JobDto> jobsList;
     private ObservableList<ProcesosevaDto> procesosList;
     private ObservableList<EvaluatorDto> listEvaluator;
+    private ObservableList<WorkerDto> workersAssoc;
     private ObservableList<WorkerDto> workersAss = FXCollections.observableArrayList();
     private List<WorkerDto> workersListSel = new ArrayList<>();
     private JobDto jobDto;
@@ -459,6 +461,8 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private HashMap<String, Float> resultado = new HashMap<>();
     @FXML
     private Button btnSaveRes;
+    @FXML
+    private Button btnSelectionEva;
 
     @FXML
     private void SummitFinal(ActionEvent event) {
@@ -519,114 +523,114 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
         List<ResultsDto> resultsDto = (List<ResultsDto>) respuesta.getResultado("ResultsDto");
         resultsDto = resultsDto.stream().filter(x -> x.getRsEvaluated().getEsProcesoeva().getEnId().equals(procesoDto.getId())).toList();
-        if(resultsDto.get(cont)!=null){
-        ResultsDto resultDto = resultsDto.get(cont);
+        if (resultsDto.get(cont) != null) {
+            ResultsDto resultDto = resultsDto.get(cont);
 
-        JobsCompetencesService service = new JobsCompetencesService();
-        respuesta = service.getjCompetences();
-        listCompetences = (List<EvaJobCompetenceDto>) respuesta.getResultado("JobsCompetences");
-        listCompetences = listCompetences.stream().filter(x -> x.getJobs().getJsName().equals(resultDto.getRsEvaluated().getEsWorker().getWrJob().getJsName())).toList();
+            JobsCompetencesService service = new JobsCompetencesService();
+            respuesta = service.getjCompetences();
+            listCompetences = (List<EvaJobCompetenceDto>) respuesta.getResultado("JobsCompetences");
+            listCompetences = listCompetences.stream().filter(x -> x.getJobs().getJsName().equals(resultDto.getRsEvaluated().getEsWorker().getWrJob().getJsName())).toList();
 
-        String nombreArchivo = "TablaCompetencias.xlsx";
-        String hoja = "Competencias";
-        XSSFWorkbook libro = new XSSFWorkbook();
-        XSSFSheet hoja1 = libro.createSheet(hoja);
-        List<String> header = new ArrayList<>();
-        header.add("        ");
-        for (int i = 0; i < listCompetences.size(); i++) {
-            header.add(listCompetences.get(i).getJxcCompetence().getCsName());
-        }
-        header.add("Total");
-        header.add("Nota");
-        header.add("Promedio");
-
-        CellStyle style = libro.createCellStyle();
-        Font font = libro.createFont();
-        font.setBold(true);
-        style.setFont(font);
-
-        CellStyle headerCellStyle = libro.createCellStyle();
-        Font headerFont = libro.createFont();
-        headerFont.setBold(true);
-        headerCellStyle.setFont(headerFont);
-        headerCellStyle.setAlignment(HorizontalAlignment.CENTER);
-        headerCellStyle.setFillForegroundColor(IndexedColors.GREEN.getIndex());
-        headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
-        XSSFRow headerRow = hoja1.createRow(0);
-        for (int i = 0; i < header.size(); i++) {
-            XSSFCell cell = headerRow.createCell(i);
-            cell.setCellValue(header.get(i));
-            cell.setCellStyle(headerCellStyle);
-        }
-
-        List<String> puntajes = new ArrayList<>();
-        puntajes.add("Puntajes");
-        for (int i = 0; i < listCompetences.size(); i++) {
-            puntajes.add("4");
-        }
-        XSSFRow puntajesRow = hoja1.createRow(1);
-        for (int i = 0; i < puntajes.size(); i++) {
-            XSSFCell cell = puntajesRow.createCell(i);
-            cell.setCellValue(puntajes.get(i));
-        }
-        XSSFCell cell = puntajesRow.createCell(puntajes.size());
-        cell.setCellValue(listCompetences.size() * 4);
-
-        cell = puntajesRow.createCell(puntajes.size() + 1);
-        cell.setCellValue(100);
-
-        cell = puntajesRow.createCell(puntajes.size() + 2);
-        cell.setCellValue(4);
-
-        float suma;
-        for (int k = 0; k < resultsDto.size(); k++) {
-            ResultsDto resultDtos = resultsDto.get(k);
-            List<ResultsDto> Aux = resultsDto.stream().filter(x -> x.getRsEvaluated().getEsWorker().getWrName().equals(resultDtos.getRsEvaluated().getEsWorker().getWrName())).toList();
-            List<String> nombre = new ArrayList<>();
-            nombre.add(resultDtos.getRsEvaluated().getEsWorker().getWrName());
-            suma = 0;
+            String nombreArchivo = "TablaCompetencias.xlsx";
+            String hoja = "Competencias";
+            XSSFWorkbook libro = new XSSFWorkbook();
+            XSSFSheet hoja1 = libro.createSheet(hoja);
+            List<String> header = new ArrayList<>();
+            header.add("        ");
             for (int i = 0; i < listCompetences.size(); i++) {
-                final int tamano = i;
-                Optional<ResultsDto> Aux2 = Aux.stream().filter(x -> x.getRsCompe().getCsId().equals(listCompetences.get(tamano).getJxcCompetence().getCsId())).findFirst();
-                nombre.add(Aux2.get().getRsNotajefatura().toString());
-                suma += Aux2.get().getRsNotajefatura();
+                header.add(listCompetences.get(i).getJxcCompetence().getCsName());
+            }
+            header.add("Total");
+            header.add("Nota");
+            header.add("Promedio");
+
+            CellStyle style = libro.createCellStyle();
+            Font font = libro.createFont();
+            font.setBold(true);
+            style.setFont(font);
+
+            CellStyle headerCellStyle = libro.createCellStyle();
+            Font headerFont = libro.createFont();
+            headerFont.setBold(true);
+            headerCellStyle.setFont(headerFont);
+            headerCellStyle.setAlignment(HorizontalAlignment.CENTER);
+            headerCellStyle.setFillForegroundColor(IndexedColors.GREEN.getIndex());
+            headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+            XSSFRow headerRow = hoja1.createRow(0);
+            for (int i = 0; i < header.size(); i++) {
+                XSSFCell cell = headerRow.createCell(i);
+                cell.setCellValue(header.get(i));
+                cell.setCellStyle(headerCellStyle);
             }
 
-            XSSFRow PersonaRow = hoja1.createRow(k + 2);
-            for (int i = 0; i < nombre.size(); i++) {
-                cell = PersonaRow.createCell(i);
-                cell.setCellValue(nombre.get(i));
+            List<String> puntajes = new ArrayList<>();
+            puntajes.add("Puntajes");
+            for (int i = 0; i < listCompetences.size(); i++) {
+                puntajes.add("4");
             }
-            DecimalFormat decimalFormat = new DecimalFormat("#.##");
-            String valorRedondeado = decimalFormat.format(suma);
+            XSSFRow puntajesRow = hoja1.createRow(1);
+            for (int i = 0; i < puntajes.size(); i++) {
+                XSSFCell cell = puntajesRow.createCell(i);
+                cell.setCellValue(puntajes.get(i));
+            }
+            XSSFCell cell = puntajesRow.createCell(puntajes.size());
+            cell.setCellValue(listCompetences.size() * 4);
 
-            cell = PersonaRow.createCell(nombre.size());
-            cell.setCellValue(Double.parseDouble(valorRedondeado));
+            cell = puntajesRow.createCell(puntajes.size() + 1);
+            cell.setCellValue(100);
 
-            valorRedondeado = decimalFormat.format((suma * 100) / (listCompetences.size() * 4));
+            cell = puntajesRow.createCell(puntajes.size() + 2);
+            cell.setCellValue(4);
 
-            cell = PersonaRow.createCell(nombre.size() + 1);
-            cell.setCellValue(Double.parseDouble(valorRedondeado));
+            float suma;
+            for (int k = 0; k < resultsDto.size(); k++) {
+                ResultsDto resultDtos = resultsDto.get(k);
+                List<ResultsDto> Aux = resultsDto.stream().filter(x -> x.getRsEvaluated().getEsWorker().getWrName().equals(resultDtos.getRsEvaluated().getEsWorker().getWrName())).toList();
+                List<String> nombre = new ArrayList<>();
+                nombre.add(resultDtos.getRsEvaluated().getEsWorker().getWrName());
+                suma = 0;
+                for (int i = 0; i < listCompetences.size(); i++) {
+                    final int tamano = i;
+                    Optional<ResultsDto> Aux2 = Aux.stream().filter(x -> x.getRsCompe().getCsId().equals(listCompetences.get(tamano).getJxcCompetence().getCsId())).findFirst();
+                    nombre.add(Aux2.get().getRsNotajefatura().toString());
+                    suma += Aux2.get().getRsNotajefatura();
+                }
 
-            valorRedondeado = decimalFormat.format(suma / listCompetences.size());
+                XSSFRow PersonaRow = hoja1.createRow(k + 2);
+                for (int i = 0; i < nombre.size(); i++) {
+                    cell = PersonaRow.createCell(i);
+                    cell.setCellValue(nombre.get(i));
+                }
+                DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                String valorRedondeado = decimalFormat.format(suma);
 
-            cell = PersonaRow.createCell(nombre.size() + 2);
-            cell.setCellValue(Double.parseDouble(valorRedondeado));
-            resultsDto = resultsDto.stream().dropWhile(x -> x.getRsEvaluated().getEsWorker().getWrName().equals(resultDtos.getRsEvaluated().getEsWorker().getWrName())).toList();
-        }
-        for (int i = 0; i < header.size(); i++) {
-            hoja1.autoSizeColumn(i);
-        }
+                cell = PersonaRow.createCell(nombre.size());
+                cell.setCellValue(Double.parseDouble(valorRedondeado));
 
-        try (FileOutputStream fileOut = new FileOutputStream(nombreArchivo)) {
-            libro.write(fileOut);
-            new Mensaje().showModal(Alert.AlertType.INFORMATION, "Excel", getStage(), "Se registro el excel en la carpeta fuente del proyecto");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        }else{
-        new Mensaje().showModal(Alert.AlertType.INFORMATION, "Error", getStage(), "No hay un resultado final");
+                valorRedondeado = decimalFormat.format((suma * 100) / (listCompetences.size() * 4));
+
+                cell = PersonaRow.createCell(nombre.size() + 1);
+                cell.setCellValue(Double.parseDouble(valorRedondeado));
+
+                valorRedondeado = decimalFormat.format(suma / listCompetences.size());
+
+                cell = PersonaRow.createCell(nombre.size() + 2);
+                cell.setCellValue(Double.parseDouble(valorRedondeado));
+                resultsDto = resultsDto.stream().dropWhile(x -> x.getRsEvaluated().getEsWorker().getWrName().equals(resultDtos.getRsEvaluated().getEsWorker().getWrName())).toList();
+            }
+            for (int i = 0; i < header.size(); i++) {
+                hoja1.autoSizeColumn(i);
+            }
+
+            try (FileOutputStream fileOut = new FileOutputStream(nombreArchivo)) {
+                libro.write(fileOut);
+                new Mensaje().showModal(Alert.AlertType.INFORMATION, "Excel", getStage(), "Se registro el excel en la carpeta fuente del proyecto");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            new Mensaje().showModal(Alert.AlertType.INFORMATION, "Error", getStage(), "No hay un resultado final");
         }
     }
 
@@ -859,7 +863,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     }
 
     public void reviewStateProcess() {
-        if (choiceBoxStateEva.getValue() == "En revisión"||choiceBoxStateEva.getValue() == "Finalizada") {
+        if (choiceBoxStateEva.getValue() == "En revisión" || choiceBoxStateEva.getValue() == "Finalizada") {
             btnConfigEva.setText("Revisar Nota");
             btnConfigMenu.setVisible(false);
             btnAssignMenu.setVisible(false);
@@ -873,7 +877,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             btnExcel.setVisible(false);
             textResultEva.setVisible(false);
             btnSaveRes.setVisible(true);
-            if(choiceBoxStateEva.getValue() == "Finalizada"){
+            if (choiceBoxStateEva.getValue() == "Finalizada") {
                 btnSaveRes.setVisible(false);
                 btnExcel.setVisible(true);
                 textResultEva.setVisible(true);
@@ -980,9 +984,9 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             workerList = FXCollections.observableArrayList(listWorkers);
             this.tableViewWorkers.refresh();
             this.tableViewWorkers.setItems(workerList);
-            workersAss = FXCollections.observableArrayList(listWorkersEvaluated);
+            workersAssoc = FXCollections.observableArrayList(listWorkersEvaluated);
             this.tableViewSelWorkers.refresh();
-            this.tableViewSelWorkers.setItems(workersAss);
+            this.tableViewSelWorkers.setItems(workersAssoc);
         }
     }
 
@@ -1160,7 +1164,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private void addEvaluateWorkers(ActionEvent event) {
         EvaluatedService evaluated = new EvaluatedService();
-         Respuesta respuesta=new Respuesta();
+        Respuesta respuesta = new Respuesta();
         for (WorkerDto workerSel : workersListSel) {
             Procesoeva proceso = new Procesoeva();
             proceso.setEnId(procesoDto.getId());
@@ -1185,7 +1189,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             worker.setWrUsername(workerSel.getUsername());
             evaluatedDto.setEsProcesoeva(proceso);
             evaluatedDto.setEsWorker(worker);
-            respuesta=evaluated.SaveEvaluated(evaluatedDto, procesoDto);
+            respuesta = evaluated.SaveEvaluated(evaluatedDto, procesoDto);
         }
         if (!respuesta.getEstado()) {
             new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar evaluados", getStage(), respuesta.getMensaje());
@@ -1197,7 +1201,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private void backSettings(ActionEvent event) {
         this.tableViewSelWorkers.refresh();
-        this.tableViewSelWorkers.setItems(workersAss);
+        //this.tableViewSelWorkers.setItems(workersAssoc);
         OptionsMenuView.toFront();
     }
     Predicate<WorkerDto> WorkerNull = worker -> worker.getJob() != null;
@@ -1241,12 +1245,24 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     }
 
     @FXML
-    private void deleteWorkers(ActionEvent event) {
-        workersListSel.clear();
-        ObservableList<WorkerDto> workersAss = FXCollections.observableArrayList(workersListSel);
+    private void deleteWorkers(ActionEvent event) { // Metodo a trabajar
+        workerList.clear();
+        workersAssoc.clear();
+        listWorkersEvaluated.clear();
+        for (WorkerDto worker : workersListSel) {
+            listWorkers.add(worker);
+        }
+        workerList = FXCollections.observableArrayList(listWorkers);
+        this.tableViewWorkers.refresh();
+        this.tableViewWorkers.setItems(workerList);
+        workersAssoc = FXCollections.observableArrayList(workersListSel);
         this.tableViewSelWorkers.refresh();
-        this.tableViewSelWorkers.setItems(workersAss);
+        this.tableViewSelWorkers.setItems(workersAssoc);
     }
+        @FXML
+    private void workerEliminateClicked(MouseEvent event) {
+    }
+
 
     @FXML
     private void assignEvaluations(ActionEvent event) {
@@ -1607,6 +1623,14 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
             selectedWorker = tableViewWorkersPE.getSelectionModel().getSelectedItem();
             textEvaluator.setText(selectedWorker.getName() + " " + selectedWorker.getPsurname() + " " + selectedWorker.getSsurname());
+            if (selectedWorker.getId().equals(workerDto.getId())) {
+                choiceBoxConEvaluator.getItems().clear();
+                choiceBoxConEvaluator.getItems().add("Autoevaluacion");
+
+            } else {
+                choiceBoxConEvaluator.getItems().clear();
+                choiceBoxConEvaluator.getItems().addAll(connection);
+            }
 
         }
     }
@@ -1723,6 +1747,10 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                 valor.eliminarEvaluator(ev.getEvsId());
                 ImportListWorker();
                 ImportListWorkerEvaluators();
+                listEvaluators = getlistEvaluators();
+                ObservableList<EvaluatorDto> evaluatorsList = FXCollections.observableArrayList(listEvaluators);
+                this.tableViewSelWorkersPE.refresh();
+                this.tableViewSelWorkersPE.setItems(evaluatorsList);
                 eliminar = false;
             }
         }
@@ -1970,30 +1998,31 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     public Boolean evaluationsInProcess(List<EvaluatorDto> evaluators) {
         return evaluators.stream().anyMatch(x -> x.getEvsState().equals("N"));
     }
-    public List<EvaluatorDto> getEvaluatorsInProcess(List<EvaluatorDto> evaluators){
-        return evaluators.stream().filter(x->x.getEvsEvaluated().getEsProcesoeva().getEnName().equals(procesoDto.getName())).collect(Collectors.toList());
+
+    public List<EvaluatorDto> getEvaluatorsInProcess(List<EvaluatorDto> evaluators) {
+        return evaluators.stream().filter(x -> x.getEvsEvaluated().getEsProcesoeva().getEnName().equals(procesoDto.getName())).collect(Collectors.toList());
     }
 
     @FXML
     private void UpdateProceso(ActionEvent event) {
         EvaluatorService serviceEva = new EvaluatorService();
         Respuesta respuestaEva = serviceEva.getEvaluators();
-        Boolean continueProcess=true, evaluatorsAssign=true, continueFinal=true;
+        Boolean continueProcess = true, evaluatorsAssign = true, continueFinal = true;
 
         List<EvaluatorDto> listEvaluators = (List<EvaluatorDto>) respuestaEva.getResultado("Evaluators");
-        listEvaluators=getEvaluatorsInProcess(listEvaluators);
-        if (procesoDto.getState().equals("En aplicación")&&choiceBoxStateEva.getValue().equals("Finalizada")) {
-            continueFinal=false;
-           new Mensaje().showModal(Alert.AlertType.ERROR, "Cambio de estado", getStage(), "Aún falta la revisión final");
+        listEvaluators = getEvaluatorsInProcess(listEvaluators);
+        if (procesoDto.getState().equals("En aplicación") && choiceBoxStateEva.getValue().equals("Finalizada")) {
+            continueFinal = false;
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Cambio de estado", getStage(), "Aún falta la revisión final");
         }
-        if (evaluationsInProcess(listEvaluators)&&choiceBoxStateEva.getValue().equals("En revisión")) {
-           continueProcess = new Mensaje().showConfirmation("Cambio a Estado de Revisón", getStage(), "Aún faltan evaluaciones  a ser realizadas, ¿Deseas continuar en cambiar el estado?");
+        if (evaluationsInProcess(listEvaluators) && choiceBoxStateEva.getValue().equals("En revisión")) {
+            continueProcess = new Mensaje().showConfirmation("Cambio a Estado de Revisón", getStage(), "Aún faltan evaluaciones  a ser realizadas, ¿Deseas continuar en cambiar el estado?");
         }
-        if(listEvaluators.isEmpty()){
-            evaluatorsAssign=false;
+        if (listEvaluators.isEmpty()) {
+            evaluatorsAssign = false;
             new Mensaje().showModal(Alert.AlertType.ERROR, "Cambio de estado", getStage(), "Aún falta configuración del proceso");
         }
-        if (continueProcess&&evaluatorsAssign&&continueFinal) {
+        if (continueProcess && evaluatorsAssign && continueFinal) {
             ProcesoevaService service = new ProcesoevaService();
             ProcesosevaDto procesosevaDto = new ProcesosevaDto();
 
@@ -2016,7 +2045,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             } else {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "Seleccione una fecha de inicio menor a la fecha de finalizacion");
             }
-        }else{
+        } else {
             choiceBoxStateEva.setValue(procesoDto.getState());
         }
     }
@@ -2104,7 +2133,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                 int Companero = (int) ResultAux.stream().filter(pConexion("Compañero").and(x -> x.getNota().equals(Math.abs(cont2 - 4)))).count();
                 int Auto = (int) ResultAux.stream().filter(pConexion("Autoevaluacion").and(x -> x.getNota().equals(Math.abs(cont2 - 4)))).count();
 
-                if (!(jefatura == 0 && Cliente == 0 && Companero == 0 && Auto==0)) {
+                if (!(jefatura == 0 && Cliente == 0 && Companero == 0 && Auto == 0)) {
                     String fontFamily = "Tw Cen MT";
                     double fontSize = 22.0;
                     Label label = new Label("$  " + jefatura);
