@@ -6,9 +6,10 @@ import java.util.Objects;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-
 /**
- * @author jomav
+ * Clase que define un modelo de datos para un trabajador (empleado).
+ * Se utiliza para mapear datos entre la capa de vista y la capa de servicio.
+ * Utiliza propiedades simples de JavaFX para facilitar la integración con interfaces gráficas.
  */
 public class WorkerDto {
 

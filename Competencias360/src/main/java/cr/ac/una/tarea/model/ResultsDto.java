@@ -8,9 +8,10 @@ import cr.ac.una.tarea.soap.Competences;
 import cr.ac.una.tarea.soap.Evaluated;
 import javafx.beans.property.SimpleIntegerProperty;
 
-/**
- *
- * @author jomav
+/*
+ * Esta clase representa un modelo de datos para los resultados de evaluación.
+ * Se utiliza para mapear datos entre la capa de vista y la capa de servicio.
+ * Utiliza propiedades simples de JavaFX para facilitar la integración con interfaces gráficas.
  */
 public class ResultsDto {
 

@@ -4,7 +4,11 @@ import cr.ac.una.tarea.soap.Competences;
 import cr.ac.una.tarea.soap.Jobs;
 import java.io.IOException;
 import javafx.beans.property.SimpleIntegerProperty;
-
+/**
+ * Clase que define un modelo de datos para la relación entre evaluaciones, trabajos y competencias.
+ * Se utiliza para mapear datos entre la capa de vista y la capa de servicio.
+ * Utiliza propiedades simples de JavaFX para facilitar la integración con interfaces gráficas.
+ */
 public class EvaJobCompetenceDto {
 
     private SimpleIntegerProperty jxcJob;

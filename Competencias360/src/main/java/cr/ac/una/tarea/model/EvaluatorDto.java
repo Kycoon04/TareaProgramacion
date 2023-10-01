@@ -10,9 +10,10 @@ import cr.ac.una.tarea.soap.Workers;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-/**
- *
- * @author dilan
+/*
+ * Esta clase representa un modelo de datos para los evaluadores y sus evaluaciones.
+ * Se utiliza para mapear datos entre la capa de vista y la capa de servicio.
+ * Utiliza propiedades simples de JavaFX para facilitar la integración con interfaces gráficas.
  */
 public class EvaluatorDto {
 

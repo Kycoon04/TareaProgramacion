@@ -5,9 +5,10 @@ import cr.ac.una.tarea.soap.Procesoeva;
 import cr.ac.una.tarea.soap.Workers;
 import javafx.beans.property.SimpleIntegerProperty;
 
-/**
- *
- * @author jomav
+/*
+ * Esta clase representa un modelo de datos para la evaluación de trabajadores en un proceso específico.
+ * Se utiliza para mapear datos entre la capa de vista y la capa de servicio.
+ * Utiliza propiedades simples de JavaFX para facilitar la integración con interfaces gráficas.
  */
 public class EvaluatedsDto {
 

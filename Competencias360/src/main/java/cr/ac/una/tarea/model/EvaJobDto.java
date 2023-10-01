@@ -9,7 +9,11 @@ import javafx.beans.property.SimpleStringProperty;
  * @author jomav
  */
 public class EvaJobDto {
-
+/**
+ * Clase que define un modelo de datos para la evaluación de trabajos.
+ * Se utiliza para mapear datos entre la capa de vista y la capa de servicio.
+ * Utiliza propiedades simples de JavaFX para facilitar la integración con interfaces gráficas.
+ */
     public SimpleIntegerProperty id;
     public SimpleStringProperty name;
     public SimpleStringProperty state;

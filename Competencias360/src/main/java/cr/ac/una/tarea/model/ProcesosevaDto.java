@@ -9,9 +9,10 @@ import java.time.LocalDate;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-/**
- *
- * @author jomav
+/*
+ * Esta clase representa un modelo de datos para la información de procesos de evaluación.
+ * Se utiliza para mapear datos entre la capa de vista y la capa de servicio.
+ * Utiliza propiedades simples de JavaFX para facilitar la integración con interfaces gráficas.
  */
 public class ProcesosevaDto {
 
