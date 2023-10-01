@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for GetEvaluatorByState complex type.
+ * <p>Clase Java para GetEvaluatorByState complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="GetEvaluatorByState">
@@ -34,7 +34,7 @@ public class GetEvaluatorByState {
     protected String state;
 
     /**
-     * Gets the value of the state property.
+     * Obtiene el valor de la propiedad state.
      * 
      * @return
      *     possible object is
@@ -46,7 +46,7 @@ public class GetEvaluatorByState {
     }
 
     /**
-     * Sets the value of the state property.
+     * Define el valor de la propiedad state.
      * 
      * @param value
      *     allowed object is

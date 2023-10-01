@@ -1870,14 +1870,6 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button layoutX="811.0" layoutY="524.0" mnemonicParsing="false" onAction="#addEvaluateWorkers" prefHeight="35.0" prefWidth="226.0" text="Agregar">
-                           <font>
-                              <Font name="Arial Bold" size="17.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
                         <Button layoutX="811.0" layoutY="595.0" mnemonicParsing="false" onAction="#backSettings" prefHeight="35.0" prefWidth="226.0" text="Volver">
                            <font>
                               <Font name="Arial Bold" size="17.0" />

@@ -435,7 +435,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private TextField textFieldFollowUp_User;
     @FXML
     private Text textResultEva;
-
+    private boolean delete = false;
     private List<EvaluatorResultsDto> evaluatorsDto;
     private ObservableList<WorkerDto> workerList;
     private List<EvaJobCompetenceDto> listCompetences = new ArrayList<>();
@@ -976,7 +976,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     @FXML
     private void workerClicked(MouseEvent event) {
         if (event.getClickCount() == 2) {
-
+            
             WorkerDto selectedWorker = tableViewWorkers.getSelectionModel().getSelectedItem();
             listWorkersEvaluated.add(selectedWorker);
             workersListSel.add(selectedWorker);
@@ -987,6 +987,9 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             workersAssoc = FXCollections.observableArrayList(listWorkersEvaluated);
             this.tableViewSelWorkers.refresh();
             this.tableViewSelWorkers.setItems(workersAssoc);
+            
+            
+             addEvaluateWorkers();
         }
     }
 
@@ -1157,8 +1160,8 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         this.tableViewSelWorkers.setItems(workerList);
     }
 
-    @FXML
-    private void addEvaluateWorkers(ActionEvent event) {
+  //  @FXML
+    private void addEvaluateWorkers() {
         EvaluatedService evaluated = new EvaluatedService();
         Respuesta respuesta = new Respuesta();
         for (WorkerDto workerSel : workersListSel) {
@@ -1242,7 +1245,11 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
     @FXML
     private void deleteWorkers(ActionEvent event) {
-        workerList.clear();
+    
+        delete=true; 
+        System.out.println("Eliminando");
+        
+        /*  workerList.clear();
         workersAssoc.clear();
         listWorkersEvaluated.clear();
         for (WorkerDto worker : workersListSel) {
@@ -1253,10 +1260,45 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         this.tableViewWorkers.setItems(workerList);
         workersAssoc = FXCollections.observableArrayList(workersListSel);
         this.tableViewSelWorkers.refresh();
-        this.tableViewSelWorkers.setItems(workersAssoc);
+        this.tableViewSelWorkers.setItems(workersAssoc);*/
     }
-        @FXML
+    
+   // Predicate<EvaluatedsDto> 
+    
+    @FXML
     private void workerEliminateClicked(MouseEvent event) {
+       
+        List<EvaluatedsDto> arr= new ArrayList<EvaluatedsDto>(); 
+        
+        if (event.getClickCount() == 1) {
+            if (delete == true) {
+                
+               final WorkerDto ev = tableViewSelWorkers.getSelectionModel().getSelectedItem();
+                
+                System.out.println(ev.getName());
+                EvaluatedService valor = new EvaluatedService();
+                Respuesta respuesta=  valor.getEvaluateds();
+                arr= (List<EvaluatedsDto>) respuesta.getResultado("Evaluated");
+                
+                Optional<EvaluatedsDto> evaluated= arr.stream().filter(pProceso(procesoDto.getName()).and(x->x.getEsWorker().getWrId().equals(ev.getId()))).findFirst();
+                
+                valor.eliminarEvaluated(evaluated.get().getId());
+              
+                importEvaluators();
+                listWorkers.add(ev);
+                
+                workerList = FXCollections.observableArrayList(listWorkers);
+                this.tableViewWorkers.refresh();
+                this.tableViewWorkers.setItems(workerList);
+                ObservableList<WorkerDto> evaluatorsList = FXCollections.observableArrayList(listWorkersEvaluated);
+                this.tableViewSelWorkers.refresh();
+                this.tableViewSelWorkers.setItems(evaluatorsList);
+                delete = false;
+            }
+        }
+        
+        
+        
     }
 
 

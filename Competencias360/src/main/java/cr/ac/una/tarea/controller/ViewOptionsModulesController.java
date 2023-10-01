@@ -418,7 +418,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                 workersService.eliminarEmpleado(workerDto.getId());
                 ImportListWorker();
                 delete = false;
-            }
+            } 
         } else {
             if (event.getClickCount() == 2) {
                 UserMainPhoto.setFill(Color.WHITE);
