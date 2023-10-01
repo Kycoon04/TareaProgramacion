@@ -884,11 +884,12 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
         String concatenatedNames = "";
         List<CharacteristicsDto> characteristics = (List<CharacteristicsDto>) respuestaChara.getResultado("Characteristic");
         List<CharacteristicsDto> aux;
-
+        Mensaje mensaje = new Mensaje();
         if (event.getClickCount() == 2) {
+           evaluatorDto = tableViewEvaluated.getSelectionModel().getSelectedItem();
+           if(!evaluatorDto.getEvsState().equals("S")){
             try {
                 JobsCompetencesService service = new JobsCompetencesService();
-                evaluatorDto = tableViewEvaluated.getSelectionModel().getSelectedItem();
                 textEvaluation_Process.setText(procesoDto.getName());
                 textEvaluation_Name.setText(evaluatorDto.getEvsEvaluated().getEsWorker().getWrName() + "" + evaluatorDto.getEvsEvaluated().getEsWorker().getWrPsurname() + "" + evaluatorDto.getEvsEvaluated().getEsWorker().getWrSsurname());
                 textEvaluation_Job.setText(evaluatorDto.getEvsEvaluated().getEsWorker().getWrJob().getJsName());
@@ -949,6 +950,9 @@ public class ViewOptionsEvaluationsController extends Controller implements Init
             } catch (Exception ex) {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un evaluado en este campo.");
             }
+           }else{
+           mensaje.show(Alert.AlertType.ERROR, "Error", "Ya realizaste esta evaluación");
+           }
         }
     }
 

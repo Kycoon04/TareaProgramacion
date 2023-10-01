@@ -263,7 +263,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private ObservableList<CompetenceDto> competencesList;
     ObservableList<CompetenceDto> competenceAssoc;
     List<CompetenceDto> competencesListAss = new ArrayList<>();
-    List<CompetenceDto> listComp= new ArrayList<>();
+    List<CompetenceDto> listComp = new ArrayList<>();
     WorkerDto workerDto;
     InformationDto informationDto;
     CompetenceDto competenceDto;
@@ -421,31 +421,28 @@ public class ViewOptionsModulesController extends Controller implements Initiali
             }
         } else {
             if (event.getClickCount() == 2) {
-                try {
-                    UserMainPhoto.setFill(Color.WHITE);
-                    workerDto = tableViewWorkers.getSelectionModel().getSelectedItem();
-                    userMainField.setText(String.valueOf(workerDto.getName()));
-                    surname1MainField.setText(String.valueOf(workerDto.getPsurname()));
-                    surname2MainField.setText(String.valueOf(workerDto.getSsurname()));
-                    identMainField.setText(String.valueOf(workerDto.getIden()));
-                    usernameMainField.setText(String.valueOf(workerDto.getUsername()));
-                    emailMainField.setText(String.valueOf(workerDto.getEmail()));
-                    landlineMainField.setText(String.valueOf(workerDto.getLandline()));
-                    phoneNumberMainField.setText(String.valueOf(workerDto.getTelephone()));
-                    if (workerDto.getAdministrator().equals("Administrador")) {
-                        radioButtonAdmi.setSelected(true);
-                    } else {
-                        radioButtonEmplo.setSelected(true);
-                    }
+                UserMainPhoto.setFill(Color.WHITE);
+                workerDto = tableViewWorkers.getSelectionModel().getSelectedItem();
+                userMainField.setText(String.valueOf(workerDto.getName()));
+                surname1MainField.setText(String.valueOf(workerDto.getPsurname()));
+                surname2MainField.setText(String.valueOf(workerDto.getSsurname()));
+                identMainField.setText(String.valueOf(workerDto.getIden()));
+                usernameMainField.setText(String.valueOf(workerDto.getUsername()));
+                emailMainField.setText(String.valueOf(workerDto.getEmail()));
+                landlineMainField.setText(String.valueOf(workerDto.getLandline()));
+                phoneNumberMainField.setText(String.valueOf(workerDto.getTelephone()));
+                if (workerDto.getAdministrator().equals("Administrador")) {
+                    radioButtonAdmi.setSelected(true);
+                } else {
+                    radioButtonEmplo.setSelected(true);
+                }
+                if (workerDto.getPhoto() != null) {
                     ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(workerDto.getPhoto());
                     Image image = new Image(byteArrayInputStream);
                     UserMainPhoto.setFill(new ImagePattern(image));
-                    JobMainField.setText(String.valueOf(workerDto.getJob().getJsName()));
-                    tabPaneMantWorkers.getSelectionModel().select(tabMantWorkers);
-                } catch (Exception ex) {
-                    new Mensaje().showModal(Alert.AlertType.ERROR, "Error", getStage(), "No existe un usuario en este campo.");
                 }
-
+                JobMainField.setText(String.valueOf(workerDto.getJob().getJsName()));
+                tabPaneMantWorkers.getSelectionModel().select(tabMantWorkers);
             }
         }
     }
@@ -550,7 +547,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         } else {
             new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar empleado", getStage(), "Empleado actualizado correctamente.");
         }
-
     }
 
     @FXML
@@ -582,6 +578,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void JobsModi(ActionEvent event) {
+        jobDto = null;
         clearMantJobs();
         ImportListJobs();
         OptionsPuestosView.toFront();
@@ -605,6 +602,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
         } else {
             new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar puesto", getStage(), "Puesto actualizado correctamente.");
         }
+        ImportListJobs();
     }
 
     @FXML
@@ -1002,13 +1000,13 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void AsoRoot(MouseEvent event) {
-        if (!jobDto.getName().isEmpty()) {
+        if (jobDto!=null) {
             competencesListAss.clear();
             ImportCompXJobs();
             textFieldAsJob.setText(jobDto.getName());
             CompetencesService competencesService = new CompetencesService();
             Respuesta respuesta = competencesService.getCompetences();
-             listComp = (List<CompetenceDto>) respuesta.getResultado("Competences");
+            listComp = (List<CompetenceDto>) respuesta.getResultado("Competences");
             if (!competencesListAss.isEmpty()) {
                 getListComp();
             }

@@ -8,9 +8,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para GetEvaluatedByInfoResponse complex type.
+ * <p>Java class for GetEvaluatedByInfoResponse complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="GetEvaluatedByInfoResponse">
@@ -36,7 +36,7 @@ public class GetEvaluatedByInfoResponse {
     protected EvaluatedDto _return;
 
     /**
-     * Obtiene el valor de la propiedad return.
+     * Gets the value of the return property.
      * 
      * @return
      *     possible object is
@@ -48,7 +48,7 @@ public class GetEvaluatedByInfoResponse {
     }
 
     /**
-     * Define el valor de la propiedad return.
+     * Sets the value of the return property.
      * 
      * @param value
      *     allowed object is

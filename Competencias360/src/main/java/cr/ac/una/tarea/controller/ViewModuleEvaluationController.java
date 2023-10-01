@@ -23,7 +23,6 @@ import cr.ac.una.tarea.service.ProcesoevaService;
 import cr.ac.una.tarea.service.ResultsService;
 import cr.ac.una.tarea.service.WorkersService;
 import cr.ac.una.tarea.soap.Evaluated;
-import cr.ac.una.tarea.soap.Evaluators;
 import cr.ac.una.tarea.soap.Procesoeva;
 import cr.ac.una.tarea.soap.Workers;
 import cr.ac.una.tarea.util.FlowController;
@@ -86,7 +85,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * FXML Controller class
- *
  * @author Anderson
  */
 public class ViewModuleEvaluationController extends Controller implements Initializable {
@@ -521,6 +519,7 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
         List<ResultsDto> resultsDto = (List<ResultsDto>) respuesta.getResultado("ResultsDto");
         resultsDto = resultsDto.stream().filter(x -> x.getRsEvaluated().getEsProcesoeva().getEnId().equals(procesoDto.getId())).toList();
+        if(resultsDto.get(cont)!=null){
         ResultsDto resultDto = resultsDto.get(cont);
 
         JobsCompetencesService service = new JobsCompetencesService();
@@ -622,9 +621,12 @@ public class ViewModuleEvaluationController extends Controller implements Initia
 
         try (FileOutputStream fileOut = new FileOutputStream(nombreArchivo)) {
             libro.write(fileOut);
-            System.out.println("SE CREÓ EL EXCEL");
+            new Mensaje().showModal(Alert.AlertType.INFORMATION, "Excel", getStage(), "Se registro el excel en la carpeta fuente del proyecto");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        }else{
+        new Mensaje().showModal(Alert.AlertType.INFORMATION, "Error", getStage(), "No hay un resultado final");
         }
     }
 
@@ -868,11 +870,13 @@ public class ViewModuleEvaluationController extends Controller implements Initia
             btnConfigFollowUp.setVisible(false);
             btnAssignFollowUp.setVisible(false);
             btnResultGeneral.setVisible(true);
-            btnExcel.setVisible(true);
-            textResultEva.setVisible(true);
+            btnExcel.setVisible(false);
+            textResultEva.setVisible(false);
             btnSaveRes.setVisible(true);
             if(choiceBoxStateEva.getValue() == "Finalizada"){
                 btnSaveRes.setVisible(false);
+                btnExcel.setVisible(true);
+                textResultEva.setVisible(true);
             }
         } else {
             btnResultGeneral.setVisible(false);
@@ -1974,18 +1978,22 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private void UpdateProceso(ActionEvent event) {
         EvaluatorService serviceEva = new EvaluatorService();
         Respuesta respuestaEva = serviceEva.getEvaluators();
-        Boolean continueProcess=false, evaluatorsAssign=true;
+        Boolean continueProcess=true, evaluatorsAssign=true, continueFinal=true;
 
         List<EvaluatorDto> listEvaluators = (List<EvaluatorDto>) respuestaEva.getResultado("Evaluators");
         listEvaluators=getEvaluatorsInProcess(listEvaluators);
+        if (procesoDto.getState().equals("En aplicación")&&choiceBoxStateEva.getValue().equals("Finalizada")) {
+            continueFinal=false;
+           new Mensaje().showModal(Alert.AlertType.ERROR, "Cambio de estado", getStage(), "Aún falta la revisión final");
+        }
         if (evaluationsInProcess(listEvaluators)&&choiceBoxStateEva.getValue().equals("En revisión")) {
            continueProcess = new Mensaje().showConfirmation("Cambio a Estado de Revisón", getStage(), "Aún faltan evaluaciones  a ser realizadas, ¿Deseas continuar en cambiar el estado?");
-        } 
+        }
         if(listEvaluators.isEmpty()){
             evaluatorsAssign=false;
             new Mensaje().showModal(Alert.AlertType.ERROR, "Cambio de estado", getStage(), "Aún falta configuración del proceso");
         }
-        if ((continueProcess||!choiceBoxStateEva.getValue().equals("En revisión"))&&evaluatorsAssign) {
+        if (continueProcess&&evaluatorsAssign&&continueFinal) {
             ProcesoevaService service = new ProcesoevaService();
             ProcesosevaDto procesosevaDto = new ProcesosevaDto();
 
@@ -2094,8 +2102,9 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                 int jefatura = (int) ResultAux.stream().filter(pConexion("Jefatura").and(x -> x.getNota().equals(Math.abs(cont2 - 4)))).count();
                 int Cliente = (int) ResultAux.stream().filter(pConexion("Cliente").and(x -> x.getNota().equals(Math.abs(cont2 - 4)))).count();
                 int Companero = (int) ResultAux.stream().filter(pConexion("Compañero").and(x -> x.getNota().equals(Math.abs(cont2 - 4)))).count();
+                int Auto = (int) ResultAux.stream().filter(pConexion("Autoevaluacion").and(x -> x.getNota().equals(Math.abs(cont2 - 4)))).count();
 
-                if (!(jefatura == 0 && Cliente == 0 && Companero == 0)) {
+                if (!(jefatura == 0 && Cliente == 0 && Companero == 0 && Auto==0)) {
                     String fontFamily = "Tw Cen MT";
                     double fontSize = 22.0;
                     Label label = new Label("$  " + jefatura);
@@ -2105,6 +2114,9 @@ public class ViewModuleEvaluationController extends Controller implements Initia
                     vbox.getChildren().add(label);
                     label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;");
                     label = new Label("#  " + Companero);
+                    vbox.getChildren().add(label);
+                    label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;");
+                    label = new Label("&  " + Auto);
                     vbox.getChildren().add(label);
                     label.setStyle("-fx-font-family: '" + fontFamily + "'; -fx-font-size: " + fontSize + "px;");
                     gridEvaGeneral.add(vbox, i, j);
