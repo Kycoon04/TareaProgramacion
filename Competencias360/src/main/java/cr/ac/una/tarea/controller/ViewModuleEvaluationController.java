@@ -463,6 +463,10 @@ public class ViewModuleEvaluationController extends Controller implements Initia
     private Button btnSaveRes;
     @FXML
     private Button btnSelectionEva;
+    @FXML
+    private Button BtnDeleteEvaluator;
+    @FXML
+    private Button btnDeleteEvaluated;
 
     @FXML
     private void SummitFinal(ActionEvent event) {
@@ -791,6 +795,10 @@ public class ViewModuleEvaluationController extends Controller implements Initia
         OptionsEvaConfigView.toFront();
         procesoDto = new ProcesosevaDto();
 
+        BtnDeleteEvaluator.setTooltip(new Tooltip("Presione este botón y luego\n seleccione el evaluador a eliminar."));
+        btnDeleteEvaluated.setTooltip(new Tooltip("Presione este botón y luego\n seleccione el evaluado a eliminar."));
+        
+        
         this.tableColActPE.setCellValueFactory(new PropertyValueFactory("Actives"));
         this.tableColIdentifPE.setCellValueFactory(new PropertyValueFactory("iden"));
         this.tableColNamePE.setCellValueFactory(new PropertyValueFactory("name"));

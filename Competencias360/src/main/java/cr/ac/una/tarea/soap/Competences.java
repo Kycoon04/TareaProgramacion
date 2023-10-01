@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para competences complex type.
+ * <p>Java class for competences complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="competences">
@@ -40,7 +40,7 @@ public class Competences {
     protected String csState;
 
     /**
-     * Obtiene el valor de la propiedad csId.
+     * Gets the value of the csId property.
      * 
      * @return
      *     possible object is
@@ -52,7 +52,7 @@ public class Competences {
     }
 
     /**
-     * Define el valor de la propiedad csId.
+     * Sets the value of the csId property.
      * 
      * @param value
      *     allowed object is
@@ -64,7 +64,7 @@ public class Competences {
     }
 
     /**
-     * Obtiene el valor de la propiedad csName.
+     * Gets the value of the csName property.
      * 
      * @return
      *     possible object is
@@ -76,7 +76,7 @@ public class Competences {
     }
 
     /**
-     * Define el valor de la propiedad csName.
+     * Sets the value of the csName property.
      * 
      * @param value
      *     allowed object is
@@ -88,7 +88,7 @@ public class Competences {
     }
 
     /**
-     * Obtiene el valor de la propiedad csState.
+     * Gets the value of the csState property.
      * 
      * @return
      *     possible object is
@@ -100,7 +100,7 @@ public class Competences {
     }
 
     /**
-     * Define el valor de la propiedad csState.
+     * Sets the value of the csState property.
      * 
      * @param value
      *     allowed object is

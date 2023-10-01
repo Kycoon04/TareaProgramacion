@@ -341,7 +341,7 @@
                               <Font name="Tw Cen MT" size="25.0" />
                            </font>
                         </Text>
-                        <Button layoutX="1083.0" layoutY="186.0" mnemonicParsing="false" onMouseClicked="#eliminarConEva" text="Eliminar Evaluador" />
+                        <Button fx:id="BtnDeleteEvaluator" layoutX="1083.0" layoutY="186.0" mnemonicParsing="false" onMouseClicked="#eliminarConEva" text="Eliminar Evaluador" />
                      </children>
                   </AnchorPane>
                </children>
@@ -1447,40 +1447,6 @@
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <AnchorPane fx:id="viewChooseJob" prefHeight="674.0" prefWidth="722.0" style="-fx-background-color: #212121;">
-                           <children>
-                              <Pane id="Pane" fx:id="viewChooseJobs" focusTraversable="true" layoutY="100.0" prefHeight="524.0" prefWidth="790.0" style="-fx-background-color: #212121; -fx-border-width: 5; -fx-border-color: #76ff03;">
-                                 <children>
-                                    <TableView fx:id="tableViewJobsW" layoutX="18.0" layoutY="17.0" onMouseClicked="#jobClickedWorker" prefHeight="430.0" prefWidth="515.0">
-                                       <columns>
-                                          <TableColumn fx:id="tableColJobIdW" prefWidth="184.7999792098999" text="Id" />
-                                          <TableColumn fx:id="tableColJobNamW" prefWidth="172.80001831054688" text="Nombre" />
-                                          <TableColumn fx:id="tableColJobStaW" prefWidth="192.80001831054688" text="Estado" />
-                                       </columns>
-                                    </TableView>
-                                    <VBox layoutX="533.0" layoutY="2.0" prefHeight="527.0" prefWidth="177.0">
-                                       <children>
-                                          <Separator prefHeight="162.0" prefWidth="410.0" visible="false" />
-                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="178.93671035766602">
-                                             <font>
-                                                <Font name="Tw Cen MT" size="22.0" />
-                                             </font>
-                                          </Text>
-                                          <TextField fx:id="textFieldSJob_NameW" onKeyPressed="#searchJob_NameW" prefHeight="27.0" prefWidth="364.0" style="-fx-text-fill: black;" />
-                                          <Separator prefHeight="36.0" prefWidth="410.0" visible="false" />
-                                          <Text fill="WHITE" layoutX="10.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado:" wrappingWidth="178.93671035766602">
-                                             <font>
-                                                <Font name="Tw Cen MT" size="22.0" />
-                                             </font>
-                                          </Text>
-                                          <TextField fx:id="textFieldSJob_StateW" layoutX="10.0" layoutY="288.0" onKeyPressed="#searchJob_StateW" style="-fx-text-fill: black;" />
-                                          <Separator prefHeight="46.0" prefWidth="410.0" visible="false" />
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </Pane>
-                           </children>
-                        </AnchorPane>
                         <AnchorPane fx:id="viewSelectedJob" prefHeight="720.0" prefWidth="819.0" style="-fx-background-color: #212121;">
                            <children>
                               <VBox layoutX="203.0" prefHeight="720.0" prefWidth="230.0">
@@ -1520,6 +1486,40 @@
                                     <Separator prefWidth="200.0" visible="false" />
                                  </children>
                               </VBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="viewChooseJob" prefHeight="674.0" prefWidth="722.0" style="-fx-background-color: #212121;">
+                           <children>
+                              <Pane id="Pane" fx:id="viewChooseJobs" focusTraversable="true" layoutY="100.0" prefHeight="524.0" prefWidth="790.0" style="-fx-background-color: #212121; -fx-border-width: 5; -fx-border-color: #76ff03;">
+                                 <children>
+                                    <TableView fx:id="tableViewJobsW" layoutX="18.0" layoutY="17.0" onMouseClicked="#jobClickedWorker" prefHeight="430.0" prefWidth="515.0">
+                                       <columns>
+                                          <TableColumn fx:id="tableColJobIdW" prefWidth="184.7999792098999" text="Id" />
+                                          <TableColumn fx:id="tableColJobNamW" prefWidth="172.80001831054688" text="Nombre" />
+                                          <TableColumn fx:id="tableColJobStaW" prefWidth="192.80001831054688" text="Estado" />
+                                       </columns>
+                                    </TableView>
+                                    <VBox layoutX="533.0" layoutY="2.0" prefHeight="527.0" prefWidth="177.0">
+                                       <children>
+                                          <Separator prefHeight="162.0" prefWidth="410.0" visible="false" />
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="178.93671035766602">
+                                             <font>
+                                                <Font name="Tw Cen MT" size="22.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="textFieldSJob_NameW" onKeyPressed="#searchJob_NameW" prefHeight="27.0" prefWidth="364.0" style="-fx-text-fill: black;" />
+                                          <Separator prefHeight="36.0" prefWidth="410.0" visible="false" />
+                                          <Text fill="WHITE" layoutX="10.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado:" wrappingWidth="178.93671035766602">
+                                             <font>
+                                                <Font name="Tw Cen MT" size="22.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="textFieldSJob_StateW" layoutX="10.0" layoutY="288.0" onKeyPressed="#searchJob_StateW" style="-fx-text-fill: black;" />
+                                          <Separator prefHeight="46.0" prefWidth="410.0" visible="false" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </Pane>
                            </children>
                         </AnchorPane>
                      </children>
@@ -1878,7 +1878,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button layoutX="730.0" layoutY="404.0" mnemonicParsing="false" onAction="#deleteWorkers" prefHeight="35.0" prefWidth="193.0" style="-fx-background-color: gold;" text="Borrar Evaluado">
+                        <Button fx:id="btnDeleteEvaluated" layoutX="730.0" layoutY="404.0" mnemonicParsing="false" onAction="#deleteWorkers" prefHeight="35.0" prefWidth="193.0" style="-fx-background-color: gold;" text="Borrar Evaluado">
                            <font>
                               <Font name="Arial Bold" size="17.0" />
                            </font>

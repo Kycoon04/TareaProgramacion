@@ -37,7 +37,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
@@ -46,10 +45,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -198,8 +196,6 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     @FXML
     private TableColumn<CompetenceDto, String> tableColAsCompSta;
     @FXML
-    private Button deleteWorkerBtn;
-    @FXML
     private Label txtEliminarPuesto;
     @FXML
     private BorderPane OptionsCharacteristicsView;
@@ -280,10 +276,21 @@ public class ViewOptionsModulesController extends Controller implements Initiali
     private TextField NameCompTextField;
     @FXML
     private TextField StateCompTextField;
+    @FXML
+    private Button BtndeleteWorker;
+    @FXML
+    private Button btndeleteCompetence;
+    @FXML
+    private Button btndeleteJob;
+    @FXML
+    private Button btndeleteCharacteristics;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        BtndeleteWorker.setTooltip(new Tooltip("Presione este botón y luego\n seleccione el trabajador a eliminar."));
+        btndeleteCharacteristics.setTooltip(new Tooltip("Presione este botón y luego\n seleccione la caracteristica a eliminar."));
+        btndeleteCompetence.setTooltip(new Tooltip("Presione este botón y luego\n seleccione la competencia a eliminar."));
+        btndeleteJob.setTooltip(new Tooltip("Presione este botón y luego\n seleccione el puesto a eliminar."));
         OptionsMenuView.toFront();
 
         this.tableColAct.setCellValueFactory(new PropertyValueFactory("Actives"));
@@ -418,7 +425,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                 workersService.eliminarEmpleado(workerDto.getId());
                 ImportListWorker();
                 delete = false;
-            } 
+            }
         } else {
             if (event.getClickCount() == 2) {
                 UserMainPhoto.setFill(Color.WHITE);
@@ -442,7 +449,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
                     UserMainPhoto.setFill(new ImagePattern(image));
                 }
                 if (workerDto.getJob() != null) {
-                JobMainField.setText(String.valueOf(workerDto.getJob().getJsName()));
+                    JobMainField.setText(String.valueOf(workerDto.getJob().getJsName()));
                 }
                 tabPaneMantWorkers.getSelectionModel().select(tabMantWorkers);
             }
@@ -1002,7 +1009,7 @@ public class ViewOptionsModulesController extends Controller implements Initiali
 
     @FXML
     private void AsoRoot(MouseEvent event) {
-        if (jobDto!=null) {
+        if (jobDto != null) {
             competencesListAss.clear();
             ImportCompXJobs();
             textFieldAsJob.setText(jobDto.getName());
