@@ -11,7 +11,6 @@ module cr.ac.una.tarea {
     requires jakarta.mail;
     requires jakarta.activation;
     requires java.base;
-    requires org.apache.poi.poi;
     requires org.apache.poi.ooxml;
     requires org.apache.xmlbeans;
    
